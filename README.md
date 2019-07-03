@@ -1,5 +1,8 @@
 # emacs_conf
-This is my personal `init.el` configuration file for emacs. Just clone it and copy the file in your `~/.emacs.d/` directory.
+This is my personal `init.el` configuration file for emacs. Just clone it and copy the file in your `~/.emacs.d/` directory and launch emacs, then execute the following commands:
+
++ `M-x pdf-tools-install`
++ `M-x all-the-icons-install-fonts`
 
 ## Dependencies
 
