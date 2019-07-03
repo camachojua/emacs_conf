@@ -27,4 +27,4 @@ The configuration uses `use-package`as a utility to speed up the startup time wh
 
 ## Screenshot
 
-![screenshot](https://raw.githubusercontent.com/camachojua/emacs_conf/blob/master/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/camachojua/emacs_conf/master/screenshot.png)
