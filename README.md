@@ -24,3 +24,7 @@ The configuration uses `use-package`as a utility to speed up the startup time wh
 + `web-mode`
 + `php-mode`
 + `auctex`
+
+## Screenshot
+
+![screenshot](https://raw.githubusercontent.com/camachojua/emacs_conf/blob/master/screenshot.png)
