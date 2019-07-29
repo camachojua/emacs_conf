@@ -119,11 +119,15 @@
                                   (registers . "database"))))
 
 ;; Theme
-(use-package spacemacs-theme
+(use-package chocolate-theme
   :ensure t
-  :defer t
-  :init
-  (load-theme 'spacemacs-dark t))
+  :config
+  (load-theme 'chocolate t))
+;; (use-package spacemacs-theme
+;;   :ensure t
+;;   :defer t
+;;   :init
+;;   (load-theme 'spacemacs-dark t))
 
 ;; Document rendering
 (use-package pdf-tools
@@ -581,6 +585,12 @@
                  TeX-run-index nil t
                  :help "Run makeindex to create index file")))
 
+;; NASM mode
+(use-package nasm-mode
+  :ensure t
+  :config
+  (add-hook 'asm-mode-hook 'nasm-mode))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -592,11 +602,8 @@
  '(ivy-virtual-abbreviate (quote full))
  '(package-selected-packages
    (quote
-    (all-the-icons-ivy all-the-icons-dired counsel auctex tex nov company-php magit web-mode yasnippet spacemacs-theme dashboard all-the-icons ivy-rich ivy pdf-tools rainnbow-delimiters autopair diminish use-package))))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+    (chocolate-theme all-the-icons-ivy all-the-icons-dired
+    counsel auctex tex nov company-php magit web-mode yasnippet
+    spacemacs-theme dashboard all-the-icons ivy-rich ivy
+    pdf-tools rainnbow-delimiters autopair diminish
+    use-package))))
