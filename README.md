@@ -49,7 +49,7 @@ relies on external programs:
 + `git` for code versioning.
 
 Please refer to the `mu`
-[[http://www.djcbsoftware.nl/code/mu/mu4e/Gmail-configuration.html#Gmail-configuration][user manual]] for installation and configuration.
+[user manual](http://www.djcbsoftware.nl/code/mu/mu4e/Gmail-configuration.html#Gmail-configuration) for installation and configuration.
 
 The `texlive` distribution comes with `tlmgr` to help the user with
 the installation of new LaTeX packages.
