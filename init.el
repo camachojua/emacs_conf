@@ -152,7 +152,8 @@
 ;; Theme
 (use-package chocolate-theme
   :ensure t
-  :config
+  :defer t
+  :init
   (load-theme 'chocolate t))
 
 ;; Document rendering
