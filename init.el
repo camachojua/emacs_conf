@@ -562,7 +562,8 @@
   :defer t
   :config
   (add-hook 'prog-mode-hook 'company-mode)
-  (add-hook 'LaTeX-mode-hook 'company-mode))
+  (add-hook 'LaTeX-mode-hook 'company-mode)
+  (add-hook 'org-mode-hook 'company-mode))
 
 (use-package yasnippet
   :ensure t
@@ -714,6 +715,10 @@
   (mu4e~proc-kill)
   (mu4e-alert-enable-mode-line-display))
 (run-with-timer 0 60 'refresh-mu4e-mode-line)
+
+;; Org tables and lists on message mode
+(add-hook 'message-mode-hook 'turn-on-orgtbl)
+(add-hook 'message-mode-hook 'turn-on-orgstruct++)
 
 ;; HTTP requests
 (use-package request :ensure t)
