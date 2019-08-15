@@ -54,6 +54,7 @@
 (use-package all-the-icons :ensure t :defer 0.5)
 
 (use-package all-the-icons-ivy
+  :ensure t
   :after (all-the-icons ivy)
   :custom (all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
   :config
@@ -86,6 +87,7 @@
   (setq doom-modeline-github nil)
   (setq doom-modeline-github-interval (* 30 60))
   (setq doom-modeline-env-version t)
+  (setq doom-modeline-mu4e t)
   :config
   (doom-modeline-mode t))
 
@@ -123,11 +125,6 @@
   :ensure t
   :config
   (load-theme 'chocolate t))
-;; (use-package spacemacs-theme
-;;   :ensure t
-;;   :defer t
-;;   :init
-;;   (load-theme 'spacemacs-dark t))
 
 ;; Document rendering
 (use-package pdf-tools
@@ -170,6 +167,7 @@
   :config (counsel-mode t))
 
 (use-package ivy-rich
+  :ensure t
   :defines (all-the-icons-icon-alist
             all-the-icons-dir-icon-alist
             bookmark-alist)
@@ -662,10 +660,21 @@
         smtpmail-default-smtp-server "smtp.gmail.com"
         smtpmail-smtp-server "smtp.gmail.com"
         smtpmail-smtp-service 587))
+;; Email notifications
+(use-package mu4e-alert
+  :ensure t
+  :after mu4e
+  :init
+  (setq mu4e-alert-interesting-mail-query "flag:unread maildir:/[Gmail]/INBOX"))
+(mu4e-alert-enable-mode-line-display)
+(defun refresh-mu4e-mode-line ()
+  (interactive)
+  (mu4e~proc-kill)
+  (mu4e-alert-enable-mode-line-display))
+(run-with-timer 0 60 'refresh-mu4e-mode-line)
 
 ;; HTTP requests
 (use-package request :ensure t)
-
 
 ;; NASM mode
 (use-package nasm-mode
