@@ -12,6 +12,17 @@
   (require 'use-package))
 (require 'diminish)
 (require 'bind-key)
+;; Defer packages
+(setq use-package-always-defer t)
+
+;; Auto update packages
+(use-package auto-package-update
+  :defer nil
+  :ensure t
+  :config
+  (setq auto-package-update-delete-old-versions t)
+  (setq auto-package-update-hide-results t)
+  (auto-package-update-maybe))
 
 ;; General settings
 (setq inhibit-startup-screen t)
@@ -24,6 +35,32 @@
 (set-frame-font "FiraCode 9" nil t)
 (add-hook 'local-write-file-hooks
 	  (lambda() (delete-trailing-whitespace) nil))
+
+;; Eshell goodies
+(setq eshell-prompt-regexp "^[^αλ\n]*[αλ] ")
+(setq eshell-prompt-function
+      (lambda nil
+        (concat
+         (if (string= (eshell/pwd) (getenv "HOME"))
+             (propertize "~" 'face `(:foreground "#a099ab"))
+           (replace-regexp-in-string
+            (getenv "HOME")
+            (propertize "~" 'face `(:foreground "#98cbff"))
+            (propertize (eshell/pwd) 'face `(:foreground "#908bff"))))
+         (if (= (user-uid) 0)
+             (propertize " α " 'face `(:foreground "#ffaf06"))
+         (propertize " λ " 'face `(:foreground "#aabf2e"))))))
+(setq eshell-highlight-prompt nil)
+(defalias 'open 'find-file-other-window)
+(defalias 'clean 'eshell/clear-scrollback)
+(defun eshell/sudo-open (filename)
+  "Open a file as root in Eshell."
+  (let ((qual-filename (if (string-match "^/" filename)
+                           filename
+                         (concat (expand-file-name (eshell/pwd)) "/" filename))))
+    (switch-to-buffer
+     (find-file-noselect
+      (concat "/sudo::" qual-filename)))))
 
 ;; Text style
 (use-package whitespace
@@ -118,7 +155,8 @@
                                   (bookmarks . "bookmark")
                                   (agenda    . "calendar")
                                   (projects  . "file-directory")
-                                  (registers . "database"))))
+                                  (registers . "database")))
+  (add-hook 'dashboard-mode-hook (lambda() (linum-mode -1))))
 
 ;; Theme
 (use-package chocolate-theme
@@ -188,15 +226,15 @@
       (let* ((buffer (get-buffer candidate))
              (buffer-file-name (buffer-file-name buffer))
              (major-mode (buffer-local-value 'major-mode buffer))
-             (icon (if 
+             (icon (if
                        (and buffer-file-name
                             (all-the-icons-auto-mode-match?))
-                       (all-the-icons-icon-for-file 
+                       (all-the-icons-icon-for-file
                         (file-name-nondirectory buffer-file-name) :v-adjust -0.05)
                      (all-the-icons-icon-for-mode major-mode :v-adjust -0.05))))
         (if (symbolp icon)
-            (all-the-icons-faicon "file-o" 
-                                  :face 'all-the-icons-dsilver 
+            (all-the-icons-faicon "file-o"
+                                  :face 'all-the-icons-dsilver
                                   :height 0.8 :v-adjust 0.0)
           icon))))
 
@@ -210,29 +248,29 @@
                      (cond
                       ((and (fboundp 'tramp-tramp-file-p)
                             (tramp-tramp-file-p default-directory))
-                       (all-the-icons-octicon "file-directory" 
+                       (all-the-icons-octicon "file-directory"
                                               :height 1.0 :v-adjust 0.01))
                       ((file-symlink-p path)
-                       (all-the-icons-octicon "file-symlink-directory" 
+                       (all-the-icons-octicon "file-symlink-directory"
                                               :height 1.0 :v-adjust 0.01))
                       ((all-the-icons-dir-is-submodule path)
-                       (all-the-icons-octicon "file-submodule" 
+                       (all-the-icons-octicon "file-submodule"
                                               :height 1.0 :v-adjust 0.01))
                       ((file-exists-p (format "%s/.git" path))
                        (all-the-icons-octicon "repo" :height 1.1 :v-adjust 0.01))
-                      (t (let ((matcher 
-                                (all-the-icons-match-to-alist 
+                      (t (let ((matcher
+                                (all-the-icons-match-to-alist
                                  path all-the-icons-dir-icon-alist)))
-                           (apply (car matcher) (list (cadr matcher) 
+                           (apply (car matcher) (list (cadr matcher)
                                                       :v-adjust 0.01))))))
                     ((string-match "^/.*:$" path)
-                     (all-the-icons-material "settings_remote" 
+                     (all-the-icons-material "settings_remote"
                                              :height 1.0 :v-adjust -0.2))
                     ((not (string-empty-p file))
                      (all-the-icons-icon-for-file file :v-adjust -0.05)))))
         (if (symbolp icon)
-            (all-the-icons-faicon "file-o" 
-                                  :face 'all-the-icons-dsilver 
+            (all-the-icons-faicon "file-o"
+                                  :face 'all-the-icons-dsilver
                                   :height 0.8 :v-adjust 0.0)
           icon))))
 
@@ -244,13 +282,13 @@
   (defun ivy-rich-function-icon (_candidate)
     "Display function icons in `ivy-rich'."
     (when (display-graphic-p)
-      (all-the-icons-faicon "cube" :height 0.9 
+      (all-the-icons-faicon "cube" :height 0.9
                             :v-adjust -0.05 :face 'all-the-icons-purple)))
 
   (defun ivy-rich-variable-icon (_candidate)
     "Display variable icons in `ivy-rich'."
     (when (display-graphic-p)
-      (all-the-icons-faicon "tag" :height 0.9 
+      (all-the-icons-faicon "tag" :height 0.9
                             :v-adjust -0.05 :face 'all-the-icons-lblue)))
 
   (defun ivy-rich-symbol-icon (_candidate)
@@ -261,7 +299,7 @@
   (defun ivy-rich-theme-icon (_candidate)
     "Display theme icons in `ivy-rich'."
     (when (display-graphic-p)
-      (all-the-icons-material "palette" :height 1.0 
+      (all-the-icons-material "palette" :height 1.0
                               :v-adjust -0.2 :face 'all-the-icons-lblue)))
 
   (defun ivy-rich-keybinding-icon (_candidate)
@@ -272,14 +310,14 @@
   (defun ivy-rich-library-icon (_candidate)
     "Display library icons in `ivy-rich'."
     (when (display-graphic-p)
-      (all-the-icons-material "view_module" 
-                              :height 1.0 :v-adjust -0.2 
+      (all-the-icons-material "view_module"
+                              :height 1.0 :v-adjust -0.2
                               :face 'all-the-icons-lblue)))
 
   (defun ivy-rich-package-icon (_candidate)
     "Display package icons in `ivy-rich'."
     (when (display-graphic-p)
-      (all-the-icons-faicon "archive" :height 0.9 
+      (all-the-icons-faicon "archive" :height 0.9
                             :v-adjust 0.0 :face 'all-the-icons-silver)))
 
   (when (display-graphic-p)
@@ -288,14 +326,14 @@
         (cond ((null filename)
                (all-the-icons-material "block" :v-adjust -0.2 :face 'warning))
               ((file-remote-p filename)
-               (all-the-icons-material "wifi_tethering" 
+               (all-the-icons-material "wifi_tethering"
                                        :v-adjust -0.2 :face 'mode-line-buffer-id))
               ((not (file-exists-p filename))
                (all-the-icons-material "block" :v-adjust -0.2 :face 'error))
               ((file-directory-p filename)
-               (all-the-icons-octicon "file-directory" 
+               (all-the-icons-octicon "file-directory"
                                       :height 0.9 :v-adjust -0.05))
-              (t (all-the-icons-icon-for-file (file-name-nondirectory filename) 
+              (t (all-the-icons-icon-for-file (file-name-nondirectory filename)
                                               :height 0.9 :v-adjust -0.05)))))
     (advice-add #'ivy-rich-bookmark-type :override #'ivy-rich-bookmark-type-plus))
   :hook ((ivy-mode . ivy-rich-mode)
@@ -317,13 +355,13 @@
            ((ivy-rich-buffer-icon)
             (ivy-rich-candidate (:width 30))
             (ivy-rich-switch-buffer-size (:width 7))
-            (ivy-rich-switch-buffer-indicators 
+            (ivy-rich-switch-buffer-indicators
              (:width 4 :face error :align right))
             (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
             (ivy-rich-switch-buffer-project (:width 15 :face success))
-            (ivy-rich-switch-buffer-path 
-             (:width (lambda (x) 
-                       (ivy-rich-switch-buffer-shorten-path 
+            (ivy-rich-switch-buffer-path
+             (:width (lambda (x)
+                       (ivy-rich-switch-buffer-shorten-path
                         x (ivy-rich-minibuffer-width 0.3))))))
            :predicate
            (lambda (cand) (get-buffer cand))
@@ -336,9 +374,9 @@
             (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
             (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
             (ivy-rich-switch-buffer-project (:width 15 :face success))
-            (ivy-rich-switch-buffer-path 
-             (:width (lambda (x) 
-                       (ivy-rich-switch-buffer-shorten-path 
+            (ivy-rich-switch-buffer-path
+             (:width (lambda (x)
+                       (ivy-rich-switch-buffer-shorten-path
                         x (ivy-rich-minibuffer-width 0.3))))))
            :predicate
            (lambda (cand) (get-buffer cand))
@@ -348,13 +386,13 @@
            ((ivy-rich-buffer-icon)
             (ivy-rich-candidate (:width 30))
             (ivy-rich-switch-buffer-size (:width 7))
-            (ivy-rich-switch-buffer-indicators 
+            (ivy-rich-switch-buffer-indicators
              (:width 4 :face error :align right))
             (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
             (ivy-rich-switch-buffer-project (:width 15 :face success))
-            (ivy-rich-switch-buffer-path 
-             (:width (lambda (x) 
-                       (ivy-rich-switch-buffer-shorten-path 
+            (ivy-rich-switch-buffer-path
+             (:width (lambda (x)
+                       (ivy-rich-switch-buffer-shorten-path
                         x (ivy-rich-minibuffer-width 0.3))))))
            :predicate
            (lambda (cand) (get-buffer cand))
@@ -364,13 +402,13 @@
            ((ivy-rich-buffer-icon)
             (ivy-rich-candidate (:width 30))
             (ivy-rich-switch-buffer-size (:width 7))
-            (ivy-rich-switch-buffer-indicators 
+            (ivy-rich-switch-buffer-indicators
              (:width 4 :face error :align right))
             (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
             (ivy-rich-switch-buffer-project (:width 15 :face success))
-            (ivy-rich-switch-buffer-path 
-             (:width (lambda (x) 
-                       (ivy-rich-switch-buffer-shorten-path 
+            (ivy-rich-switch-buffer-path
+             (:width (lambda (x)
+                       (ivy-rich-switch-buffer-shorten-path
                         x (ivy-rich-minibuffer-width 0.3))))))
            :predicate
            (lambda (cand) (get-buffer cand))
@@ -380,13 +418,13 @@
            ((ivy-rich-buffer-icon)
             (ivy-rich-candidate (:width 30))
             (ivy-rich-switch-buffer-size (:width 7))
-            (ivy-rich-switch-buffer-indicators 
+            (ivy-rich-switch-buffer-indicators
              (:width 4 :face error :align right))
             (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
             (ivy-rich-switch-buffer-project (:width 15 :face success))
-            (ivy-rich-switch-buffer-path 
-             (:width (lambda (x) 
-                       (ivy-rich-switch-buffer-shorten-path 
+            (ivy-rich-switch-buffer-path
+             (:width (lambda (x)
+                       (ivy-rich-switch-buffer-shorten-path
                         x (ivy-rich-minibuffer-width 0.3))))))
            :predicate
            (lambda (cand) (get-buffer cand))
@@ -535,7 +573,7 @@
   (yas-load-directory "~/.emacs.d/snippets/")
   (add-hook 'prog-mode-hook 'yas-minor-mode)
   (yas-global-mode t))
-
+;; Git
 (use-package magit
   :ensure t
   :after ivy
@@ -544,6 +582,10 @@
   :bind
   (("C-x g" . 'magit-status)
    ("C-x M-g" . 'magit-dispatch)))
+;; Github specific configuration
+(use-package forge
+  :ensure t
+  :after magit)
 
 ;; Web-mode settings
 (use-package web-mode
@@ -618,8 +660,8 @@
   (TeX-source-correlate-mode t)
   (add-to-list 'TeX-view-program-selection
                '(output-pdf "PDF Tools"))
-  (add-to-list 'TeX-command-list 
-               '("Index" "makeindex %s.nlo -s nomencl.ist -o %s.nls" 
+  (add-to-list 'TeX-command-list
+               '("Index" "makeindex %s.nlo -s nomencl.ist -o %s.nls"
                  TeX-run-index nil t
                  :help "Run makeindex to create index file")))
 ;; NASM mode
@@ -644,10 +686,10 @@
 (setq mu4e-get-mail-command "offlineimap")
 (setq
  user-mail-address "USER@gmail.com"
- user-full-name "Your name"
+ user-full-name "YOUR NAME"
  mu4e-compose-signature
- (concat "Your\n"
-         "Custom Signature"))
+ (concat "GREETINGS\n"
+         "YOUR NAME"))
   ;; SMTP Settings
 (use-package smtpmail
   :ensure t
@@ -656,7 +698,7 @@
   (setq message-send-mail-function 'smtpmail-send-it
         starttls-use-gnutls t
         smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-        smtpmail-auth-credentials '(("smtp.gmail.com" 587 "USER@gmail" nil))
+        smtpmail-auth-credentials '(("smtp.gmail.com" 587 "USER@gmail.com" nil))
         smtpmail-default-smtp-server "smtp.gmail.com"
         smtpmail-smtp-server "smtp.gmail.com"
         smtpmail-smtp-service 587))
@@ -687,14 +729,18 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(all-the-icons-ivy-buffer-commands (quote (ivy-switch-buffer-other-window)))
  '(custom-safe-themes
    (quote
     ("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
+ '(ivy-use-virtual-buffers t)
  '(ivy-virtual-abbreviate (quote full))
  '(package-selected-packages
    (quote
-    (chocolate-theme all-the-icons-ivy all-the-icons-dired
-    counsel auctex tex nov company-php magit web-mode yasnippet
-    spacemacs-theme dashboard all-the-icons ivy-rich ivy
-    pdf-tools rainnbow-delimiters autopair diminish
-    use-package))))
+    (auto-package-update forge chocolate-theme all-the-icons-ivy all-the-icons-dired counsel auctex tex nov company-php magit web-mode yasnippet spacemacs-theme dashboard all-the-icons ivy-rich ivy pdf-tools rainnbow-delimiters autopair diminish use-package))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
