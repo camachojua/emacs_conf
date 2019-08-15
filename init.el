@@ -15,15 +15,6 @@
 ;; Defer packages
 (setq use-package-always-defer t)
 
-;; Auto update packages
-(use-package auto-package-update
-  :defer nil
-  :ensure t
-  :config
-  (setq auto-package-update-delete-old-versions t)
-  (setq auto-package-update-hide-results t)
-  (auto-package-update-maybe))
-
 ;; General settings
 (setq inhibit-startup-screen t)
 (setq backup-inhibited t)
