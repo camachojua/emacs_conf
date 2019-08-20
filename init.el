@@ -1,7 +1,8 @@
 (require 'package)
 (setq package-enable-at-startup nil)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
 (package-initialize)
 
 (unless (package-installed-p 'use-package)
@@ -13,7 +14,7 @@
 (require 'diminish)
 (require 'bind-key)
 ;; Defer packages
-(setq use-package-always-defer t)
+;; (setq use-package-always-defer t)
 
 ;; General settings
 (setq inhibit-startup-screen t)
@@ -132,7 +133,7 @@
                 widget-forward)
   :init
   (setq dashboard-banner-logo-title "")
-  (setq dashboard-startup-banner "/home/juan/Images/gnu.png")
+  (setq dashboard-startup-banner "~/Images/gnu.png")
   (setq dashboard-center-content t)
   (setq dashboard-items '((recents  . 5)
 			  (projects . 5)
@@ -672,6 +673,9 @@
 (setq mu4e-trash-folder "/[Gmail].Papelera")
 (setq mu4e-sent-messages-behavior 'delete)
 (setq mu4e-user-mail-address-list (quote ("USER@gmail.com")))
+(setq mu4e-view-show-images t)
+(when (fboundp 'imagemagick-register-types)
+               (imagemagick-register-types))
 (setq mu4e-maildir-shortcuts
       '(("/INBOX" . ?i)
         ("/[Gmail].Enviados" . ?s)
@@ -680,10 +684,10 @@
 (setq mu4e-get-mail-command "offlineimap")
 (setq
  user-mail-address "USER@gmail.com"
- user-full-name "YOUR NAME"
+ user-full-name "USER NAME"
  mu4e-compose-signature
- (concat "GREETINGS\n"
-         "YOUR NAME"))
+ (concat "YOUR\n"
+         "GREETINGS"))
   ;; SMTP Settings
 (use-package smtpmail
   :ensure t
@@ -728,14 +732,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(all-the-icons-ivy-buffer-commands (quote (ivy-switch-buffer-other-window)))
- '(custom-safe-themes
-   (quote
-    ("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
  '(ivy-use-virtual-buffers t)
- '(ivy-virtual-abbreviate (quote full))
  '(package-selected-packages
    (quote
-    (auto-package-update forge chocolate-theme all-the-icons-ivy all-the-icons-dired counsel auctex tex nov company-php magit web-mode yasnippet spacemacs-theme dashboard all-the-icons ivy-rich ivy pdf-tools rainnbow-delimiters autopair diminish use-package))))
+    (forge ivy-rich autumn-light-theme composer all-the-icons-ivy request company-php phpunit web-mode yasnippet rainbow-mode mu4e-alert use-package rainbow-delimiters projectile pdf-tools nov nasm-mode magit flymd doom-modeline diminish dashboard counsel company chocolate-theme autopair auctex all-the-icons-dired))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
