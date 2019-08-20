@@ -671,6 +671,7 @@
 (setq mu4e-sent-folder "/[Gmail].Enviados")
 (setq mu4e-trash-folder "/[Gmail].Papelera")
 (setq mu4e-sent-messages-behavior 'delete)
+(setq mu4e-user-mail-address-list (quote ("USER@gmail.com")))
 (setq mu4e-maildir-shortcuts
       '(("/INBOX" . ?i)
         ("/[Gmail].Enviados" . ?s)
