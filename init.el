@@ -28,6 +28,11 @@
 (add-hook 'local-write-file-hooks
 	  (lambda() (delete-trailing-whitespace) nil))
 
+;; Org-mode setting
+(setq org-startup-indented t)
+(setq org-directory "~/org")
+(setq org-startup-folded "showall")
+
 ;; Eshell goodies
 (setq eshell-prompt-regexp "^[^αλ\n]*[αλ] ")
 (setq eshell-prompt-function
@@ -133,7 +138,7 @@
                 widget-forward)
   :init
   (setq dashboard-banner-logo-title "")
-  (setq dashboard-startup-banner "~/Images/gnu.png")
+  (setq dashboard-startup-banner "/home/juan/Images/gnu.png")
   (setq dashboard-center-content t)
   (setq dashboard-items '((recents  . 5)
 			  (projects . 5)
@@ -567,6 +572,10 @@
   (yas-load-directory "~/.emacs.d/snippets/")
   (add-hook 'prog-mode-hook 'yas-minor-mode)
   (yas-global-mode t))
+;; YAML mode
+(use-package yaml-mode
+  :ensure t)
+
 ;; Git
 (use-package magit
   :ensure t
@@ -686,8 +695,8 @@
  user-mail-address "USER@gmail.com"
  user-full-name "USER NAME"
  mu4e-compose-signature
- (concat "YOUR\n"
-         "GREETINGS"))
+ (concat "CHEERS\n"
+         "USER NAME"))
   ;; SMTP Settings
 (use-package smtpmail
   :ensure t
@@ -735,7 +744,7 @@
  '(ivy-use-virtual-buffers t)
  '(package-selected-packages
    (quote
-    (forge ivy-rich autumn-light-theme composer all-the-icons-ivy request company-php phpunit web-mode yasnippet rainbow-mode mu4e-alert use-package rainbow-delimiters projectile pdf-tools nov nasm-mode magit flymd doom-modeline diminish dashboard counsel company chocolate-theme autopair auctex all-the-icons-dired))))
+    (yaml-mode forge ivy-rich autumn-light-theme composer all-the-icons-ivy request company-php phpunit web-mode yasnippet rainbow-mode mu4e-alert use-package rainbow-delimiters projectile pdf-tools nov nasm-mode magit flymd doom-modeline diminish dashboard counsel company chocolate-theme autopair auctex all-the-icons-dired))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
