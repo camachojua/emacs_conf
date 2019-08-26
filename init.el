@@ -24,7 +24,7 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (global-linum-mode 1)
-(set-frame-font "FiraCode 9" nil t)
+(set-frame-font "FiraCode 10" nil t)
 (add-hook 'local-write-file-hooks
 	  (lambda() (delete-trailing-whitespace) nil))
 
@@ -670,12 +670,18 @@
 ;; NASM mode
 (use-package nasm-mode
   :ensure t
+  :defer t
   :config
   (add-hook 'asm-mode-hook 'nasm-mode))
 
 ;; Email Settings
+(use-package w3m
+  :ensure t
+  :defer t
+  :after mu4e)
 ;; IMAP Settings
 (require 'mu4e)
+(setq mu4e-html2text-command "w3m -T text/html")
 (setq mail-user-agent 'mu4e-user-agent)
 (setq mu4e-drafts-folder "/[Gmail].Borradores")
 (setq mu4e-sent-folder "/[Gmail].Enviados")
@@ -693,10 +699,10 @@
 (setq mu4e-get-mail-command "offlineimap")
 (setq
  user-mail-address "USER@gmail.com"
- user-full-name "USER NAME"
+ user-full-name "USER"
  mu4e-compose-signature
- (concat "CHEERS\n"
-         "USER NAME"))
+ (concat "GREETINGS\n"
+         "USER"))
   ;; SMTP Settings
 (use-package smtpmail
   :ensure t
@@ -727,13 +733,21 @@
 (add-hook 'message-mode-hook 'turn-on-orgstruct++)
 
 ;; HTTP requests
-(use-package request :ensure t)
+(use-package request 
+  :ensure t
+  :defer t)
 
 ;; NASM mode
 (use-package nasm-mode
   :ensure t
+  :defer t
   :config
   (add-hook 'asm-mode-hook 'nasm-mode))
+
+;; Dockerfile mode
+(use-package dockerfile-mode
+  :ensure t
+  :defer t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -744,7 +758,7 @@
  '(ivy-use-virtual-buffers t)
  '(package-selected-packages
    (quote
-    (yaml-mode forge ivy-rich autumn-light-theme composer all-the-icons-ivy request company-php phpunit web-mode yasnippet rainbow-mode mu4e-alert use-package rainbow-delimiters projectile pdf-tools nov nasm-mode magit flymd doom-modeline diminish dashboard counsel company chocolate-theme autopair auctex all-the-icons-dired))))
+    (dockerfile-mode yaml-mode forge ivy-rich autumn-light-theme composer all-the-icons-ivy request company-php phpunit web-mode yasnippet rainbow-mode mu4e-alert use-package rainbow-delimiters projectile pdf-tools nov nasm-mode magit flymd doom-modeline diminish dashboard counsel company chocolate-theme autopair auctex all-the-icons-dired))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
