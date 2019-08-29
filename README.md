@@ -38,7 +38,9 @@ following dependencies are installed automagically:
 + `smtpmail`
 + `request`
 + `dockerfile-mode`
-+ `yaml-mode'
++ `yaml-mode`
++ `json-mode`
++ `yaml-mode`
 + And much more..
 
 ## External dependencies
