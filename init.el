@@ -91,7 +91,7 @@
 ;; Dockerfile mode
 (use-package dockerfile-mode
   :ensure t
-  :mode "\\Dockerfile\\")
+  :mode "\\Dockerfile\\'")
 
 ;; Icons for various modes
 (use-package all-the-icons :ensure t :defer 0.5)
@@ -770,11 +770,6 @@
   :config
   (add-hook 'asm-mode-hook 'nasm-mode))
 
-;; Dockerfile mode
-(use-package dockerfile-mode
-  :ensure t
-  :defer t)
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -784,7 +779,7 @@
  '(ivy-use-virtual-buffers t)
  '(package-selected-packages
    (quote
-    (w3m emojify company-emoji json-mode dockerfile-mode yaml-mode forge ivy-rich autumn-light-theme composer all-the-icons-ivy request company-php phpunit web-mode yasnippet rainbow-mode mu4e-alert use-package rainbow-delimiters projectile pdf-tools nov nasm-mode magit flymd doom-modeline diminish dashboard counsel company chocolate-theme autopair auctex all-the-icons-dired))))
+    (aggressive-indent indent-guide aggresive-indent ansible-doc org-bullets w3m emojify company-emoji json-mode dockerfile-mode yaml-mode forge ivy-rich autumn-light-theme composer all-the-icons-ivy request company-php phpunit web-mode yasnippet rainbow-mode mu4e-alert use-package rainbow-delimiters projectile pdf-tools nov nasm-mode magit flymd doom-modeline diminish dashboard counsel company chocolate-theme autopair auctex all-the-icons-dired))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
