@@ -37,6 +37,9 @@ following dependencies are installed automagically:
 + `helm`
 + `smtpmail`
 + `request`
++ `dockerfile-mode`
++ `yaml-mode'
++ And much more..
 
 ## External dependencies
 
