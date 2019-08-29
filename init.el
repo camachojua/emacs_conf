@@ -84,6 +84,15 @@
   :config
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
+;; JSON support
+(use-package json-mode
+  :ensure t)
+
+;; Dockerfile mode
+(use-package dockerfile-mode
+  :ensure t
+  :mode "\\Dockerfile\\")
+
 ;; Icons for various modes
 (use-package all-the-icons :ensure t :defer 0.5)
 
@@ -558,10 +567,27 @@
 (use-package company
   :ensure t
   :defer t
+  :hook
+  ((prog-mode . company-mode)
+  (LaTeX-mode . company-mode)
+  (org-mode . company-mode)))
+
+(use-package company-emoji
+  :ensure t
+  :after company
+  :hook
+  ((markdown-mode . company-mode)
+   (git-commit-mode . company-mode))
   :config
-  (add-hook 'prog-mode-hook 'company-mode)
-  (add-hook 'LaTeX-mode-hook 'company-mode)
-  (add-hook 'org-mode-hook 'company-mode))
+  (add-to-list 'company-backends 'company-emoji))
+
+(use-package emojify
+  :ensure t
+  :hook
+  ((markdown-mode . emojify-mode)
+   (git-commit-mode . emojify-mode)
+   (magit-status-mode . emojify-mode)
+   (magit-log-mode . emojify-mode)))
 
 (use-package yasnippet
   :ensure t
@@ -687,7 +713,7 @@
 (setq mu4e-sent-folder "/[Gmail].Enviados")
 (setq mu4e-trash-folder "/[Gmail].Papelera")
 (setq mu4e-sent-messages-behavior 'delete)
-(setq mu4e-user-mail-address-list (quote ("USER@gmail.com")))
+(setq mu4e-user-mail-address-list (quote ("juancamacho@ciencias.unam.mx")))
 (setq mu4e-view-show-images t)
 (when (fboundp 'imagemagick-register-types)
                (imagemagick-register-types))
@@ -698,11 +724,11 @@
         ("/[Gmail].Todos" . ?a)))
 (setq mu4e-get-mail-command "offlineimap")
 (setq
- user-mail-address "USER@gmail.com"
- user-full-name "USER"
+ user-mail-address "juancamacho@ciencias.unam.mx"
+ user-full-name "Juan Alberto Camacho Bolaños"
  mu4e-compose-signature
- (concat "GREETINGS\n"
-         "USER"))
+ (concat "¡Saludos!\n"
+         "Juan Alberto Camacho Bolaños"))
   ;; SMTP Settings
 (use-package smtpmail
   :ensure t
@@ -711,7 +737,7 @@
   (setq message-send-mail-function 'smtpmail-send-it
         starttls-use-gnutls t
         smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-        smtpmail-auth-credentials '(("smtp.gmail.com" 587 "USER@gmail.com" nil))
+        smtpmail-auth-credentials '(("smtp.gmail.com" 587 "juancamacho@ciencias.unam.mx" nil))
         smtpmail-default-smtp-server "smtp.gmail.com"
         smtpmail-smtp-server "smtp.gmail.com"
         smtpmail-smtp-service 587))
@@ -758,7 +784,7 @@
  '(ivy-use-virtual-buffers t)
  '(package-selected-packages
    (quote
-    (dockerfile-mode yaml-mode forge ivy-rich autumn-light-theme composer all-the-icons-ivy request company-php phpunit web-mode yasnippet rainbow-mode mu4e-alert use-package rainbow-delimiters projectile pdf-tools nov nasm-mode magit flymd doom-modeline diminish dashboard counsel company chocolate-theme autopair auctex all-the-icons-dired))))
+    (w3m emojify company-emoji json-mode dockerfile-mode yaml-mode forge ivy-rich autumn-light-theme composer all-the-icons-ivy request company-php phpunit web-mode yasnippet rainbow-mode mu4e-alert use-package rainbow-delimiters projectile pdf-tools nov nasm-mode magit flymd doom-modeline diminish dashboard counsel company chocolate-theme autopair auctex all-the-icons-dired))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
