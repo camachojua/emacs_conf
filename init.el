@@ -602,6 +602,10 @@
 (use-package yaml-mode
   :ensure t)
 
+;; Pug mode
+(use-package pug-mode
+  :ensure t)
+
 ;; Git
 (use-package magit
   :ensure t
@@ -779,7 +783,7 @@
  '(ivy-use-virtual-buffers t)
  '(package-selected-packages
    (quote
-    (aggressive-indent indent-guide aggresive-indent ansible-doc org-bullets w3m emojify company-emoji json-mode dockerfile-mode yaml-mode forge ivy-rich autumn-light-theme composer all-the-icons-ivy request company-php phpunit web-mode yasnippet rainbow-mode mu4e-alert use-package rainbow-delimiters projectile pdf-tools nov nasm-mode magit flymd doom-modeline diminish dashboard counsel company chocolate-theme autopair auctex all-the-icons-dired))))
+    (pug-mode w3m emojify company-emoji json-mode dockerfile-mode yaml-mode forge ivy-rich autumn-light-theme composer all-the-icons-ivy request company-php phpunit web-mode yasnippet rainbow-mode mu4e-alert use-package rainbow-delimiters projectile pdf-tools nov nasm-mode magit flymd doom-modeline diminish dashboard counsel company chocolate-theme autopair auctex all-the-icons-dired))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
