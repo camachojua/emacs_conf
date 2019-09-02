@@ -33,22 +33,15 @@
 (setq org-directory "~/org")
 (setq org-startup-folded "showall")
 
+;; Asynchronous execution
+(use-package ob-async
+  :ensure t
+  :defer t
+  :after org-mode)
+
 ;; Org-babel settings
 (org-babel-do-load-languages 'org-babel-load-languages
-                             '((awk . t)
-                               (C . t)
-                               (clojure . t)
-                               (ditaa . t)
-                               (emacs-lisp . t)
-                               (gnuplot . t)
-                               (haskell . t)
-                               (java . t)
-                               (latex . t)
-                               (makefile . t)
-                               (python . t)
-                               (sed . t)
-                               (shell . t)
-                               (sql . t)))
+                             '((shell . t)))
 
 ;; Eshell goodies
 (setq eshell-prompt-regexp "^[^αλ\n]*[αλ] ")
@@ -164,7 +157,7 @@
                 widget-forward)
   :init
   (setq dashboard-banner-logo-title "")
-  (setq dashboard-startup-banner "~/Images/gnu.png")
+  (setq dashboard-startup-banner "/home/juan/Images/gnu.png")
   (setq dashboard-center-content t)
   (setq dashboard-items '((recents  . 5)
 			  (projects . 5)
@@ -800,7 +793,7 @@
  '(ivy-use-virtual-buffers t)
  '(package-selected-packages
    (quote
-    (pug-mode w3m emojify company-emoji json-mode dockerfile-mode yaml-mode forge ivy-rich autumn-light-theme composer all-the-icons-ivy request company-php phpunit web-mode yasnippet rainbow-mode mu4e-alert use-package rainbow-delimiters projectile pdf-tools nov nasm-mode magit flymd doom-modeline diminish dashboard counsel company chocolate-theme autopair auctex all-the-icons-dired))))
+    (ob-async pug-mode w3m emojify company-emoji json-mode dockerfile-mode yaml-mode forge ivy-rich autumn-light-theme composer all-the-icons-ivy request company-php phpunit web-mode yasnippet rainbow-mode mu4e-alert use-package rainbow-delimiters projectile pdf-tools nov nasm-mode magit flymd doom-modeline diminish dashboard counsel company chocolate-theme autopair auctex all-the-icons-dired))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
