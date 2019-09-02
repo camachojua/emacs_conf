@@ -33,6 +33,10 @@
 (setq org-directory "~/org")
 (setq org-startup-folded "showall")
 
+;; Org-babel settings
+(org-babel-do-load-languages 'org-babel-load-languages
+                             '((shell . t)))
+
 ;; Eshell goodies
 (setq eshell-prompt-regexp "^[^αλ\n]*[αλ] ")
 (setq eshell-prompt-function
@@ -147,7 +151,7 @@
                 widget-forward)
   :init
   (setq dashboard-banner-logo-title "")
-  (setq dashboard-startup-banner "/home/juan/Images/gnu.png")
+  (setq dashboard-startup-banner "~/Images/gnu.png")
   (setq dashboard-center-content t)
   (setq dashboard-items '((recents  . 5)
 			  (projects . 5)
