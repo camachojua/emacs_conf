@@ -35,7 +35,20 @@
 
 ;; Org-babel settings
 (org-babel-do-load-languages 'org-babel-load-languages
-                             '((shell . t)))
+                             '((awk . t)
+                               (C . t)
+                               (clojure . t)
+                               (ditaa . t)
+                               (emacs-lisp . t)
+                               (gnuplot . t)
+                               (haskell . t)
+                               (java . t)
+                               (latex . t)
+                               (makefile . t)
+                               (python . t)
+                               (sed . t)
+                               (shell . t)
+                               (sql . t)))
 
 ;; Eshell goodies
 (setq eshell-prompt-regexp "^[^αλ\n]*[αλ] ")
