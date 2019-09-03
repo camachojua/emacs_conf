@@ -784,6 +784,45 @@
   :config
   (add-hook 'asm-mode-hook 'nasm-mode))
 
+;; C/C++ mode
+(use-package irony
+  :ensure t
+  :hook
+  (c-mode . irony-mode))
+
+(use-package company-irony
+  :ensure t
+  :config
+  (add-to-list 'company-backends 'company-irony))
+
+(use-package flycheck-irony
+  :ensure t
+  :hook (flycheck-mode . flycheck-irony-setup))
+
+;; Flycheck
+(use-package flycheck
+  :ensure t
+  :config
+  (add-hook 'after-init-hook 'global-flycheck-mode)
+  (add-hook 'flycheck-mode-hook 'jc/use-eslint-from-node-modules)
+  (add-to-list 'flycheck-checkers 'proselint)
+  (setq-default flycheck-highlighting-mode 'lines)
+  (flycheck-define-error-level 'error
+    :severity 2
+    :overlay-category 'flycheck-error-overlay
+    :fringe-bitmap 'flycheck-fringe-bitmap-ball
+    :fringe-face 'flycheck-fringe-error)
+  (flycheck-define-error-level 'warning
+    :severity 1
+    :overlay-category 'flycheck-warning-overlay
+    :fringe-bitmap 'flycheck-fringe-bitmap-ball
+    :fringe-face 'flycheck-fringe-warning)
+  (flycheck-define-error-level 'info
+    :severity 0
+    :overlay-category 'flycheck-info-overlay
+    :fringe-bitmap 'flycheck-fringe-bitmap-ball
+    :fringe-face 'flycheck-fringe-info))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -793,10 +832,10 @@
  '(ivy-use-virtual-buffers t)
  '(package-selected-packages
    (quote
-    (ob-async pug-mode w3m emojify company-emoji json-mode dockerfile-mode yaml-mode forge ivy-rich autumn-light-theme composer all-the-icons-ivy request company-php phpunit web-mode yasnippet rainbow-mode mu4e-alert use-package rainbow-delimiters projectile pdf-tools nov nasm-mode magit flymd doom-modeline diminish dashboard counsel company chocolate-theme autopair auctex all-the-icons-dired))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+    (ob-async pug-mode w3m emojify company-emoji json-mode
+    dockerfile-mode yaml-mode forge ivy-rich autumn-light-theme
+    composer all-the-icons-ivy request company-php phpunit
+    web-mode yasnippet rainbow-mode mu4e-alert use-package
+    rainbow-delimiters projectile pdf-tools nov nasm-mode magit
+    flymd doom-modeline diminish dashboard counsel company
+    chocolate-theme autopair auctex all-the-icons-dired))))
