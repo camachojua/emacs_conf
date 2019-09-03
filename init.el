@@ -1,3 +1,5 @@
+;;; package -- summary
+;;; Commentary: My own Emacs configuration file
 (require 'package)
 (setq package-enable-at-startup nil)
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
@@ -27,6 +29,12 @@
 (set-frame-font "FiraCode 10" nil t)
 (add-hook 'local-write-file-hooks
 	  (lambda() (delete-trailing-whitespace) nil))
+(add-hook 'focus-out-hook #'garbage-collect)
+
+;; Enable full screen
+(if (eq window-system 'ns)
+    (toggle-frame-maximized)
+  (toggle-frame-fullscreen))
 
 ;; Org-mode setting
 (setq org-startup-indented t)
@@ -678,7 +686,6 @@
   (add-hook 'php-mode-hook 'php-company-hook))
 
 ;; AUCTeX
-
 (use-package tex
   :ensure auctex
   :defer t
@@ -773,7 +780,7 @@
 (add-hook 'message-mode-hook 'turn-on-orgstruct++)
 
 ;; HTTP requests
-(use-package request 
+(use-package request
   :ensure t
   :defer t)
 
@@ -784,44 +791,42 @@
   :config
   (add-hook 'asm-mode-hook 'nasm-mode))
 
-;; C/C++ mode
-(use-package irony
+;; Alerts
+(use-package alert
   :ensure t
-  :hook
-  (c-mode . irony-mode))
+  :commands (alert)
+  :init
+  (setq alert-default-style 'notifier))
 
-(use-package company-irony
+;; Circe IRC client
+(use-package circe
+  :ensure t)
+
+;; Easy HTTP requests
+(use-package request
+  :ensure t)
+
+;; Websocket
+(use-package websocket
+  :ensure t)
+
+;; Slack config
+(use-package slack
   :ensure t
+  :defer t
+  :commands (slack-start)
+  :init
+  (setq slack-buffer-emojify t)
+  (setq slack-preffer-current-team t)
   :config
-  (add-to-list 'company-backends 'company-irony))
-
-(use-package flycheck-irony
-  :ensure t
-  :hook (flycheck-mode . flycheck-irony-setup))
-
-;; Flycheck
-(use-package flycheck
-  :ensure t
-  :config
-  (add-hook 'after-init-hook 'global-flycheck-mode)
-  (add-hook 'flycheck-mode-hook 'jc/use-eslint-from-node-modules)
-  (add-to-list 'flycheck-checkers 'proselint)
-  (setq-default flycheck-highlighting-mode 'lines)
-  (flycheck-define-error-level 'error
-    :severity 2
-    :overlay-category 'flycheck-error-overlay
-    :fringe-bitmap 'flycheck-fringe-bitmap-ball
-    :fringe-face 'flycheck-fringe-error)
-  (flycheck-define-error-level 'warning
-    :severity 1
-    :overlay-category 'flycheck-warning-overlay
-    :fringe-bitmap 'flycheck-fringe-bitmap-ball
-    :fringe-face 'flycheck-fringe-warning)
-  (flycheck-define-error-level 'info
-    :severity 0
-    :overlay-category 'flycheck-info-overlay
-    :fringe-bitmap 'flycheck-fringe-bitmap-ball
-    :fringe-face 'flycheck-fringe-info))
+  (slack-register-team
+   :name "emacs-slack"
+   :default t
+   :client-id "id"
+   :client-secret "secret"
+   :token "token"
+   :subscribed-channels '(test-rename rrrrr)
+   :full-display-names t))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -832,10 +837,11 @@
  '(ivy-use-virtual-buffers t)
  '(package-selected-packages
    (quote
-    (ob-async pug-mode w3m emojify company-emoji json-mode
-    dockerfile-mode yaml-mode forge ivy-rich autumn-light-theme
-    composer all-the-icons-ivy request company-php phpunit
-    web-mode yasnippet rainbow-mode mu4e-alert use-package
-    rainbow-delimiters projectile pdf-tools nov nasm-mode magit
-    flymd doom-modeline diminish dashboard counsel company
-    chocolate-theme autopair auctex all-the-icons-dired))))
+    (prog-mode ob-async pug-mode w3m emojify company-emoji
+    json-mode dockerfile-mode yaml-mode forge ivy-rich
+    autumn-light-theme composer all-the-icons-ivy request
+    company-php phpunit web-mode yasnippet rainbow-mode
+    mu4e-alert use-package rainbow-delimiters projectile
+    pdf-tools nov nasm-mode magit flymd doom-modeline diminish
+    dashboard counsel company chocolate-theme autopair auctex
+    all-the-icons-dired))))
