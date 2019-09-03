@@ -52,6 +52,7 @@ relies on external programs:
 + The `mu` program for displaying e-mails.
 + `offlineimap` for fetching your e-mails.
 + `git` for code versioning.
++ `gnutls-bin` for slack communication.
 
 Please refer to the `mu`
 [user manual](http://www.djcbsoftware.nl/code/mu/mu4e/Gmail-configuration.html#Gmail-configuration) for installation and configuration.
