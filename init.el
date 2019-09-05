@@ -51,6 +51,9 @@
 (org-babel-do-load-languages 'org-babel-load-languages
                              '((shell . t)))
 
+;; Don't ask for confirmation while evaluating a block
+(setq org-confirm-babel-evaluate nil)
+
 ;; Eshell goodies
 (setq eshell-prompt-regexp "^[^αλ\n]*[αλ] ")
 (setq eshell-prompt-function
@@ -810,23 +813,54 @@
 (use-package websocket
   :ensure t)
 
-;; Slack config
-(use-package slack
+;; ReactJS Settings
+(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
+(defadvice web-mode-highlight-part (around tweak-jsx activate)
+  (if (equal web-mode-content-type "jsx")
+      (let ((web-mode-enable-part-face nil))
+        ad-do-it)
+    ad-do-it))
+
+;; Flycheck
+(use-package flycheck
   :ensure t
-  :defer t
-  :commands (slack-start)
-  :init
-  (setq slack-buffer-emojify t)
-  (setq slack-preffer-current-team t)
   :config
-  (slack-register-team
-   :name "emacs-slack"
-   :default t
-   :client-id "id"
-   :client-secret "secret"
-   :token "token"
-   :subscribed-channels '(test-rename rrrrr)
-   :full-display-names t))
+  (add-hook 'js-mode-hook
+            (lambda () (flycheck-mode t))))
+
+;; Flymake
+(flycheck-define-checker jsxhint-checker
+  "A JSX syntax and style checker based on JSXHint."
+  :command ("jsxhint" source)
+  :error-patterns
+  ((error line-start (1+ nonl) ": line " line ", col " column ", " (message) line-end))
+  :modes (web-mode))
+(add-hook 'web-mode-hook
+          (lambda ()
+            (when (equal web-mode-content-type "jsx")
+              ;; enable flycheck
+              (flycheck-select-checker 'jsxhint-checker)
+              (flycheck-mode))))
+
+(use-package js2-refactor
+  :ensure t
+  :after web-mode)
+
+(use-package tern
+  :ensure t
+  :after web-mode
+  :config
+  (add-hook 'js-mode-hook (lambda () (tern-mode 1))))
+
+(use-package tern-auto-complete
+  :ensure t
+  :after tern
+  :config
+  (tern-ac-setup))
+
+(defun delete-tern-process ()
+  (interactive)
+    (delete-process "Tern"))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -837,11 +871,10 @@
  '(ivy-use-virtual-buffers t)
  '(package-selected-packages
    (quote
-    (prog-mode ob-async pug-mode w3m emojify company-emoji
-    json-mode dockerfile-mode yaml-mode forge ivy-rich
-    autumn-light-theme composer all-the-icons-ivy request
-    company-php phpunit web-mode yasnippet rainbow-mode
-    mu4e-alert use-package rainbow-delimiters projectile
-    pdf-tools nov nasm-mode magit flymd doom-modeline diminish
-    dashboard counsel company chocolate-theme autopair auctex
-    all-the-icons-dired))))
+    (tern-auto-complete tern js2-refactor websocket circe prog-mode ob-async pug-mode w3m emojify company-emoji json-mode dockerfile-mode yaml-mode forge ivy-rich autumn-light-theme composer all-the-icons-ivy request company-php phpunit web-mode yasnippet rainbow-mode mu4e-alert use-package rainbow-delimiters projectile pdf-tools nov nasm-mode magit flymd doom-modeline diminish dashboard counsel company chocolate-theme autopair auctex all-the-icons-dired))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
