@@ -26,7 +26,7 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (global-linum-mode 1)
-(set-frame-font "FiraCode 10" nil t)
+(set-frame-font "FiraCode 8" nil t)
 (add-hook 'local-write-file-hooks
 	  (lambda() (delete-trailing-whitespace) nil))
 (add-hook 'focus-out-hook #'garbage-collect)
@@ -814,6 +814,10 @@
   :ensure t)
 
 ;; ReactJS Settings
+(use-package react-snippets
+  :ensure t
+  :after yasnippet)
+
 (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
 (defadvice web-mode-highlight-part (around tweak-jsx activate)
   (if (equal web-mode-content-type "jsx")
@@ -871,7 +875,7 @@
  '(ivy-use-virtual-buffers t)
  '(package-selected-packages
    (quote
-    (tern-auto-complete tern js2-refactor websocket circe prog-mode ob-async pug-mode w3m emojify company-emoji json-mode dockerfile-mode yaml-mode forge ivy-rich autumn-light-theme composer all-the-icons-ivy request company-php phpunit web-mode yasnippet rainbow-mode mu4e-alert use-package rainbow-delimiters projectile pdf-tools nov nasm-mode magit flymd doom-modeline diminish dashboard counsel company chocolate-theme autopair auctex all-the-icons-dired))))
+    (react-snippets tern-auto-complete tern js2-refactor websocket circe flycheck-irony company-irony irony ob-async pug-mode aggressive-indent indent-guide aggresive-indent ansible-doc org-bullets w3m emojify company-emoji json-mode dockerfile-mode yaml-mode forge ivy-rich autumn-light-theme composer all-the-icons-ivy request company-php phpunit web-mode yasnippet rainbow-mode mu4e-alert use-package rainbow-delimiters projectile pdf-tools nov nasm-mode magit flymd doom-modeline diminish dashboard counsel company chocolate-theme autopair auctex all-the-icons-dired))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
