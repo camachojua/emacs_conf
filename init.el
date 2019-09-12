@@ -49,9 +49,22 @@
 
 ;; Org-babel settings
 (org-babel-do-load-languages 'org-babel-load-languages
-                             '((shell . t)
+                             '((awk . t)
+                               (C . t)
+                               (cpp . t)
+                               (clojure . t)
                                (ditaa . t)
-                               (c . t)))
+                               (emacs-lisp)
+                               (gnuplot . t)
+                               (haskell . t)
+                               (java . t)
+                               (js . t)
+                               (latex . t)
+                               (python . t)
+                               (sass . t)
+                               (sql . t)
+                               (sqlite . t)
+                               (shell . t)))
 
 (setq org-ditaa-jar-path "/usr/bin/ditaa")
 
