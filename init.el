@@ -50,7 +50,9 @@
 ;; Org-babel settings
 (org-babel-do-load-languages 'org-babel-load-languages
                              '((shell . t)
-                               (ditaa . t)))
+                               (ditaa . t)
+                               (c . t)))
+
 (setq org-ditaa-jar-path "/usr/bin/ditaa")
 
 ;; Don't ask for confirmation while evaluating a block
