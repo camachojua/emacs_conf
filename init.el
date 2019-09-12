@@ -675,6 +675,13 @@
   :ensure t
   :defer t)
 
+;; Scss mode settings
+(use-package scss-mode
+  :ensure t
+  :defer t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
+
 ;; Web-mode settings
 (use-package web-mode
   :ensure t
