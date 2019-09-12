@@ -859,12 +859,20 @@
   :ensure t
   :after yasnippet)
 
-(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
-(defadvice web-mode-highlight-part (around tweak-jsx activate)
-  (if (equal web-mode-content-type "jsx")
-      (let ((web-mode-enable-part-face nil))
-        ad-do-it)
-    ad-do-it))
+;; RJSX mode
+(use-package rjsx-mode
+  :ensure t
+  :defer t
+  :config
+  (add-to-list 'auto-mode-alist '("components\\/.*\\.js\\'" . rjsx-mode)))
+
+;; JSX mode
+(use-package jsx-mode
+  :ensure t
+  :defer t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
+  (autoload 'jsx-mode "jsx-mode" "JSX mode" t))
 
 ;; Flycheck
 (use-package flycheck
