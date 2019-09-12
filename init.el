@@ -665,6 +665,16 @@
   :config
   (add-hook 'clojure-mode-hook #'aggressive-indent-mode))
 
+;; Haskell mode settings
+(use-package haskell-mode
+  :ensure t
+  :defer t)
+
+;; Python mode settings
+(use-package python-mode
+  :ensure t
+  :defer t)
+
 ;; Web-mode settings
 (use-package web-mode
   :ensure t
