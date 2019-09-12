@@ -658,6 +658,13 @@
   :ensure t
   :after magit)
 
+;; Clojure mode settings
+(use-package clojure-mode
+  :ensure t
+  :defer t
+  :config
+  (add-hook 'clojure-mode-hook #'aggressive-indent-mode))
+
 ;; Web-mode settings
 (use-package web-mode
   :ensure t
