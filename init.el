@@ -670,11 +670,6 @@
   :ensure t
   :defer t)
 
-;; Python mode settings
-(use-package python-mode
-  :ensure t
-  :defer t)
-
 ;; Scss mode settings
 (use-package scss-mode
   :ensure t
