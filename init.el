@@ -26,7 +26,7 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (global-linum-mode 1)
-(set-frame-font "FiraCode 8" nil t)
+(set-frame-font "FiraCode 10" nil t)
 (add-hook 'local-write-file-hooks
 	  (lambda() (delete-trailing-whitespace) nil))
 (add-hook 'focus-out-hook #'garbage-collect)
@@ -51,7 +51,6 @@
 (org-babel-do-load-languages 'org-babel-load-languages
                              '((awk . t)
                                (C . t)
-                               (cpp . t)
                                (clojure . t)
                                (ditaa . t)
                                (emacs-lisp)
@@ -675,7 +674,7 @@
   :ensure t
   :defer t
   :config
-  (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
+  (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode)))
 
 ;; Web-mode settings
 (use-package web-mode
@@ -690,7 +689,12 @@
 	  ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
   (setq web-mode-engines-alist
 	'(("php" . "\\.phtml\\'")
-	  ("blade" . "\\.blade\\.")))
+	  ("blade" . "\\.blade\\.")
+          ("json" . "\\.api\\'")
+          ("xml"  . "\\.api\\'")
+          ("jsx"  . "\\.js[x]?\\'")))
+  (add-to-list 'auto-mode-alist '("\\.api\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("/some/react/path/.*\\.js[x]?\\'" . web-mode))
   (setq-default indent-tabs-mode nil)
   (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
   :config
@@ -854,45 +858,12 @@
   :ensure t
   :after yasnippet)
 
-;; RJSX mode
-(use-package rjsx-mode
-  :ensure t
-  :defer t
-  :config
-  (add-to-list 'auto-mode-alist '("components\\/.*\\.js\\'" . rjsx-mode)))
-
-;; JSX mode
-(use-package jsx-mode
-  :ensure t
-  :defer t
-  :config
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
-  (autoload 'jsx-mode "jsx-mode" "JSX mode" t))
-
 ;; Flycheck
 (use-package flycheck
   :ensure t
   :config
   (add-hook 'js-mode-hook
             (lambda () (flycheck-mode t))))
-
-;; Flymake
-(flycheck-define-checker jsxhint-checker
-  "A JSX syntax and style checker based on JSXHint."
-  :command ("jsxhint" source)
-  :error-patterns
-  ((error line-start (1+ nonl) ": line " line ", col " column ", " (message) line-end))
-  :modes (web-mode))
-(add-hook 'web-mode-hook
-          (lambda ()
-            (when (equal web-mode-content-type "jsx")
-              ;; enable flycheck
-              (flycheck-select-checker 'jsxhint-checker)
-              (flycheck-mode))))
-
-(use-package js2-refactor
-  :ensure t
-  :after web-mode)
 
 (use-package tern
   :ensure t
@@ -919,7 +890,7 @@
  '(ivy-use-virtual-buffers t)
  '(package-selected-packages
    (quote
-    (react-snippets tern-auto-complete tern js2-refactor websocket circe flycheck-irony company-irony irony ob-async pug-mode aggressive-indent indent-guide aggresive-indent ansible-doc org-bullets w3m emojify company-emoji json-mode dockerfile-mode yaml-mode forge ivy-rich autumn-light-theme composer all-the-icons-ivy request company-php phpunit web-mode yasnippet rainbow-mode mu4e-alert use-package rainbow-delimiters projectile pdf-tools nov nasm-mode magit flymd doom-modeline diminish dashboard counsel company chocolate-theme autopair auctex all-the-icons-dired))))
+    (react-snippets scss-mode websocket circe prog-mode ob-async pug-mode w3m emojify company-emoji json-mode dockerfile-mode yaml-mode forge ivy-rich autumn-light-theme composer all-the-icons-ivy request company-php phpunit web-mode yasnippet rainbow-mode mu4e-alert use-package rainbow-delimiters projectile pdf-tools nov nasm-mode magit flymd doom-modeline diminish dashboard counsel company chocolate-theme autopair auctex all-the-icons-dired))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
