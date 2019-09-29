@@ -7,6 +7,8 @@ and launch emacs, then execute the following commands:
 
 ## Dependencies
 
+- =emacs 27=
+
 The configuration uses `use-package`as a utility to speed up the
 startup time while providing a flexible configuration. To facilitate
 the use of emacs as a programming and text editing environment the
