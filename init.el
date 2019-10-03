@@ -58,6 +58,7 @@
                                (java . t)
                                (js . t)
                                (latex . t)
+                               (plantuml . t)
                                (python . t)
                                (sass . t)
                                (sql . t)
@@ -65,9 +66,24 @@
                                (shell . t)))
 
 (setq org-ditaa-jar-path "/usr/bin/ditaa")
+(setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
+
+;; Establish the TODO keywords
+(setq org-todo-keywords
+      '((sequence "REPORT" "BUG" "KNOWCAUSE" "|" "FIXED")
+        (sequence "TODO" "|" "DOING" "DONE" "CANCELED")))
+(setq org-todo-keyword-faces
+      '(("TODO" . (:foreground "cyan" :weight bold))
+        ("BUG" . (:foreground "purple" :weight bold))
+        ("REPORT" . (:foreground "white" :weight bold))
+        ("FIXED" . (:foreground "green" :weight bold))
+        ("DOING" . (:foreground "orange" :weight bold))
+        (("DONE") . (:foreground "green" :weight bold))
+        ("CANCELED" . (:foreground "yellow" :weight bold))))
 
 ;; Don't ask for confirmation while evaluating a block
 (setq org-confirm-babel-evaluate nil)
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
 
 ;; Org tables and lists on message mode
 (add-hook 'message-mode-hook 'turn-on-orgtbl)
@@ -117,10 +133,12 @@
   (add-hook 'prog-mode-hook 'whitespace-mode)
   (add-hook 'arduino-mode-hook 'whitespace-mode))
 
-(use-package autopair
-  :ensure t
-  :config
-  (autopair-global-mode t))
+;; Electric pair
+(setq electric-pair-pairs
+      '(
+        (?\" . ?\")
+        (?\{ . ?\})))
+(electric-pair-mode 1)
 
 (use-package rainbow-mode
   :ensure t
@@ -668,7 +686,7 @@
  '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
  '(ivy-use-virtual-buffers t)
  '(package-selected-packages
-   '(prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
+   '(company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
