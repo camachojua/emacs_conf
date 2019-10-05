@@ -287,7 +287,16 @@
 ;; Github specific configuration
 (use-package forge
   :ensure t
-  :after magit)
+  :defer t
+  :after magit
+  :config
+  (setq gitlab.user "user")
+  (setq gitlab.host "git.domain.com")
+  (add-to-list 'forge-alist
+               '("git.domain.com"
+                 "git.domain.com/api/v4"
+                 "git.domain.com"
+                 forge-gitlab-repository)))
 
 ;; AUCTeX
 (use-package tex
