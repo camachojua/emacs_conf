@@ -1,5 +1,5 @@
-;;; Package -- summary
-;;; Commentary: Package configuration.
+;;; Package --- summary
+;;; Commentary: My own emacs distribution file.
 ;;; Code:
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -254,6 +254,7 @@
 (use-package doom-modeline
   :ensure t
   :init
+  (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
   (setq doom-modeline-height 25)
   (setq doom-modeline-bar-width 3)
   (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
@@ -285,6 +286,10 @@
   (("C-x g" . 'magit-status)
    ("C-x M-g" . 'magit-dispatch)))
 ;; Github specific configuration
+;; For this configuration you should add to your .gitconfig file
+;; the following contents:
+;; [gitlab "git.fciencias.unam.mx/api/v4"]
+;;	user = camachojua
 (use-package forge
   :ensure t
   :defer t
@@ -383,7 +388,8 @@
   :ensure t
   :after mu4e
   :init
-  (setq mu4e-alert-interesting-mail-query "flag:unread maildir:/[Gmail]/INBOX"))
+  (setq mu4e-alert-interesting-mail-query
+        "flag:unread maildir:/[Gmail]/INBOX"))
 (mu4e-alert-enable-mode-line-display)
 (defun refresh-mu4e-mode-line ()
   "Para mu4e."
@@ -630,7 +636,8 @@
 
   :command ("jsxhint" source)
   :error-patterns
-  ((error line-start (1+ nonl) ": line " line ", col " column ", " (message) line-end))
+  ((error line-start
+          (1+ nonl) ": line " line ", col " column ", " (message) line-end))
   :modes (web-mode))
 (add-hook 'web-mode-hook
           (lambda ()
@@ -691,14 +698,15 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
- '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
- '(ivy-use-virtual-buffers t)
- '(package-selected-packages
-   '(company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+ '(all-the-icons-ivy-buffer-commands
+ '(ivy-switch-buffer-other-window)) '(flycheck-disabled-checkers
+ '(javascript-jshint javascript-jscs)) '(ivy-use-virtual-buffers
+ t) '(package-selected-packages '(company-php prettier-js
+ company-go org-mu4e rjsx-mode js2-refactor flycheck
+ dockerfile-mode json-mode scss-mode haskell-mode clojure-mode
+ pug-mode dashboard websocket circe request mu4e-alert
+ react-snippets yaml-mode yasnippet emojify company-emoji company
+ projectile doom-modeline all-the-icons-dired all-the-icons-ivy
+ all-the-icons rainbow-delimiters rainbow-mode autopair
+ use-package ob-async diminish)))
+;;; init.el ends here
