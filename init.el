@@ -1,5 +1,5 @@
-;;; Package --- summary
-;;; Commentary: My own emacs distribution file.
+;;; Package -- summary
+;;; Commentary: Package configuration.
 ;;; Code:
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -286,17 +286,13 @@
   (("C-x g" . 'magit-status)
    ("C-x M-g" . 'magit-dispatch)))
 ;; Github specific configuration
-;; For this configuration you should add to your .gitconfig file
-;; the following contents:
-;; [gitlab "git.fciencias.unam.mx/api/v4"]
-;;	user = camachojua
 (use-package forge
   :ensure t
   :defer t
   :after magit
   :config
   (setq gitlab.user "user")
-  (setq gitlab.host "git.domain.com")
+  (setq gitlab.git.fciencias.unam.mx/api/v4.user "user")
   (add-to-list 'forge-alist
                '("git.domain.com"
                  "git.domain.com/api/v4"
