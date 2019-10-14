@@ -291,12 +291,12 @@
   :defer t
   :after magit
   :config
-  (setq gitlab.user "user")
-  (setq gitlab.git.fciencias.unam.mx/api/v4.user "user")
+  (setq gitlab.user "username")
+  (setq gitlab.git.private.domain.com/api/v4.user "username")
   (add-to-list 'forge-alist
-               '("git.domain.com"
-                 "git.domain.com/api/v4"
-                 "git.domain.com"
+               '("git.private.domain.com"
+                 "git.private.domain.com/api/v4"
+                 "git.private.domain.com"
                  forge-gitlab-repository)))
 
 ;; AUCTeX
@@ -682,6 +682,11 @@
   (add-hook 'js2-mode-hook 'prettier-js-mode)
   (add-hook 'rjsx-mode-hook 'prettier-js-mode))
 
+;; Jest mode
+(use-package jest
+  :ensure t
+  :after web-mode)
+
 ;; Tema
 (use-package chocolate-theme
   :ensure t
@@ -694,15 +699,15 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(all-the-icons-ivy-buffer-commands
- '(ivy-switch-buffer-other-window)) '(flycheck-disabled-checkers
- '(javascript-jshint javascript-jscs)) '(ivy-use-virtual-buffers
- t) '(package-selected-packages '(company-php prettier-js
- company-go org-mu4e rjsx-mode js2-refactor flycheck
- dockerfile-mode json-mode scss-mode haskell-mode clojure-mode
- pug-mode dashboard websocket circe request mu4e-alert
- react-snippets yaml-mode yasnippet emojify company-emoji company
- projectile doom-modeline all-the-icons-dired all-the-icons-ivy
- all-the-icons rainbow-delimiters rainbow-mode autopair
- use-package ob-async diminish)))
+ '(all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
+ '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
+ '(ivy-use-virtual-buffers t)
+ '(package-selected-packages
+   '(jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
 ;;; init.el ends here
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
