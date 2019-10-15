@@ -25,7 +25,7 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (global-linum-mode 1)
-(set-frame-font "FiraCode 10" nil t)
+(set-frame-font "Cascadia Code 8" nil t)
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 ;; (add-hook 'after-focus-change-function #'garbage-collect)
