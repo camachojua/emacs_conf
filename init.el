@@ -25,7 +25,7 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (global-linum-mode 1)
-(set-frame-font "Cascadia Code 8" nil t)
+(set-frame-font "Cascadia Code 10" nil t)
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 ;; (add-hook 'after-focus-change-function #'garbage-collect)
@@ -150,6 +150,17 @@
   :config
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
+;; Emoji support
+(use-package emojify
+  :ensure t
+  :init
+  (add-hook 'after-init-hook #'global-emojify-mode))
+
+(use-package company-emoji
+  :ensure t
+  :defer t
+  :after company)
+
 ;; Programming projects
 (use-package ivy
   :ensure t
@@ -187,6 +198,7 @@
   :config
   :config
   (add-hook 'after-init-hook 'global-company-mode)
+  (add-to-list 'company-backends 'company-emoji)
   (setq company-idle-delay t)
 
   (use-package company-go
@@ -298,6 +310,9 @@
                  "git.private.domain.com/api/v4"
                  "git.private.domain.com"
                  forge-gitlab-repository)))
+;; Ediff settings
+ '(ediff-split-window-function (quote split-window-horizontally))
+ '(ediff-window-setup-function (quote ediff-setup-windows-plain))
 
 ;; AUCTeX
 (use-package tex
@@ -703,7 +718,7 @@
  '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
  '(ivy-use-virtual-buffers t)
  '(package-selected-packages
-   '(jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
+   '(emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
 ;;; init.el ends here
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
