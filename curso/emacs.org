@@ -1,0 +1,74 @@
+* Emacs
+** Instalación
+
+El uso de cualquier programa de cómputo inicia con la instalación del
+mismo, en este caso instalaremos la versión más nueva de emacs, pero
+no será una instalación cualquiera, nosotros *compilaremos* emacs para
+que corra lo más rápido en nuestra máquina. Para ello debemos ejecutar
+las siguientes instrucciones en una terminal.
+
+#+BEGIN_SRC sh
+mkdir ~/src
+cd ~/src
+sudo apt-get update
+sudo apt-get install git
+git clone -b master git://git.sv.gnu.org/emacs.git
+sudo apt-get install build-essential automake texinfo libjpeg-dev libncurses5-dev libtiff5-dev libgif-dev libpng-dev libxpm-dev libgnutls28-dev libmagick++-dev
+cd ~/src/emacs
+./configure --with-x-toolkit=no --without-moudles --with-mailtools --with-imagemagick
+make -j4 -s bootstrap
+sudo make install
+#+END_SRC
+
+La actualización se realiza una vez cada dos semanas, para actualizar
+nuestro emacs debemos ejecutar lo siguiente:
+
+#+BEGIN_SRC sh
+cd ~/src/emacs
+git pull
+./configure --with-x-toolkit=no --without-moudles --with-mailtools --with-imagemagick
+make -j4 -s bootstrap
+sudo make install
+#+END_SRC
+
+Este conjunto de procedimientos puede ser añadido a un =crontab= para
+automatizarlo.
+
+** Iniciando emacs
+
+Cuando emacs se ejecuta sin ninguna configuración extra en un ambiente
+gráfico se mostrará una ventana muy similar a la de la siguiente imagen:
+
+[[file:img/emacs_basico.png]]
+
+
+
+*** Distribuciones de emacs
+**** Centaur Emacs
+**** DOOM Emacs
+**** Spacemacs
+** Definición de conceptos
+*** Buffer
+*** Marco
+*** Modos de edición
+*** Mini-buffer
+*** Kill-ring
+** Comandos básicos
+*** Moverse por la pantalla
+*** Guardar un archivo
+*** Abrir un archivo
+** Org Mode
+*** ¿Qué es Org Mode?
+*** Estructura de un documento =.org=
+**** Editar la estructura
+*** Estilos de texto
+*** Enlaces
+**** Crear tus propios enlaces
+*** Listas
+**** Lista de cosas por hacer
+*** Tablas
+**** Hojas de cálculo
+*** Exportación
+*** Agenda
+** Org Mode en la vida diaria
+*** Crear un archivo =init.el=
