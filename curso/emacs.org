@@ -41,7 +41,56 @@ gráfico se mostrará una ventana muy similar a la de la siguiente imagen:
 
 [[file:img/emacs_basico.png]]
 
+Emacs es un editor modular con mucha capacidad, sin embargo esta
+modularidad hizo necesario la creación de terminología especial para
+hacer referencia a las distintas partes que componen la ventana
+gráfica que los usuarios ven. A continuación se muestra una lista
+básica de los elementos que componen una ventana gráfica de emacs.
 
+- *Frame* Es la ventana gráfica (lo que se dibuja al ejecutar emacs),
+  usualmente los usuarios trabajan sobre una única ventana gráfica
+  durante sus sesiones de edición, sin embargo emacs es capaz de
+  manejar múltiples frames de manera simultánea.
+
+  Los frames están compuestos de múltiples regiones, en la parte
+  superior del frame se puede ver la *barra de menú*, esta barra
+  aparece típicamente en la mayoría de los programas que poseen una
+  interfaz gráfica, contiene secciones como: =archivo=, =edición=,
+  =opciones=, etc. Bajo la barra de menú se encuentra una *barra de
+  herramientas* que contiene íconos a las acciones de edición más
+  comunes: =abrir archivo=, =nuevo archivo=, =guardar=, =cortar=,
+  =copiar=, =pegar=, etc. En la parte inferior del frame se encuentra
+  una región denominada *área de echo* donde es posible insertar
+  comandos y donde los mensajes de información aparecen.
+- *Ventana* Es el área que se encuentra entre la barra de herramientas
+  y el área de echo, _cuidado_ no hay que confundir el concepto de
+  ventana de emacs (área de edición de texto) y ventana de programa
+  (concepto de interfaz gráfica). Recuerda que lo dibujado por el
+  sistema gráfico se conoce como frame en el lenguaje de emacs.
+- *Modeline* Se encuentra sobre el área de echo, en la configuración
+  inicial de emacs posee un fondo gris, esta región muestra
+  información relevante al *modo de edición actual* como: estado de
+  guardado del archivo, número de línea donde se encuentra el cursor,
+  etc.
+- *Barra de scroll* Ubicada a la izquierda del frame, utilizada para
+  desplazarse por el archivo utilizando el mouse.
+
+Cuando se inicia emacs el comportamiento por defecto es el de crear un
+único frame, sin embargo el usuario puede crear más ventanas dentro de
+este frame de manera totalmente independiente.
+
+Existe una única "restricción" en la configuración por defecto *sólo
+puede haber una única ventana activa* (usualmente es la que tiene el
+cursor que parpadea).
+
+*** Buffers
+
+Emacs utiliza *buffers* para poder editar archivos, un buffer es un
+archivo cargado dentro de emacs, es un ente que puede moverse entre
+ventanas pero no puede ser mostrado sin ellas, es decir, para poder
+mostrar el contenido de un archivo dentro de emacs es necesario crear
+un buffer dentro de una ventana. La mayor parte de edición dentro de
+emacs (si no es que toda) ocurre dentro de los buffers.
 
 *** Distribuciones de emacs
 **** Centaur Emacs
