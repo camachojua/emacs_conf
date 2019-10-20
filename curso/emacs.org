@@ -166,9 +166,9 @@ evaluados para mostrar su resultado dentro de nuestros archivos
 estructura es la siguiente:
 
 #+BEGIN_SRC org
-.#+BEGIN_SRC lenguaje
-codigo
-.#+END_SRC
+,#+BEGIN_SRC lenguaje
+,codigo
+,#+END_SRC
 #+END_SRC
 
 Para ejecutar el codigo =codigo= que se encuentra escrito en el
