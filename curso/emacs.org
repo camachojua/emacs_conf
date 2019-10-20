@@ -193,10 +193,28 @@ hostname -f
 ,#+END_SRC
 
 ,#+RESULTS:
-,: registro.fciencias.unam.mx
+: registro.fciencias.unam.mx
 #+END_SRC
 
+**** Inserción de parámetros a los bloques de código
 
+Los parámetros que se le pasan a los bloques de código pueden ser
+especificados en distintos lugares:
+
+- En línea :: Después de definir el lenguaje del bloque.
+- Por sección :: Todos los bloques de una sección tomarán los mismos
+                 parámetros.
+- Por documento :: Los parámetros son globales al documento.
+- Globales :: Todos los bloques creados dentro del sistema tendrán los
+              mismos parámetros.
+
+Los parámetros globales se encuentran definidos en las siguientes
+variables de emacs:
+
+#+BEGIN_SRC emacs-list
+org-babel-default-header-args
+org-babel-default-header-args:<lenguaje>
+#+END_SRC
 
 ** Org Mode en la vida diaria
 *** Crear un archivo =init.el=
