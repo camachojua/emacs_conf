@@ -225,6 +225,18 @@ echo "Hola, ${MUNDO}"
 ,#+END_SRC
 #+END_SRC
 
+Si el número de parámetros es muy grande insertarlos en línea se
+vuelve complicado, para ello existe la cabecera =#+HEADER:= la cual
+nos permite definir variables que serán utilizadas por el bloque de
+código que le sigue:
+
+#+BEGIN_SRC org
+,#+HEADER: :var MUNDO="emacs"
+,#+BEGIN_SRC sh :dir /etc
+echo "Hola, ${MUNDO}"
+,#+END_SRC
+#+END_SRC
+
 
 ** Org Mode en la vida diaria
 *** Crear un archivo =init.el=
