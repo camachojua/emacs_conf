@@ -165,10 +165,10 @@ evaluados para mostrar su resultado dentro de nuestros archivos
 =.org=, estos bloques son conocidos como *bloques de código* su
 estructura es la siguiente:
 
-#+BEGIN_SRC
+#+BEGIN_SRC org
 #+BEGIN_SRC lenguaje
 codigo
-\#+END_SRC
+#+END_SRC
 #+END_SRC
 
 Para ejecutar el codigo =codigo= que se encuentra escrito en el
@@ -177,10 +177,10 @@ resultado se añadirá en un bloque nuevo llamado =#+RESULTS:=, como
 ejemplo crearemos un bloque de código en =bash= que muestre el
 contenido del directorio =/etc=:
 
-#+BEGIN_SRC
+#+BEGIN_SRC org
 #+BEGIN_SRC sh :dir /etc
 ls
-\#+END_SRC
+#+END_SRC
 #+END_SRC
 
 ** Org Mode en la vida diaria
