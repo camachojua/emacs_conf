@@ -171,5 +171,17 @@ codigo
 #+END_SRC
 #+END_SRC
 
+Para ejecutar el codigo =codigo= que se encuentra escrito en el
+lenguaje =lenguaje= hay que insertar el comando =C-c C-c=, el
+resultado se añadirá en un bloque nuevo llamado =#+RESULTS:=, como
+ejemplo crearemos un bloque de código en =bash= que muestre el
+contenido del directorio =/etc=:
+
+#+BEGIN_SRC org
+#+BEGIN_SRC sh :dir /etc
+ls
+#+END_SRC
+#+END_SRC
+
 ** Org Mode en la vida diaria
 *** Crear un archivo =init.el=
