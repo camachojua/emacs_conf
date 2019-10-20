@@ -58,6 +58,7 @@
                                (java . t)
                                (js . t)
                                (latex . t)
+                               (org . t)
                                (plantuml . t)
                                (python . t)
                                (sass . t)
