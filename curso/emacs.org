@@ -158,5 +158,18 @@ instalada en el sistema.
 **** Hojas de cálculo
 *** Exportación
 *** Agenda
+*** Bloques de código
+
+En =Org Mode= es posible definir bloques de texto que pueden ser
+evaluados para mostrar su resultado dentro de nuestros archivos
+=.org=, estos bloques son conocidos como *bloques de código* su
+estructura es la siguiente:
+
+#+BEGIN_SRC org
+#+BEGIN_SRC lenguaje
+codigo
+#+END_SRC
+#+END_SRC
+
 ** Org Mode en la vida diaria
 *** Crear un archivo =init.el=
