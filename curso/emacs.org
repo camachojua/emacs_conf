@@ -216,5 +216,15 @@ org-babel-default-header-args
 org-babel-default-header-args:<lenguaje>
 #+END_SRC
 
+Cuando se desea insertar el nombre de una variable aleatoria se le
+debe insertar después de la etiqueta =:var=:
+
+#+BEGIN_SRC org
+,#+BEGIN_SRC sh :dir /etc :var MUNDO="emacs"
+echo "Hola, ${MUNDO}"
+,#+END_SRC
+#+END_SRC
+
+
 ** Org Mode en la vida diaria
 *** Crear un archivo =init.el=
