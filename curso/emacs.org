@@ -183,5 +183,20 @@ ls
 ,#+END_SRC
 #+END_SRC
 
+El parámetro =:dir= ejecuta el código sobre el directorio que se
+indica, es tan versátil que no está limitado a directorios locales ya
+que es posible indicar un directorio remoto:
+
+#+BEGIN_SRC org
+,#+BEGIN_SRC sh :dir /registro.fciencias.com:
+hostname -f
+,#+END_SRC
+
+,#+RESULTS:
+,: registro.fciencias.unam.mx
+#+END_SRC
+
+
+
 ** Org Mode en la vida diaria
 *** Crear un archivo =init.el=
