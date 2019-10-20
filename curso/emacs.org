@@ -167,7 +167,7 @@ estructura es la siguiente:
 
 #+BEGIN_SRC org
 ,#+BEGIN_SRC lenguaje
-,codigo
+codigo
 ,#+END_SRC
 #+END_SRC
 
@@ -178,11 +178,9 @@ ejemplo crearemos un bloque de código en =bash= que muestre el
 contenido del directorio =/etc=:
 
 #+BEGIN_SRC org
-
-#+BEGIN_SRC sh :dir /etc
+,#+BEGIN_SRC sh :dir /etc
 ls
-#+END_SRC
-
+,#+END_SRC
 #+END_SRC
 
 ** Org Mode en la vida diaria
