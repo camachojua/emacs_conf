@@ -52,7 +52,7 @@
                                (C . t)
                                (clojure . t)
                                (ditaa . t)
-                               (emacs-lisp)
+                               (emacs-lisp . t)
                                (gnuplot . t)
                                (haskell . t)
                                (java . t)
@@ -82,7 +82,9 @@
         ("CANCELED" . (:foreground "yellow" :weight bold))))
 
 ;; Don't ask for confirmation while evaluating a block
-(setq org-confirm-babel-evaluate nil)
+(setq org-confirm-babel-evaluate nil
+      org-src-fontify-natively t
+      org-src-tab-acts-natively t)
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
 
 ;; Org tables and lists on message mode

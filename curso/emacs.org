@@ -130,6 +130,8 @@ equipos con un procesador de 32 bits el máximo es de aproximadamente
 instalada en el sistema.
 
 *** Modos de edición
+
+
 *** Mini-buffer
 *** Kill-ring
 ** Comandos básicos
