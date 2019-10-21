@@ -151,6 +151,22 @@ instalada en el sistema.
 - Tachado ::  Se inserta rodeando la palabra con el signo de +más+ =+palabra+=.
 
 *** Enlaces
+
+Org permite crear enlaces a diferentes medios de información, los
+enlaces más sencillos son aquellos que apuntan a distintas partes del
+documento, para insertar un enlace basta con poner entre corchetes
+dobles el título de una sección del documento:
+
+#+BEGIN_SRC org
+[[Introducción]]
+#+END_SRC
+
+De esta forma podemos al dar clic en dicho enlace el cursor se
+posicionará en la sección /Introducción/ del documento. El comando de
+emacs que nos ayuda a escribir enlaces más rápido es =C-c C-l= el cual
+nos preguntará qué tipo de enlace queremos crear (a un archivo, URL,
+email, etc.) seguido del texto que hará referencia a ese vínculo.
+
 **** Crear tus propios enlaces
 *** Listas
 **** Lista de cosas por hacer
