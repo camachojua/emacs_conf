@@ -175,7 +175,41 @@ enlazar, como ejemplo se crea un enlace al archivo [[file:../README.md][README]]
 [[file:../README.md][README]]
 #+END_SRC
 
+Es posible crear enlaces a líneas específicas, supongamos que queremos
+crear un enlace a la línea 42 del archivo =README.md= de este
+proyecto, para ello debemos especificar la ruta relativa del archivo y
+después indicar el número de línea a la cual deseamos apuntar, esto
+último se indica con un separador de columna =::=, el enlace completo
+quedará descrito de la siguiente manera:
+
+#+BEGIN_SRC org
+[[file:../README.md::42][Enlace de prueba]]
+#+END_SRC
+
 **** Crear tus propios enlaces
+
+En emacs es fácil crear enlaces a todo tipo de información, como
+ejemplo podemos crear un enlace a un recurso multimedia alojado en
+youtube, para ello debemos editar el archivo =init.el= de emacs y
+crear la función que generará nuestro enlace:
+
+#+BEGIN_SRC emacs-lisp
+  (defun crea-enlace-youtube (youtube-id)
+    (browse-url (concat "https://www.youtube.com/embed/" youtube-id)))
+
+  (org-add-link-type "yt" #'crea-enlace-youtube)
+#+END_SRC
+
+Después de definir ese tipo de enlace evaluamos la función insertando
+el comando =M-x eval-buffer=, con la lista de enlaces actualizados es
+posible insertar un enlace a un vídeo de youtube utilizando el comando
+=C-c C-l yt=:
+
+#+BEGIN_SRC org
+[[yt:55eTdnEqcUo][te alegrará el día]]
+#+END_SRC
+
+
 *** Listas
 **** Lista de cosas por hacer
 *** Tablas
