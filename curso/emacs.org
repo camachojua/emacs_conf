@@ -167,6 +167,14 @@ emacs que nos ayuda a escribir enlaces más rápido es =C-c C-l= el cual
 nos preguntará qué tipo de enlace queremos crear (a un archivo, URL,
 email, etc.) seguido del texto que hará referencia a ese vínculo.
 
+Para crear  un enlace  a otro  documento dentro  del mismo  sistema de
+archivos basta con poner la ruta (absoluta o relativa) del documento a
+enlazar, como ejemplo se crea un enlace al archivo [[file:../README.md][README]] de este proyecto:
+
+#+BEGIN_SRC org
+[[file:../README.md][README]]
+#+END_SRC
+
 **** Crear tus propios enlaces
 *** Listas
 **** Lista de cosas por hacer
