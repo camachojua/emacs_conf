@@ -216,9 +216,70 @@ posible insertar un enlace a un vídeo de youtube utilizando el comando
 [[yt:55eTdnEqcUo][te alegrará el día]]
 #+END_SRC
 
-
 *** Listas
+
+En Org podemos generar diversos tipos de listas para diversas
+situaciones, las más comunes son: listar cosas sin importarnos su
+orden de aparición (listas no ordenadas), listar cosas donde el orden
+sí importa (listas ordenadas), crear lista de cosas por hacer y crear
+sublistas a partir de otras listas. Esta sección nos mostrará maneras
+sencillas de generar diversos tipos de listas que nos serán útiles en
+múltiples escenarios.
+
+El tipo de lista más común es la lista no ordenada, la cual consiste
+en un conjunto de elementos donde el primer caracter puede ser delimitado con: =+=,
+=-=, =coso=. Por ejemplo:
+
+#+BEGIN_SRC org
+  - Primer elemento
+  - Segundo elemento
+  - Tercer elemento
+#+END_SRC
+
+Un elemento de una lista puede contener cualquier tipo de información,
+en particular puede contener otra lista, las sublistas son declaradas
+generando un /nivel de indentación/ mayor al del elemento de la
+sublista al cual pertenecen:
+
+#+BEGIN_SRC org
+  - Primer elemento
+    - Primer subelemento
+    - Segundo subelemento
+    - Tercer subelemento
+#+END_SRC
+
 **** Lista de cosas por hacer
+
+Las listas de cosas por hacer (/todo's/ en inglés) son listas que,
+como su nombre lo indica, muestran cosas por hacer, este tipo de
+listados se caracterizan por ser interactivos: el usuario puede marcar
+qué tareas fueron terminadas y el sistema mostrará el progreso global
+de todas las tareas. Se declaran añadiendo corchetes después del
+símbolo de elemento en una lista =[ ]=:
+
+#+BEGIN_SRC org
+  + [ ] Elemento de una lista de cosas por hacer.
+#+END_SRC
+
+Para poder ver el progreso de un conjunto de tareas la lista debe
+estar definida como parte de una sección del texto, después de definir
+el título de la sección debe insertarse el comando =C-c C-t= para
+insertar automáticamente cabeceras que indican el estado general de
+los trabajos asociados a esta sección (existe un atajo asociado al
+comando =C-S Enter=):
+
+#+BEGIN_SRC org
+  ,* TODO Trabajo súper importante
+
+    + [ ] Primer tarea.
+      + [ ] Subtarea.
+      + [ ] Subtarea.
+    + [ ] Segunda tarea.
+#+END_SRC
+
+
+**** Lista de definiciones
+
 *** Tablas
 **** Hojas de cálculo
 *** Exportación
