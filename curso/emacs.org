@@ -1,4 +1,11 @@
 * Emacs
++ [[Instalación]]
++ [[Iniciando emacs]]
++ [[Definición de conceptos
+]]+ [[Comandos básicos]]
++ [[*Org Mode][Org Mode]]
++ [[Org Mode en la vida diaria
+]]
 ** Instalación
 
 El uso de cualquier programa de cómputo inicia con la instalación del
@@ -294,7 +301,6 @@ código que le sigue:
 echo "Hola, ${MUNDO}"
 ,#+END_SRC
 #+END_SRC
-
 
 ** Org Mode en la vida diaria
 *** Crear un archivo =init.el=
