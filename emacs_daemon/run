@@ -1,0 +1,4 @@
+#!/bin/sh
+export HOME=/home/juan
+cd $HOME
+exec chpst -u juan:juan /usr/bin/emacs --fg-daemon=juan-emacsd 2>&1
