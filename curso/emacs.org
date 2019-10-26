@@ -1,11 +1,11 @@
 * Emacs
 + [[Instalación]]
 + [[Iniciando emacs]]
-+ [[Definición de conceptos
-]]+ [[Comandos básicos]]
++ [[Definición de conceptos]]
++ [[Comandos básicos]]
 + [[*Org Mode][Org Mode]]
-+ [[Org Mode en la vida diaria
-]]
++ [[Org Mode en la vida diaria]]
+
 ** Instalación
 
 El uso de cualquier programa de cómputo inicia con la instalación del
