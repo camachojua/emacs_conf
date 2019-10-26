@@ -309,9 +309,9 @@
   (setq gitlab.user "username")
   (setq gitlab.git.private.domain.com/api/v4.user "username")
   (add-to-list 'forge-alist
-               '("git.private.domain.com"
-                 "git.private.domain.com/api/v4"
-                 "git.private.domain.com"
+               '("gitlab.git.privatedomain.com"
+                 "gitlab.git.privatedomain.com/api/v4"
+                 "gitlab.git.privatedomain.com"
                  forge-gitlab-repository)))
 ;; Ediff settings
  '(ediff-split-window-function (quote split-window-horizontally))
@@ -361,29 +361,40 @@
 ;; IMAP Settings
 (when (not (featurep 'mu4e))
   (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e/"))
-(require 'mu4e)
-(setq mu4e-html2text-command "w3m -T text/html")
-(setq mail-user-agent 'mu4e-user-agent)
-(setq mu4e-drafts-folder "/[Gmail].Borradores")
-(setq mu4e-sent-folder "/[Gmail].Enviados")
-(setq mu4e-trash-folder "/[Gmail].Papelera")
-(setq mu4e-sent-messages-behavior 'delete)
-(setq mu4e-user-mail-address-list (quote ("juancamacho@ciencias.unam.mx")))
-(setq mu4e-view-show-images t)
-(when (fboundp 'imagemagick-register-types)
-               (imagemagick-register-types))
-(setq mu4e-maildir-shortcuts
-      '(("/INBOX" . ?i)
-        ("/[Gmail].Enviados" . ?s)
-        ("/[Gmail].Trash" . ?t)
-        ("/[Gmail].Todos" . ?a)))
-(setq mu4e-get-mail-command "offlineimap")
-(setq
- user-mail-address "juancamacho@ciencias.unam.mx"
- user-full-name "Juan Alberto Camacho Bolaños"
- mu4e-compose-signature
- (concat "¡Saludos!\n"
-         "Juan Alberto Camacho Bolaños"))
+
+(use-package mu4e
+  :defer t
+  :if window-system
+  :load-path "/usr/local/share/emacs/site-lisp/mu4e/"
+  :ensure org-mime
+  :ensure htmlize
+  :ensure mu4e-alert
+  :init
+  (require 'org-mu4e)
+  :config
+  (setq mu4e-html2text-command "w3m -T text/html")
+  (setq mail-user-agent 'mu4e-user-agent)
+  (setq mu4e-drafts-folder "/[Gmail].Borradores")
+  (setq mu4e-sent-folder "/[Gmail].Enviados")
+  (setq mu4e-trash-folder "/[Gmail].Papelera")
+  (setq mu4e-sent-messages-behavior 'delete)
+  (setq mu4e-user-mail-address-list (quote ("juancamacho@ciencias.unam.mx")))
+  (setq mu4e-view-show-images t)
+  (when (fboundp 'imagemagick-register-types)
+    (imagemagick-register-types))
+  (setq mu4e-maildir-shortcuts
+        '(("/INBOX" . ?i)
+          ("/[Gmail].Enviados" . ?s)
+          ("/[Gmail].Trash" . ?t)
+          ("/[Gmail].Todos" . ?a)))
+  (setq mu4e-get-mail-command "offlineimap")
+  (setq
+   user-mail-address "juancamacho@ciencias.unam.mx"
+   user-full-name "Juan Alberto Camacho Bolaños"
+   mu4e-compose-signature
+   (concat "¡Saludos!\n"
+           "Juan Alberto Camacho Bolaños")))
+
   ;; SMTP Settings
 (use-package smtpmail
   :ensure t
@@ -721,7 +732,7 @@
  '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
  '(ivy-use-virtual-buffers t)
  '(package-selected-packages
-   '(emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
+   '(htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
 ;;; init.el ends here
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
