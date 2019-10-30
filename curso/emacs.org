@@ -1,11 +1,11 @@
 * Emacs
 + [[Instalación]]
 + [[Iniciando emacs]]
-+ [[Definición de conceptos
-]]+ [[Comandos básicos]]
++ [[Definición de conceptos]]
++ [[Comandos básicos]]
 + [[*Org Mode][Org Mode]]
-+ [[Org Mode en la vida diaria
-]]
++ [[Org Mode en la vida diaria]]
+
 ** Instalación
 
 El uso de cualquier programa de cómputo inicia con la instalación del
@@ -160,28 +160,9 @@ el soporte para crear tablas, enlaces a las distintas partes del
 archivo, correo electrónico, capacidad para exportar el texto plano en
 múltiples formatos como: html, LaTeX, pdf, markdown, etc.
 
-Org files can include source code blocks, which makes Org uniquely
-suited for authoring technical documents with code examples. Org
-source code blocks are fully functional; they can be evaluated in
-place and their results can be captured in the file. This makes it
-possible to create a single file reproducible research compendium.
-
-Org keeps simple things simple. When first fired up, it should feel
-like a straightforward, easy to use outliner. Complexity is not
-imposed, but a large amount of functionality is available when
-needed. Org is a toolbox. Many users actually run only a—very
-personal—fraction of Org’s capabilities, and know that there is more
-whenever they need it.
-
-All of this is achieved with strictly plain text files, the most
-portable and future-proof file format. Org runs in Emacs. Emacs is one
-of the most widely ported programs, so that Org mode is available on
-every major platform.
-
-There is a website for Org which provides links to the newest version
-of Org, as well as additional information, frequently asked questions
-(FAQ), links to tutorials, etc. This page is located at
-https://orgmode.org.
+Los archivos Org soportan la inclusión de bloques de código fuente,
+permitiendo su evaluación dentro del mismo documento, creando un
+sistema de información interactiva y totalmente reproducible.
 
 *** Estructura de un documento =.org=
 **** Editar la estructura
