@@ -25,7 +25,7 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (global-linum-mode 1)
-(set-frame-font "Cascadia Code 10" nil t)
+(set-frame-font "Cascadia Code 19" nil t)
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 ;; (add-hook 'after-focus-change-function #'garbage-collect)
@@ -269,9 +269,9 @@
 (use-package doom-modeline
   :ensure t
   :init
-  (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
   (setq doom-modeline-height 25)
   (setq doom-modeline-bar-width 3)
+  (setq doom-modeline-project-detection 'project)
   (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
   (setq doom-modeline-icon t)
   (setq doom-modeline-major-mode-icon t)
@@ -288,8 +288,8 @@
   (setq doom-modeline-github-interval (* 30 60))
   (setq doom-modeline-env-version t)
   (setq doom-modeline-mu4e t)
-  :config
-  (doom-modeline-mode t))
+  :hook
+  (after-init . doom-modeline-mode))
 
 ;; Git
 (use-package magit
@@ -297,6 +297,7 @@
   :after ivy
   :init
   (setq magit-completing-read-function 'ivy-completing-read)
+  (setq vc-handled-backends (delq 'Git vc-handled-backends))
   :bind
   (("C-x g" . 'magit-status)
    ("C-x M-g" . 'magit-dispatch)))
@@ -307,7 +308,7 @@
   :after magit
   :config
   (setq gitlab.user "username")
-  (setq gitlab.git.private.domain.com/api/v4.user "username")
+  (setq git.private.domain.com/api/v4.user "username")
   (add-to-list 'forge-alist
                '("git.private.domain.com"
                  "git.private.domain.com/api/v4"
@@ -400,17 +401,14 @@
 ;; Email notifications
 (use-package mu4e-alert
   :ensure t
-  :after mu4e
   :init
   (setq mu4e-alert-interesting-mail-query
-        "flag:unread maildir:/[Gmail]/INBOX"))
-(mu4e-alert-enable-mode-line-display)
-(defun refresh-mu4e-mode-line ()
-  "Para mu4e."
-  (interactive)
-  (mu4e~proc-kill)
+        (concat
+         "flag:unread"
+         " AND NOT flag:trashed"
+         " AND maildir:/[Gmail]/INBOX"))
+  (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
   (mu4e-alert-enable-mode-line-display))
-(run-with-timer 0 60 'refresh-mu4e-mode-line)
 
 ;; Org tables and lists on message mode
 (add-hook 'message-mode-hook 'turn-on-orgtbl)
