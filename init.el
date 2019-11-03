@@ -25,10 +25,16 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (global-linum-mode 1)
-(set-frame-font "Cascadia Code 19" nil t)
+(set-frame-font "Cascadia Code 11" nil t)
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 ;; (add-hook 'after-focus-change-function #'garbage-collect)
+(windmove-default-keybindings)
+(global-set-key (kbd "C-c b")  'windmove-left)
+(global-set-key (kbd "C-c f") 'windmove-right)
+(global-set-key (kbd "C-c p")    'windmove-up)
+(global-set-key (kbd "C-c n")  'windmove-down)
+(setq windmove-wrap-around t)
 
 ;; Enable full screen
 (if (eq window-system 'ns)
