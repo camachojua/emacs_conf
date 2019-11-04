@@ -25,7 +25,7 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (global-linum-mode 1)
-(set-frame-font "Cascadia Code 11" nil t)
+(set-frame-font "Fira Code 11" nil t)
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 ;; (add-hook 'after-focus-change-function #'garbage-collect)
@@ -294,8 +294,18 @@
   (setq doom-modeline-github-interval (* 30 60))
   (setq doom-modeline-env-version t)
   (setq doom-modeline-mu4e t)
+  :config
+  (doom-modeline-def-modeline 'main
+    '(bar workspace-name
+          window-number modals matches buffer-info remote-host
+          buffer-position parrot battery vcs selection-info)
+    '(objed-state misc-info persp-name battery grip irc mu4e github debug lsp minor-modes
+                  input-method indent-info buffer-encoding major-mode process vcs checker))
+  (defun linea-modo ()
+    (doom-modeline-set-modeline 'main 'default))
   :hook
-  (after-init . doom-modeline-mode))
+  (after-init . doom-modeline-mode)
+  (doom-modeline-mode-hook . linea-modo))
 
 ;; Git
 (use-package magit
@@ -316,9 +326,9 @@
   (setq gitlab.user "username")
   (setq git.private.domain.com/api/v4.user "username")
   (add-to-list 'forge-alist
-               '("gitlab.git.privatedomain.com"
-                 "gitlab.git.privatedomain.com/api/v4"
-                 "gitlab.git.privatedomain.com"
+               '("git.private.domain.com"
+                 "git.private.domain.com/api/v4"
+                 "git.private.domain.com"
                  forge-gitlab-repository)))
 ;; Ediff settings
  '(ediff-split-window-function (quote split-window-horizontally))
@@ -736,7 +746,7 @@
  '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
  '(ivy-use-virtual-buffers t)
  '(package-selected-packages
-   '(htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
+   '(xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
 ;;; init.el ends here
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
