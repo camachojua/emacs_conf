@@ -294,18 +294,8 @@
   (setq doom-modeline-github-interval (* 30 60))
   (setq doom-modeline-env-version t)
   (setq doom-modeline-mu4e t)
-  :config
-  (doom-modeline-def-modeline 'main
-    '(bar workspace-name
-          window-number modals matches buffer-info remote-host
-          buffer-position parrot battery vcs selection-info)
-    '(objed-state misc-info persp-name battery grip irc mu4e github debug lsp minor-modes
-                  input-method indent-info buffer-encoding major-mode process vcs checker))
-  (defun linea-modo ()
-    (doom-modeline-set-modeline 'main 'default))
   :hook
-  (after-init . doom-modeline-mode)
-  (doom-modeline-mode-hook . linea-modo))
+  (after-init . doom-modeline-mode))
 
 ;; Git
 (use-package magit
