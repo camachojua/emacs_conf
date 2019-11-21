@@ -25,7 +25,7 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (global-linum-mode 1)
-(set-frame-font "Fira Code 11" nil t)
+(set-frame-font "Cascadia Code 14" nil t)
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 ;; (add-hook 'after-focus-change-function #'garbage-collect)
@@ -297,6 +297,20 @@
   :hook
   (after-init . doom-modeline-mode))
 
+;; Language Server Protocol
+(use-package lsp-mode
+  :ensure t
+  :hook
+  (docker-mode . lsp)
+  (company-mode . lsp)
+  :commands lsp)
+
+(use-package company-lsp
+  :ensure t
+  :after lsp-mode
+  :config
+  (push 'company-lsp company-backends))
+
 ;; Git
 (use-package magit
   :ensure t
@@ -314,11 +328,11 @@
   :after magit
   :config
   (setq gitlab.user "username")
-  (setq git.private.domain.com/api/v4.user "username")
+  (setq git.privatedomain.com/api/v4.user "username")
   (add-to-list 'forge-alist
-               '("git.private.domain.com"
-                 "git.private.domain.com/api/v4"
-                 "git.private.domain.com"
+               '("git.privatedomain.com"
+                 "git.privatedomain.com/api/v4"
+                 "git.privatedomain.com"
                  forge-gitlab-repository)))
 ;; Ediff settings
  '(ediff-split-window-function (quote split-window-horizontally))
@@ -736,7 +750,7 @@
  '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
  '(ivy-use-virtual-buffers t)
  '(package-selected-packages
-   '(xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
+   '(docker-lsp company-lsp lsp-mode lsp htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
 ;;; init.el ends here
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
