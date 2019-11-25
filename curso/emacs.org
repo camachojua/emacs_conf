@@ -22,9 +22,9 @@ sudo apt-get install git
 git clone -b master git://git.sv.gnu.org/emacs.git
 sudo apt-get install build-essential automake texinfo libjpeg-dev libncurses5-dev libtiff5-dev libgif-dev libpng-dev libxpm-dev libgnutls28-dev libmagick++-dev
 cd ~/src/emacs
-./configure --with-x-toolkit=no --without-moudles --with-mailtools --with-imagemagick
-make -j4 -s bootstrap
-sudo make install
+./configure --with-x-toolkit=no --without-moudles --with-mailtools --with-imagemagick --with-jpeg --with-tiff --with-gif --with-png --with-rsvg --with-libotf
+make -j$(nproc) -s bootstrap
+sudo make -j$(nproc) install
 #+END_SRC
 
 La actualización se realiza una vez cada dos semanas, para actualizar
