@@ -46,6 +46,12 @@
 (setq org-directory "~/org")
 (setq org-startup-folded "showall")
 
+;; Org Mode Rest client support
+(use-package ob-restclient
+  :ensure t
+  :defer t
+  :after org-mode)
+
 ;; Asynchronous execution
 (use-package ob-async
   :ensure t
@@ -67,6 +73,7 @@
                                (org . t)
                                (plantuml . t)
                                (python . t)
+                               (restclient . t)
                                (sass . t)
                                (sql . t)
                                (sqlite . t)
@@ -218,6 +225,9 @@
   ((prog-mode . company-mode)
   (LaTeX-mode . company-mode)
   (org-mode . company-mode)))
+
+;; (use-package company-box
+;;   :hook (company-mode . company-box-mode))
 
 (use-package company-emoji
   :ensure t
@@ -734,6 +744,11 @@
   :ensure t
   :after web-mode)
 
+;; REST-client
+(use-package restclient
+  :ensure t
+  :defer t)
+
 ;; Tema
 (use-package chocolate-theme
   :ensure t
@@ -750,7 +765,7 @@
  '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
  '(ivy-use-virtual-buffers t)
  '(package-selected-packages
-   '(docker-lsp company-lsp lsp-mode lsp htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
+   '(ob-restclient restclient docker-lsp company-lsp lsp-mode lsp htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
 ;;; init.el ends here
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
