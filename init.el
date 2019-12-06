@@ -337,8 +337,8 @@
   :defer t
   :after magit
   :config
-  (setq gitlab.user "username")
-  (setq git.privatedomain.com/api/v4.user "username")
+  (setq gitlab.user "camachojua")
+  (setq git.fciencias.unam.mx/api/v4.user "camachojua")
   (add-to-list 'forge-alist
                '("git.privatedomain.com"
                  "git.privatedomain.com/api/v4"
@@ -732,7 +732,7 @@
   :ensure t
   :config
   (setq prettier-js-args '(
-                           "--trailing-comma" "es6"
+                           "--trailing-comma" "es7"
                            "--single-quote" "true"
                            "--print-width" "100"
                           ))
@@ -742,7 +742,9 @@
 ;; Jest mode
 (use-package jest
   :ensure t
-  :after web-mode)
+  :after web-mode
+  :bind
+  (("C-x j" . jest-popup)))
 
 ;; REST-client
 (use-package restclient
