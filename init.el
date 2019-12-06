@@ -313,10 +313,6 @@
 (use-package company-lsp
   :ensure t
   :after lsp-mode
-  :commands
-  (lsp lsp-deferred)
-  :hook
-  (js-mode . lsp-deferred)
   :config
   (push 'company-lsp company-backends))
 
