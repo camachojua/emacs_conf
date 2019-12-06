@@ -25,7 +25,7 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (global-linum-mode 1)
-(set-frame-font "Cascadia Code 14" nil t)
+(set-frame-font "FiraCode 11" nil t)
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 ;; (add-hook 'after-focus-change-function #'garbage-collect)
@@ -35,11 +35,6 @@
 (global-set-key (kbd "C-c p")    'windmove-up)
 (global-set-key (kbd "C-c n")  'windmove-down)
 (setq windmove-wrap-around t)
-
-;; Enable full screen
-(if (eq window-system 'ns)
-    (toggle-frame-maximized)
-  (toggle-frame-fullscreen))
 
 ;; Org-mode setting
 (setq org-startup-indented t)
@@ -318,8 +313,20 @@
 (use-package company-lsp
   :ensure t
   :after lsp-mode
+  :commands
+  (lsp lsp-deferred)
+  :hook
+  (js-mode . lsp-deferred)
   :config
   (push 'company-lsp company-backends))
+
+(defun js-config-hooks ()
+  (add-hook 'js-mode-hook (lambda () (setq indent-line-function 'insert-tab)))
+  (add-hook 'js-mode-hook (lambda () (setq indent-tabs-mode nil)))
+  (add-hook 'js-mode-hook (lambda () (setq tab-width 2)))
+  (add-hook 'before-save-hook #'lsp-format-buffer t t)
+  (add-hook 'before-save-hook #'lsp-organize-imports t t))
+(add-hook 'js-mode-hook #'js-config-hooks)
 
 ;; Git
 (use-package magit
@@ -337,8 +344,8 @@
   :defer t
   :after magit
   :config
-  (setq gitlab.user "camachojua")
-  (setq git.fciencias.unam.mx/api/v4.user "camachojua")
+  (setq gitlab.user "username")
+  (setq git.privatedomain.com/api/v4.user "username")
   (add-to-list 'forge-alist
                '("git.privatedomain.com"
                  "git.privatedomain.com/api/v4"
@@ -614,65 +621,6 @@
   :ensure t
   :mode "\\Dockerfile\\'")
 
-;; Web-mode settings
-(use-package web-mode
-  :ensure t
-  :defer t
-  :init
-  (setq web-mode-code-indent-offset 4)
-  (setq web-mode-indent-style 4)
-  (setq web-mode-enable-current-column-highlight t)
-  (setq web-mode-ac-sources-alist
-	'(("css" . (ac-source-css-property))
-	  ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
-  (setq web-mode-engines-alist
-	'(("php" . "\\.phtml\\'")
-	  ("blade" . "\\.blade\\.")
-          ("json" . "\\.api\\'")
-          ("xml"  . "\\.api\\'")
-          ("jsx"  . "\\.js[x]?\\'")))
-  (add-to-list 'auto-mode-alist '("\\.api\\'" . web-mode))
-  (setq-default indent-tabs-mode nil)
-  (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
-  (defadvice web-mode-highlight-part (around tweak-jsx activate)
-    (if (equal web-mode-content-type "jsx")
-        (let ((web-mode-enable-part-face nil))
-          ad-do-it)
-      ad-do-it))
-  :config
-  (define-key web-mode-map (kbd "C-t t") 'phpunit-current-test)
-  (define-key web-mode-map (kbd "C-t c") 'phpunit-current-class)
-  (define-key web-mode-map (kbd "C-t p") 'phpunit-current-project))
-
-(use-package phpunit
-  :ensure t
-  :defer t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.php$'" . phpunit-mode)))
-
-(defun php-company-hook()
-  "Company-mode hook for php."
-
-  (use-package company-php
-    :ensure t
-    :defer t
-    :init
-    (add-to-list 'company-backends 'company-ac-php-backend)
-    :config
-    (company-mode t)
-    (ac-php-core-eldoc-setup)
-    (make-local-variable 'company-backends)))
-
-(use-package php-mode
-  :ensure t
-  :defer t
-  :bind
-  (("M-." . ac-php-find-symbol-at-point)
-   ("M-," . ac-php-location-stack-back))
-  :config
-  (add-hook 'php-mode-hook 'php-company-hook))
-
 ;; Flycheck
 (use-package flycheck
   :ensure t
@@ -683,50 +631,13 @@
       '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))))
   (add-hook 'js-mode-hook
             (lambda () (flycheck-mode t))))
-
-(flycheck-define-checker jsxhint-checker
-  "A JSX syntax and style checker based on JSXHint."
-
-  :command ("jsxhint" source)
-  :error-patterns
-  ((error line-start
-          (1+ nonl) ": line " line ", col " column ", " (message) line-end))
-  :modes (web-mode))
-(add-hook 'web-mode-hook
-          (lambda ()
-            (when (equal web-mode-content-type "jsx")
-              ;; enable flycheck
-              (flycheck-select-checker 'jsxhint-checker)
-              (flycheck-mode))))
-
-;; rjsx mode
-(use-package rjsx-mode
-  :ensure t
-  :config
-  (add-to-list 'auto-mode-alist '("\\/.*\\.js\\'" . rjsx-mode))
-  (add-to-list 'auto-mode-alist '("containers\\/.*\\.js\\'" . rjsx-mode))
-  (add-to-list 'auto-mode-alist '("components\\/.*\\.js\\'" . rjsx-mode))
-  (add-hook 'rjsx-mode-hook
-            (lambda ()
-              (setq indent-tabs-mode nil)
-              (setq js-indent-level 2)
-              (setq js2-strict-missing-semi-warning nil))))
-
-(defun js-jsx-indent-line-align-closing-bracket ()
-  "Workaround 'sgml-mode' and align closing bracket with opening bracket."
-  (save-excursion
-    (beginning-of-line)
-    (when (looking-at-p "^ +\/?> *$")
-      (delete-char sgml-basic-offset))))
-(advice-add #'js-jsx-indent-line
-            :after
-            #'js-jsx-indent-line-align-closing-bracket)
-
+;; js2-refactor
 (use-package js2-refactor
     :ensure t
     :config
     (js2r-add-keybindings-with-prefix "C-c C-m")
-    (add-hook 'js2-mode-hook 'js2-refactor-mode))
+    :hook
+    (js-mode . js2-refactor-mode))
 
 (use-package prettier-js
   :ensure t
@@ -736,13 +647,13 @@
                            "--single-quote" "true"
                            "--print-width" "100"
                           ))
-  (add-hook 'js2-mode-hook 'prettier-js-mode)
-  (add-hook 'rjsx-mode-hook 'prettier-js-mode))
+  :hook
+  (js-mode . prettier-js-mode))
 
 ;; Jest mode
 (use-package jest
   :ensure t
-  :after web-mode
+  :after js-mode
   :bind
   (("C-x j" . jest-popup)))
 
@@ -767,7 +678,7 @@
  '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
  '(ivy-use-virtual-buffers t)
  '(package-selected-packages
-   '(ob-restclient restclient docker-lsp company-lsp lsp-mode lsp htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
+   '(company-lsp lsp-mode ob-restclient jade-mode org-pretty-table org-bullets xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
 ;;; init.el ends here
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
