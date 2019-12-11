@@ -79,8 +79,9 @@
 
 (use-package org-bullets
   :ensure t
-  :custom (org-bullets-bullet-list '(":diamonds:", ":one:", ":two:", ":three:", ":four:", ":five:"))
-  :hook (org-mode . org-bullets-mode))
+  :hook
+  (org-mode . org-bullets-mode))
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 ;; Establish the TODO keywords
 (setq org-todo-keyword-faces
@@ -333,11 +334,23 @@
   :hook
   (docker-mode . lsp)
   (company-mode . lsp)
-  :commands lsp)
+  :commands lsp
+  :custom
+  (lsp-print-io nil)
+  (lsp-trace nil)
+  (lsp-print-performance nil)
+  (lsp-auto-guess-root t)
+  (lsp-document-sync-method 'incremental)
+  (lsp-response-timeout 5)
+  (lsp-enable-completion-at-point nil))
 
 (use-package company-lsp
   :ensure t
   :after lsp-mode
+  :custom
+  (company-lsp-cache-candidates t)
+  (company-lsp-async t)
+  (company-lsp-enable-recompletion nil )
   :config
   (push 'company-lsp company-backends))
 
