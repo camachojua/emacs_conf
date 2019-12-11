@@ -89,8 +89,13 @@
 	("DONE") . (:foreground "#6272a4" :background "#373844" :weight bold)))
 
 ;; Configuration inside org files
-(setq org-link ((t (:foreground "#ebe087" :underline t))))
-(setq org-list-dt ((t (:foreground "#bd93f9"))))
+(setq org-link '((:foreground "#ebe087" :underline t)))
+(setq org-list-dt '((:foreground "#bd93f9")))
+(setq org-special-keyword '((:foreground "#6272a4")))
+(setq org-todo '((:background "#272934" :foreground "#51fa7b" :weight bold)))
+(setq org-document-title '((:foreground "#f1fa8c" :weight bold)))
+(setq org-done '((:background "#373844" :foreground "#215933" :strike-trough nil :weight bold)))
+(setq org-footnote '((:foreground "#76e0f3")))
 
 ;; Don't ask for confirmation while evaluating a block
 (setq org-confirm-babel-evaluate nil
@@ -109,6 +114,17 @@
       '(("t" "todo" entry
          (file+headline "~/todo.org" "Tasks")
          "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")))
+
+;; Visual lines for indentation
+(use-package highlight-indent-guides
+  :ensure t
+  :diminish
+  :hook
+  ((elisp-mode dockerfile-mode js-mode prog-mode yaml-mode) . highlight-indent-guides-mode)
+  :custom
+  (highlight-indent-guides-auto-enabled t)
+  (highlight-indent-guides-responsive t)
+  (highlight-indent-guides-method 'character))
 
 ;; Eshell goodies
 (setq eshell-prompt-regexp "^[^αλ\n]*[αλ] ")
@@ -686,14 +702,24 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
+ '(doom-modeline-buffer-file-name 'truncate-with-project t)
+ '(doom-themes-enable-bold t)
+ '(doom-themes-enable-italic t)
  '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
  '(ivy-use-virtual-buffers t)
+ '(org-bullets-bullet-list
+   '(":diamonds:"
+     (\, ":one:")
+     (\, ":two:")
+     (\, ":three:")
+     (\, ":four:")
+     (\, ":five:")))
  '(package-selected-packages
-   '(doom-themes company-lsp lsp-mode ob-restclient jade-mode org-pretty-table org-bullets xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
+   '(highlight-indent-guides doom-themes company-lsp lsp-mode ob-restclient jade-mode org-pretty-table org-bullets xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
 ;;; init.el ends here
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(doom-modeline-bar ((t (:background "#6272a4")))))
