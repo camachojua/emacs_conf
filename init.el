@@ -77,18 +77,20 @@
 (setq org-ditaa-jar-path "/usr/bin/ditaa")
 (setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
 
+(use-package org-bullets
+  :ensure t
+  :custom (org-bullets-bullet-list '(":diamonds:", ":one:", ":two:", ":three:", ":four:", ":five:"))
+  :hook (org-mode . org-bullets-mode))
+
 ;; Establish the TODO keywords
-(setq org-todo-keywords
-      '((sequence "REPORT" "BUG" "KNOWCAUSE" "|" "FIXED")
-        (sequence "TODO" "|" "DOING" "DONE" "CANCELED")))
 (setq org-todo-keyword-faces
-      '(("TODO" . (:foreground "cyan" :weight bold))
-        ("BUG" . (:foreground "purple" :weight bold))
-        ("REPORT" . (:foreground "white" :weight bold))
-        ("FIXED" . (:foreground "green" :weight bold))
-        ("DOING" . (:foreground "orange" :weight bold))
-        (("DONE") . (:foreground "green" :weight bold))
-        ("CANCELED" . (:foreground "yellow" :weight bold))))
+      '(("TODO" . (:foreground "#6272a4" :weight bold))
+	("DOING" . (:foreground "#f1fa8c" :weight bold))
+	("DONE") . (:foreground "#6272a4" :background "#373844" :weight bold)))
+
+;; Configuration inside org files
+(setq org-link ((t (:foreground "#ebe087" :underline t))))
+(setq org-list-dt ((t (:foreground "#bd93f9"))))
 
 ;; Don't ask for confirmation while evaluating a block
 (setq org-confirm-babel-evaluate nil
@@ -278,6 +280,8 @@
 
 ;; Doom mode-line
 (use-package doom-modeline
+  :custom
+  (doom-modeline-buffer-file-name 'truncate-with-project)
   :ensure t
   :init
   (setq doom-modeline-height 25)
@@ -664,11 +668,17 @@
   :defer t)
 
 ;; Tema
-(use-package chocolate-theme
+(use-package doom-themes
   :ensure t
-  :defer t
-  :init
-  (load-theme 'chocolate t))
+  :custom
+  (doom-themes-enable-italic t)
+  (doom-themes-enable-bold t)
+  :custom-face
+  (doom-modeline-bar ((t (:background "#6272a4"))))
+  :config
+  (load-theme 'doom-dracula t)
+  (doom-themes-neotree-config)
+  (doom-themes-org-config))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -679,7 +689,7 @@
  '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
  '(ivy-use-virtual-buffers t)
  '(package-selected-packages
-   '(docker company-lsp lsp-mode ob-restclient jade-mode org-pretty-table org-bullets xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
+   '(doom-themes company-lsp lsp-mode ob-restclient jade-mode org-pretty-table org-bullets xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
 ;;; init.el ends here
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
