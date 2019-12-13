@@ -705,6 +705,7 @@
   :custom-face
   (doom-modeline-bar ((t (:background "#6272a4"))))
   :config
+  (doom-themes-visual-bell-config)
   (load-theme 'doom-dracula t)
   (doom-themes-neotree-config)
   (doom-themes-org-config))
