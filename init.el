@@ -328,6 +328,11 @@
   :ensure t
   :bind("C-c d" . docker))
 
+;; Docker tramp
+(use-package docker-tramp
+  :ensure t
+  :defer t)
+
 ;; Language Server Protocol
 (use-package lsp-mode
   :ensure t
