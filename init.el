@@ -267,7 +267,7 @@
   :defer t
   :hook (after-init . yas-global-mode)
   :config
-  (yas-load-directory "~/.emacs.d/snippets/")
+  (yas-load-directory "./snippets/")
   (add-hook 'prog-mode-hook 'yas-minor-mode)
   (yas-global-mode t))
 ;; YAML mode
@@ -715,11 +715,24 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
+ '(company-lsp-async t)
+ '(company-lsp-cache-candidates t)
+ '(company-lsp-enable-recompletion nil)
  '(doom-modeline-buffer-file-name 'truncate-with-project t)
  '(doom-themes-enable-bold t)
  '(doom-themes-enable-italic t)
  '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
+ '(highlight-indent-guides-auto-enabled t)
+ '(highlight-indent-guides-method 'character)
+ '(highlight-indent-guides-responsive t)
  '(ivy-use-virtual-buffers t)
+ '(lsp-auto-guess-root t)
+ '(lsp-document-sync-method 'incremental)
+ '(lsp-enable-completion-at-point nil)
+ '(lsp-print-io nil)
+ '(lsp-print-performance nil)
+ '(lsp-response-timeout 5)
+ '(lsp-trace nil t)
  '(org-bullets-bullet-list
    '(":diamonds:"
      (\, ":one:")
