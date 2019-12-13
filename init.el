@@ -267,7 +267,7 @@
   :defer t
   :hook (after-init . yas-global-mode)
   :config
-  (yas-load-directory "./snippets/")
+  (yas-load-directory (expand-file-name "snippets" user-emacs-directory))
   (add-hook 'prog-mode-hook 'yas-minor-mode)
   (yas-global-mode t))
 ;; YAML mode
@@ -378,12 +378,12 @@
   :defer t
   :after magit
   :config
-  (setq gitlab.user "username")
-  (setq git.privatedomain.com/api/v4.user "username")
+  (setq gitlab.user "camachojua")
+  (setq git.fciencias.unam.mx/api/v4.user "camachojua")
   (add-to-list 'forge-alist
-               '("git.privatedomain.com"
-                 "git.privatedomain.com/api/v4"
-                 "git.privatedomain.com"
+               '("git.fciencias.unam.mx"
+                 "git.fciencias.unam.mx/api/v4"
+                 "git.fciencias.unam.mx"
                  forge-gitlab-repository)))
 ;; Ediff settings
  '(ediff-split-window-function (quote split-window-horizontally))
