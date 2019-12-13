@@ -332,9 +332,10 @@
 (use-package lsp-mode
   :ensure t
   :hook
-  (docker-mode . lsp)
-  (company-mode . lsp)
-  :commands lsp
+  (js-mode . lsp-deferred)
+  (docker-mode . lsp-deferred)
+  (company-mode . lsp-deferred)
+  :commands (lsp lsp-deferred)
   :custom
   (lsp-print-io nil)
   (lsp-trace nil)
