@@ -359,6 +359,9 @@
   :ensure t
   :defer t
   :after lsp-mode
+  :hook
+  (lsp-mode . lsp-ui-mode)
+  (js-mode . flycheck-mode)
   :commands lsp-ui-mode)
 
 (defun js-config-hooks ()
