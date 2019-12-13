@@ -354,6 +354,12 @@
   :config
   (push 'company-lsp company-backends))
 
+(use-package lsp-ui
+  :ensure t
+  :defer t
+  :after lsp-mode
+  :commands lsp-ui-mode)
+
 (defun js-config-hooks ()
   (add-hook 'js-mode-hook (lambda () (setq indent-line-function 'insert-tab)))
   (add-hook 'js-mode-hook (lambda () (setq indent-tabs-mode nil)))
@@ -730,6 +736,7 @@
  '(lsp-auto-guess-root t)
  '(lsp-document-sync-method 'incremental)
  '(lsp-enable-completion-at-point nil)
+ '(lsp-log-io nil)
  '(lsp-print-io nil)
  '(lsp-print-performance nil)
  '(lsp-response-timeout 5)
@@ -742,7 +749,7 @@
      (\, ":four:")
      (\, ":five:")))
  '(package-selected-packages
-   '(highlight-indent-guides doom-themes company-lsp lsp-mode ob-restclient jade-mode org-pretty-table org-bullets xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
+   '(lsp-ui highlight-indent-guides doom-themes company-lsp lsp-mode ob-restclient jade-mode org-pretty-table org-bullets xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
 ;;; init.el ends here
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
