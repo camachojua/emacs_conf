@@ -46,6 +46,54 @@ Si bien en este punto ya se instaló emacs, es necesario instalar el
 soporte para el cliente de correo, para ello es necesario realizar los
 siguientes pasos:
 
++ Instalar =offlineimap= para poder conectarnos a un servidor de correo:
+
+  #+begin_src sh
+    sudo apt install offlineimap
+  #+end_src
+
+  Crear el archivo =~/.offlineimaprc= que contendrá los parámetros de conexión.
+
+  #+begin_src sh
+    [general]
+    accounts = Gmail
+    maxsyncaccounts = 3
+
+    [Account Gmail]
+    localrepository = Local
+    remoterepository = Remote
+    autorefresh = 5
+    quick = 10
+    postsynchook = mu index --maildir ~/Maildir
+
+    [Repository Local]
+    type = Maildir
+    localfolders = ~/Maildir
+
+    [Repository Remote]
+    type = IMAP
+    remotehost = imap.gmail.com
+    remoteuser = usuer@prepaenlinea.mx
+    remotepass = mysecretpassword
+    postsynchook = mu index --maildir ~/Maildir
+    ssl = yes
+    maxconnections = 1
+    sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+    folderfilter = lambda foldername: foldername in ['INBOX', 'Sent', '[Gmail]/INBOX', '[Gmail]/Sent', '[Gmail].Enviados']
+  #+end_src
+
+  Con la configuración establecida, es momento de probar la
+  conectividad con el servidor (esto puede tardar unos minutos,
+  dependiendo del número de mensajes que tenga la cuenta):
+
+  #+begin_src sh
+    offlineimap
+  #+end_src
+
+  Debemos esperar a que aparezca un mensaje similar a =***** Finished
+  processing account Gmail= Con la configuración correcta podemos
+  proceder a instalar =mu=
+
 #+begin_src sh
   cd ~/src
   git clone https://github.com/djcb/mu.git
@@ -55,6 +103,8 @@ siguientes pasos:
   make -j$(nproc) -s
   sudo make -j$(nproc) -s install
 #+end_src
+
+
 
 *** Instalación vía un administrador de paquetes
 
