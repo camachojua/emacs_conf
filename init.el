@@ -390,16 +390,32 @@
 ;; Github specific configuration
 (use-package forge
   :ensure t
-  :defer t
-  :after magit
   :config
+  (setq ghub-use-workaround-for-emacs-bug nil)
   (setq gitlab.user "camachojua")
   (setq git.fciencias.unam.mx/api/v4.user "camachojua")
   (add-to-list 'forge-alist
                '("git.fciencias.unam.mx"
                  "git.fciencias.unam.mx/api/v4"
                  "git.fciencias.unam.mx"
-                 forge-gitlab-repository)))
+                 forge-gitlab-repository))
+  (defun forge-create-secret-auth ()
+    "Prompts for and creates the git forge secret. Mostly for gitlab"
+    (interactive)
+    (let*
+	((repo (forge-get-repository 'full))
+	 (host (oref repo apihost))
+	 (username (ghub--username host 'gitlab))
+	 (user (concat username "^forge"))
+	 token)
+      (setq token (read-passwd (format "Enter your token for %s @ %s: " username host)))
+      (ghub-clear-caches)
+      (auth-source-forget-all-cached)
+      (secrets-create-item
+       "Login" (format "%s @ %s" user host)
+       token
+       :host host
+       :user user))))
 ;; Ediff settings
  '(ediff-split-window-function (quote split-window-horizontally))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
