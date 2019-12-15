@@ -104,7 +104,11 @@ siguientes pasos:
   sudo make -j$(nproc) -s install
 #+end_src
 
+Por último se deben indexar los mensajes:
 
+#+begin_src sh
+  mu index
+#+end_src
 
 *** Instalación vía un administrador de paquetes
 
