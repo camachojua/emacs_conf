@@ -49,7 +49,8 @@ siguientes pasos:
 + Instalar =offlineimap= para poder conectarnos a un servidor de correo:
 
   #+begin_src sh
-    sudo apt install offlineimap
+    sudo apt install offlineimap guile-2.0-dev html2text xdg-utils
+    libgmime-3.0-dev libxapian-dev
   #+end_src
 
   Crear el archivo =~/.offlineimaprc= que contendrá los parámetros de conexión.
