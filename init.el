@@ -334,40 +334,40 @@
   :defer t)
 
 ;; Language Server Protocol
-(use-package lsp-mode
-  :ensure t
-  :hook
-  (js-mode . lsp-deferred)
-  (docker-mode . lsp-deferred)
-  (company-mode . lsp-deferred)
-  :commands (lsp lsp-deferred)
-  :custom
-  (lsp-print-io nil)
-  (lsp-trace nil)
-  (lsp-print-performance nil)
-  (lsp-auto-guess-root t)
-  (lsp-document-sync-method 'incremental)
-  (lsp-response-timeout 5)
-  (lsp-enable-completion-at-point nil))
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :hook
+;;   (js-mode . lsp-deferred)
+;;   (docker-mode . lsp-deferred)
+;;   (company-mode . lsp-deferred)
+;;   :commands (lsp lsp-deferred)
+;;   :custom
+;;   (lsp-print-io nil)
+;;   (lsp-trace nil)
+;;   (lsp-print-performance nil)
+;;   (lsp-auto-guess-root t)
+;;   (lsp-document-sync-method 'incremental)
+;;   (lsp-response-timeout 5)
+;;   (lsp-enable-completion-at-point nil))
 
-(use-package company-lsp
-  :ensure t
-  :after lsp-mode
-  :custom
-  (company-lsp-cache-candidates t)
-  (company-lsp-async t)
-  (company-lsp-enable-recompletion nil )
-  :config
-  (push 'company-lsp company-backends))
+;; (use-package company-lsp
+;;   :ensure t
+;;   :after lsp-mode
+;;   :custom
+;;   (company-lsp-cache-candidates t)
+;;   (company-lsp-async t)
+;;   (company-lsp-enable-recompletion nil )
+;;   :config
+;;   (push 'company-lsp company-backends))
 
-(use-package lsp-ui
-  :ensure t
-  :defer t
-  :after lsp-mode
-  :hook
-  (lsp-mode . lsp-ui-mode)
-  (js-mode . flycheck-mode)
-  :commands lsp-ui-mode)
+;; (use-package lsp-ui
+;;   :ensure t
+;;   :defer t
+;;   :after lsp-mode
+;;   :hook
+;;   (lsp-mode . lsp-ui-mode)
+;;   (js-mode . flycheck-mode)
+;;   :commands lsp-ui-mode)
 
 (defun js-config-hooks ()
   (add-hook 'js-mode-hook (lambda () (setq indent-line-function 'insert-tab)))
