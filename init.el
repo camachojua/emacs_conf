@@ -490,6 +490,7 @@
   :ensure t
   :defer t
   :after mu4e)
+
 ;; IMAP Settings
 (when (not (featurep 'mu4e))
   (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e/"))
