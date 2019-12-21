@@ -79,6 +79,8 @@
 
 (use-package org-bullets
   :ensure t
+  :config
+  (setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸"))
   :hook
   (org-mode . org-bullets-mode))
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
