@@ -261,6 +261,8 @@
    (magit-log-mode . emojify-mode)))
 
 ;; YASnippet
+(if (not (file-directory-p (expand-file-name "snippets" user-emacs-directory)))
+    (mkdir (expand-file-name "snippets" user-emacs-directory)))
 (use-package yasnippet
   :ensure t
   :after ivy
