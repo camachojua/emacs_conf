@@ -161,9 +161,12 @@
 ;; Text style
 (use-package whitespace
   :ensure t
+  :defer t
   :init
   (setq whitespace-line-column 80)
   (setq whitespace-style '(face-lines-tail))
+  :hook
+  (org-mode . whitespace-mode)
   :config
   (add-hook 'prog-mode-hook 'whitespace-mode)
   (add-hook 'arduino-mode-hook 'whitespace-mode))
@@ -177,17 +180,22 @@
 
 (use-package rainbow-mode
   :ensure t
+  :after prog-mode
+  :defer t
   :config
   (add-hook 'prog-mode-hook 'rainbow-mode))
 
 (use-package rainbow-delimiters
   :ensure t
+  :after prog-mode
+  :defer t
   :config
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 ;; Emoji support
 (use-package emojify
   :ensure t
+  :defer t
   :init
   (add-hook 'after-init-hook #'global-emojify-mode))
 
@@ -210,16 +218,19 @@
 (use-package counsel
   :ensure t
   :after ivy
+  :defer t
   :config (counsel-mode t))
 
 (use-package swiper
   :after ivy
+  :defer t
   :bind (("C-s" . swiper)
          ("C-r" . swiper)))
 
 (use-package projectile
   :ensure t
   :after ivy
+  :defer t
   :init
   (setq projectile-completion-system 'ivy)
   :bind
@@ -229,6 +240,7 @@
 
 (use-package company
   :ensure t
+  :defer t
   :diminish
   :config
   :config
@@ -238,6 +250,8 @@
 
   (use-package company-go
     :ensure t
+    :after company
+    :defer t
     :config
     (add-to-list 'company-backends 'company-go))
   :hook
@@ -251,6 +265,7 @@
 (use-package company-emoji
   :ensure t
   :after company
+  :defer t
   :hook
   ((markdown-mode . company-mode)
    (git-commit-mode . company-mode))
@@ -259,6 +274,7 @@
 
 (use-package emojify
   :ensure t
+  :defer t
   :hook
   ((markdown-mode . emojify-mode)
    (git-commit-mode . emojify-mode)
@@ -284,6 +300,7 @@
 ;; ReactJS Settings
 (use-package react-snippets
   :ensure t
+  :defer t
   :after yasnippet)
 
 ;; Icons for various modes
@@ -291,6 +308,7 @@
 
 (use-package all-the-icons-ivy
   :ensure t
+  :defer t
   :after (all-the-icons ivy)
   :custom (all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
   :config
@@ -300,6 +318,7 @@
 
 (use-package all-the-icons-dired
   :ensure t
+  :defer t
   :hook (dired-mode . all-the-icons-dired-mode))
 
 ;; Doom mode-line
@@ -333,6 +352,7 @@
 ;; Docker support
 (use-package docker
   :ensure t
+  :defer t
   :bind("C-c d" . docker))
 
 ;; Docker tramp
@@ -388,6 +408,7 @@
 (use-package magit
   :ensure t
   :after ivy
+  :defer t
   :init
   (setq magit-completing-read-function 'ivy-completing-read)
   (setq vc-handled-backends (delq 'Git vc-handled-backends))
@@ -397,6 +418,7 @@
 ;; Github specific configuration
 (use-package forge
   :ensure t
+  :defer t
   :config
   (setq ghub-use-workaround-for-emacs-bug nil)
   (setq gitlab.user "camachojua")
