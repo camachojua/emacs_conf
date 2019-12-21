@@ -87,7 +87,7 @@
 (setq org-todo-keyword-faces
       '(("TODO" . (:foreground "#6272a4" :weight bold))
 	("DOING" . (:foreground "#f1fa8c" :weight bold))
-	("DONE") . (:foreground "#6272a4" :background "#373844" :weight bold)))
+	("DONE" . (:foreground "#6272a4" :background "#373844" :weight bold))))
 
 ;; Configuration inside org files
 (setq org-link '((:foreground "#ebe087" :underline t)))
