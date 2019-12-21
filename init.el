@@ -531,6 +531,7 @@
 (use-package smtpmail
   :ensure t
   :after mu4e
+  :defer t
   :config
   (setq message-send-mail-function 'smtpmail-send-it
         starttls-use-gnutls t
@@ -543,6 +544,7 @@
 ;; Email notifications
 (use-package mu4e-alert
   :ensure t
+  :defer t
   :init
   (setq mu4e-alert-interesting-mail-query
         (concat
@@ -571,26 +573,31 @@
 ;; Alerts
 (use-package alert
   :ensure t
+  :defer t
   :commands (alert)
   :init
   (setq alert-default-style 'notifier))
 
 ;; Circe IRC client
 (use-package circe
-  :ensure t)
+  :ensure t
+  :defer t)
 
 ;; Easy HTTP requests
 (use-package request
-  :ensure t)
+  :ensure t
+  :defer t)
 
 ;; Websocket
 (use-package websocket
-  :ensure t)
+  :ensure t
+  :defer t)
 
 
 ;; Document rendering
 (use-package pdf-tools
   :ensure t
+  :defer t
   :init
   (setq-default pdf-view-display-size 'fit-page)
   (setq pdf-annot-activate-created-annotations t)
@@ -649,11 +656,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; YAML mode
 (use-package yaml-mode
-  :ensure t)
+  :ensure t
+  :defer t)
 
 ;; Pug mode
 (use-package pug-mode
-  :ensure t)
+  :ensure t
+  :defer t)
 
 ;; Clojure mode settings
 (use-package clojure-mode
@@ -686,38 +695,27 @@
   :ensure t
   :defer t)
 
-;; Alerts
-(use-package alert
-  :ensure t
-  :commands (alert)
-  :init
-  (setq alert-default-style 'notifier))
-
-;; Circe IRC client
-(use-package circe
-  :ensure t)
-
-;; Websocket
-(use-package websocket
-  :ensure t)
-
 ;; ReactJS Settings
 (use-package react-snippets
   :ensure t
-  :after yasnippet)
+  :after yasnippet
+  :defer t)
 
 ;; JSON support
 (use-package json-mode
-  :ensure t)
+  :ensure t
+  :defer t)
 
 ;; Dockerfile mode
 (use-package dockerfile-mode
   :ensure t
-  :mode "\\Dockerfile\\'")
+  :mode "\\Dockerfile\\'"
+  :defer t)
 
 ;; Flycheck
 (use-package flycheck
   :ensure t
+  :defer t
   :config
   (add-hook 'after-init-hook #'global-flycheck-mode)
   (eval-after-load 'flycheck
@@ -727,20 +725,23 @@
             (lambda () (flycheck-mode t))))
 ;; js2-refactor
 (use-package js2-refactor
-    :ensure t
-    :config
-    (js2r-add-keybindings-with-prefix "C-c C-m")
-    :hook
-    (js-mode . js2-refactor-mode))
+  :ensure t
+  :after js-mode
+  :defer t
+  :config
+  (js2r-add-keybindings-with-prefix "C-c C-m")
+  :hook
+  (js-mode . js2-refactor-mode))
 
 (use-package prettier-js
   :ensure t
+  :after js-mode
+  :defer t
   :config
-  (setq prettier-js-args '(
-                           "--trailing-comma" "es7"
-                           "--single-quote" "true"
-                           "--print-width" "100"
-                          ))
+  (setq prettier-js-args
+	'("--trailing-comma" "es7"
+          "--single-quote" "true"
+          "--print-width" "100"))
   :hook
   (js-mode . prettier-js-mode))
 
@@ -748,6 +749,7 @@
 (use-package jest
   :ensure t
   :after js-mode
+  :defer t
   :bind
   (("C-x j" . jest-popup)))
 
