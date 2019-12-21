@@ -79,6 +79,8 @@
 
 (use-package org-bullets
   :ensure t
+  :after org-mode
+  :defer t
   :config
   (setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸"))
   :hook
@@ -121,9 +123,10 @@
 ;; Visual lines for indentation
 (use-package highlight-indent-guides
   :ensure t
+  :defer t
   :diminish
   :hook
-  ((elisp-mode dockerfile-mode js-mode prog-mode yaml-mode) . highlight-indent-guides-mode)
+  ((elisp-mode dockerfile-mode js-mode prog-mode yaml-mode json-mode) . highlight-indent-guides-mode)
   :custom
   (highlight-indent-guides-auto-enabled t)
   (highlight-indent-guides-responsive t)
