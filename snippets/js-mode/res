@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: res
+# key: response
+# --
+res.status($1).json($0)
