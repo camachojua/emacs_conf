@@ -8,53 +8,90 @@
 
 ** Instalación
 
-El uso de cualquier programa de cómputo inicia con la instalación del
-mismo, en este caso instalaremos la versión más nueva de emacs, pero
-no será una instalación cualquiera, nosotros *compilaremos* emacs para
-que corra lo más rápido en nuestra máquina. Para ello debemos ejecutar
-las siguientes instrucciones en una terminal.
+*** Compilación e instalación de emacs
+**** Instar las dependencias necesarias
 
-#+BEGIN_SRC sh
+Emacs es un programa muy extenso y necesita de distintas bibliotecas
+para poder ser compilado correctamente, a continuación se encuentra la
+lista de dependencias necesarias:
+
+#+begin_src sh
+  sudo apt-get install build-essential automake texinfo libjpeg-dev libncurses5-dev libtiff5-dev libgif-dev libpng-dev libxpm-dev libgnutls28-dev libmagick++-dev libgtk-3-dev build-essential git fonts-symbola fonts-firacode automake g++ gcc libpng-dev libpoppler-dev libpoppler-glib-dev libpoppler-private-dev libz-dev make pkg-config
+#+end_src
+
+El siguiente paso es descargar una copia del código fuente de emacs,
+configurar los archivos de compilación, compilar emacs y por último
+instalarlo en el sistema, el siguiente bloque de código contiene todas
+esas instrucciones.
+
+#+begin_src sh
   mkdir ~/src
-  cd ~/src
   sudo apt-get update
   sudo apt-get install git
   git clone -b master git://git.sv.gnu.org/emacs.git
-  sudo apt-get install build-essential automake texinfo libjpeg-dev libncurses5-dev libtiff5-dev libgif-dev libpng-dev libxpm-dev libgnutls28-dev libmagick++-dev libgtk-3-dev
   cd ~/src/emacs
   ./autogen.sh
-  ./configure --enable-autodepend --without-libsystemd --without-modules --with-x-toolkit=no --with-mailutils --with-imagemagick --with-jpeg --with-tiff --with-gif --with-png --with-rsvg --with-libotf --with-xaw3d --with-gpm
+  ./configure --enable-autodepend --with-libsystemd --without-modules --with-x-toolkit=gtk --with-mailutils --with-imagemagick --with-jpeg --with-tiff --with-gif --with-png --with-rsvg --with-libotf --with-xaw3d --with-gpm --with-json
   make -j$(nproc) -s bootstrap
   sudo make -j$(nproc) - s install
-#+END_SRC
+#+end_src
 
-La actualización se realiza una vez cada dos semanas, para actualizar
-nuestro emacs debemos ejecutar lo siguiente:
+Si te encuentran en un sistema que no tiene soporte para =systemd= es
+mejor cambiar la línea de =configure= por lo siguiente:
 
-#+BEGIN_SRC sh
-cd ~/src/emacs
-git pull
-./configure --with-x-toolkit=no --without-moudles --with-mailtools --with-imagemagick
-make -j4 -s bootstrap
-sudo make -j4 -s install
-#+END_SRC
+#+begin_src sh
+./configure --enable-autodepend --without-libsystemd --without-modules --with-x-toolkit=no --with-mailutils --with-imagemagick --with-jpeg --with-tiff --with-gif --with-png --with-rsvg --with-libotf --with-xaw3d --with-gpm
+#+end_src
 
-Este conjunto de procedimientos puede ser añadido a un =crontab= para
-automatizarlo.
+En este punto ya tenemos instalado emacs en nuestro sistema, lo que
+sigue es añadir a nuestro =PATH= la carpeta =/usr/local/bin/=:
 
-Si bien en este punto ya se instaló emacs, es necesario instalar el
-soporte para el cliente de correo, para ello es necesario realizar los
-siguientes pasos:
+#+begin_src sh
+echo "export PATH=$PATH:/usr/local/bin" >> ~/.bashrc
+#+end_src
 
-+ Instalar =offlineimap= para poder conectarnos a un servidor de correo:
+Si todo salió bien la salida del comando =emacs -q --version= deberá
+mostrar un número muy avanzado.
 
-  #+begin_src sh
-    sudo apt install offlineimap guile-2.0-dev html2text xdg-utils libgmime-3.0-dev libxapian-dev
-  #+end_src
+***** Actualización de nuestra verisón de emacs
 
-  Crear el archivo =~/.offlineimaprc= que contendrá los parámetros de conexión.
+El código fuente de emacs se encuentra en constante cambio, es por eso
+que se recomienda *actualizar* nuestra instalación una vez por semana,
+el proceso de actualización es simple:
 
-  #+begin_src sh
+#+begin_src sh
+  cd ~/src/emacs
+  git pull
+  ./configure --enable-autodepend --with-libsystemd --without-modules --with-x-toolkit=gtk --with-mailutils --with-imagemagick --with-jpeg --with-tiff --with-gif --with-png --with-rsvg --with-libotf --with-xaw3d --with-gpm --with-json
+  make -j$(nproc) -s bootstrap
+  sudo make -j$(nproc) -s install
+#+end_src
+
+Esto descargarà la última versión del código y compilara las partes
+que han cambiado respecto a tu versión local.
+
+**** Instalación de soporte para correo en emacs
+
+El soporte para lectura del correo electrónico depende de dos
+porgramas ajenos a emacs: =mu4e= y =offlineimap=. Las siguientes
+instrucciones descargarán las dependencias necesarias para poder
+obtener soporte de correo dentro de una sesión de emacs:
+
+#+begin_src sh
+  sudo apt install offlineimap guile-2.0-dev html2text xdg-utils libgmime-3.0-dev libxapian-dev
+  cd ~/src/
+  git clone https://github.com/djcb/mu.git
+  cd mu
+  ./autogen.sh
+  ./configure
+  make -j$(nproc) -s
+  sudo make -j$(nproc) -s install
+#+end_src
+
+Es momento de configurar =offlineimap= para indicarle cuál es nuestro
+servidor de correo y las cuentas que deseamos agregar:
+
+#+begin_src
     [general]
     accounts = Gmail
     maxsyncaccounts = 3
@@ -80,34 +117,19 @@ siguientes pasos:
     maxconnections = 1
     sslcacertfile = /etc/ssl/certs/ca-certificates.crt
     folderfilter = lambda foldername: foldername in ['INBOX', 'Sent', '[Gmail]/INBOX', '[Gmail]/Sent', '[Gmail].Enviados']
-  #+end_src
-
-  Con la configuración establecida, es momento de probar la
-  conectividad con el servidor (esto puede tardar unos minutos,
-  dependiendo del número de mensajes que tenga la cuenta):
-
-  #+begin_src sh
-    offlineimap
-  #+end_src
-
-  Debemos esperar a que aparezca un mensaje similar a =***** Finished
-  processing account Gmail= Con la configuración correcta podemos
-  proceder a instalar =mu=
-
-#+begin_src sh
-  cd ~/src
-  git clone https://github.com/djcb/mu.git
-  cd mu
-  ./autogen.sh
-  ./configure
-  make -j$(nproc) -s
-  sudo make -j$(nproc) -s install
 #+end_src
 
-Por último se deben indexar los mensajes:
+Lo único que hay que cambiar aquí es la cuenta =user@prepaenlinea.mx=
+y su respectiva contraseña. Por último hay que probar nuestra
+configuración, dentro de la línea de comandos debemos ejecutar
+=offlineimap= y como resultado debemos esperar a que aparezca una
+línea que diga =***** Finished processing account Gmail=, el último
+paso es indexar el correo para obtener búsquedas más rápidas sin
+necesidad de descargar la información desde el servidor de correo
+electrónico:
 
 #+begin_src sh
-  mu index
+mu index
 #+end_src
 
 *** Instalación vía un administrador de paquetes
