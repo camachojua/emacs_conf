@@ -416,6 +416,8 @@
   (("C-x g" . 'magit-status)
    ("C-x M-g" . 'magit-dispatch)))
 ;; Github specific configuration
+(ghub-clear-caches)
+(auth-source-forget-all-cached)
 (use-package forge
   :ensure t
   :defer t
