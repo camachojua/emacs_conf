@@ -624,8 +624,9 @@
   :defer t
   :init
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+  :hook
+  (nov-mode . mv-nov-font-setup)
   :config
-  (add-hook 'nov-mode-hook 'my-nov-font-setup)
   (add-hook 'doc-view-mode-hook (lambda () (linum-mode -1))))
 
 ;; Dashboard
