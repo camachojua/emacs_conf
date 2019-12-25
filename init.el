@@ -725,8 +725,9 @@
 (use-package flycheck
   :ensure t
   :defer t
+  :hook
+  (after-init . global-flycheck-mode)
   :config
-  (add-hook 'after-init-hook #'global-flycheck-mode)
   (eval-after-load 'flycheck
     '(custom-set-variables
       '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))))
