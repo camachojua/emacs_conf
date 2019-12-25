@@ -719,13 +719,16 @@
   :ensure t
   :defer t
   :hook
-  (after-init . global-flycheck-mode)
+  (prog-mode . flycheck-mode)
+  (org-mode . flycheck-mode)
+  (yaml-mode . flycheck-mode)
+  (json-mode . flycheck-mode)
+  :custom
+  (flycheck-emacs-lisp-load-path 'inherit)
   :config
-  (eval-after-load 'flycheck
-    '(custom-set-variables
-      '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))))
-  (add-hook 'js-mode-hook
-            (lambda () (flycheck-mode t))))
+  (flycheck-add-mode 'javascript-eslint 'js-mode)
+  (flycechk-add-mode 'typescript-tslint 'rjsx-mode))
+
 ;; js2-refactor
 (use-package js2-refactor
   :ensure t
