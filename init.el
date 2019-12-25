@@ -422,7 +422,6 @@
   (("C-x g" . 'magit-status)
    ("C-x M-g" . 'magit-dispatch)))
 ;; Github specific configuration
-(ghub-clear-caches)
 (auth-source-forget-all-cached)
 (use-package forge
   :ensure t
@@ -530,11 +529,9 @@
           ("/[Gmail].Todos" . ?a)))
   (setq mu4e-get-mail-command "offlineimap")
   (setq
-   user-mail-address "juancamacho@ciencias.unam.mx"
-   user-full-name "Juan Alberto Camacho Bolaños"
    mu4e-compose-signature
    (concat "¡Saludos!\n"
-           "Juan Alberto Camacho Bolaños")))
+           user-full-name)))
 
   ;; SMTP Settings
 (use-package smtpmail
