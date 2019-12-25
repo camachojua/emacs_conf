@@ -579,13 +579,6 @@
   :ensure t
   :defer t)
 
-;; NASM mode
-(use-package nasm-mode
-  :ensure t
-  :defer t
-  :config
-  (add-hook 'asm-mode-hook 'nasm-mode))
-
 ;; Alerts
 (use-package alert
   :ensure t
@@ -608,7 +601,6 @@
 (use-package websocket
   :ensure t
   :defer t)
-
 
 ;; Document rendering
 (use-package pdf-tools
