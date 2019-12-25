@@ -245,7 +245,7 @@
   (setq projectile-completion-system 'ivy)
   :bind
   ("C-c p" . 'projectile-command-map)
-  ("C-c p f" . 'projectile-find-file)
+  ("C-c f" . 'projectile-find-file)
   :config
   (projectile-mode t))
 
