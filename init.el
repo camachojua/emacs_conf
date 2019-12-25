@@ -208,8 +208,8 @@
 (use-package emojify
   :ensure t
   :defer t
-  :init
-  (add-hook 'after-init-hook #'global-emojify-mode))
+  :hook
+  (after-init . global-emojify-mode))
 
 (use-package company-emoji
   :ensure t
