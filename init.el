@@ -188,8 +188,11 @@
   :ensure t
   :after prog-mode
   :defer t
-  :config
-  (add-hook 'prog-mode-hook 'rainbow-mode))
+  :hook
+  (prog-mode . rainbow-mode)
+  (org-mode . rainbow-mode)
+  (yaml-mode . rainbow-mode)
+  (json-mode . rainbow-mode))
 
 (use-package rainbow-delimiters
   :ensure t
