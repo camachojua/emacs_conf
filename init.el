@@ -692,13 +692,6 @@
   :config
   (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode)))
 
-;; NASM mode
-(use-package nasm-mode
-  :ensure t
-  :defer t
-  :config
-  (add-hook 'asm-mode-hook 'nasm-mode))
-
 ;; HTTP requests
 (use-package request
   :ensure t
