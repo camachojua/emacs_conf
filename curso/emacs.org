@@ -31,7 +31,7 @@ esas instrucciones.
   git clone -b master git://git.sv.gnu.org/emacs.git
   cd ~/src/emacs
   ./autogen.sh
-  ./configure --enable-autodepend --with-libsystemd --without-modules --with-x-toolkit=gtk --with-mailutils --with-imagemagick --with-jpeg --with-tiff --with-gif --with-png --with-rsvg --with-libotf --with-xaw3d --with-gpm --with-json
+  ./configure --enable-autodepend --with-libsystemd --with-modules --with-x-toolkit=gtk --with-mailutils --with-imagemagick --with-jpeg --with-tiff --with-gif --with-png --with-rsvg --with-libotf --with-xaw3d --with-gpm --with-json --with-threads
   make -j$(nproc) -s bootstrap
   sudo make -j$(nproc) - s install
 #+end_src
