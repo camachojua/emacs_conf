@@ -297,6 +297,7 @@
     (mkdir (expand-file-name "snippets" user-emacs-directory)))
 (use-package yasnippet
   :ensure t
+  :diminish yas-minor-mode
   :after ivy
   :defer t
   :hook
