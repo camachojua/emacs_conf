@@ -91,7 +91,6 @@
   (setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸"))
   :hook
   (org-mode . org-bullets-mode))
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 ;; Establish the TODO keywords
 (setq org-todo-keyword-faces
@@ -173,9 +172,10 @@
   (setq whitespace-style '(face-lines-tail))
   :hook
   (org-mode . whitespace-mode)
-  :config
-  (add-hook 'prog-mode-hook 'whitespace-mode)
-  (add-hook 'arduino-mode-hook 'whitespace-mode))
+  (prog-mode . whitespace-mode)
+  (arduino-mode . whitespace-mode)
+  (json-mode . whitespace-mode)
+  (yaml-mode . whitespace-mode))
 
 ;; Electric pair
 (setq electric-pair-pairs
