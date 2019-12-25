@@ -498,8 +498,8 @@
 (use-package nasm-mode
   :ensure t
   :defer t
-  :config
-  (add-hook 'asm-mode-hook 'nasm-mode))
+  :hook
+  (asm-mode . nasm-mode))
 
 ;; Email Settings
 (use-package w3m
