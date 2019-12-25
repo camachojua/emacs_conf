@@ -478,12 +478,13 @@
   (setq TeX-source-correlate-method 'synctex)
   (setq TeX-source-correlate-start-server t)
   (setq preview-gs-command "PDF Tools")
+  :hook
+  (doc-view-mode . auto-revert-mode)
+  (LaTeX-mode . visual-line-mode)
+  (LaTeX-mode . flyspell-mode)
+  (LaTeX-mode . LaTeX-math-mode)
+  (LaTeX-mode . turn-on-reftex)
   :config
-  (add-hook 'doc-view-mode-hook 'auto-revert-mode)
-  (add-hook 'LaTeX-mode-hook 'visual-line-mode)
-  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-  (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-  (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
   (add-hook 'TeX-after-compilation-finished-functions
             #'TeX-revert-document-buffer)
   (TeX-source-correlate-mode t)
