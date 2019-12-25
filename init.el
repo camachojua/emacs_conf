@@ -278,12 +278,12 @@
   :diminish
   :after company
   :commands
-  (company-box--get-color)
-  (company-box--resolve-colors)
-  (company-box--add-icon)
-  (compnay-box--apply-color)
-  (company-box--make-line)
-  (company-box-icons--elisp)
+  (company-box--get-color
+  company-box--resolve-colors
+  company-box--add-icon
+  compnay-box--apply-color
+  company-box--make-line
+  company-box-icons--elisp)
   :hook (company-mode . company-box-mode)
   :custom
   (company-box-backends-colors nil)
@@ -746,6 +746,13 @@
   (flycheck-add-mode 'javascript-eslint 'js-mode)
   (flycheck-add-mode 'typescript-tslint 'rjsx-mode))
 
+
+;; Typescript mode
+(use-package typescript-mode
+  :ensure t
+  :mode "\\.ts\\'"
+  :commands (typescript-mode))
+
 ;; js2-refactor
 (use-package js2-refactor
   :ensure t
@@ -804,13 +811,16 @@
  '(company-lsp-async t)
  '(company-lsp-cache-candidates t)
  '(company-lsp-enable-recompletion nil)
+ '(company-tooltip-align-annotations t)
  '(doom-modeline-buffer-file-name 'truncate-with-project t)
  '(doom-themes-enable-bold t)
  '(doom-themes-enable-italic t)
  '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
+ '(flycheck-emacs-lisp-load-path 'inherit)
  '(highlight-indent-guides-auto-enabled t)
  '(highlight-indent-guides-method 'character)
  '(highlight-indent-guides-responsive t)
+ '(ivy-count-format "(%d/%d)")
  '(ivy-use-virtual-buffers t)
  '(lsp-auto-guess-root t)
  '(lsp-document-sync-method 'incremental)
@@ -828,7 +838,7 @@
      (\, ":four:")
      (\, ":five:")))
  '(package-selected-packages
-   '(lsp-ui highlight-indent-guides doom-themes company-lsp lsp-mode ob-restclient jade-mode org-pretty-table org-bullets xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
+   '(company-box typescript-mode lsp-ui highlight-indent-guides doom-themes company-lsp lsp-mode ob-restclient jade-mode org-pretty-table org-bullets xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
 ;;; init.el ends here
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
