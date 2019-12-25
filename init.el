@@ -252,7 +252,9 @@
 (use-package company
   :ensure t
   :defer t
-  :diminish
+  :diminish company-mode
+  :custom
+  (company-tooltip-align-annotations t)
   :config
   (add-to-list 'company-backends 'company-emoji)
   (setq company-idle-delay t)
