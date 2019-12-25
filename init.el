@@ -453,8 +453,8 @@
   :defer t
   :config
   (setq ghub-use-workaround-for-emacs-bug nil)
-  (setq gitlab.user "camachojua")
-  (setq git.fciencias.unam.mx/api/v4.user "camachojua")
+  (setq gitlab.user user-gitlab-user)
+  (setq git.fciencias.unam.mx/api/v4.user user-gitlab-user)
   (add-to-list 'forge-alist
                '("git.fciencias.unam.mx"
                  "git.fciencias.unam.mx/api/v4"
