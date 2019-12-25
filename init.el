@@ -674,8 +674,8 @@
 (use-package clojure-mode
   :ensure t
   :defer t
-  :config
-  (add-hook 'clojure-mode-hook #'aggressive-indent-mode))
+  :hook
+  (coljure-mode . agrresive-indent-mode))
 
 ;; Haskell mode settings
 (use-package haskell-mode
