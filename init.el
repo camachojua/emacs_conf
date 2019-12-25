@@ -219,11 +219,9 @@
 ;; Programming projects
 (use-package ivy
   :ensure t
-  :init
-  (setq ivy-use-virtual-buffers t)
-  (setq ivy-count-format "(%d/%d) ")
   :custom
   (ivy-use-virtual-buffers t)
+  (ivy-count-format "(%d/%d)")
   :config
   (ivy-mode t))
 
