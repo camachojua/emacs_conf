@@ -254,8 +254,6 @@
   :defer t
   :diminish
   :config
-  :config
-  (add-hook 'after-init-hook 'global-company-mode)
   (add-to-list 'company-backends 'company-emoji)
   (setq company-idle-delay t)
 
@@ -265,10 +263,12 @@
     :defer t
     :config
     (add-to-list 'company-backends 'company-go))
+
   :hook
-  ((prog-mode . company-mode)
+  (after-init . global-company-mode)
+  (prog-mode . company-mode)
   (LaTeX-mode . company-mode)
-  (org-mode . company-mode)))
+  (org-mode . company-mode))
 
 ;; (use-package company-box
 ;;   :hook (company-mode . company-box-mode))
