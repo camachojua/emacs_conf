@@ -198,8 +198,11 @@
   :ensure t
   :after prog-mode
   :defer t
-  :config
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+  :hook
+  (prog-mode . rainbow-delimiters-mode)
+  (org-mode . rainbow-delimiters-mode)
+  (yaml-mode . rainbow-delimiters-mode)
+  (json-mode . rainbow-delimiters-mode))
 
 ;; Emoji support
 (use-package emojify
