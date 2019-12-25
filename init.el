@@ -17,6 +17,12 @@
 (use-package diminish
   :ensure t)
 
+;; User information
+(setq user-full-name "Juan Alberto Camacho Bolaños")
+(setq user-mail-address "juancamacho@ciencias.unam.mx")
+(setq user-gitlab-user "camachojua")
+(setq user-github-user "camachojua")
+
 ;; General settings
 (setq inhibit-startup-screen t)
 (setq backup-inhibited t)
