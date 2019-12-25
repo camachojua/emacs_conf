@@ -560,13 +560,14 @@
 (use-package mu4e-alert
   :ensure t
   :defer t
+  :hook
+  (after-init . mu4e-alert-enable-mode-line-display)
   :init
   (setq mu4e-alert-interesting-mail-query
         (concat
          "flag:unread"
          " AND NOT flag:trashed"
          " AND maildir:/[Gmail]/INBOX"))
-  (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
   (mu4e-alert-enable-mode-line-display))
 
 ;; Org tables and lists on message mode
