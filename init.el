@@ -300,11 +300,13 @@
   :ensure t
   :after ivy
   :defer t
-  :hook (after-init . yas-global-mode)
+  :hook
+  (after-init . yas-global-mode)
+  (prog-mode-hook . yas-minor-mode)
   :config
   (yas-load-directory (expand-file-name "snippets" user-emacs-directory))
-  (add-hook 'prog-mode-hook 'yas-minor-mode)
   (yas-global-mode t))
+
 ;; YAML mode
 (use-package yaml-mode
   :ensure t)
