@@ -245,7 +245,6 @@
   (setq projectile-completion-system 'ivy)
   :bind
   ("C-c p" . 'projectile-command-map)
-  ("C-c f" . 'projectile-find-file)
   :config
   (projectile-mode t))
 
@@ -807,7 +806,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
+ '(all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window) t)
+ '(company-box-backends-colors nil t)
+ '(company-box-max-candidates 30)
+ '(company-box-show-single-candidate t)
  '(company-lsp-async t)
  '(company-lsp-cache-candidates t)
  '(company-lsp-enable-recompletion nil)
