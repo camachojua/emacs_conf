@@ -36,6 +36,12 @@
 	  (lambda() (delete-trailing-whitespace) nil))
 ;; (add-hook 'after-focus-change-function #'garbage-collect)
 
+;; Window move by numbers
+(use-package winum
+  :ensure t
+  :config
+  (winum-mode))
+
 ;; Org-mode setting
 (setq org-startup-indented t)
 (setq org-directory "~/org")
@@ -797,7 +803,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window) t)
+ '(all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
  '(company-box-backends-colors nil t)
  '(company-box-max-candidates 30)
  '(company-box-show-single-candidate t)
@@ -831,7 +837,7 @@
      (\, ":four:")
      (\, ":five:")))
  '(package-selected-packages
-   '(counsel-projectile company-box typescript-mode lsp-ui highlight-indent-guides doom-themes company-lsp lsp-mode ob-restclient jade-mode org-pretty-table org-bullets xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
+   '(winumi winum winum-mode company-box typescript-mode lsp-ui highlight-indent-guides doom-themes company-lsp lsp-mode ob-restclient jade-mode org-pretty-table org-bullets xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
 ;;; init.el ends here
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
