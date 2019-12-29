@@ -672,6 +672,21 @@
                                   (registers . "database")))
   (add-hook 'dashboard-mode-hook (lambda() (linum-mode -1))))
 
+;; Treemacs support
+(use-package treemacs
+  :ensure t
+  :defer t
+  :init
+  (with-eval-after-load 'winum
+    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+  :config
+  (progn
+    (setq treemacs-collapse-dirs (if treemacs-python-executable 3 0)
+	  treemacs-deferred-git-apply-delay 0.5
+	  treemacs-display-in-side-window t
+	  treemacs-directory-name-transformer #'identity
+	  treemacs-eldoc-display t
+	  treemacs-file-event-delay 5000)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Programming languages ;;
@@ -837,7 +852,7 @@
      (\, ":four:")
      (\, ":five:")))
  '(package-selected-packages
-   '(winumi winum winum-mode company-box typescript-mode lsp-ui highlight-indent-guides doom-themes company-lsp lsp-mode ob-restclient jade-mode org-pretty-table org-bullets xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
+   '(treemacs winumi winum winum-mode company-box typescript-mode lsp-ui highlight-indent-guides doom-themes company-lsp lsp-mode ob-restclient jade-mode org-pretty-table org-bullets xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
 ;;; init.el ends here
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
