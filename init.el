@@ -707,7 +707,38 @@
 	  treemacs-recenter-after-file-follow nil
 	  treemacs-recenter-after-tag-follow nil
 	  treemacs-recenter-after-project-jump 'always
-	  treemacs-recenter-after-project-expand 'on-distance)))
+	  treemacs-recenter-after-project-expand 'on-distance
+	  treemacs-show-cursor nil
+	  treemacs-show-hidden-files t
+	  treemacs-silent-filewatch nil
+	  treemacs-silent-refresh nil
+	  treemacs-sorting 'alphabetic-asc
+	  treemacs-space-between-root-nodes t
+	  treemacs-tag-follow-cleanup t
+	  treemacs-tag-follow-delay 1.5
+	  treemacs-width 35)
+    (treemacs-follow-mode t)
+    (treemacs-filewatch-mode t)
+    (treemacs-fringe-indicator-mode t)
+    (pcase (cons (not (null (executable-find "git")))
+		 (not (null treemacs-python-executable)))
+      (`(t . t)
+       (treemacs-git-mode 'deferred))
+      (`(t . _)
+       (treemacs-git-mode 'simple))))
+  :bind
+  (:map global-map
+	("M-0" . treemacs-select-window)
+	("C-x t 1" . treemacs-delete-other-window)
+	("C-x t t" . treemacs)
+	("C-x t B" . treemacs-bookmark)
+	("C-x t C-t" . treemacs-find-file)
+	("C-x t M-t" . treemacs-find-tag)))
+
+(use-package treemacs-projectile
+  :ensure t
+  :defer t
+  :after treemacs projectile)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Programming languages ;;
@@ -873,7 +904,7 @@
      (\, ":four:")
      (\, ":five:")))
  '(package-selected-packages
-   '(treemacs winumi winum winum-mode company-box typescript-mode lsp-ui highlight-indent-guides doom-themes company-lsp lsp-mode ob-restclient jade-mode org-pretty-table org-bullets xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
+   '(treemacs-projectile treemacs winumi winum winum-mode company-box typescript-mode lsp-ui highlight-indent-guides doom-themes company-lsp lsp-mode ob-restclient jade-mode org-pretty-table org-bullets xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
 ;;; init.el ends here
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
