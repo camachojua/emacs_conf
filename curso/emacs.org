@@ -110,7 +110,7 @@ servidor de correo y las cuentas que deseamos agregar:
     [Repository Remote]
     type = IMAP
     remotehost = imap.gmail.com
-    remoteuser = usuer@prepaenlinea.mx
+    remoteuser = usuer@gmail.com
     remotepass = mysecretpassword
     postsynchook = mu index --maildir ~/Maildir
     ssl = yes
