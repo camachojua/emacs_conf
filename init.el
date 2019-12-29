@@ -697,7 +697,10 @@
 	  treemacs-indentation-string " "
 	  treemacs-is-never-other-window nil
 	  treemacs-max-git-entries 5000
-	  treemacs-missing-project-action 'ask)))
+	  treemacs-missing-project-action 'ask
+	  treemacs-no-png-images nil
+	  treemacs-no-delete-other-windows t
+	  treemacs-project-follow-cleanup nil)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Programming languages ;;
