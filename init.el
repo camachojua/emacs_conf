@@ -686,7 +686,18 @@
 	  treemacs-display-in-side-window t
 	  treemacs-directory-name-transformer #'identity
 	  treemacs-eldoc-display t
-	  treemacs-file-event-delay 5000)))
+	  treemacs-file-event-delay 5000
+	  treemacs-file-extension-regex treemacs-last-period-regex-value
+	  treemacs-file-follow-delay 0.2
+	  treemacs-file-name-transformer #'identity
+	  treemacs-follow-after-init t
+	  treemacs-git-command-pipe ""
+	  treemacs-goto-tag-strategy 'refetch-index
+	  treemacs-indentation 2
+	  treemacs-indentation-string " "
+	  treemacs-is-never-other-window nil
+	  treemacs-max-git-entries 5000
+	  treemacs-missing-project-action 'ask)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Programming languages ;;
