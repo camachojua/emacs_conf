@@ -35,12 +35,6 @@
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 ;; (add-hook 'after-focus-change-function #'garbage-collect)
-(windmove-default-keybindings)
-(global-set-key (kbd "C-c b")  'windmove-left)
-(global-set-key (kbd "C-c f") 'windmove-right)
-(global-set-key (kbd "C-c p")    'windmove-up)
-(global-set-key (kbd "C-c n")  'windmove-down)
-(setq windmove-wrap-around t)
 
 ;; Org-mode setting
 (setq org-startup-indented t)
@@ -82,15 +76,6 @@
 
 (setq org-ditaa-jar-path "/usr/bin/ditaa")
 (setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
-
-(use-package org-bullets
-  :ensure t
-  :after org-mode
-  :defer t
-  :config
-  (setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸"))
-  :hook
-  (org-mode . org-bullets-mode))
 
 ;; Establish the TODO keywords
 (setq org-todo-keyword-faces
@@ -247,6 +232,12 @@
   ("C-c p" . 'projectile-command-map)
   :config
   (projectile-mode t))
+
+;; Counsel-projectile backend
+(use-package counsel-projectile
+  :ensure t
+  :defer t
+  :after ivy)
 
 (use-package company
   :ensure t
@@ -840,7 +831,7 @@
      (\, ":four:")
      (\, ":five:")))
  '(package-selected-packages
-   '(company-box typescript-mode lsp-ui highlight-indent-guides doom-themes company-lsp lsp-mode ob-restclient jade-mode org-pretty-table org-bullets xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
+   '(counsel-projectile company-box typescript-mode lsp-ui highlight-indent-guides doom-themes company-lsp lsp-mode ob-restclient jade-mode org-pretty-table org-bullets xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
 ;;; init.el ends here
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
