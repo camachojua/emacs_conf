@@ -72,6 +72,7 @@ que han cambiado respecto a tu versión local.
 
 **** Instalación de soporte para correo en emacs
 
+
 El soporte para lectura del correo electrónico depende de dos
 porgramas ajenos a emacs: =mu4e= y =offlineimap=. Las siguientes
 instrucciones descargarán las dependencias necesarias para poder
@@ -135,16 +136,23 @@ el servidor de correo electrónico:
 mu index
 #+end_src
 
-*** Instalación vía un administrador de paquetes
+**** Instalación de la configuración
+Para utilizar emacs de manera rápida puedes utilizar una configuración
+realizada por un tercero. A continuación se muestra cómo copiar la
+configuración declarada en este repositorio:
 
-Para instalar emacs desde el administrador de paquetes debemos
-ejecutar los siguientes comandos:
+#+begin_src shell
+  cd ~/.config
+  git clone https://github.com/camachojua/emacs_conf emacs
+#+end_src
 
-#+BEGIN_SRC sh
-sudo add-apt-repository ppa:kelleyk/emacs -y
-sudo apt-get update
-sudo apt-get install emacs26
-#+END_SRC
+Posteriormente se debe lanzar emacs, el instalador comenzará a
+descargar los paquetes necesarios (lo cual puede tardar un poco). En
+algún punto preguntará si se desea compilar un programa, descargar
+dependencias y por último si se desea recompilar *hay que responder
+afirmativamente a todas las preguntas*. Una vez terminado este proceso
+se mostrará el *dashboard*, prodecederemos a cerrar y abrir nuevamente
+emacs.
 
 ** Iniciando emacs
 
