@@ -20,8 +20,6 @@
 ;; User information
 (setq user-full-name "Juan Alberto Camacho Bolaños")
 (setq user-mail-address "juancamacho@ciencias.unam.mx")
-(setq user-gitlab-user "camachojua")
-(setq user-github-user "camachojua")
 
 ;; General settings
 (setq inhibit-startup-screen t)
@@ -284,7 +282,7 @@
   :custom
   (company-box-backends-colors nil)
   (company-box-show-single-candidate t)
-  (company-box-max-candidates 30))
+  (company-box-max-candidates 20))
 
 (use-package company-emoji
   :ensure t
@@ -331,7 +329,7 @@
   :after yasnippet)
 
 ;; Icons for various modes
-(use-package all-the-icons :ensure t :defer 0.5)
+(use-package all-the-icons :ensure t)
 
 (use-package all-the-icons-ivy
   :ensure t
@@ -449,8 +447,6 @@
   :defer t
   :config
   (setq ghub-use-workaround-for-emacs-bug nil)
-  (setq gitlab.user user-gitlab-user)
-  (setq git.fciencias.unam.mx/api/v4.user user-gitlab-user)
   (add-to-list 'forge-alist
                '("git.fciencias.unam.mx"
                  "git.fciencias.unam.mx/api/v4"
@@ -884,7 +880,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
+ '(all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window) t)
  '(company-box-backends-colors nil t)
  '(company-box-max-candidates 30)
  '(company-box-show-single-candidate t)
@@ -918,7 +914,7 @@
      (\, ":four:")
      (\, ":five:")))
  '(package-selected-packages
-   '(treemacs-magit treemacs-icons-dired treemacs winumi winum winum-mode company-box typescript-mode lsp-ui highlight-indent-guides doom-themes company-lsp lsp-mode ob-restclient jade-mode org-pretty-table org-bullets xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
+   '(ivy-posframe treemacs-projectile treemacs winumi winum winum-mode company-box typescript-mode lsp-ui highlight-indent-guides doom-themes company-lsp lsp-mode ob-restclient jade-mode org-pretty-table org-bullets xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
 ;;; init.el ends here
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
