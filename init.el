@@ -266,23 +266,23 @@
   (LaTeX-mode . company-mode)
   (org-mode . company-mode))
 
-(use-package company-box
-  :ensure t
-  :defer t
-  :diminish
-  :after company
-  :commands
-  (company-box--get-color
-  company-box--resolve-colors
-  company-box--add-icon
-  compnay-box--apply-color
-  company-box--make-line
-  company-box-icons--elisp)
-  :hook (company-mode . company-box-mode)
-  :custom
-  (company-box-backends-colors nil)
-  (company-box-show-single-candidate t)
-  (company-box-max-candidates 20))
+;; (use-package company-box
+;;   :ensure t
+;;   :defer t
+;;   :diminish
+;;   :after company
+;;   :commands
+;;   (company-box--get-color
+;;   company-box--resolve-colors
+;;   company-box--add-icon
+;;   compnay-box--apply-color
+;;   company-box--make-line
+;;   company-box-icons--elisp)
+;;   :hook (company-mode . company-box-mode)
+;;   :custom
+;;   (company-box-backends-colors nil)
+;;   (company-box-show-single-candidate t)
+;;   (company-box-max-candidates 20))
 
 (use-package company-emoji
   :ensure t
