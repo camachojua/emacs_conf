@@ -110,7 +110,7 @@ servidor de correo y las cuentas que deseamos agregar:
     [Repository Remote]
     type = IMAP
     remotehost = imap.gmail.com
-    remoteuser = usuer@gmail.com
+    remoteuser = user@gmail.com
     remotepass = mysecretpassword
     postsynchook = mu index --maildir ~/Maildir
     ssl = yes
@@ -119,14 +119,17 @@ servidor de correo y las cuentas que deseamos agregar:
     folderfilter = lambda foldername: foldername in ['INBOX', 'Sent', '[Gmail]/INBOX', '[Gmail]/Sent', '[Gmail].Enviados']
 #+end_src
 
-Lo único que hay que cambiar aquí es la cuenta =user@prepaenlinea.mx=
-y su respectiva contraseña. Por último hay que probar nuestra
-configuración, dentro de la línea de comandos debemos ejecutar
-=offlineimap= y como resultado debemos esperar a que aparezca una
-línea que diga =***** Finished processing account Gmail=, el último
-paso es indexar el correo para obtener búsquedas más rápidas sin
-necesidad de descargar la información desde el servidor de correo
-electrónico:
+Lo único que hay que cambiar aquí es la cuenta =user@gmail.com= y su
+respectiva contraseña. Antes de poder probar nuestra configuración
+debes permitir que tu cuenta pueda ser accedida por *aplicaciones
+menos seguras*, esta opción pude ser consultada [[https://myaccount.google.com/lesssecureapps][aquí.]]
+
+Por último hay que probar nuestra configuración, dentro de la línea de
+comandos debemos ejecutar =offlineimap= y como resultado debemos
+esperar a que aparezca una línea que diga =***** Finished processing
+account Gmail=, el último paso es indexar el correo para obtener
+búsquedas más rápidas sin necesidad de descargar la información desde
+el servidor de correo electrónico:
 
 #+begin_src sh
 mu index
