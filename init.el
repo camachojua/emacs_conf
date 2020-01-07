@@ -78,8 +78,10 @@
                                (sqlite . t)
                                (shell . t)))
 
-(setq org-ditaa-jar-path "/usr/bin/ditaa")
-(setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
+(setq org-ditaa-jar-path (expand-file-name "ditaa"
+					   (file-name-as-directory "/usr/bin")))
+(setq org-plantuml-jar-path (expand-file-name "plantuml.jar"
+					      (file-name-as-directory "/usr/share/plantuml")))
 
 ;; Establish the TODO keywords
 (setq org-todo-keyword-faces
