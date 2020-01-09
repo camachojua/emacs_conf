@@ -254,7 +254,9 @@ instalada en el sistema.
 + Para seleccionar todo el buffer =C-x h=.
 + Para cambiar de ventana =C-x w <n>=, donde =<n>= es el número de
   ventana indicado en la parte inferior izquierda del frame.
-
+  + Podemos ir directamente al gestor de proyectos presionando =M-0=.
++ Para abrir el gestor deproyectos presionar =C-x t t=.
+  + Podemos añadir un nuevo proyecto al gestor presionando =C-x t n=.
 *** Guardar un archivo
 *** Abrir un archivo
 ** Org Mode
