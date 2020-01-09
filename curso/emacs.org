@@ -251,6 +251,7 @@ instalada en el sistema.
 *** Kill-ring
 ** Comandos básicos
 *** Moverse por la pantalla
++ Para seleccionar todo el buffer =C-x h=.
 *** Guardar un archivo
 *** Abrir un archivo
 ** Org Mode
