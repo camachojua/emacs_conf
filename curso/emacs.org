@@ -72,7 +72,6 @@ que han cambiado respecto a tu versión local.
 
 **** Instalación de soporte para correo en emacs
 
-
 El soporte para lectura del correo electrónico depende de dos
 porgramas ajenos a emacs: =mu4e= y =offlineimap=. Las siguientes
 instrucciones descargarán las dependencias necesarias para poder

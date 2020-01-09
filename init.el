@@ -34,6 +34,9 @@
 	  (lambda() (delete-trailing-whitespace) nil))
 ;; (add-hook 'after-focus-change-function #'garbage-collect)
 
+;; GPG settings
+(setq epg-gpg-program "gpg2")
+
 ;; Window move by numbers
 (use-package winum
   :ensure t
