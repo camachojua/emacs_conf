@@ -40,7 +40,7 @@ Si te encuentran en un sistema que no tiene soporte para =systemd= es
 mejor cambiar la línea de =configure= por lo siguiente:
 
 #+begin_src sh
-./configure --enable-autodepend --without-libsystemd --without-modules --with-x-toolkit=no --with-mailutils --with-imagemagick --with-jpeg --with-tiff --with-gif --with-png --with-rsvg --with-libotf --with-xaw3d --with-gpm
+./configure --enable-autodepend --without-libsystemd --with-modules --with-x-toolkit=no --with-mailutils --with-imagemagick --with-jpeg --with-tiff --with-gif --with-png --with-rsvg --with-libotf --with-xaw3d --with-gpm --with-json --with-threads
 #+end_src
 
 En este punto ya tenemos instalado emacs en nuestro sistema, lo que
@@ -135,6 +135,8 @@ el servidor de correo electrónico:
 #+begin_src sh
 mu index
 #+end_src
+
+#+RESULTS:
 
 **** Instalación de la configuración
 Para utilizar emacs de manera rápida puedes utilizar una configuración
