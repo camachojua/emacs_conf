@@ -91,10 +91,18 @@
 					      (file-name-as-directory "/usr/share/plantuml")))
 
 ;; Establish the TODO keywords
+(setq org-todo-keywords
+      '((sequence "REPORT(r)" "BUG(b)" "KNOWCAUSE(k)" "|" "FIXED(f)")
+        (sequence "TODO(t)" "|" "DOING(d)" "DONE" "CANCELED")))
+
 (setq org-todo-keyword-faces
-      '(("TODO" . (:foreground "#6272a4" :weight bold))
-	("DOING" . (:foreground "#f1fa8c" :weight bold))
-	("DONE" . (:foreground "#6272a4" :background "#373844" :weight bold))))
+      '(("TODO" . (:foreground "cyan" :weight bold))
+        ("BUG" . (:foreground "purple" :weight bold))
+        ("REPORT" . (:foreground "white" :weight bold))
+        ("FIXED" . (:foreground "green" :weight bold))
+        ("DOING" . (:foreground "orange" :weight bold))
+        (("DONE") . (:foreground "green" :weight bold))
+        ("CANCELED" . (:foreground "yellow" :weight bold))))
 
 ;; Configuration inside org files
 (setq org-link '((:foreground "#ebe087" :underline t)))
