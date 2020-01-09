@@ -252,6 +252,9 @@ instalada en el sistema.
 ** Comandos básicos
 *** Moverse por la pantalla
 + Para seleccionar todo el buffer =C-x h=.
++ Para cambiar de ventana =C-x w <n>=, donde =<n>= es el número de
+  ventana indicado en la parte inferior izquierda del frame.
+
 *** Guardar un archivo
 *** Abrir un archivo
 ** Org Mode
