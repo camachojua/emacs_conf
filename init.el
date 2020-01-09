@@ -37,6 +37,10 @@
 ;; GPG settings
 (setq epg-gpg-program "gpg2")
 
+;; Authinfo
+(setq auth-sources
+      '((:source "~/.authinfo.gpg")))
+
 ;; Window move by numbers
 (use-package winum
   :ensure t
