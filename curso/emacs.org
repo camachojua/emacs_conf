@@ -150,9 +150,15 @@ Posteriormente se debe lanzar emacs, el instalador comenzará a
 descargar los paquetes necesarios (lo cual puede tardar un poco). En
 algún punto preguntará si se desea compilar un programa, descargar
 dependencias y por último si se desea recompilar *hay que responder
-afirmativamente a todas las preguntas*. Una vez terminado este proceso
-se mostrará el *dashboard*, prodecederemos a cerrar y abrir nuevamente
-emacs.
+afirmativamente a todas las preguntas* (puede que en algún punto se te
+solicite tu contraseña de =sudo=, esto se debe a que hay que instalar
+en directorios privilegiados el programa =epdfinfo=). Una vez
+terminado este proceso se mostrará el *dashboard*, prodecederemos a
+cerrar y abrir nuevamente emacs.
+
+Por último hay que instalar las fuentes de íconos para que tengamos
+una experiencia visual agradable esto lo hacemos presionando =M-x
+all-the-icons-install-fonts=.
 
 ** Iniciando emacs
 
