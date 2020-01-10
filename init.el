@@ -34,7 +34,7 @@
 	  (lambda() (delete-trailing-whitespace) nil))
 ;; (add-hook 'after-focus-change-function #'garbage-collect)
 ;; Command for opening this file
-;; (global-set-key (kbd "<f6>") (message "%s" (find-file (expand-file-name "init.el" user-emacs-directory))))
+(global-set-key (kbd "<f6>") (lambda () (interactive) (find-file (expand-file-name "init.el" user-emacs-directory))))
 ;; Command for reloading configuration
 (global-set-key (kbd "<f5>") 'emacs-lisp-byte-compile-and-load)
 
@@ -682,11 +682,13 @@
   (setq dashboard-set-init-info t
         dashboard-set-file-icons t
         dashboard-set-heading-icons t
+	dashboard-set-navigator t
         dashboard-heading-icons '((recents   . "file-text")
                                   (bookmarks . "bookmark")
                                   (agenda    . "calendar")
                                   (projects  . "file-directory")
                                   (registers . "database")))
+
   (add-hook 'dashboard-mode-hook (lambda() (linum-mode -1))))
 
 ;; Treemacs support
