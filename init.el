@@ -687,9 +687,30 @@
                                   (bookmarks . "bookmark")
                                   (agenda    . "calendar")
                                   (projects  . "file-directory")
-                                  (registers . "database")))
+                                  (registers . "database"))
+	dashboard-navigator-buttons
+        `(((,(when (display-graphic-p)
+               (all-the-icons-octicon "tools" :height 1.0 :v-adjust 0.0))
+            "Settings" "Open settings file"
+            (lambda (&rest _) (find-file (expand-file-name "init.el"
+							   user-emacs-directory))))
+           (,(when (display-graphic-p)
+               (all-the-icons-material "update" :height 1.35 :v-adjust -0.24))
+            "Update" "Update Emacs Configuration to the latest version"
+            (lambda (&rest _) (update-config))))))
 
   (add-hook 'dashboard-mode-hook (lambda() (linum-mode -1))))
+(defun update-config ()
+  "Update the configuration file to the latest version."
+  (interactive)
+  (let ((dir (expand-file-name user-emacs-directory)))
+    (if (file-exists-p dir)
+	(progn
+	  (message "Updating configuration ...")
+	  (cd dir)
+	  (shell-command "git pull")
+	  (message "Updating configuration ... done"))
+      (message "\"%s\" doesn't exists." dir))))
 
 ;; Treemacs support
 (use-package treemacs
