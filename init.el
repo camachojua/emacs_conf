@@ -33,6 +33,8 @@
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 ;; (add-hook 'after-focus-change-function #'garbage-collect)
+;; Command for reloading configuration
+(global-set-key (kbd "<f5>") 'emacs-lisp-byte-compile-and-load)
 
 ;; GPG settings
 (setq epg-gpg-program "gpg2")
