@@ -33,6 +33,8 @@
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 ;; (add-hook 'after-focus-change-function #'garbage-collect)
+;; Command for opening this file
+;; (global-set-key (kbd "<f6>") (message "%s" (find-file (expand-file-name "init.el" user-emacs-directory))))
 ;; Command for reloading configuration
 (global-set-key (kbd "<f5>") 'emacs-lisp-byte-compile-and-load)
 
