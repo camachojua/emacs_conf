@@ -696,8 +696,7 @@
         `(((,(when (display-graphic-p)
                (all-the-icons-octicon "tools" :height 1.0 :v-adjust 0.0))
             "Settings" "Open settings file"
-            (lambda (&rest _) (find-file (expand-file-name "init.el"
-							   user-emacs-directory))))
+            (lambda (&rest _) (config-file)))
            (,(when (display-graphic-p)
                (all-the-icons-material "update" :height 1.35 :v-adjust -0.24))
             "Update" "Update Emacs Configuration to the latest version"
