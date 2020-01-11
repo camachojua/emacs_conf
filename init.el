@@ -34,7 +34,11 @@
 	  (lambda() (delete-trailing-whitespace) nil))
 ;; (add-hook 'after-focus-change-function #'garbage-collect)
 ;; Command for opening this file
-(global-set-key (kbd "<f6>") (lambda () (interactive) (find-file (expand-file-name "init.el" user-emacs-directory))))
+(defun config-file ()
+  "This function open the principal configuration file."
+  (find-file (expand-file-name "init.el"
+			       user-emacs-directory)))
+(global-set-key (kbd "<f6>") (lambda () (interactive) (config-file)))
 ;; Command for reloading configuration
 (global-set-key (kbd "<f5>") 'emacs-lisp-byte-compile-and-load)
 
