@@ -555,14 +555,18 @@
   :init
   (require 'org-mu4e)
   :config
+  (setq org-mu4e-convert-to-html t) ;; M-m C-c.
+  (setq mu4e-sent-messages-behavior 'sent)
   (setq mu4e-html2text-command "w3m -T text/html")
   (setq mail-user-agent 'mu4e-user-agent)
   (setq mu4e-drafts-folder "/[Gmail].Borradores")
   (setq mu4e-sent-folder "/[Gmail].Enviados")
   (setq mu4e-trash-folder "/[Gmail].Papelera")
   (setq mu4e-sent-messages-behavior 'delete)
-  (setq mu4e-user-mail-address-list (quote ("juancamacho@ciencias.unam.mx")))
-  (setq mu4e-view-show-images t)
+  (setq mu4e-user-mail-address user-mail-address)
+  (setq mu4e-view-show-images t
+	mu4e-view-show-images t
+	mu4e-view-image-max-width 1200)
   (when (fboundp 'imagemagick-register-types)
     (imagemagick-register-types))
   (setq mu4e-maildir-shortcuts
@@ -962,7 +966,8 @@
      (\, ":four:")
      (\, ":five:")))
  '(package-selected-packages
-   '(ivy-posframe treemacs-projectile treemacs winumi winum winum-mode company-box typescript-mode lsp-ui highlight-indent-guides doom-themes company-lsp lsp-mode ob-restclient jade-mode org-pretty-table org-bullets xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish)))
+   '(ivy-posframe treemacs-projectile treemacs winumi winum winum-mode company-box typescript-mode lsp-ui highlight-indent-guides doom-themes company-lsp lsp-mode ob-restclient jade-mode org-pretty-table org-bullets xah-elisp-mode htmlize org-mime emacs-emojify jest company-php prettier-js company-go org-mu4e rjsx-mode js2-refactor flycheck dockerfile-mode json-mode scss-mode haskell-mode clojure-mode pug-mode dashboard websocket circe request mu4e-alert react-snippets yaml-mode yasnippet emojify company-emoji company projectile doom-modeline all-the-icons-dired all-the-icons-ivy all-the-icons rainbow-delimiters rainbow-mode autopair use-package ob-async diminish))
+ '(send-mail-function 'smtpmail-send-it))
 ;;; init.el ends here
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
