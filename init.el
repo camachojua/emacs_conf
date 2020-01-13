@@ -447,6 +447,7 @@
 ;;   :commands lsp-ui-mode)
 
 (defun js-config-hooks ()
+  "Add tabs as default identation character."
   (add-hook 'js-mode-hook (lambda () (setq indent-line-function 'insert-tab)))
   (add-hook 'js-mode-hook (lambda () (setq indent-tabs-mode nil)))
   (add-hook 'js-mode-hook (lambda () (setq tab-width 2)))
@@ -894,9 +895,10 @@
   :defer t
   :config
   (setq prettier-js-args
-	'("--trailing-comma" "es7"
+	'("--trailing-comma" "all"
           "--single-quote" "true"
-          "--print-width" "100"))
+	  "--bracket-spacing" "true"
+          "--print-width" "80"))
   :hook
   (js-mode . prettier-js-mode))
 
