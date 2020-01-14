@@ -266,6 +266,8 @@
 (use-package counsel-projectile
   :ensure t
   :defer t
+  :bind
+  ("C-c p SPC" . counsel-projectile)
   :after ivy)
 
 (use-package company
