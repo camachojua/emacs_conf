@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: alambda
+# key: alambda
+# --
+async ($1) => {
+  $0
+}

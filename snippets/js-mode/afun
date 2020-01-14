@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: afun
+# key: afun
+# --
+const $1 = async ($2) => {
+  $0
+}

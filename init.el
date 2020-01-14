@@ -552,6 +552,9 @@
   :load-path "/usr/local/share/emacs/site-lisp/mu4e/"
   :ensure org-mime
   :ensure htmlize
+  :bind
+  ("C-c C-v" . mu4e-view-attachment-actions)
+  ("C-c C-a" . mail-add-attachment)
   :ensure mu4e-alert
   :init
   (require 'org-mu4e)
