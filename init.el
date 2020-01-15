@@ -267,7 +267,7 @@
   :ensure t
   :defer t
   :bind
-  ("C-c p SPC" . counsel-projectile)
+  ("C-." . counsel-projectile)
   :after ivy)
 
 (use-package company
