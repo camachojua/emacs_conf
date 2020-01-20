@@ -374,7 +374,6 @@
   (setq doom-modeline-checker-simple-format t)
   (setq doom-modeline-vcs-max-length 12)
   (setq doom-modeline-persp-name t)
-  (setq doom-modeline-lsp t)
   (setq doom-modeline-github nil)
   (setq doom-modeline-github-interval (* 30 60))
   (setq doom-modeline-env-version t)
