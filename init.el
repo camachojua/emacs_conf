@@ -412,49 +412,11 @@
   :ensure t
   :defer t)
 
-;; Language Server Protocol
-;; (use-package lsp-mode
-;;   :ensure t
-;;   :hook
-;;   (js-mode . lsp-deferred)
-;;   (docker-mode . lsp-deferred)
-;;   (company-mode . lsp-deferred)
-;;   :commands (lsp lsp-deferred)
-;;   :custom
-;;   (lsp-print-io nil)
-;;   (lsp-trace nil)
-;;   (lsp-print-performance nil)
-;;   (lsp-auto-guess-root t)
-;;   (lsp-document-sync-method 'incremental)
-;;   (lsp-response-timeout 5)
-;;   (lsp-enable-completion-at-point nil))
-
-;; (use-package company-lsp
-;;   :ensure t
-;;   :after lsp-mode
-;;   :custom
-;;   (company-lsp-cache-candidates t)
-;;   (company-lsp-async t)
-;;   (company-lsp-enable-recompletion nil )
-;;   :config
-;;   (push 'company-lsp company-backends))
-
-;; (use-package lsp-ui
-;;   :ensure t
-;;   :defer t
-;;   :after lsp-mode
-;;   :hook
-;;   (lsp-mode . lsp-ui-mode)
-;;   (js-mode . flycheck-mode)
-;;   :commands lsp-ui-mode)
-
 (defun js-config-hooks ()
   "Add tabs as default identation character."
   (add-hook 'js-mode-hook (lambda () (setq indent-line-function 'insert-tab)))
   (add-hook 'js-mode-hook (lambda () (setq indent-tabs-mode nil)))
-  (add-hook 'js-mode-hook (lambda () (setq tab-width 2)))
-  (add-hook 'before-save-hook #'lsp-format-buffer t t)
-  (add-hook 'before-save-hook #'lsp-organize-imports t t))
+  (add-hook 'js-mode-hook (lambda () (setq tab-width 2))))
 (add-hook 'js-mode-hook #'js-config-hooks)
 
 ;; Git
@@ -943,9 +905,6 @@
  '(company-box-backends-colors nil t)
  '(company-box-max-candidates 30)
  '(company-box-show-single-candidate t)
- '(company-lsp-async t)
- '(company-lsp-cache-candidates t)
- '(company-lsp-enable-recompletion nil)
  '(company-tooltip-align-annotations t)
  '(doom-modeline-buffer-file-name 'truncate-with-project t)
  '(doom-themes-enable-bold t)
@@ -957,14 +916,6 @@
  '(highlight-indent-guides-responsive t)
  '(ivy-count-format "(%d/%d)")
  '(ivy-use-virtual-buffers t)
- '(lsp-auto-guess-root t)
- '(lsp-document-sync-method 'incremental)
- '(lsp-enable-completion-at-point nil)
- '(lsp-log-io nil)
- '(lsp-print-io nil)
- '(lsp-print-performance nil)
- '(lsp-response-timeout 5)
- '(lsp-trace nil t)
  '(org-bullets-bullet-list
    '(":diamonds:"
      (\, ":one:")

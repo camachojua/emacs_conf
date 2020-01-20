@@ -7,7 +7,6 @@
 + [[Org Mode en la vida diaria]]
 
 ** Instalación
-
 *** Compilación e instalación de emacs
 **** Instar las dependencias necesarias
 
@@ -246,7 +245,6 @@ equipos con un procesador de 32 bits el máximo es de aproximadamente
 instalada en el sistema.
 
 *** Modos de edición
-
 *** Mini-buffer
 *** Kill-ring
 ** Comandos básicos
