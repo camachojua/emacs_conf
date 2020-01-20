@@ -133,7 +133,6 @@
 
 ;; Org-mu4e
 (require 'org-mu4e)
-(setq org-mu4e-link-query-in-headers-mode nil)
 (setq org-capture-templates
       '(("t" "todo" entry
          (file+headline "~/todo.org" "Tasks")
@@ -574,11 +573,6 @@
   :commands (alert)
   :init
   (setq alert-default-style 'notifier))
-
-;; Circe IRC client
-(use-package circe
-  :ensure t
-  :defer t)
 
 ;; Easy HTTP requests
 (use-package request
