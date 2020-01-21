@@ -95,6 +95,15 @@
   (yaml-mode . rainbow-delimiters-mode)
   (json-mode . rainbow-delimiters-mode))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Better Window navigation ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package winum
+  :ensure t
+  :config
+  (winum-mode))
+
 ;;;;;;;;;;;
 ;; Theme ;;
 ;;;;;;;;;;;
