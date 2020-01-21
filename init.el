@@ -392,13 +392,6 @@
   :ensure t
   :defer t)
 
-(defun js-config-hooks ()
-  "Add tabs as default identation character."
-  (add-hook 'js-mode-hook (lambda () (setq indent-line-function 'insert-tab)))
-  (add-hook 'js-mode-hook (lambda () (setq indent-tabs-mode nil)))
-  (add-hook 'js-mode-hook (lambda () (setq tab-width 2))))
-(add-hook 'js-mode-hook #'js-config-hooks)
-
 ;; Git
 (use-package magit
   :ensure t
@@ -782,12 +775,6 @@
   :ensure t
   :defer t)
 
-;; ReactJS Settings
-(use-package react-snippets
-  :ensure t
-  :after yasnippet
-  :defer t)
-
 ;; JSON support
 (use-package json-mode
   :ensure t
@@ -808,28 +795,44 @@
   (org-mode . flycheck-mode)
   (yaml-mode . flycheck-mode)
   (json-mode . flycheck-mode)
+  (js-mode . tide-mode)
   :custom
   (flycheck-emacs-lisp-load-path 'inherit)
   :config
   (flycheck-add-mode 'javascript-eslint 'js-mode)
   (flycheck-add-mode 'typescript-tslint 'rjsx-mode))
 
+;; Javascript support settings
+(defun setup-tide-mode()
+  "Setup function for tide."
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  (company-mode +1))
+
+(use-package tide
+  :ensure t
+  :after (js-mode company flycheck)
+  :config
+  (setq company-tooltip-align-annotations t)
+  (flycheck-javascript-standard-executable "/usr/bin/standardx")
+  ;; (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
+  :hook
+  ((js-mode . #'setup-tide-mode)
+   (js-mode . tide-setup)
+   (js-mode . tide-hl-identifier-mode)
+   (before-save . tide-format-before-save)))
+
+;; (add-hook 'js-mode-hook #'setup-tide-mode)
 
 ;; Typescript mode
 (use-package typescript-mode
   :ensure t
   :mode "\\.ts\\'"
   :commands (typescript-mode))
-
-;; js2-refactor
-(use-package js2-refactor
-  :ensure t
-  :after js-mode
-  :defer t
-  :config
-  (js2r-add-keybindings-with-prefix "C-c C-m")
-  :hook
-  (js-mode . js2-refactor-mode))
 
 (use-package prettier-js
   :ensure t
@@ -840,17 +843,11 @@
 	'("--trailing-comma" "all"
           "--single-quote" "true"
 	  "--bracket-spacing" "true"
+	  "--jsx-single-quote" "true"
+	  "--jsx-bracket-same-line" "true"
           "--print-width" "80"))
   :hook
   (js-mode . prettier-js-mode))
-
-;; Jest mode
-(use-package jest
-  :ensure t
-  :after js-mode
-  :defer t
-  :bind
-  (("C-x j" . jest-popup)))
 
 ;; REST-client
 (use-package restclient
