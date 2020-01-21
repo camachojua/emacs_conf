@@ -530,3 +530,95 @@
     (switch-to-buffer
      (find-file-noselect
       (concat "/sudo::" qual-filename)))))
+
+;;;;;;;;;;;;;;;;;;;;
+;; Email Settings ;;
+;;;;;;;;;;;;;;;;;;;;
+
+;; IMAP Settings
+(use-package w3m
+  :ensure t
+  :defer t
+  :after mu4e)
+
+;; IMAP Settings
+(when (not (featurep 'mu4e))
+  (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e/"))
+
+(use-package mu4e
+  :defer t
+  :if window-system
+  :load-path "/usr/local/share/emacs/site-lisp/mu4e/"
+  :ensure org-mime
+  :ensure htmlize
+  :bind
+  ("C-c C-v" . mu4e-view-attachment-actions)
+  ("C-c C-a" . mail-add-attachment)
+  :ensure mu4e-alert
+  :init
+  (require 'org-mu4e)
+  :config
+  (setq org-mu4e-convert-to-html t) ;; M-m C-c.
+  (setq mu4e-sent-messages-behavior 'sent)
+  (setq mu4e-html2text-command "w3m -T text/html")
+  (setq mail-user-agent 'mu4e-user-agent)
+  (setq mu4e-drafts-folder "/[Gmail].Borradores")
+  (setq mu4e-sent-folder "/[Gmail].Enviados")
+  (setq mu4e-trash-folder "/[Gmail].Papelera")
+  (setq mu4e-sent-messages-behavior 'delete)
+  (setq mu4e-user-mail-address user-mail-address)
+  (setq mu4e-view-show-images t
+	mu4e-view-show-images t
+	mu4e-view-image-max-width 1200)
+  (when (fboundp 'imagemagick-register-types)
+    (imagemagick-register-types))
+  (setq mu4e-maildir-shortcuts
+        '(("/INBOX" . ?i)
+          ("/[Gmail].Enviados" . ?s)
+          ("/[Gmail].Trash" . ?t)
+          ("/[Gmail].Todos" . ?a)))
+  (setq mu4e-get-mail-command "offlineimap")
+  (setq
+   mu4e-compose-signature
+   (concat "¡Saludos!\n"
+           user-full-name)))
+
+;; SMTP Settings
+(use-package smtpmail
+  :ensure t
+  :after mu4e
+  :defer t
+  :config
+  (setq message-send-mail-function 'smtpmail-send-it
+        starttls-use-gnutls t
+        smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+        smtpmail-auth-credentials
+        '(("smtp.gmail.com" 587 user-mail-address nil))
+        smtpmail-default-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-service 587))
+;; Email notifications
+(use-package mu4e-alert
+  :ensure t
+  :defer t
+  :hook
+  (after-init . mu4e-alert-enable-mode-line-display)
+  :init
+  (setq mu4e-alert-interesting-mail-query
+        (concat
+         "flag:unread"
+         " AND NOT flag:trashed"
+         " AND maildir:/[Gmail]/INBOX"))
+  (mu4e-alert-enable-mode-line-display))
+
+(use-package org-mu4e
+  :config
+  (setq org-capture-templates
+      '(("t" "todo" entry
+         (file+headline "~/todo.org" "Tasks")
+         "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n"))))
+
+(use-package w3m
+  :ensure t
+  :after mu4e
+  :defer t)
