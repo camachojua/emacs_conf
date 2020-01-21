@@ -103,6 +103,16 @@
   :config
   (winum-mode))
 
+(use-package highlight-indent-guides
+  :ensure t
+  :defer t
+  :diminish
+  :hook
+  (prog-mode . highlight-indent-guides-mode)
+  (org-mode . highlight-indent-guides-mode)
+  (yaml-mode . highlight-indent-guides-mode)
+  (json-mode . highlight-indent-guides-mode))
+
 ;;;;;;;;;;;
 ;; Theme ;;
 ;;;;;;;;;;;
@@ -207,3 +217,25 @@
   :defer t
   :bind
   ("C-." . counsel-projectile))
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Snippet support ;;
+;;;;;;;;;;;;;;;;;;;;;
+(if (not (file-directory-p (expand-file-name "snippets" user-emacs-directory)))
+    (mkdir (expand-file-name "snippets" user-emacs-directory)))
+
+(use-package yasnippet
+  :ensure t
+  :diminish yas-minor-mode
+  :after ivy
+  :defer t
+  :hook
+  (after-init . yas-global-mode)
+  :config
+  (yas-load-directory (expand-file-name "snippets" user-emacs-directory))
+  (yas-global-mode t))
+
+(use-package react-snippets
+  :ensure t
+  :defer t
+  :after yasnippet)
