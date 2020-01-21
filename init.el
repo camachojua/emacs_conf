@@ -283,8 +283,6 @@
 
 (use-package projectile
   :ensure t
-  :after ivy
-  :defer t
   :defer t
   :init
   (setq projectile-completion-system 'ivy)
@@ -295,7 +293,7 @@
 
 (use-package counsel-projectile
   :ensure t
-  :after ivy
+  :after projectile
   :defer t
   :bind
   ("C-." . counsel-projectile))
@@ -703,3 +701,19 @@
 (use-package docker-tramp
   :ensure t
   :defer t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Programming modes utilities				   ;;
+;; 							   ;;
+;; This section is big, but I'm going to put preference to ;;
+;; javascript, json and yaml				   ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun js-config-hooks ()
+  "Add tabs as default indentation character."
+  (setq js-indent-level 2)
+  (add-hook 'js-mode-hook (lambda () (setq indent-line-function 'insert-tab)))
+  (add-hook 'js-mode-hook (lambda () (setq indent-tabs-mode nil)))
+  (add-hook 'js-mode-hook (lambda () (setq tab-width 2))))
+
+(add-hook 'js-mode-hook #'js-config-hooks)
