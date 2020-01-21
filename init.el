@@ -94,9 +94,26 @@
   (yaml-mode . rainbow-delimiters-mode)
   (json-mode . rainbow-delimiters-mode))
 
+(use-package aggressive-indent
+  :ensure t
+  :after prog-mode
+  :defer t
+  :hook
+  (prog-mode . aggressive-indent-mode)
+  (emacs-lisp-mode . aggressive-indent-mode)
+  (json-mode . aggressive-indent-mode)
+  (yaml-mode . aggresive-indent-mode))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Better Window navigation ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package alert
+  :ensure t
+  :defer t
+  :commands (alert)
+  :init
+  (setq alert-default-style 'notifier))
 
 (use-package winum
   :ensure t
@@ -277,12 +294,14 @@
 
 (use-package swiper
   :ensure t
+  :after ivy
   :defer t
   :bind (("C-s" . swiper)
 	 ("C-r" . swiper)))
 
 (use-package projectile
   :ensure t
+  :after ivy
   :defer t
   :init
   (setq projectile-completion-system 'ivy)
@@ -293,7 +312,7 @@
 
 (use-package counsel-projectile
   :ensure t
-  :after projectile
+  :after ivy
   :defer t
   :bind
   ("C-." . counsel-projectile))
@@ -390,8 +409,8 @@
 
 (use-package all-the-icons-ivy
   :ensure t
-  :after all-the-icons ivy
   :defer t
+  :after (all-the-icons ivy)
   :custom (all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
   :config
   (add-to-list 'all-the-icons-ivy-file-commands 'counsel-dired-jump)
@@ -671,6 +690,22 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;
+;; Flycheck support ;;
+;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package flycheck
+  :ensure t
+  :defer t
+  :hook
+  (prog-mode . flycheck-mode)
+  (org-mode . flycheck-mode)
+  (json-mode . flycheck-mode)
+  (yaml-mode . flycheck-mode)
+  :custom
+  (flycheck-emacs-lisp-load-path 'inherit))
+
+
+;;;;;;;;;;;;;;;;;;;;;;
 ;; Document reading ;;
 ;;;;;;;;;;;;;;;;;;;;;;
 
@@ -717,3 +752,51 @@
   (add-hook 'js-mode-hook (lambda () (setq tab-width 2))))
 
 (add-hook 'js-mode-hook #'js-config-hooks)
+
+(use-package json-mode
+  :ensure t
+  :defer t)
+
+(use-package dockerfile-mode
+  :ensure t
+  :mode "\\Dockerfile\\'"
+  :defer t)
+
+(use-package restclient
+  :ensure t
+  :defer t)
+
+(use-package nasm-mode
+  :ensure t
+  :defer t
+  :hook
+  (asm-mode . nasm-mode))
+
+(use-package request
+  :ensure t
+  :defer t)
+
+(use-package websocket
+  :ensure t
+  :defer t)
+
+(use-package yaml-mode
+  :ensure t
+  :defer t)
+
+(use-package pug-mode
+  :ensure t
+  :defer t)
+
+(use-package clojure-mode
+  :ensure t
+  :defer t
+  :hook
+  (clojure-mode . aggresive-indent-mode))
+
+(use-package haskell-mode
+  :ensure t
+  :defer t
+  :hook
+  (haskell-mode . aggressive-indent-mode))
+;;; init.el ends here
