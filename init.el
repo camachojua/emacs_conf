@@ -94,30 +94,6 @@
   (doom-themes-neotree-config)
   (doom-themes-org-config))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Better search engine ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package ivy
-  :ensure t
-  :defer t
-  :custom
-  (ivy-use-virtual-buffers t)
-  (ivy-count-format "(%d/%d)")
-  :config
-  (ivy-mode t))
-
-(use-package counsel
-  :ensure t
-  :after ivy
-  :defer t
-  :config (counsel-mode t))
-
-(use-package swiper
-  :ensure t
-  :defer t
-  :bind (("C-s" . swiper)
-	 ("C-r" . swiper)))
-
 ;;;;;;;;;;;;;;;;;;;;
 ;; Magit settings ;;
 ;;;;;;;;;;;;;;;;;;;;
@@ -132,9 +108,11 @@
   :bind
   (("C-x g" . 'magit-status)
    ("C-x M-g" . 'magit-dispatch)))
+
 (auth-source-forget-all-cached)
 '(ediff-split-window-function (quote split-window-horizontally))
 '(ediff-window-setup-function (quote ediff-setup-windows-plain))
+
 (use-package forge
   :ensure t
   :defer t
@@ -162,3 +140,27 @@
        token
        :host host
        :user user))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Better search engine ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package ivy
+  :ensure t
+  :defer t
+  :custom
+  (ivy-use-virtual-buffers t)
+  (ivy-count-format "(%d/%d)")
+  :config
+  (ivy-mode t))
+
+(use-package counsel
+  :ensure t
+  :after ivy
+  :defer t
+  :config (counsel-mode t))
+
+(use-package swiper
+  :ensure t
+  :defer t
+  :bind (("C-s" . swiper)
+	 ("C-r" . swiper)))
