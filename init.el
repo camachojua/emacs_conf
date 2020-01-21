@@ -189,6 +189,12 @@
   :defer t
   :after treemacs magit)
 
+(use-package treemacs-icons-dired
+  :ensure t
+  :defer t
+  :after treemacs dired
+  :config (treemacs-icons-dired-mode))
+
 ;;;;;;;;;;;
 ;; Theme ;;
 ;;;;;;;;;;;
@@ -337,4 +343,39 @@
   :hook
   (dashboard-mode . (lambda () (linum-mode -1)))
   :config
+  (setq dashboard-set-init-info t
+	dashboard-set-file-icons t
+	dashboard-set-heading-icons t
+	dashboard-heading-icons '((recents . "file-text")
+				  (bookmarks . "bookmark")
+				  (agenda . "calendar")
+				  (projects . "file-directory")
+				  (registers . "database"))
+	dashboard-set-navigator t
+	dashboard-navigator-buttons
+	`(((,(when (display-graphic-p)
+               (all-the-icons-octicon "tools" :height 1.0 :v-adjust 0.0))
+            "Settings" "Open settings file"
+            (lambda (&rest _) (config-file)))
+           (,(when (display-graphic-p)
+               (all-the-icons-material "update" :height 1.35 :v-adjust -0.24))
+            "Update" "Update Emacs Configuration to the latest version"
+            (lambda (&rest _) (update-config))))))
   (dashboard-setup-startup-hook))
+
+(defun update-config ()
+  "Pulls the latest configuration file from github."
+  (interactive)
+  (let ((dir (expand-file-name user-emacs-directory)))
+    (if (file-exists-p dir)
+	(progn
+	  (message "Updating configuration ... ")
+	  (cd dir)
+	  (shell-command "git pull")
+	  (message "Updating configuration ... done."))
+      (message "\"%s\" doesn't exists." dir))))
+
+
+;;;;;;;;;;;;;;;;;;;
+;; Icons support ;;
+;;;;;;;;;;;;;;;;;;;
