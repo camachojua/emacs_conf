@@ -117,7 +117,6 @@
 
 (use-package magit
   :ensure t
-  :after ivy
   :defer t
   :init
   (setq magit-completing-read-function 'ivy-completing-read)
