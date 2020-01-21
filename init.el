@@ -602,14 +602,14 @@
   :ensure t
   :defer t
   :hook
-  (after-init . mu4e-alert-enable-mode-line-display)
+  (after-init . mu4e-alert-enable-notifications)
   :init
   (setq mu4e-alert-interesting-mail-query
         (concat
          "flag:unread"
          " AND NOT flag:trashed"
          " AND maildir:/[Gmail]/INBOX"))
-  (mu4e-alert-enable-mode-line-display))
+  (mu4e-alert-enable-notifications))
 
 (use-package org-mu4e
   :config
@@ -622,3 +622,55 @@
   :ensure t
   :after mu4e
   :defer t)
+
+;;;;;;;;;;;;;;;;;;;
+;; Emoji support ;;
+;;;;;;;;;;;;;;;;;;;
+
+(use-package emojify
+  :ensure t
+  :defer t
+  :hook
+  (after-init . global-emojify-mode))
+
+(use-package company-emoji
+  :ensure t
+  :after company
+  :defer t
+  :hook
+  ((markdown-mode . company-mode)
+   (git-commit-mode . company-mode))
+  :config
+  (add-to-list 'company-backends 'company-emoji))
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Company support ;;
+;;;;;;;;;;;;;;;;;;;;;
+
+(use-package company
+  :ensure t
+  :defer t
+  :diminish company-mode
+  :custom
+  (company-tooltip-align-annotations t)
+  :config
+  (add-to-list 'company-backends 'company-emoji)
+  (setq company-idle-delay t)
+
+  (use-package company-go
+    :ensure t
+    :after company
+    :defer t
+    :config
+    (add-to-list 'company-backends 'company-go))
+
+  :hook
+  (after-init . global-company-mode)
+  (prog-mode . company-mode)
+  (LaTeX-mode . company-mode)
+  (org-mode . company-mode))
+
+
+;;;;;;;;;;;;;;;;;;;;;;
+;; Document reading ;;
+;;;;;;;;;;;;;;;;;;;;;;
