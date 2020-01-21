@@ -283,7 +283,7 @@
   (ivy-use-virtual-buffers t)
   (ivy-count-format "(%d/%d)")
   :config
-  (ivy-mode t))
+  (ivy-mode))
 
 (use-package counsel
   :ensure t
@@ -408,6 +408,7 @@
 
 (use-package all-the-icons-ivy
   :ensure t
+  :after (all-the-icons ivy)
   :custom (all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
   :config
   (add-to-list 'all-the-icons-ivy-file-commands
