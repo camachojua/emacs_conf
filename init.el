@@ -390,3 +390,9 @@
   (add-to-list 'all-the-icons-ivy-file-commands 'counsel-dired-jump)
   (add-to-list 'all-the-icons-ivy-file-commands 'counsel-find-library)
   (all-the-icons-ivy-setup))
+
+(use-package all-the-icons-dired
+  :ensure t
+  :after dired
+  :defer t
+  :hook (dired-mode . all-the-icons-dired-mode))
