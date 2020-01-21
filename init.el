@@ -61,7 +61,6 @@
   (setq whitespace-line-column 80)
   (setq whitespace-style '(face-lines-tail))
   :hook
-  (prog-mode . whitespace-mode)
   (org-mode . whitespace-mode)
   (prog-mode . whitespace-mode)
   (arduino-mode . whitespace-mode)
@@ -189,3 +188,22 @@
   :defer t
   :bind (("C-s" . swiper)
 	 ("C-r" . swiper)))
+
+(use-package projectile
+  :ensure t
+  :after ivy
+  :defer t
+  :defer t
+  :init
+  (setq projectile-completion-system 'ivy)
+  :bind
+  ("C-c p" . 'projectile-command-map)
+  :config
+  (projectile-mode t))
+
+(use-package counsel-projectile
+  :ensure t
+  :after ivy
+  :defer t
+  :bind
+  ("C-." . counsel-projectile))
