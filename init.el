@@ -94,47 +94,6 @@
   (doom-themes-neotree-config)
   (doom-themes-org-config))
 
-
-;;;;;;;;;;;;;;;;;;;;
-;; Magit settings ;;
-;;;;;;;;;;;;;;;;;;;;
-
-(use-package magit
-  :ensure t
-  :after ivy
-  :defer t
-  :init
-  (auth-source-forget-all-cached)
-  (setq vc-handled-backends (delq 'Git vc-handled-backends))
-  :bind
-  (("C-x g" . 'magit-status)
-   ("C-x M-g" . 'magit-dispatch)))
-
-(use-package forge
-  :ensure t
-  :defer t
-  :config
-  (setq ghub-use-workaround-for-emacs-bug nil)
-  (defun forge-create-secret-auth ()
-    "Prompt for an creates the git forge secret. Mostly for gitlab."
-    (interactive)
-    (let*
-	((repo (forge-get-repository 'full))
-	   (host (oref repo apihost))
-	   (username (ghub--username host 'gitlab))
-	   (user (contcat username "^forge"))
-	   token)
-      (setq token (read-passwd (format "Enter your token for %s @ %s: " username host)))
-      (ghub-clear-caches)
-      (auth-source-forget-all-cached)
-      (secrets-create-item
-       "Login" (format "%s @ %s" user host)
-       token
-       :host host
-       :user user))))
-'(ediff-split-window-function (quote split-window-horizontally))
-'(ediff-window-setup-function (quote ediff-setup-windows-plain))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Better search engine ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -146,3 +105,60 @@
   (ivy-count-format "(%d/%d)")
   :config
   (ivy-mode t))
+
+(use-package counsel
+  :ensure t
+  :after ivy
+  :defer t
+  :config (counsel-mode t))
+
+(use-package swiper
+  :ensure t
+  :defer t
+  :bind (("C-s" . swiper)
+	 ("C-r" . swiper)))
+
+;;;;;;;;;;;;;;;;;;;;
+;; Magit settings ;;
+;;;;;;;;;;;;;;;;;;;;
+
+(use-package magit
+  :ensure t
+  :after ivy
+  :defer t
+  :init
+  (setq magit-completing-read-function 'ivy-completing-read)
+  (setq vc-handled-backends (delq 'Git vc-handled-backends))
+  :bind
+  (("C-x g" . 'magit-status)
+   ("C-x M-g" . 'magit-dispatch)))
+(auth-source-forget-all-cached)
+'(ediff-split-window-function (quote split-window-horizontally))
+'(ediff-window-setup-function (quote ediff-setup-windows-plain))
+(use-package forge
+  :ensure t
+  :defer t
+  :config
+  (setq ghub-use-workaround-for-emacs-bug nil)
+  (add-to-list 'forge-alist
+               '("git.fciencias.unam.mx"
+                 "git.fciencias.unam.mx/api/v4"
+                 "git.fciencias.unam.mx"
+                 forge-gitlab-repository))
+  (defun forge-create-secret-auth ()
+    "Prompts for and creates the git forge secret. Mostly for gitlab"
+    (interactive)
+    (let*
+	((repo (forge-get-repository 'full))
+	 (host (oref repo apihost))
+	 (username (ghub--username host 'gitlab))
+	 (user (concat username "^forge"))
+	 token)
+      (setq token (read-passwd (format "Enter your token for %s @ %s: " username host)))
+      (ghub-clear-caches)
+      (auth-source-forget-all-cached)
+      (secrets-create-item
+       "Login" (format "%s @ %s" user host)
+       token
+       :host host
+       :user user))))
