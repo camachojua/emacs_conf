@@ -674,3 +674,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Document reading ;;
 ;;;;;;;;;;;;;;;;;;;;;;
+
+(defun my-nov-font-setup ()
+  "Font for epubs."
+  (face-remap-add-relative 'variable-pitch
+			   :family "Liberation Serif"
+			   :height 1.0))
+
+(use-package nov
+  :ensure t
+  :defer t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+  :hook
+  (nov-mode . my-nov-font-setup)
+  (doc-view-mode . (lambda () (linum-mode -1))))
