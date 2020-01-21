@@ -189,12 +189,6 @@
   :defer t
   :after treemacs magit)
 
-(use-package treemacs-icons-dired
-  :ensure t
-  :defer t
-  :after treemacs dired
-  :config (treemacs-icons-dired-mode))
-
 ;;;;;;;;;;;
 ;; Theme ;;
 ;;;;;;;;;;;
@@ -379,3 +373,20 @@
 ;;;;;;;;;;;;;;;;;;;
 ;; Icons support ;;
 ;;;;;;;;;;;;;;;;;;;
+(use-package all-the-icons :ensure t)
+
+(use-package treemacs-icons-dired
+  :ensure t
+  :defer t
+  :after treemacs dired
+  :config (treemacs-icons-dired-mode))
+
+(use-package all-the-icons-ivy
+  :ensure t
+  :after all-the-icons ivy
+  :defer t
+  :custom (all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
+  :config
+  (add-to-list 'all-the-icons-ivy-file-commands 'counsel-dired-jump)
+  (add-to-list 'all-the-icons-ivy-file-commands 'counsel-find-library)
+  (all-the-icons-ivy-setup))
