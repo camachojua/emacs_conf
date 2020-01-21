@@ -329,10 +329,12 @@
 	      winner-undo
 	      widget-forward)
   :init
+  (setq dahboard-banner-logo-title "")
   (setq dashboard-center-content t)
   (setq dashboard-items '((recents . 5)
 			  (projects . 5)
 			  (agenda . 5)))
+  :hook
+  (dashboard-mode . (lambda () (linum-mode -1)))
   :config
-  (dashboard-setup-startup-hook)
-  (add-hook 'dashboard-mode-hook (lambda () (linum-mode -1))))
+  (dashboard-setup-startup-hook))
