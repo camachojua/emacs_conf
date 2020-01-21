@@ -313,6 +313,7 @@
   :defer t
   :hook
   (after-init . yas-global-mode)
+  (prog-mode . yas-minor-mode)
   :config
   (yas-load-directory (expand-file-name "snippets" user-emacs-directory))
   (yas-global-mode t))
@@ -689,3 +690,16 @@
   :hook
   (nov-mode . my-nov-font-setup)
   (doc-view-mode . (lambda () (linum-mode -1))))
+
+;;;;;;;;;;;;;;;;;;;;;;
+;; Docker utilities ;;
+;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package docker
+  :ensure t
+  :defer t
+  :bind ("C-c d" . docker))
+
+(use-package docker-tramp
+  :ensure t
+  :defer t)
