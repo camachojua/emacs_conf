@@ -419,13 +419,34 @@ comando =C-S Enter=):
     + [ ] Segunda tarea.
 #+END_SRC
 
-
 **** Lista de definiciones
 
 *** Tablas
 **** Hojas de cálculo
 *** Exportación
 *** Agenda
+Org contiene una agenda para ayudarnos a administrar las tareas
+pendientes que tenemos en nuestras listas de cosas por hacer. Así como
+podemos tener múltiples archivos =org= también podemos tener múltiples
+archivos para organizar la agenda, antes de continuar debemos
+indicarle a emacs la ubicación de dichos archivos:
+
+#+begin_src elisp
+  (setq org-agenda-files '("~/org/trabajo.org"
+                           "~/org/tareasPrioritarias.org"
+                           "~/org/lecturasPendientes.org"
+                           "~/org/proyectosSencillos.org"))
+#+end_src
+
+Org buscará dentro de estos archivos por elementos que se encuentren
+en una lista de cosas por hacer y los organizará de acuerdo al día
+para el que fueron calendarizados. Para añadir un elemento a la agenda
+este elemento debe estar dentro de una lista de cosas por hacer, el
+cursor debe estar sobre la cabecera de la lista y debemos insertar el
+comando =C-c C-s= el cuál ejecutará la función =org-schedule=, un
+calendario aparecerá y se podrà elegir una fecha posterior para
+agendar la tarea.
+
 *** Bloques de código
 
 En =Org Mode= es posible definir bloques de texto que pueden ser
