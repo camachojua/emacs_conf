@@ -17,6 +17,24 @@
 (use-package diminish
   :ensure t)
 
+;;;;;;;;;;;;;;;;;;;;;;
+;; User information ;;
+;;;;;;;;;;;;;;;;;;;;;;
+(setq user-full-name "Juan Alberto Camacho Bolaños")
+(setq user-mail-address "juancamacho@ciencias.unam.mx")
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Configuration file shortcuts ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun config-file ()
+  "This function opens the principal configuration file."
+  (find-file (expand-file-name "init.el"
+			       user-emacs-directory)))
+
+(global-set-key (kbd "<f6>") (lambda () (interactive) (config-file)))
+(global-set-key (kbd "<f5>") 'emacs-lisp-byte-compile-and-load)
+
 ;; General settings
 (setq inhibit-startup-screen t)
 (setq backup-inhibited t)
@@ -25,7 +43,7 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (global-linum-mode 1)
-(set-frame-font "FiraCode 11" nil t)
+(set-frame-font "Cascadia Mono 11" nil t)
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 
