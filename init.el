@@ -501,3 +501,32 @@
    (sql . t)
    (sqlite . t)
    (shell . t)))
+
+;;;;;;;;;;;;;;;;;;;;
+;; Eshell goodies ;;
+;;;;;;;;;;;;;;;;;;;;
+
+(setq eshell-prompt-regexp "^[^αλ\n]*[αλ] ")
+(setq eshell-prompt-function
+      (lambda nil
+        (concat
+         (if (string= (eshell/pwd) (getenv "HOME"))
+             (propertize "~" 'face `(:foreground "#a099ab"))
+           (replace-regexp-in-string
+            (getenv "HOME")
+            (propertize "~" 'face `(:foreground "#98cbff"))
+            (propertize (eshell/pwd) 'face `(:foreground "#908bff"))))
+         (if (= (user-uid) 0)
+             (propertize " α " 'face `(:foreground "#ffaf06"))
+         (propertize " λ " 'face `(:foreground "#aabf2e"))))))
+(setq eshell-highlight-prompt nil)
+(defalias 'open 'find-file-other-window)
+(defalias 'clean 'eshell/clear-scrollback)
+(defun eshell/sudo-open (filename)
+  "Open a file (FILENAME) as root in Eshell."
+  (let ((qual-filename (if (string-match "^/" filename)
+                           filename
+                         (concat (expand-file-name (eshell/pwd)) "/" filename))))
+    (switch-to-buffer
+     (find-file-noselect
+      (concat "/sudo::" qual-filename)))))
