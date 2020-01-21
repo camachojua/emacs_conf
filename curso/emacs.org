@@ -445,7 +445,9 @@ este elemento debe estar dentro de una lista de cosas por hacer, el
 cursor debe estar sobre la cabecera de la lista y debemos insertar el
 comando =C-c C-s= el cuál ejecutará la función =org-schedule=, un
 calendario aparecerá y se podrà elegir una fecha posterior para
-agendar la tarea.
+agendar la tarea. Para ver los elementos agredados insertamos el
+comando =M-x org-agenda a=. En este nuevo buffer podemos presionar =l=
+para ver con màs detalle las tareas que debemos hacer el dìa de hoy.
 
 *** Bloques de código
 
