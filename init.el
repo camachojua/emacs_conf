@@ -107,11 +107,17 @@
   :ensure t
   :defer t
   :diminish
+  :config
+  (setq highlight-indent-guides-character ?\| )
   :hook
   (prog-mode . highlight-indent-guides-mode)
   (org-mode . highlight-indent-guides-mode)
   (yaml-mode . highlight-indent-guides-mode)
-  (json-mode . highlight-indent-guides-mode))
+  (json-mode . highlight-indent-guides-mode)
+  :custom
+  (highlight-indent-guides-auto-enabled t)
+  (highlight-indent-guides-responsive t)
+  (highlight-indent-guides-method 'character))
 
 (use-package treemacs
   :ensure t
@@ -475,22 +481,23 @@
   :after org-mode
   :defer t)
 
-(org-babel-do-load-languages 'org-babel-load-languages
-                             '((awk . t)
-                               (C . t)
-                               (clojure . t)
-                               (ditaa . t)
-                               (emacs-lisp . t)
-                               (gnuplot . t)
-                               (haskell . t)
-                               (java . t)
-                               (js . t)
-                               (latex . t)
-                               (org . t)
-                               (plantuml . t)
-                               (python . t)
-                               (restclient . t)
-                               (sass . t)
-                               (sql . t)
-                               (sqlite . t)
-                               (shell . t)))
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((awk . t)
+   (C . t)
+   (clojure . t)
+   (ditaa . t)
+   (emacs-lisp . t)
+   (gnuplot . t)
+   (haskell . t)
+   (java . t)
+   (js . t)
+   (latex . t)
+   (org . t)
+   (plantuml . t)
+   (python . t)
+   (restclient . t)
+   (sass . t)
+   (sql . t)
+   (sqlite . t)
+   (shell . t)))
