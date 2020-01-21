@@ -396,3 +396,32 @@
   :after dired
   :defer t
   :hook (dired-mode . all-the-icons-dired-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Modeline modifications ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package doom-modeline
+  :custom
+  (doom-modeline-buffer-file-name 'truncate-with-project)
+  :ensure t
+  :init
+  (setq doom-modeline-height 25)
+  (setq doom-modeline-bar-width 3)
+  (setq doom-modeline-project-detection 'project)
+  (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
+  (setq doom-modeline-icon t)
+  (setq doom-modeline-major-mode-icon t)
+  (setq doom-modeline-major-mode-or-icon t)
+  (setq doom-modeline-buffer-state-icon t)
+  (setq doom-modeline-buffer-modification-icon t)
+  (setq doom-modeline-minor-modes nil)
+  (setq doom-modeline-enable-word-count nil)
+  (setq doom-modeline-checker-simple-format t)
+  (setq doom-modeline-vcs-max-length 12)
+  (setq doom-modeline-persp-name t)
+  (setq doom-modeline-github nil)
+  (setq doom-modeline-github-interval (* 30 60))
+  (setq doom-modeline-env-version t)
+  (setq doom-modeline-mu4e t)
+  :hook
+  (after-init . doom-modeline-mode))
