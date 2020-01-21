@@ -36,24 +36,6 @@
 (setq auth-sources
       '((:source "~/.authinfo.gpg")))
 
-;; Window move by numbers
-(use-package winum
-  :ensure t
-  :config
-  (winum-mode))
-
-;; Visual lines for indentation
-(use-package highlight-indent-guides
-  :ensure t
-  :defer t
-  :diminish
-  :hook
-  ((elisp-mode dockerfile-mode js-mode prog-mode yaml-mode json-mode) . highlight-indent-guides-mode)
-  :custom
-  (highlight-indent-guides-auto-enabled t)
-  (highlight-indent-guides-responsive t)
-  (highlight-indent-guides-method 'character))
-
 ;; Text style
 (use-package whitespace
   :ensure t
@@ -62,6 +44,7 @@
   (setq whitespace-line-column 80)
   (setq whitespace-style '(face-lines-tail))
   :hook
+  (prog-mode . whitespace-mode)
   (org-mode . whitespace-mode)
   (prog-mode . whitespace-mode)
   (arduino-mode . whitespace-mode)
@@ -95,7 +78,9 @@
   (yaml-mode . rainbow-delimiters-mode)
   (json-mode . rainbow-delimiters-mode))
 
-;; Tema
+;;;;;;;;;;;
+;; Theme ;;
+;;;;;;;;;;;
 (use-package doom-themes
   :ensure t
   :custom
@@ -116,9 +101,48 @@
 
 (use-package magit
   :ensure t
+  :after ivy
   :defer t
   :init
+  (auth-source-forget-all-cached)
   (setq vc-handled-backends (delq 'Git vc-handled-backends))
   :bind
   (("C-x g" . 'magit-status)
    ("C-x M-g" . 'magit-dispatch)))
+
+(use-package forge
+  :ensure t
+  :defer t
+  :config
+  (setq ghub-use-workaround-for-emacs-bug nil)
+  (defun forge-create-secret-auth ()
+    "Prompt for an creates the git forge secret. Mostly for gitlab."
+    (interactive)
+    (let*
+	((repo (forge-get-repository 'full))
+	   (host (oref repo apihost))
+	   (username (ghub--username host 'gitlab))
+	   (user (contcat username "^forge"))
+	   token)
+      (setq token (read-passwd (format "Enter your token for %s @ %s: " username host)))
+      (ghub-clear-caches)
+      (auth-source-forget-all-cached)
+      (secrets-create-item
+       "Login" (format "%s @ %s" user host)
+       token
+       :host host
+       :user user))))
+'(ediff-split-window-function (quote split-window-horizontally))
+'(ediff-window-setup-function (quote ediff-setup-windows-plain))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Better search engine ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package ivy
+  :ensure t
+  :defer t
+  :custom
+  (ivy-use-virtual-buffers t)
+  (ivy-count-format "(%d/%d)")
+  :config
+  (ivy-mode t))
