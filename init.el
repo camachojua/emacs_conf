@@ -279,7 +279,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package ivy
   :ensure t
-  :defer t
   :custom
   (ivy-use-virtual-buffers t)
   (ivy-count-format "(%d/%d)")
@@ -409,13 +408,17 @@
 
 (use-package all-the-icons-ivy
   :ensure t
-  :defer t
-  :after (all-the-icons ivy)
   :custom (all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
   :config
-  (add-to-list 'all-the-icons-ivy-file-commands 'counsel-dired-jump)
-  (add-to-list 'all-the-icons-ivy-file-commands 'counsel-find-library)
-  (all-the-icons-ivy-setup))
+  (add-to-list 'all-the-icons-ivy-file-commands
+	       '(counsel-find-file
+		 counsel-file-jump
+		 counsel-recentf
+		 counsel-projectile-find-file
+		 counsel-projectile-find-dir))
+  (all-the-icons-ivy-setup)
+  :hook
+  (after-init . all-the-icons-ivy-setup))
 
 (use-package all-the-icons-dired
   :ensure t
