@@ -322,7 +322,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package dashboard
   :ensure t
-  :functions (open-custom-file
+  :functions (all-the-icons-faicon
+	      all-the-icons-material
+	      open-custom-file
 	      persp-get-buffer-or-nil
 	      persp-load-state-from-file
 	      persp-switch-to-buffer
@@ -425,3 +427,70 @@
   (setq doom-modeline-mu4e t)
   :hook
   (after-init . doom-modeline-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;;
+;; Org Mode Settings ;;
+;;;;;;;;;;;;;;;;;;;;;;;
+(if (not (file-directory-p (expand-file-name "org" (getenv "HOME"))))
+    (mkdir (expand-file-name "org" (getenv "HOME"))))
+
+(use-package org
+  :ensure t
+  :config
+  (setq org-startup-indented t)
+  (setq org-directory "~/org")
+  (setq org-startup-folded "showall")
+  (setq org-ditaa-jar-path (expand-file-name "ditaa"
+					   (file-name-as-directory "/usr/bin")))
+  (setq org-plantuml-jar-path (expand-file-name "plantuml.jar"
+					      (file-name-as-directory "/usr/share/plantuml")))
+  (setq org-todo-keywords
+	'((sequence "REPORT(r)" "BUG(b)" "KNOWCAUSE(k)" "|" "FIXED(f)")
+          (sequence "TODO(t)" "|" "DOING(d)" "DONE" "CANCELED")))
+  (setq org-todo-keyword-faces
+	'(("TODO" . (:foreground "cyan" :weight bold))
+          ("BUG" . (:foreground "purple" :weight bold))
+          ("REPORT" . (:foreground "white" :weight bold))
+          ("FIXED" . (:foreground "green" :weight bold))
+          ("DOING" . (:foreground "orange" :weight bold))
+          (("DONE") . (:foreground "green" :weight bold))
+          ("CANCELED" . (:foreground "yellow" :weight bold))))
+  (setq org-link '((:foreground "#ebe087" :underline t)))
+  (setq org-list-dt '((:foreground "#bd93f9")))
+  (setq org-special-keyword '((:foreground "#6272a4")))
+  (setq org-todo '((:background "#272934" :foreground "#51fa7b" :weight bold)))
+  (setq org-document-title '((:foreground "#f1fa8c" :weight bold)))
+  (setq org-done '((:background "#373844" :foreground "#215933" :strike-trough nil :weight bold)))
+  (setq org-footnote '((:foreground "#76e0f3")))
+  (setq org-confirm-babel-evaluate nil
+	org-src-fontify-natively t
+	org-src-tab-acts-natively t)
+  :hook
+  (org-babel-after-execute . org-display-inline-images)
+  (message-mode . turn-on-orgtbl)
+  (message-mode . turn-on-orgstruct++))
+
+(use-package ob-async
+  :ensure t
+  :after org-mode
+  :defer t)
+
+(org-babel-do-load-languages 'org-babel-load-languages
+                             '((awk . t)
+                               (C . t)
+                               (clojure . t)
+                               (ditaa . t)
+                               (emacs-lisp . t)
+                               (gnuplot . t)
+                               (haskell . t)
+                               (java . t)
+                               (js . t)
+                               (latex . t)
+                               (org . t)
+                               (plantuml . t)
+                               (python . t)
+                               (restclient . t)
+                               (sass . t)
+                               (sql . t)
+                               (sqlite . t)
+                               (shell . t)))
