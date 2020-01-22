@@ -564,7 +564,7 @@
   :ensure org-mime
   :ensure htmlize
   :bind
-  ("C-c C-v" . mu4e-view-attachment-actions)
+  ("C-c C-v" . mu4e-view-attachment-action)
   ("C-c C-a" . mail-add-attachment)
   :ensure mu4e-alert
   :init
@@ -822,3 +822,21 @@
                  TeX-run-index nil t
                  :help "Run makeindex to create index file")))
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(doom-themes-enable-bold t)
+ '(doom-themes-enable-italic t)
+ '(highlight-indent-guides-auto-enabled t)
+ '(highlight-indent-guides-method 'character)
+ '(highlight-indent-guides-responsive t)
+ '(package-selected-packages
+   '(yaml-mode winum websocket w3m use-package treemacs-projectile treemacs-magit treemacs-icons-dired tide scss-mode request react-snippets rainbow-mode rainbow-delimiters pug-mode prettier-js pdf-tools org-mime ob-restclient ob-async nov nasm-mode mu4e-alert js2-refactor jest htmlize highlight-indent-guides haskell-mode forge emojify doom-themes doom-modeline dockerfile-mode docker diminish dashboard counsel-projectile company-go company-emoji clojure-mode auctex all-the-icons-ivy all-the-icons-dired aggressive-indent)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(doom-modeline-bar ((t (:background "#6272a4")))))
