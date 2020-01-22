@@ -739,7 +739,6 @@
 ;; javascript, json and yaml				   ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;; Javascript Configuration
 (defun setup-tide-mode ()
   "Setup function for tide."
