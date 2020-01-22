@@ -739,6 +739,11 @@
 ;; javascript, json and yaml				   ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun js-config-hooks ()
+  "Set tabs spacing."
+  (setq js-indent-level 2))
+(add-hook 'js-mode-hook #'js-config-hooks)
+
 ;; Javascript Configuration
 (defun setup-tide-mode ()
   "Setup function for tide."
