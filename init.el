@@ -94,16 +94,6 @@
   (yaml-mode . rainbow-delimiters-mode)
   (json-mode . rainbow-delimiters-mode))
 
-(use-package aggressive-indent
-  :ensure t
-  :after prog-mode
-  :defer t
-  :hook
-  (prog-mode . aggressive-indent-mode)
-  (emacs-lisp-mode . aggressive-indent-mode)
-  (json-mode . aggressive-indent-mode)
-  (yaml-mode . aggressive-indent-mode))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Better Window navigation ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -795,15 +785,11 @@
 
 (use-package clojure-mode
   :ensure t
-  :defer t
-  :hook
-  (clojure-mode . aggresive-indent-mode))
+  :defer t)
 
 (use-package haskell-mode
   :ensure t
-  :defer t
-  :hook
-  (haskell-mode . aggressive-indent-mode))
+  :defer t)
 
 
 ;;;;;;;;;;;;;;;;;;;
