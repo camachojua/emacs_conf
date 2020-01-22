@@ -330,7 +330,6 @@
   :defer t
   :after yasnippet)
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Dashboard settings ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
@@ -699,7 +698,6 @@
   :custom
   (flycheck-emacs-lisp-load-path 'inherit))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Document reading ;;
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -790,7 +788,6 @@
 (use-package haskell-mode
   :ensure t
   :defer t)
-
 
 ;;;;;;;;;;;;;;;;;;;
 ;; LaTeX Support ;;
