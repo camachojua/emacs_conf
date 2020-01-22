@@ -115,7 +115,7 @@
   :defer t
   :diminish
   :config
-  (setq highlight-indent-guides-character ?\| )
+  (setq highlight-indent-guides-character ?\|)
   :hook
   (prog-mode . highlight-indent-guides-mode)
   (org-mode . highlight-indent-guides-mode)
@@ -695,6 +695,9 @@
   (org-mode . flycheck-mode)
   (json-mode . flycheck-mode)
   (yaml-mode . flycheck-mode)
+  :config
+  (setq flycheck-javascript-eslint-executable "/usr/bin/eslint")
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
   :custom
   (flycheck-emacs-lisp-load-path 'inherit))
 
@@ -737,14 +740,37 @@
 ;; javascript, json and yaml				   ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun js-config-hooks ()
-  "Add tabs as default indentation character."
-  (setq js-indent-level 2)
-  (add-hook 'js-mode-hook (lambda () (setq indent-line-function 'insert-tab)))
-  (add-hook 'js-mode-hook (lambda () (setq indent-tabs-mode nil)))
-  (add-hook 'js-mode-hook (lambda () (setq tab-width 2))))
 
-(add-hook 'js-mode-hook #'js-config-hooks)
+;; Javascript Configuration
+(defun setup-tide-mode ()
+  "Setup function for tide."
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  (company-mode +1))
+
+(setq company-tooltip-align-annotations t)
+(add-hook 'js-mode-hook #'setup-tide-mode)
+
+(use-package prettier-js
+  :ensure t
+  :hook
+  (js-mode . prettier-js-mode)
+  :config
+  (setq prettier-js-args
+	'("--trailing-comma" "none"
+	  "--tab-width" "2"
+	  "--use-tabs" "false"
+	  "--bracket-spacing" "true"
+	  "--no-semi" "true"
+	  "--single-quote" "true"
+	  "--semi" "true"
+	  "--jsx-single-quote" "true"
+	  "--jsx-bracket-same-line" "true"
+	  "--arrow-parens" "always")))
+;; End of javascript configuration
 
 (use-package json-mode
   :ensure t
@@ -822,21 +848,3 @@
                  TeX-run-index nil t
                  :help "Run makeindex to create index file")))
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(doom-themes-enable-bold t)
- '(doom-themes-enable-italic t)
- '(highlight-indent-guides-auto-enabled t)
- '(highlight-indent-guides-method 'character)
- '(highlight-indent-guides-responsive t)
- '(package-selected-packages
-   '(yaml-mode winum websocket w3m use-package treemacs-projectile treemacs-magit treemacs-icons-dired tide scss-mode request react-snippets rainbow-mode rainbow-delimiters pug-mode prettier-js pdf-tools org-mime ob-restclient ob-async nov nasm-mode mu4e-alert js2-refactor jest htmlize highlight-indent-guides haskell-mode forge emojify doom-themes doom-modeline dockerfile-mode docker diminish dashboard counsel-projectile company-go company-emoji clojure-mode auctex all-the-icons-ivy all-the-icons-dired aggressive-indent)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(doom-modeline-bar ((t (:background "#6272a4")))))
