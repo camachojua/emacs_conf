@@ -314,7 +314,8 @@
   :after ivy
   :defer t
   :bind
-  ("C-." . counsel-projectile))
+  ("C-." . counsel-projectile)
+  ("C-c p s g" . counsel-projectile-grep))
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Snippet support ;;
