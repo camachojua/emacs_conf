@@ -384,7 +384,6 @@
 	  (message "Updating configuration ... done."))
       (message "\"%s\" doesn't exists." dir))))
 
-
 ;;;;;;;;;;;;;;;;;;;
 ;; Icons support ;;
 ;;;;;;;;;;;;;;;;;;;
