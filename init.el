@@ -102,7 +102,7 @@
   (prog-mode . aggressive-indent-mode)
   (emacs-lisp-mode . aggressive-indent-mode)
   (json-mode . aggressive-indent-mode)
-  (yaml-mode . aggresive-indent-mode))
+  (yaml-mode . aggressive-indent-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Better Window navigation ;;
@@ -315,7 +315,7 @@
   :defer t
   :bind
   ("C-." . counsel-projectile)
-  ("C-c p s g" . counsel-projectile-grep))
+  ("C-c s g" . counsel-projectile-grep))
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Snippet support ;;
