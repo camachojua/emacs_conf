@@ -456,7 +456,7 @@
 (use-package org
   :ensure t
   :config
-  (setq org-image-actual-width 600)
+  (setq org-image-actual-width 800)
   (setq org-startup-indented t)
   (setq org-directory "~/org")
   (setq org-startup-folded "showall")
@@ -645,7 +645,13 @@
   :ensure t
   :defer t
   :hook
-  (after-init . global-emojify-mode))
+  (after-init . global-emojify-mode)
+  (prog-mode . emojify-mode)
+  (markdown-mode . emojify-mode)
+  (git-commit-mode . emojify-mode)
+  (magit-status-mode . emojify-mode)
+  (magit-log-mode . emojify-mode)
+  (org-mode . emojify-mode))
 
 (use-package company-emoji
   :ensure t
