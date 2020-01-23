@@ -456,6 +456,7 @@
 (use-package org
   :ensure t
   :config
+  (setq org-image-actual-width 600)
   (setq org-startup-indented t)
   (setq org-directory "~/org")
   (setq org-startup-folded "showall")
@@ -467,10 +468,10 @@
 	'((sequence "REPORT(r)" "BUG(b)" "KNOWCAUSE(k)" "|" "FIXED(f)")
           (sequence "TODO(t)" "|" "DOING(d)" "DONE" "CANCELED")))
   (setq org-todo-keyword-faces
-	'(("TODO" . (:foreground "cyan" :weight bold))
+	'(("TODO" . (:foreground "#76f0f3" :weight bold))
           ("BUG" . (:foreground "purple" :weight bold))
           ("REPORT" . (:foreground "white" :weight bold))
-          ("FIXED" . (:foreground "green" :weight bold))
+          ("FIXED" . (:foreground "#51ee7b" :weight bold))
           ("DOING" . (:foreground "orange" :weight bold))
           (("DONE") . (:foreground "green" :weight bold))
           ("CANCELED" . (:foreground "yellow" :weight bold))))
