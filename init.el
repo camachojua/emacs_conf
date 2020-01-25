@@ -510,7 +510,7 @@
    (org . t)
    (plantuml . t)
    (python . t)
-   (restclient . t)
+;;   (restclient . t)
    (sass . t)
    (sql . t)
    (sqlite . t)
@@ -793,9 +793,9 @@
   :mode "\\Dockerfile\\'"
   :defer t)
 
-(use-package restclient
-  :ensure t
-  :defer t)
+;; (use-package restclient
+;;   :ensure t
+;;   :defer t)
 
 (use-package nasm-mode
   :ensure t
