@@ -347,6 +347,7 @@
 	      widget-forward)
   :init
   (setq dahboard-banner-logo-title "")
+  ;;(setq dashboard-startup-banner "~/Imágenes/logo.png")
   (setq dashboard-center-content t)
   (setq dashboard-items '((recents . 5)
 			  (projects . 5)
