@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: sdefine
+# key: sdefine
+# --
+sequelize.define('$1', { $2: DataTypes.$0})
