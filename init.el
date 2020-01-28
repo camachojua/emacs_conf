@@ -1,5 +1,6 @@
-;;; Package -- summary
-;;; Commentary: Package configuration.
+;;; Package -- Summary
+;;; Commentary:
+;;; Package configuration.
 ;;; Code:
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -20,8 +21,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; User information ;;
 ;;;;;;;;;;;;;;;;;;;;;;
-(setq user-full-name "Juan Alberto Camacho Bolaños")
-(setq user-mail-address "juancamacho@ciencias.unam.mx")
+(add-to-list 'load-path "./personal-config.el")
+;;(load personal-config)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Configuration file shortcuts ;;
