@@ -22,7 +22,6 @@
 ;; User information ;;
 ;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'load-path "./personal-config.el")
-;;(load personal-config)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Configuration file shortcuts ;;
