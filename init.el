@@ -31,6 +31,11 @@
   (find-file (expand-file-name "init.el"
 			       user-emacs-directory)))
 
+(defun personal-file ()
+  "This function opens the principal configuration file."
+  (find-file (expand-file-name "personal-config.el"
+			       user-emacs-directory)))
+
 (global-set-key (kbd "<f6>") (lambda () (interactive) (config-file)))
 (global-set-key (kbd "<f5>") 'emacs-lisp-byte-compile-and-load)
 
@@ -381,12 +386,16 @@
 	dashboard-navigator-buttons
 	`(((,(when (display-graphic-p)
                (all-the-icons-octicon "tools" :height 1.0 :v-adjust 0.0))
-            "Settings" "Open settings file"
+            "Settings" "Opens settings file"
             (lambda (&rest _) (config-file)))
            (,(when (display-graphic-p)
                (all-the-icons-material "update" :height 1.35 :v-adjust -0.24))
             "Update" "Update Emacs Configuration to the latest version"
-            (lambda (&rest _) (update-config))))))
+            (lambda (&rest _) (update-config)))
+	   (,(when (display-graphic-p)
+               (all-the-icons-material "info" :height 1.35 :v-adjust -0.24))
+            "Personal File" "Opens the personal config file"
+            (lambda (&rest _) (personal-file))))))
   (dashboard-setup-startup-hook))
 
 (defun update-config ()
