@@ -96,6 +96,18 @@
   (yaml-mode . rainbow-delimiters-mode)
   (json-mode . rainbow-delimiters-mode))
 
+(use-package yafolding
+  :ensure t
+  :defer t
+  :hook
+  (prog-mode . yafolding-mode)
+  (elisp-mode . yafolding-mode)
+  (javascript-mode . yafolding-mode)
+  :config
+  (define-key yafolding-mode-map (kbd "<C-S-space>") 'yafolding-toggle-all)
+  (define-key yafolding-mode-map (kbd "<C-M-return>") 'yafolding-hide-parent-element)
+  (define-key yafolding-mode-map (kbd "<C-return>") 'yafolding-toggle-element))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Better Window navigation ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -874,13 +886,19 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
+ '(company-tooltip-align-annotations t)
+ '(doom-modeline-buffer-file-name 'truncate-with-project t)
  '(doom-themes-enable-bold t)
  '(doom-themes-enable-italic t)
+ '(flycheck-emacs-lisp-load-path 'inherit)
  '(highlight-indent-guides-auto-enabled t)
  '(highlight-indent-guides-method 'character)
  '(highlight-indent-guides-responsive t)
+ '(ivy-count-format "(%d/%d)")
+ '(ivy-use-virtual-buffers t)
  '(package-selected-packages
-   '(yaml-mode winum websocket w3m use-package treemacs-projectile treemacs-magit treemacs-icons-dired tide scss-mode request react-snippets rainbow-mode rainbow-delimiters pug-mode prettier-js plantuml-mode pdf-tools org-mime ob-restclient ob-async nov nasm-mode mu4e-alert magit-section js2-refactor jest htmlize highlight-indent-guides haskell-mode forge emojify doom-themes doom-modeline dockerfile-mode docker diminish dashboard counsel-projectile company-go company-emoji clojure-mode auctex all-the-icons-ivy all-the-icons-dired aggressive-indent)))
+   '(yafolding yaml-mode winum websocket w3m use-package treemacs-projectile treemacs-magit treemacs-icons-dired tide scss-mode request react-snippets rainbow-mode rainbow-delimiters pug-mode prettier-js plantuml-mode pdf-tools org-mime ob-restclient ob-async nov nasm-mode mu4e-alert magit-section js2-refactor jest htmlize highlight-indent-guides haskell-mode forge emojify doom-themes doom-modeline dockerfile-mode docker diminish dashboard counsel-projectile company-go company-emoji clojure-mode auctex all-the-icons-ivy all-the-icons-dired aggressive-indent)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
