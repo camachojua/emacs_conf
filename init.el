@@ -1,5 +1,6 @@
-;;; Package -- summary
-;;; Commentary: Package configuration.
+;;; Package -- Summary
+;;; Commentary:
+;;; Package configuration.
 ;;; Code:
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -20,8 +21,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; User information ;;
 ;;;;;;;;;;;;;;;;;;;;;;
-(setq user-full-name "Juan Alberto Camacho Bolaños")
-(setq user-mail-address "juancamacho@ciencias.unam.mx")
+(add-to-list 'load-path "./personal-config.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Configuration file shortcuts ;;
@@ -29,6 +29,11 @@
 (defun config-file ()
   "This function opens the principal configuration file."
   (find-file (expand-file-name "init.el"
+			       user-emacs-directory)))
+
+(defun personal-file ()
+  "This function opens the principal configuration file."
+  (find-file (expand-file-name "personal-config.el"
 			       user-emacs-directory)))
 
 (global-set-key (kbd "<f6>") (lambda () (interactive) (config-file)))
@@ -41,6 +46,7 @@
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
+(setq nlinum-highlight-current-line t)
 (global-linum-mode 1)
 (set-frame-font "Cascadia Mono 11" nil t)
 (add-hook 'write-file-functions
@@ -219,6 +225,12 @@
 ;;;;;;;;;;;
 ;; Theme ;;
 ;;;;;;;;;;;
+(use-package birds-of-paradise-plus-theme
+  :ensure t)
+
+(use-package chocolate-theme
+  :ensure t)
+
 (use-package doom-themes
   :ensure t
   :custom
@@ -381,12 +393,16 @@
 	dashboard-navigator-buttons
 	`(((,(when (display-graphic-p)
                (all-the-icons-octicon "tools" :height 1.0 :v-adjust 0.0))
-            "Settings" "Open settings file"
+            "Settings" "Opens settings file"
             (lambda (&rest _) (config-file)))
            (,(when (display-graphic-p)
                (all-the-icons-material "update" :height 1.35 :v-adjust -0.24))
             "Update" "Update Emacs Configuration to the latest version"
-            (lambda (&rest _) (update-config))))))
+            (lambda (&rest _) (update-config)))
+	   (,(when (display-graphic-p)
+               (all-the-icons-material "info" :height 1.35 :v-adjust -0.24))
+            "Personal File" "Opens the personal config file"
+            (lambda (&rest _) (personal-file))))))
   (dashboard-setup-startup-hook))
 
 (defun update-config ()
@@ -768,18 +784,22 @@
   (setq js-indent-level 2))
 (add-hook 'js-mode-hook #'js-config-hooks)
 
-;; Javascript Configuration
-(defun setup-tide-mode ()
-  "Setup function for tide."
-  (interactive)
-  (tide-setup)
-  (flycheck-mode +1)
-  (eldoc-mode +1)
-  (tide-hl-identifier-mode +1)
-  (company-mode +1))
-
-(setq company-tooltip-align-annotations t)
-(add-hook 'js-mode-hook #'setup-tide-mode)
+(use-package tide
+  :ensure t
+  :defer t
+  :bind
+  (("C-c r" . 'tide-rename-symbol)
+   ("C-c f" . 'tide-refactor)
+   ("C-c h" . 'tide-documentation-at-point))
+  :hook
+  ((typescript-mode . tide-setup)
+   (typescript-mode . tide-mode)
+   (typescript-mode . tide-hl-identifier-mode)
+   (typescript-mode . eldoc-mode)
+   (js-mode . tide-setup)
+   (js-mode . tide-hl-identifier-mode)
+   (js-mode . eldoc-mode)
+   (js-mode . tide-mode)))
 
 (use-package prettier-js
   :ensure t
@@ -880,4 +900,8 @@
                '("Index" "makeindex %s.nlo -s nomencl.ist -o %s.nls"
                  TeX-run-index nil t
                  :help "Run makeindex to create index file")))
+
+(use-package pdf-tools
+  :ensure t
+  :defer)
 ;;; init.el ends here
