@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: foreach
+# key: foreach
+# --
+$1.forEach(($2) => {
+  $0
+})

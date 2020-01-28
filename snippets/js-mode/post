@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: post
+# key: post
+# --
+router.post('/$1', $0)
