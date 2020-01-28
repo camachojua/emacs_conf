@@ -891,27 +891,3 @@
                  TeX-run-index nil t
                  :help "Run makeindex to create index file")))
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
- '(company-tooltip-align-annotations t)
- '(custom-safe-themes
-   '("d1c7f2db070c96aa674f1d61403b4da1fff2154163e9be76ce51824ed5ca709c" "e1ecb0536abec692b5a5e845067d75273fe36f24d01210bf0aa5842f2a7e029f" default))
- '(doom-modeline-buffer-file-name 'truncate-with-project t)
- '(doom-themes-enable-bold t)
- '(doom-themes-enable-italic t)
- '(flycheck-emacs-lisp-load-path 'inherit)
- '(highlight-indent-guides-auto-enabled t)
- '(highlight-indent-guides-method 'character)
- '(highlight-indent-guides-responsive t)
- '(ivy-count-format "(%d/%d)")
- '(ivy-use-virtual-buffers t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(doom-modeline-bar ((t (:background "#6272a4")))))
