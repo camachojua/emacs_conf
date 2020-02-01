@@ -784,18 +784,18 @@
   (setq js-indent-level 2))
 (add-hook 'js-mode-hook #'js-config-hooks)
 
-;; Javascript Configuration
-(defun setup-tide-mode ()
-  "Setup function for tide."
-  (interactive)
-  (tide-setup)
-  (flycheck-mode +1)
-  (eldoc-mode +1)
-  (tide-hl-identifier-mode +1)
-  (company-mode +1))
-
-(setq company-tooltip-align-annotations t)
-(add-hook 'js-mode-hook #'setup-tide-mode)
+(use-package tide
+  :ensure t
+  :defer t
+  :hook
+  ((typescript-mode . tide-setup)
+   (typescript-mode . tide-mode)
+   (typescript-mode . tide-hl-identifier-mode)
+   (typescript-mode . eldoc-mode)
+   (js-mode . tide-setup)
+   (js-mode . tide-hl-identifier-mode)
+   (js-mode . eldoc-mode)
+   (js-mode . tide-mode)))
 
 (use-package prettier-js
   :ensure t
@@ -897,29 +897,3 @@
                  TeX-run-index nil t
                  :help "Run makeindex to create index file")))
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
- '(company-tooltip-align-annotations t)
- '(custom-safe-themes
-   '("4b19d61c560a93ef90767abe513c11f236caec2864617d718aa366618133704c" "b3697d12fb7c087e1337432be92026b5fd218e7e43277918c0fce680d573a90c" "774aa2e67af37a26625f8b8c86f4557edb0bac5426ae061991a7a1a4b1c7e375" "6de37d6d573e18138aa948683c8ff0e72b89e90d1cdbf683787ea72f8e6295ab" "cb96a06ed8f47b07c014e8637bd0fd0e6c555364171504680ac41930cfe5e11e" "d5d2ab76985738c142adbe6a35dc51c8d15baf612fdf6745c901856457650314" "7f791f743870983b9bb90c8285e1e0ba1bf1ea6e9c9a02c60335899ba20f3c94" "e074be1c799b509f52870ee596a5977b519f6d269455b84ed998666cf6fc802a" "559b28ae6deb74713fee9064e7ece54cb71ba645f44acbf81ad7916a4f947815" "99ea831ca79a916f1bd789de366b639d09811501e8c092c85b2cb7d697777f93" "e1ecb0536abec692b5a5e845067d75273fe36f24d01210bf0aa5842f2a7e029f" "9743d1941d0559264aa21a542e55043c032d779024cd70468d1123c320699fd1" "0736a8e34702a67d84e32e2af90145ed19824f661776a0e966cea62aa1943a6e" "c520bbbddca1d7362d046635c5cc023b5f151b250ac9f8d6ce763afa804b7d1d" "d1c7f2db070c96aa674f1d61403b4da1fff2154163e9be76ce51824ed5ca709c" default))
- '(doom-modeline-buffer-file-name 'truncate-with-project t)
- '(doom-themes-enable-bold t)
- '(doom-themes-enable-italic t)
- '(flycheck-emacs-lisp-load-path 'inherit)
- '(highlight-indent-guides-auto-enabled t)
- '(highlight-indent-guides-method 'character)
- '(highlight-indent-guides-responsive t)
- '(ivy-count-format "(%d/%d)")
- '(ivy-use-virtual-buffers t)
- '(package-selected-packages
-   '(birds-of-paradise-theme auctex plantuml-mode haskell-mode clojure-mode pug-mode yaml-mode websocket request nasm-mode dockerfile-mode prettier-js docker nov flycheck company-go company-emoji emojify mu4e-alert htmlize org-mime w3m ob-async doom-modeline all-the-icons-dired all-the-icons-ivy treemacs-icons-dired all-the-icons dashboard react-snippets yasnippet counsel-projectile counsel ivy forge doom-themes treemacs-magit treemacs-projectile treemacs highlight-indent-guides winum alert yafolding rainbow-delimiters rainbow-mode diminish use-package)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(doom-modeline-bar ((t (:background "#6272a4")))))
