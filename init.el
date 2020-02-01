@@ -787,6 +787,8 @@
 (use-package tide
   :ensure t
   :defer t
+  :bind
+  (("C-c r" . 'tide-rename-symbol))
   :hook
   ((typescript-mode . tide-setup)
    (typescript-mode . tide-mode)
