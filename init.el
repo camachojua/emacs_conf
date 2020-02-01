@@ -788,7 +788,9 @@
   :ensure t
   :defer t
   :bind
-  (("C-c r" . 'tide-rename-symbol))
+  (("C-c r" . 'tide-rename-symbol)
+   ("C-c f" . 'tide-refactor)
+   ("C-c h" . 'tide-documentation-at-point))
   :hook
   ((typescript-mode . tide-setup)
    (typescript-mode . tide-mode)
