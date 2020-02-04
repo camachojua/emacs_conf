@@ -900,4 +900,8 @@
                '("Index" "makeindex %s.nlo -s nomencl.ist -o %s.nls"
                  TeX-run-index nil t
                  :help "Run makeindex to create index file")))
+
+(use-package pdf-tools
+  :ensure t
+  :defer)
 ;;; init.el ends here
