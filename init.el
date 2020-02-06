@@ -759,6 +759,12 @@
   (nov-mode . my-nov-font-setup)
   (doc-view-mode . (lambda () (linum-mode -1))))
 
+(use-package pdf-tools
+  :ensure t
+  :defer
+  :config
+  (line-number-mode -1))
+
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Docker utilities ;;
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -901,7 +907,5 @@
                  TeX-run-index nil t
                  :help "Run makeindex to create index file")))
 
-(use-package pdf-tools
-  :ensure t
-  :defer)
+
 ;;; init.el ends here
