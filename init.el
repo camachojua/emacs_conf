@@ -550,6 +550,15 @@
    (sqlite . t)
    (shell . t)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Better terminal support inside emacs ;;
+;; (Experimental)		        ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package vterm
+  :ensure t
+  :bind
+  (("C-c t" . 'vterm-other-window)))
+
 ;;;;;;;;;;;;;;;;;;;;
 ;; Eshell goodies ;;
 ;;;;;;;;;;;;;;;;;;;;
