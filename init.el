@@ -484,6 +484,9 @@
 (if (not (file-directory-p (expand-file-name "org" (getenv "HOME"))))
     (mkdir (expand-file-name "org" (getenv "HOME"))))
 
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+
 (use-package org
   :ensure t
   :config
