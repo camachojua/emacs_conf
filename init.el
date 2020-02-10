@@ -457,6 +457,7 @@
   (doom-modeline-buffer-file-name 'truncate-with-project)
   :ensure t
   :init
+  (setq vc-handled-backends nil)
   (setq doom-modeline-height 25)
   (setq doom-modeline-bar-width 3)
   (setq doom-modeline-project-detection 'project)

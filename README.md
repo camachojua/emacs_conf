@@ -62,6 +62,8 @@ Please refer to the `mu`
 The `texlive` distribution comes with `tlmgr` to help the user with
 the installation of new LaTeX packages.
 
-## Screenshot
+## Screenshots
 
 ![screenshot](https://raw.githubusercontent.com/camachojua/emacs_conf/master/screenshot.png)
+
+![screenshot2](./screenshot2.png)
