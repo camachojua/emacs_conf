@@ -934,5 +934,4 @@
                  TeX-run-index nil t
                  :help "Run makeindex to create index file")))
 
-
 ;;; init.el ends here
