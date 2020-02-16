@@ -559,7 +559,9 @@
 (use-package vterm
   :ensure t
   :bind
-  (("C-c t" . 'vterm-other-window)))
+  (("C-c t" . 'vterm-other-window))
+  :config
+  (setq vterm-kill-buffer-on-exit t))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Eshell goodies ;;
