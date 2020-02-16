@@ -842,7 +842,10 @@
   :ensure t
   :defer t
   :config
-  (setq jest-executable "nmp run test --"))
+  (setq jest-executable "npm run test --")
+  :bind
+  ("C-S-t" . jest-file)
+  ("C-S-f" . jest))
 
 (use-package add-node-modules-path
   :ensure t)
