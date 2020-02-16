@@ -476,6 +476,7 @@
   (setq doom-modeline-github-interval (* 30 60))
   (setq doom-modeline-env-version t)
   (setq doom-modeline-mu4e t)
+  (setq doom-modeline-env-load-string "...")
   :hook
   (after-init . doom-modeline-mode))
 
@@ -836,6 +837,15 @@
 	  "--jsx-single-quote" "true"
 	  "--jsx-bracket-same-line" "true"
 	  "--arrow-parens" "always")))
+
+(use-package jest
+  :ensure t
+  :defer t
+  :config
+  (setq jest-executable "nmp run test --"))
+
+(use-package add-node-modules-path
+  :ensure t)
 ;; End of javascript configuration
 
 (use-package json-mode
@@ -845,6 +855,10 @@
 (use-package dockerfile-mode
   :ensure t
   :mode "\\Dockerfile\\'"
+  :defer t)
+
+(use-package python-pytest
+  :ensure t
   :defer t)
 
 ;; (use-package restclient
