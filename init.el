@@ -481,6 +481,22 @@
   (after-init . doom-modeline-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;
+;; posframe settings ;;
+;;;;;;;;;;;;;;;;;;;;;;;
+(use-package ivy-posframe
+  :ensure t
+  :defer t
+  :after ivy
+  :config
+  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
+  (setq ivy-posframe-parameters
+	'((left-fringe . 20)
+	  (right-fringe . 20)))
+  (setq ivy-posframe-height-alist '((t . 15)))
+  :hook
+  (after-init . ivy-posframe-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;;
 ;; Org Mode Settings ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
 (if (not (file-directory-p (expand-file-name "org" (getenv "HOME"))))
@@ -558,6 +574,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package vterm
   :ensure t
+  :defer t
   :bind
   (("C-c t" . 'vterm-other-window))
   :config
