@@ -575,10 +575,34 @@
 (use-package vterm
   :ensure t
   :defer t
-  :bind
-  (("C-c t" . 'vterm-other-window))
   :config
   (setq vterm-kill-buffer-on-exit t))
+
+(use-package vterm-toggle
+  :ensure t
+  :defer t
+  :config
+  (setq vterm-toggle-fullscreen-p nil)
+  (add-to-list 'display-buffer-alist
+	       '((lambda (buffname _) (with-current-buffer buffname (equal major-mode 'vterm-mode)))
+		 (display-buffer-reuse-window display-buffer-in-side-window)
+		 (side . bottom)
+		 (dedicated . t)
+		 (reusable-frames visible)
+		 (window-height . 0.3)))
+  (defvar vterm-compile-dedicated-buffer nil)
+  (defun vterm-compile ()
+    (interactive)
+    (let ((vterm-toggle-use-dedicated-buffer t)
+	  (vterm-toggle--vterm-dedicated-buffer vterm-compile-dedicated-buffer))
+      (with-current-buffer (vterm-toggle-cd)
+	(setq vterm-compile-dedicated-buffer (current-buffer))
+	(rename-buffer "term compile")
+	(compilation-shell-minor-mode 1)
+	(vterm-send-string compile-command t)
+	(vterm-send-return))))
+  :bind
+  (("C-c t" . 'vterm-toggle-cd)))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Eshell goodies ;;
