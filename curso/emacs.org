@@ -39,8 +39,8 @@ esas instrucciones.
   mkdir ~/src
   sudo apt-get update
   sudo apt-get install git
-  git clone -b master git://git.sv.gnu.org/emacs.git
   cd ~/src/emacs
+  git clone -b master git://git.sv.gnu.org/emacs.git
   ./autogen.sh
   ./configure --enable-autodepend --with-libsystemd --with-modules --with-x-toolkit=gtk --with-mailutils --with-imagemagick --with-jpeg --with-tiff --with-gif --with-png --with-rsvg --with-libotf --with-xaw3d --with-gpm --with-json --with-threads --enable-link-time-optimization
   make -j$(nproc) -s bootstrap
@@ -143,7 +143,8 @@ búsquedas más rápidas sin necesidad de descargar la información desde
 el servidor de correo electrónico:
 
 #+begin_src sh
-mu index
+  offlineimap
+  mu index
 #+end_src
 
 #+RESULTS:
