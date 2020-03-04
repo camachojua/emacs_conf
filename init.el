@@ -820,6 +820,10 @@
   :ensure t
   :defer
   :config
+  (pdf-loader-install)
+  (setq-default pdf-view-display-size 'fit-page)
+  (setq pdf-annot-activate-created-annotations t)
+  (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
   (line-number-mode -1))
 
 ;;;;;;;;;;;;;;;;;;;;;;
