@@ -509,6 +509,7 @@
 (use-package org
   :ensure t
   :config
+  (setq org-log-done t)
   (setq org-image-actual-width 800)
   (setq org-startup-indented t)
   (setq org-directory "~/org")
