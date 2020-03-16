@@ -512,15 +512,18 @@
   (setq org-log-done t)
   (setq org-image-actual-width 800)
   (setq org-startup-indented t)
-  (setq org-directory "~/org")
+  (setq org-directory "~/org") ;; establece el directorio principal de org
+  (setq org-agenda-files (list "~/org/trabajo.org"
+			       "~/org/aprendizaje.org"
+			       "~/org/general.org"))
   (setq org-startup-folded "showall")
   (setq org-ditaa-jar-path (expand-file-name "ditaa"
 					   (file-name-as-directory "/usr/bin")))
   (setq org-plantuml-jar-path (expand-file-name "plantuml.jar"
 					      (file-name-as-directory "/usr/share/plantuml")))
   (setq org-todo-keywords
-	'((sequence "REPORT(r)" "BUG(b)" "KNOWCAUSE(k)" "|" "FIXED(f)")
-          (sequence "TODO(t)" "|" "DOING(d)" "DONE" "CANCELED")))
+	'((sequence "TODO(t)" "DOING(d)" "|" "DONE" "CANCELED")
+	  (sequence "REPORT(r)" "BUG(b)" "KNOWCAUSE(k)" "|" "FIXED(f)")))
   (setq org-todo-keyword-faces
 	'(("TODO" . (:foreground "#76f0f3" :weight bold))
           ("BUG" . (:foreground "purple" :weight bold))
@@ -719,7 +722,7 @@
   :config
   (setq org-capture-templates
       '(("t" "todo" entry
-         (file+headline "~/todo.org" "Tasks")
+         (file+headline "~/org/trabajo.org" "Tareas por realizar")
          "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n"))))
 
 (use-package w3m
@@ -987,3 +990,26 @@
                  :help "Run makeindex to create index file")))
 
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
+ '(company-tooltip-align-annotations t)
+ '(doom-modeline-buffer-file-name 'truncate-with-project t)
+ '(doom-themes-enable-bold t)
+ '(doom-themes-enable-italic t)
+ '(flycheck-emacs-lisp-load-path 'inherit)
+ '(highlight-indent-guides-auto-enabled t)
+ '(highlight-indent-guides-method 'character)
+ '(highlight-indent-guides-responsive t)
+ '(ivy-count-format "(%d/%d)")
+ '(ivy-use-virtual-buffers t)
+ '(org-agenda-files '("~/org/trabajo.org")))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(doom-modeline-bar ((t (:background "#6272a4")))))
