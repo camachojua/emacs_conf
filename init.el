@@ -353,6 +353,12 @@
   (yas-load-directory (expand-file-name "snippets" user-emacs-directory))
   (yas-global-mode t))
 
+;; (defun capitalizaPalabra (s)
+;;   "Cambia a mayúscula la primer letra de la cadena 'S'."
+;;   (if (> (length s) 0)
+;;       (concat (upcase (substring s 0 1)) (downcase (substring s 1)))
+;;     nil))
+
 (use-package react-snippets
   :ensure t
   :defer t
@@ -991,3 +997,21 @@
                  :help "Run makeindex to create index file")))
 
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(doom-themes-enable-bold t)
+ '(doom-themes-enable-italic t)
+ '(highlight-indent-guides-auto-enabled t)
+ '(highlight-indent-guides-method 'character)
+ '(highlight-indent-guides-responsive t)
+ '(package-selected-packages
+   '(yaml-mode yafolding winum websocket w3m vterm-toggle use-package treemacs-projectile treemacs-magit treemacs-icons-dired tide request react-snippets rainbow-mode rainbow-delimiters python-pytest pug-mode prettier-js plantuml-mode pdf-tools org-mime ob-async nov nasm-mode mu4e-alert jest ivy-posframe htmlize highlight-indent-guides haskell-mode forge emojify doom-themes doom-modeline dockerfile-mode docker diminish dashboard counsel-projectile company-go company-emoji clojure-mode chocolate-theme birds-of-paradise-plus-theme auctex all-the-icons-ivy all-the-icons-dired add-node-modules-path)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(doom-modeline-bar ((t (:background "#6272a4")))))
