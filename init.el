@@ -740,7 +740,6 @@
 ;;;;;;;;;;;;;;;;;;;
 ;; Emoji support ;;
 ;;;;;;;;;;;;;;;;;;;
-+
 (use-package emojify
   :ensure t
   :defer t
