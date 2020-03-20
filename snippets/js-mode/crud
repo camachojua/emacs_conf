@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: crud
+# key: crud
+# --
+$1.get('/$2$0', $3.lista${3:$(capitalize yas-text)}())
+$1.get('/$2/:id${3:$(capitalize yas-text)}', $3.obten${3:$(capitalize yas-text)}())
+$1.post('/$2', $3.agrega${3:$(capitalize yas-text)}())
+$1.update('/$2/:id${3:$(capitalize yas-text)}', $3.actualiza${3:$(capitalize yas-text)}())
+$1.delete('/$2/:id${3:$(capitalize yas-text)}', $3.elimina${3:$(capitalize yas-text)}())
