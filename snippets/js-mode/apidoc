@@ -8,24 +8,24 @@
  * @apiGroup $4
  * @apiPermission $5
  *
- * @apiHeader (x-access-token) {string} token Token de autorización
+ * @apiHeader {string} x-access-token  Token de autorización
  *
  * @apiHeaderExample {json} Request-Example:
  *   {
  *     "x-access-token": "jwt:satreoucaorusnoabksaogedsanruosr1snt2r4ntr24sn21tr34t-stru"
  *   }
  *
- * @apiParam ($6) {$7} $8 $9.
+ * @apiParam {$6} $7 $8.
  *
  * @apiparamExample {String} Ejemplo de uso:
  *   HTTP/1.1 GET /$1
  *
- * @apiSuccess (Success 200) {$10} message $11.
+ * @apiSuccess (Success 200) {$9} message $10.
  *
  * @apiSuccessExample {json} Respuesta exitosa:
  *   HTTP/1.1 200 OK
  *   {
- *     "message": "$11."
+ *     "message": "$10."
  *   }
  *
  * @apiErrorExample {json} Error-Response:
