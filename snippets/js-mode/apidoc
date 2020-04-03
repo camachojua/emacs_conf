@@ -3,7 +3,7 @@
 # key: apidoc
 # --
 /**
- * @api {$0} /$1 $2
+ * @api {$11} /$1 $2
  * @apiName $3
  * @apiGroup $4
  * @apiPermission $5
@@ -16,9 +16,9 @@
  *   }
  *
  * @apiParam {$6} $7 $8.
- *
+ * $0
  * @apiparamExample {String} Ejemplo de uso:
- *   HTTP/1.1 GET /$1
+ *   HTTP/1.1 ${11:$(capitalize yas-text)} /$1
  *
  * @apiSuccess (Success 200) {$9} message $10.
  *
@@ -32,5 +32,10 @@
  *  HTTP/1.1 401 Not Authorized
  *    {
  *      "error": "Token no válido."
+ *    }
+ * @apiErrorExample {json} Forbidden:
+ *  HTTP/1.1 403 Forbidden
+ *    {
+ *      "error": "No tienes permiso para acceder a este recurso."
  *    }
  */

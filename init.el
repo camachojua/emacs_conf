@@ -128,6 +128,7 @@
 (use-package winum
   :ensure t
   :config
+  (set-face-attribute 'winum-face nil :weight 'bold)
   (winum-mode))
 
 (use-package highlight-indent-guides
@@ -149,6 +150,8 @@
 (use-package treemacs
   :ensure t
   :defer t
+  :hook
+  (treemacs-mode . (lambda() (linum-mode -1)))
   :init
   (with-eval-after-load 'winum
     (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
@@ -617,6 +620,10 @@
   :bind
   (("C-c t" . 'vterm-toggle-cd)))
 
+(use-package multi-vterm
+  :ensure t
+  :defer t)
+
 ;;;;;;;;;;;;;;;;;;;;
 ;; Eshell goodies ;;
 ;;;;;;;;;;;;;;;;;;;;
@@ -1002,3 +1009,27 @@
 (use-package vlf
   :ensure t)
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
+ '(company-tooltip-align-annotations t)
+ '(doom-modeline-buffer-file-name 'truncate-with-project t)
+ '(doom-themes-enable-bold t)
+ '(doom-themes-enable-italic t)
+ '(flycheck-emacs-lisp-load-path 'inherit)
+ '(highlight-indent-guides-auto-enabled t)
+ '(highlight-indent-guides-method 'character)
+ '(highlight-indent-guides-responsive t)
+ '(ivy-count-format "(%d/%d)")
+ '(ivy-use-virtual-buffers t)
+ '(package-selected-packages
+   '(multi-vterm yaml-mode yafolding winum websocket w3m vterm-toggle vlf use-package treemacs-projectile treemacs-magit treemacs-icons-dired tide request react-snippets rainbow-mode rainbow-delimiters python-pytest pug-mode prettier-js plantuml-mode pdf-tools org-mime ob-async nov nasm-mode mu4e-alert jest ivy-posframe htmlize highlight-indent-guides haskell-mode forge emojify doom-themes doom-modeline dockerfile-mode docker diminish dashboard counsel-projectile company-go company-emoji clojure-mode chocolate-theme birds-of-paradise-plus-theme auctex all-the-icons-ivy all-the-icons-dired add-node-modules-path)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(doom-modeline-bar ((t (:background "#6272a4")))))
