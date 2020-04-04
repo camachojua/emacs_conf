@@ -532,6 +532,9 @@
 					   (file-name-as-directory "/usr/bin")))
   (setq org-plantuml-jar-path (expand-file-name "plantuml.jar"
 					      (file-name-as-directory "/usr/share/plantuml")))
+
+  (setq org-default-notes-file (concat org-directory "/notas.org"))
+
   (setq org-todo-keywords
 	'((sequence "TODO(t)" "DOING(d)" "|" "DONE" "CANCELED")
 	  (sequence "REPORT(r)" "BUG(b)" "KNOWCAUSE(k)" "|" "FIXED(f)")))
@@ -738,7 +741,11 @@
   (setq org-capture-templates
       '(("t" "todo" entry
          (file+headline "~/org/agenda.org" "Tareas por realizar")
-         "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n"))))
+         "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")
+	("l" "Link" plain (file (concat org-directory "/org/links.org"))
+	 "- %?\n %x\n")
+	("r" "respond" entry (file "~/org/agenda.org")
+         "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t))))
 
 (use-package w3m
   :ensure t
@@ -1009,27 +1016,3 @@
 (use-package vlf
   :ensure t)
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
- '(company-tooltip-align-annotations t)
- '(doom-modeline-buffer-file-name 'truncate-with-project t)
- '(doom-themes-enable-bold t)
- '(doom-themes-enable-italic t)
- '(flycheck-emacs-lisp-load-path 'inherit)
- '(highlight-indent-guides-auto-enabled t)
- '(highlight-indent-guides-method 'character)
- '(highlight-indent-guides-responsive t)
- '(ivy-count-format "(%d/%d)")
- '(ivy-use-virtual-buffers t)
- '(package-selected-packages
-   '(multi-vterm yaml-mode yafolding winum websocket w3m vterm-toggle vlf use-package treemacs-projectile treemacs-magit treemacs-icons-dired tide request react-snippets rainbow-mode rainbow-delimiters python-pytest pug-mode prettier-js plantuml-mode pdf-tools org-mime ob-async nov nasm-mode mu4e-alert jest ivy-posframe htmlize highlight-indent-guides haskell-mode forge emojify doom-themes doom-modeline dockerfile-mode docker diminish dashboard counsel-projectile company-go company-emoji clojure-mode chocolate-theme birds-of-paradise-plus-theme auctex all-the-icons-ivy all-the-icons-dired add-node-modules-path)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(doom-modeline-bar ((t (:background "#6272a4")))))
