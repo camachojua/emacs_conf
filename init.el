@@ -514,6 +514,11 @@
 
 (if (not (file-exists-p (expand-file-name "org/agenda.org" (getenv "HOME"))))
     (write-region "" nil (expand-file-name "org/agenda.org" (getenv "HOME"))))
+(if (not (file-exists-p (expand-file-name "org/todo.org" (getenv "HOME"))))
+    (write-region "" nil (expand-file-name "org/todo.org" (getenv "HOME"))))
+(if (not (file-exists-p (expand-file-name "org/journal.org" (getenv "HOME"))))
+    (write-region "" nil (expand-file-name "org/journal.org" (getenv "HOME"))))
+
 
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
@@ -742,10 +747,13 @@
       '(("t" "todo" entry
          (file+headline "~/org/agenda.org" "Tareas por realizar")
          "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")
-	("l" "Link" plain (file (concat org-directory "/org/links.org"))
+	("l" "Link" plain (file "~/org/todo.org")
 	 "- %?\n %x\n")
 	("r" "respond" entry (file "~/org/agenda.org")
-         "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t))))
+         "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
+	("j" "Journal" entry (file+datetree "~/org/journal.org")
+         "* %?\n%U\n" :clock-in t :clock-resume t)
+)))
 
 (use-package w3m
   :ensure t
