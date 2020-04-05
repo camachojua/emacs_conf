@@ -749,8 +749,6 @@
          "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")
 	("l" "Link" plain (file "~/org/todo.org")
 	 "- %?\n %x\n")
-	("r" "respond" entry (file "~/org/agenda.org")
-         "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
 	("j" "Journal" entry (file+datetree "~/org/journal.org")
          "* %?\n%U\n" :clock-in t :clock-resume t)
 )))
