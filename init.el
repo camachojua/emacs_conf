@@ -746,7 +746,7 @@
   (setq org-capture-templates
       '(("t" "todo" entry
          (file+headline "~/org/agenda.org" "Tareas por realizar")
-         "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")
+         "* TODO [%] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")
 	("l" "Link" plain (file "~/org/todo.org")
 	 "- %?\n %x\n")
 	("j" "Journal" entry (file+datetree "~/org/journal.org")
