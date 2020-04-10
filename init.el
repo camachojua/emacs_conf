@@ -969,12 +969,14 @@
   :ensure t
   :defer t
   :config
+  (setq pug-tab-width 4)
   (defun pug-compile-saved-file()
     (when (and (stringp buffer-file-name)
 	       (string-match "\\.pug\\'" buffer-file-name))
       (pug-compile)))
-  :hook
-  ('after-save . 'pug-compile-saved-file))
+  ;; :hook
+  ;; ('after-save . 'pug-compile-saved-file)
+)
 
 (use-package clojure-mode
   :ensure t
