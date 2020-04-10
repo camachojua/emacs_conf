@@ -18,7 +18,7 @@
  * @apiParam {$6} $7 $8.
  * $0
  * @apiparamExample {String} Ejemplo de uso:
- *   HTTP/1.1 ${11:$(capitalize yas-text)} /$1
+ *   HTTP/1.1 ${11:$(upcase yas-text)} /$1
  *
  * @apiSuccess (Success 200) {$9} message $10.
  *
