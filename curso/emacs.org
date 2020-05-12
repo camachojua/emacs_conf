@@ -28,6 +28,8 @@ a la carpeta =/usr/share/plantuml/=:
   sudo chmod 755 -R /usr/share/plantuml/
 #+end_src
 
+#+RESULTS:
+
 El siguiente paso es descargar una copia del código fuente de emacs,
 configurar los archivos de compilación, compilar emacs y por último
 instalarlo en el sistema, el siguiente bloque de código contiene todas
@@ -142,7 +144,7 @@ el servidor de correo electrónico:
 
 #+begin_src sh :dir "/sudo::" :exports code
   offlineimap
-  mu init --mailid ~/Maildir --my-address user@gmail.com
+  mu init --maildir ~/Maildir --my-address user@gmail.com
 #+end_src
 
 #+RESULTS:

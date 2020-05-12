@@ -910,7 +910,7 @@
 	  "--tab-width" "2"
 	  "--use-tabs" "false"
 	  "--bracket-spacing" "true"
-	  "--no-semi" "true"
+	  "--no-semi"
 	  "--single-quote" "true"
 	  "--semi" "true"
 	  "--jsx-single-quote" "true"
