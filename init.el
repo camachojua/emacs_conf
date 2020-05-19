@@ -42,7 +42,7 @@
 ;; General settings
 (setq inhibit-startup-screen t)
 (setq backup-inhibited t)
-(setq auto-save-default nil)
+;; (setq auto-save-default nil)
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
@@ -829,10 +829,10 @@
   :ensure t
   :defer
   :config
+  (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
   (pdf-loader-install)
   (setq-default pdf-view-display-size 'fit-page)
   (setq pdf-annot-activate-created-annotations t)
-  (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
   (line-number-mode -1))
 
 ;;;;;;;;;;;;;;;;;;;;;;
