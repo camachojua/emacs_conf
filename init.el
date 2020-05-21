@@ -1,4 +1,4 @@
-;;; Package -- Summary
+;;; package -- Summary
 ;;; Commentary:
 ;;; Package configuration.
 ;;; Code:
@@ -253,6 +253,12 @@
 ;;;;;;;;;;;;;;;;;;;;
 ;; Magit settings ;;
 ;;;;;;;;;;;;;;;;;;;;
+
+(use-package diff-hl
+  :ensure t
+  :init
+  (global-diff-hl-mode))
+
 
 (use-package magit
   :ensure t
