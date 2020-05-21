@@ -512,6 +512,45 @@
   :hook
   (after-init . ivy-posframe-mode))
 
+(use-package ivy-rich
+  :ensure t
+  :defer t
+  :after ivy
+  :config
+  (setq ivy-rich--display-transformers-list
+        '(ivy-switch-buffer
+          (:columns
+           ((ivy-rich-candidate (:width 30))
+            (ivy-rich-switch-buffer-size (:width 7))
+            (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
+            (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
+            (ivy-rich-switch-buffer-project (:width 15 :face success))
+            (ivy-rich-switch-buffer-path
+	     (:width (lambda (x)
+		       (ivy-rich-switch-buffer-shorten-path
+			x
+			(ivy-rich-minibuffer-width 0.3))))))
+           :predicate
+           (lambda (cand) (get-buffer cand)))
+          counsel-M-x
+          (:columns
+           ((counsel-M-x-transformer (:width 40))
+            (ivy-rich-counsel-function-docstring (:face font-lock-doc-face))))
+          counsel-describe-function
+          (:columns
+           ((counsel-describe-function-transformer (:width 40))
+            (ivy-rich-counsel-function-docstring (:face font-lock-doc-face))))
+          counsel-describe-variable
+          (:columns
+           ((counsel-describe-variable-transformer (:width 40))
+            (ivy-rich-counsel-variable-docstring (:face font-lock-doc-face))))
+          counsel-recentf
+          (:columns
+           ((ivy-rich-candidate (:width 0.8))
+            (ivy-rich-file-last-modified-time (:face font-lock-comment-face)))))
+        ivy-virtual-abbreviate 'full
+        ivy-rich-path-style 'abbrev))
+
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Org Mode Settings ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
@@ -1014,3 +1053,21 @@
 (use-package vlf
   :ensure t)
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(doom-themes-enable-bold t)
+ '(doom-themes-enable-italic t)
+ '(highlight-indent-guides-auto-enabled t)
+ '(highlight-indent-guides-method 'character)
+ '(highlight-indent-guides-responsive t)
+ '(package-selected-packages
+   '(ivy-rich yaml-mode yafolding winum websocket w3m vlf use-package treemacs-projectile treemacs-magit treemacs-icons-dired tide request react-snippets rainbow-mode rainbow-delimiters python-pytest pug-mode prettier-js plantuml-mode pdf-tools org-mime ob-async nov nasm-mode multi-vterm mu4e-alert magit-todos jest ivy-posframe htmlize highlight-indent-guides haskell-mode forge emojify doom-themes doom-modeline dockerfile-mode docker diminish diff-hl dashboard counsel-projectile company-go company-emoji clojure-mode chocolate-theme birds-of-paradise-plus-theme auctex all-the-icons-ivy all-the-icons-dired add-node-modules-path)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(doom-modeline-bar ((t (:background "#6272a4")))))
