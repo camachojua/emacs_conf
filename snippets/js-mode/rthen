@@ -5,7 +5,7 @@
 .then(($1) => {
       res
         .status(200)
-        .json({ message: '$1:$(upcase yas-text) $0disponibles', $1: $1 });
+        .json({ message: '${1:$(upcase yas-text)} $0disponibles', $1: $1 });
       return next();
     })
     .catch((err) => {

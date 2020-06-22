@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: findAll
+# key: fall
+# --
+findAll({
+    attributes: { exclude: ['createdAt', 'updatedAt', 'deletedAt'] }
+  })$0

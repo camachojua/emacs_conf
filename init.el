@@ -922,14 +922,16 @@
    ("C-c f" . 'tide-refactor)
    ("C-c h" . 'tide-documentation-at-point))
   :hook
-  ((typescript-mode . tide-setup)
+  (
+   (typescript-mode . tide-setup)
    (typescript-mode . tide-mode)
    (typescript-mode . tide-hl-identifier-mode)
-   (typescript-mode . eldoc-mode)
+   (typescript-mdoe . eldoc-mode)
    (js-mode . tide-setup)
    (js-mode . tide-hl-identifier-mode)
    (js-mode . eldoc-mode)
-   (js-mode . tide-mode)))
+   (js-mode . tide-mode))
+)
 
 (use-package prettier-js
   :ensure t
@@ -974,10 +976,6 @@
   :ensure t
   :defer t)
 
-;; (use-package restclient
-;;   :ensure t
-;;   :defer t)
-
 (use-package nasm-mode
   :ensure t
   :defer t
@@ -1000,7 +998,7 @@
   :ensure t
   :defer t
   :config
-  (setq pug-tab-width 4)
+  (setq pug-tab-width 2)
   (defun pug-compile-saved-file()
     (when (and (stringp buffer-file-name)
 	       (string-match "\\.pug\\'" buffer-file-name))
@@ -1073,7 +1071,7 @@
  '(highlight-indent-guides-method 'character)
  '(highlight-indent-guides-responsive t)
  '(package-selected-packages
-   '(yaml-mode yafolding winum websocket w3m vlf use-package treemacs-projectile treemacs-magit treemacs-icons-dired tide request react-snippets rainbow-mode rainbow-delimiters python-pytest pug-mode prettier-js plantuml-mode pdf-tools org-mime ob-async nov nasm-mode multi-vterm mu4e-alert magit-todos jest ivy-rich ivy-posframe htmlize highlight-indent-guides haskell-mode forge emojify doom-themes doom-modeline dockerfile-mode docker diminish diff-hl dashboard counsel-projectile company-go company-emoji clojure-mode chocolate-theme birds-of-paradise-plus-theme auctex all-the-icons-ivy all-the-icons-dired add-node-modules-path)))
+   '(magit-delta magit-filenotify magit-org-todos magit-tbdiff vdiff-magit yaml-mode yafolding winum websocket w3m vlf use-package treemacs-projectile treemacs-magit treemacs-icons-dired tide request react-snippets rainbow-mode rainbow-delimiters python-pytest pug-mode prettier-js plantuml-mode pdf-tools org-mime ob-async nov nasm-mode multi-vterm mu4e-alert magit-todos jest ivy-rich ivy-posframe htmlize highlight-indent-guides haskell-mode forge emojify doom-themes doom-modeline dockerfile-mode docker diminish diff-hl dashboard counsel-projectile company-go company-emoji clojure-mode chocolate-theme birds-of-paradise-plus-theme auctex all-the-icons-ivy all-the-icons-dired add-node-modules-path)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
