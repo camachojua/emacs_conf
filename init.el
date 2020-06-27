@@ -2,6 +2,7 @@
 ;;; Commentary:
 ;;; Package configuration.
 ;;; Code:
+(setq load-prefer-newer t)
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
@@ -1071,7 +1072,7 @@
  '(highlight-indent-guides-method 'character)
  '(highlight-indent-guides-responsive t)
  '(package-selected-packages
-   '(magit-delta magit-filenotify magit-org-todos magit-tbdiff vdiff-magit yaml-mode yafolding winum websocket w3m vlf use-package treemacs-projectile treemacs-magit treemacs-icons-dired tide request react-snippets rainbow-mode rainbow-delimiters python-pytest pug-mode prettier-js plantuml-mode pdf-tools org-mime ob-async nov nasm-mode multi-vterm mu4e-alert magit-todos jest ivy-rich ivy-posframe htmlize highlight-indent-guides haskell-mode forge emojify doom-themes doom-modeline dockerfile-mode docker diminish diff-hl dashboard counsel-projectile company-go company-emoji clojure-mode chocolate-theme birds-of-paradise-plus-theme auctex all-the-icons-ivy all-the-icons-dired add-node-modules-path)))
+   '(yaml-mode yafolding winum websocket w3m vlf vdiff-magit use-package treemacs-projectile treemacs-magit treemacs-icons-dired tide request react-snippets rainbow-mode rainbow-delimiters python-pytest pug-mode prettier-js plantuml-mode pdf-tools org-mime ob-async nov nasm-mode multi-vterm mu4e-alert magit-todos magit-tbdiff magit-org-todos magit-filenotify magit-delta jest ivy-rich ivy-posframe htmlize highlight-indent-guides haskell-mode forge emojify doom-themes doom-modeline dockerfile-mode docker diminish diff-hl dashboard counsel-projectile company-go company-emoji clojure-mode chocolate-theme birds-of-paradise-plus-theme auctex all-the-icons-ivy all-the-icons-dired add-node-modules-path)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
