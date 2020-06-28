@@ -5,13 +5,11 @@
 .then(($1) => {
       res
         .status(200)
-        .json({ message: '${1:$(upcase yas-text)} $0disponibles', $1: $1 });
-      return next();
+        .json({ message: '${1:$(capitalize yas-text)} $0disponibles', $1: $1 });
     })
     .catch((err) => {
       console.error(err.message);
       res
         .status(500)
-        .json({ message: 'Error interno al listar los $1 disponibles.' });
-      return next();
+        .json({ message: 'Error interno al listar l$2s $1 disponibles.' });
     });

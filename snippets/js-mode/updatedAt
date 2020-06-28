@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: updatedAt
+# key: updatedAt
+# --
+updatedAt: {
+  allowNull: false,
+  type: $1.DATE,
+  validate: {
+    notNull: true,
+    isDate: true,
+    isAfter: this.createdAt
+  }$0
+}

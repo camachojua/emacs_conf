@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: createdAt
+# key: createdAt
+# --
+createdAt: {
+  allowNull: false,
+  type: $1.DATE,
+  default: $1.NOW,
+  validate: {
+    notNull: true,
+    isDate: true
+  }$0
+}

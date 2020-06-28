@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: deletedAt
+# key: deletedAt
+# --
+deletedAt: {
+  type: $1.DATE,
+  validate: {
+    isDate: true,
+    isAfter: this.createdAt
+  }$0
+}
