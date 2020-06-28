@@ -1,0 +1,70 @@
+# -*- mode: snippet -*-
+# name: controlador
+# key: controlador
+# --
+'use strict';
+
+const Models = require('../models');
+const $1 = Models.$1;
+
+const lista${2:$(capitalize yas-text)} = (req, res, next) => {
+  $1.findAll({
+    attributes: { exclude: ['createdAt', 'deletedAt', 'updatedAt'] }
+  })
+    .then(($2) => {
+      console.log(
+        req.protocol +
+          ' ' +
+          req.method +
+          ' ' +
+          req.path +
+          ' -- ' +
+          req.ip +
+          ' -- 200 (OK)'
+      );
+      res
+        .status(200)
+        .json({ message: '${2:$(capitalize yas-text)}$ disponibles.', $2: $2 });
+    })
+    .catch((err) => {
+      console.error(err.message);
+      res.status(500).json({
+        message: 'Error interno al listar l$3s $2 disponibles.'
+      });
+    });
+};
+
+const obten$1 = (req, res, next) => {
+  if (!req.query.id) {
+    res.status(400).json({
+      message:
+        'Debes especificar el identificador de $1. Revisa el atributo faltantes',
+      faltantes: ['id']
+    });
+  }
+
+  $1.findByPk(req.query.id, {
+    attributes: { exclude: ['createdAt', 'deletedAt', 'updatedAt'] }
+  })
+    .then(($1) => {
+      console.log(
+        req.protocol +
+          ' ' +
+          req.method +
+          ' ' +
+          req.path +
+          ' -- ' +
+          req.ip +
+          ' -- 200 (OK)'
+      );
+      res
+        .status(200)
+        .json({ message: '$1 encontrado.', $1: $1 });
+    })
+    .catch((err) => {
+      console.error(err.message);
+      res.status(500).json({ message: 'Error interno al listar $0 $1.' });
+    });
+};
+
+module.exports = { lista${2:$(capitalize yas-text)}, obten$1 };
