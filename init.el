@@ -49,7 +49,7 @@
 (tool-bar-mode -1)
 (setq nlinum-highlight-current-line t)
 (global-linum-mode 1)
-(set-frame-font "Cascadia Mono 12" nil t)
+(set-frame-font "Cascadia Mono 13" nil t)
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 
@@ -1082,12 +1082,12 @@
   (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
   (eaf-bind-key take_photo "p" eaf-camera-keybinding))
 
-(require 'seq)
+;; (require 'seq)
 
-(setq process-environment (seq-filter
- (lambda(var)
-   (and (not (string-match-p "QT_SCALE_FACTOR" var))
-        (not (string-match-p "QT_SCREEN_SCALE_FACTOR" var)))) process-environment))
+;; (setq process-environment (seq-filter
+;;  (lambda(var)
+;;    (and (not (string-match-p "QT_SCALE_FACTOR" var))
+;;         (not (string-match-p "QT_SCREEN_SCALE_FACTOR" var)))) process-environment))
 
-(eaf-setq eaf-browser-default-zoom  "2")
+;; (eaf-setq eaf-browser-default-zoom  "2")
 ;;; init.el ends here
