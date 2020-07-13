@@ -5,7 +5,7 @@
 'use strict';
 
 const Models = require('../models');
-const $1 = Models.$1;
+const ${1:$(capitalize yas-text)} = Models.${1:$(capitalize yas-text)};
 
 const lista${2:$(capitalize yas-text)} = (req, res, next) => {
   $1.findAll({
@@ -24,7 +24,7 @@ const lista${2:$(capitalize yas-text)} = (req, res, next) => {
       );
       res
         .status(200)
-        .json({ message: '${2:$(capitalize yas-text)}$ disponibles.', $2: $2 });
+        .json({ message: '${2:$(capitalize yas-text)} disponibles.', $2: $2 });
     })
     .catch((err) => {
       console.error(err.message);
@@ -34,7 +34,7 @@ const lista${2:$(capitalize yas-text)} = (req, res, next) => {
     });
 };
 
-const obten$1 = (req, res, next) => {
+const obten${1:$(capitalize yas-text)} = (req, res, next) => {
   if (!req.query.id) {
     res.status(400).json({
       message:
@@ -43,7 +43,7 @@ const obten$1 = (req, res, next) => {
     });
   }
 
-  $1.findByPk(req.query.id, {
+  ${1:$(capitalize yas-text)}.findByPk(req.query.id, {
     attributes: { exclude: ['createdAt', 'deletedAt', 'updatedAt'] }
   })
     .then(($1) => {
