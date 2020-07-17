@@ -1100,6 +1100,13 @@
 (eaf-setq eaf-browser-enable-adblocker "true")
 (eaf-setq eaf-browser-default-zoom  "2.5")
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Emacs screen recorder ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package camcorder
+  :ensure t
+  :defer t)
+
 ;;; init.el ends here
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
