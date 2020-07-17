@@ -774,7 +774,11 @@
   :ensure t
   :defer t
   :hook
-  (after-init . mu4e-alert-enable-notifications)
+  (after-init . 'mu4e-alert-enable-notifications)
+  (after-init . 'mu4e-alert-enable-mode-line-display)
+  :config
+  (mu4e-alert-set-default-style 'libnotify)
+
   :init
   (setq mu4e-alert-interesting-mail-query
         (concat
