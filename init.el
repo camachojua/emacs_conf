@@ -756,6 +756,22 @@
    (concat "¡Saludos!\n"
            user-full-name)))
 
+(use-package mu4e-alert
+  :ensure t
+  :defer t
+  :hook
+  (after-init . 'mu4e-alert-enable-notifications)
+  (after-init . 'mu4e-alert-enable-mode-line-display)
+  :config
+  (mu4e-alert-set-default-style 'libnotify)
+
+  :init
+  (setq mu4e-alert-interesting-mail-query
+        (concat
+         "flag:unread"
+         " AND NOT flag:trashed"
+         " AND maildir:/[Gmail]/INBOX"))
+
 ;; SMTP Settings
 (use-package smtpmail
   :ensure t
