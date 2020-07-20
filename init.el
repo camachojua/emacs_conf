@@ -52,6 +52,7 @@
 (set-frame-font "Cascadia Mono 13" nil t)
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
+(setq tramp-default-method "ssh")
 
 ;; GPG settings
 (setq epg-gpg-program "gpg2")
