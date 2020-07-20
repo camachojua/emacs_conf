@@ -769,23 +769,6 @@
         smtpmail-default-smtp-server "smtp.gmail.com"
         smtpmail-smtp-server "smtp.gmail.com"
         smtpmail-smtp-service 587))
-;; Email notifications
-(use-package mu4e-alert
-  :ensure t
-  :defer t
-  :hook
-  (after-init . 'mu4e-alert-enable-notifications)
-  (after-init . 'mu4e-alert-enable-mode-line-display)
-  :config
-  (mu4e-alert-set-default-style 'libnotify)
-
-  :init
-  (setq mu4e-alert-interesting-mail-query
-        (concat
-         "flag:unread"
-         " AND NOT flag:trashed"
-         " AND maildir:/[Gmail]/INBOX"))
-  (mu4e-alert-enable-notifications))
 
 (use-package org-mu4e
   :config
@@ -854,7 +837,8 @@
   (after-init . global-company-mode)
   (prog-mode . company-mode)
   (LaTeX-mode . company-mode)
-  (org-mode . company-mode))
+  (org-mode . company-mode)
+  (terraform-mode . company-mode))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -1137,8 +1121,9 @@
 (use-package terraform-mode
   :ensure t
   :defer t
-  :config
-  (company-terraform-init))
+  :hook
+  (terraform-mode . terraform-format-on-save-mode)
+  (after-init . doom-modeline-mode))
 
 (use-package company-terraform
   :ensure t
