@@ -770,7 +770,7 @@
         (concat
          "flag:unread"
          " AND NOT flag:trashed"
-         " AND maildir:/[Gmail]/INBOX"))
+         " AND maildir:/[Gmail]/INBOX")))
 
 ;; SMTP Settings
 (use-package smtpmail
