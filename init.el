@@ -282,7 +282,8 @@
                    (concat
                     (ediff-get-region-contents ediff-current-difference 'A ediff-control-buffer)
                     (ediff-get-region-contents ediff-current-difference 'B ediff-control-buffer))))
-(defun add-d-to-ediff-mode-map () (define-key ediff-mode-map "B" 'ediff-copy-both-to-C))
+(defun add-d-to-ediff-mode-map ()
+  (define-key ediff-mode-map "C" 'ediff-copy-both-to-C))
 (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
 
 (use-package forge
@@ -316,6 +317,8 @@
 (use-package magit-gitflow
   :ensure t
   :defer t
+  :config
+  (setq magit-gitflow-popup-key "C-F")
   :hook
   (magit-mode-hook . 'turn-on-magit-gitflow))
 
@@ -512,7 +515,6 @@
   (setq doom-modeline-github nil)
   (setq doom-modeline-github-interval (* 30 60))
   (setq doom-modeline-env-version t)
-  (setq doom-modeline-mu4e t)
   (setq doom-modeline-env-load-string "...")
   :hook
   (after-init . doom-modeline-mode))
@@ -668,8 +670,7 @@
   :config
   (setq vterm-kill-buffer-on-exit t)
   (setq vterm-always-compile-module t)
-  :bind ("C-x M-t" . vterm-other-window)
-)
+  :bind ("C-x M-t" . vterm-other-window))
 
 (use-package multi-vterm
   :ensure t
@@ -755,22 +756,6 @@
    mu4e-compose-signature
    (concat "¡Saludos!\n"
            user-full-name)))
-
-(use-package mu4e-alert
-  :ensure t
-  :defer t
-  :hook
-  (after-init . 'mu4e-alert-enable-notifications)
-  (after-init . 'mu4e-alert-enable-mode-line-display)
-  :config
-  (mu4e-alert-set-default-style 'libnotify)
-
-  :init
-  (setq mu4e-alert-interesting-mail-query
-        (concat
-         "flag:unread"
-         " AND NOT flag:trashed"
-         " AND maildir:/[Gmail]/INBOX")))
 
 ;; SMTP Settings
 (use-package smtpmail
@@ -1139,8 +1124,7 @@
   :ensure t
   :defer t
   :hook
-  (terraform-mode . terraform-format-on-save-mode)
-  (after-init . doom-modeline-mode))
+  (terraform-mode . terraform-format-on-save-mode))
 
 (use-package company-terraform
   :ensure t
