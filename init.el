@@ -1131,4 +1131,11 @@
   :defer t
   :after terraform-mode)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Bitcoin price ticker (for reference purposes) ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package btc-ticker
+  :ensure t
+  :defer t)
+
 ;;; init.el ends here
