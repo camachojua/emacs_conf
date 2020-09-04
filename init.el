@@ -414,7 +414,7 @@
 	      widget-forward)
   :init
   (setq dahboard-banner-logo-title "")
-  ;;(setq dashboard-startup-banner "~/Imágenes/logo.png")
+  (setq dashboard-startup-banner (expand-file-name "st_ignucius.png" user-emacs-directory))
   (setq dashboard-center-content t)
   (setq dashboard-items '((recents . 5)
 			  (projects . 5)
@@ -816,10 +816,10 @@
   :config
   (add-to-list 'company-backends 'company-emoji))
 
-(use-package unicode-fonts
-  :ensure t
-  :config
-  (unicode-fonts-setup))
+;; (use-package unicode-fonts
+;;   :ensure t
+;;   :config
+;;   (unicode-fonts-setup))
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Company support ;;
@@ -1069,8 +1069,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Large file support ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package vlf
-  :ensure t)
+;; (use-package vlf
+;;   :ensure t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Emacs Application Framework ;;
@@ -1144,5 +1144,8 @@
 (use-package btc-ticker
   :ensure t
   :defer t)
+
+(require 'loadhist)
+(file-dependents (feature-file 'cl))
 
 ;;; init.el ends here
