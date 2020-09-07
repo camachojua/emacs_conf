@@ -525,7 +525,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;
 (use-package ivy-posframe
   :ensure t
-  :defer t
   :after ivy
   :config
   (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
@@ -1137,15 +1136,4 @@
   :ensure t
   :defer t
   :after terraform-mode)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Bitcoin price ticker (for reference purposes) ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package btc-ticker
-  :ensure t
-  :defer t)
-
-(require 'loadhist)
-(file-dependents (feature-file 'cl))
-
 ;;; init.el ends here
