@@ -921,7 +921,8 @@
 
 (defun js-config-hooks ()
   "Set tabs spacing."
-  (setq js-indent-level 2))
+  (setq js-indent-level 2)
+  (setq css-indent-offset 2))
 (add-hook 'js-mode-hook #'js-config-hooks)
 
 (use-package tide
