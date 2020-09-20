@@ -262,7 +262,6 @@
   :init
   (global-diff-hl-mode))
 
-
 (use-package magit
   :ensure t
   :defer t
@@ -793,17 +792,17 @@
 ;;;;;;;;;;;;;;;;;;;
 ;; Emoji support ;;
 ;;;;;;;;;;;;;;;;;;;
-(use-package emojify
-  :ensure t
-  :defer t
-  :hook
-  (after-init . global-emojify-mode)
-  (prog-mode . emojify-mode)
-  (markdown-mode . emojify-mode)
-  (git-commit-mode . emojify-mode)
-  (magit-status-mode . emojify-mode)
-  (magit-log-mode . emojify-mode)
-  (org-mode . emojify-mode))
+;; (use-package emojify
+;;   :ensure t
+;;   :defer t
+;;   :hook
+;;   (after-init . global-emojify-mode)
+;;   (prog-mode . emojify-mode)
+;;   (markdown-mode . emojify-mode)
+;;   (git-commit-mode . emojify-mode)
+;;   (magit-status-mode . emojify-mode)
+;;   (magit-log-mode . emojify-mode)
+;;   (org-mode . emojify-mode))
 
 (use-package company-emoji
   :ensure t
@@ -972,6 +971,12 @@
 
 (use-package add-node-modules-path
   :ensure t)
+
+(use-package rjsx-mode
+  :ensure t
+  :defer t
+  :config
+  (add-to-list 'auto-mode-alist '("components\\/.*\\.js\\'" . rjsx-mode)))
 ;; End of javascript configuration
 
 (use-package json-mode
