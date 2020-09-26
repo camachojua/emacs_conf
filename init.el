@@ -2,6 +2,7 @@
 ;;; Commentary:
 ;;; Package configuration.
 ;;; Code:
+(setq comp-deferred-compilation t)
 (setq load-prefer-newer t)
 (require 'package)
 (setq package-enable-at-startup nil)
