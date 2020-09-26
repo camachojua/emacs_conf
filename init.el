@@ -48,8 +48,8 @@
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
-(setq nlinum-highlight-current-line t)
 (global-linum-mode 1)
+(setq linum-highlight-current-line t)
 (set-frame-font "Cascadia Mono 13" nil t)
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
@@ -82,7 +82,8 @@
 (setq electric-pair-pairs
       '(
         (?\" . ?\")
-        (?\{ . ?\})))
+        (?\{ . ?\})
+	(?\[ . ?\])))
 (electric-pair-mode 1)
 
 (use-package rainbow-mode
@@ -231,12 +232,6 @@
 ;;;;;;;;;;;
 ;; Theme ;;
 ;;;;;;;;;;;
-(use-package birds-of-paradise-plus-theme
-  :ensure t)
-
-(use-package chocolate-theme
-  :ensure t)
-
 (use-package doom-themes
   :ensure t
   :custom
@@ -388,11 +383,6 @@
   (yas-load-directory (expand-file-name "snippets" user-emacs-directory))
   (yas-global-mode t))
 
-;; (defun capitalizaPalabra (s)
-;;   "Cambia a mayúscula la primer letra de la cadena 'S'."
-;;   (if (> (length s) 0)
-;;       (concat (upcase (substring s 0 1)) (downcase (substring s 1)))
-;;     nil))
 
 (use-package react-snippets
   :ensure t
@@ -790,36 +780,6 @@
   :after mu4e
   :defer t)
 
-;;;;;;;;;;;;;;;;;;;
-;; Emoji support ;;
-;;;;;;;;;;;;;;;;;;;
-;; (use-package emojify
-;;   :ensure t
-;;   :defer t
-;;   :hook
-;;   (after-init . global-emojify-mode)
-;;   (prog-mode . emojify-mode)
-;;   (markdown-mode . emojify-mode)
-;;   (git-commit-mode . emojify-mode)
-;;   (magit-status-mode . emojify-mode)
-;;   (magit-log-mode . emojify-mode)
-;;   (org-mode . emojify-mode))
-
-(use-package company-emoji
-  :ensure t
-  :after company
-  :defer t
-  :hook
-  ((markdown-mode . company-mode)
-   (git-commit-mode . company-mode))
-  :config
-  (add-to-list 'company-backends 'company-emoji))
-
-;; (use-package unicode-fonts
-;;   :ensure t
-;;   :config
-;;   (unicode-fonts-setup))
-
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Company support ;;
 ;;;;;;;;;;;;;;;;;;;;;
@@ -895,23 +855,6 @@
   (setq-default pdf-view-display-size 'fit-page)
   (setq pdf-annot-activate-created-annotations t)
   (line-number-mode -1))
-
-;;;;;;;;;;;;;;;;;;;;;;
-;; Docker utilities ;;
-;;;;;;;;;;;;;;;;;;;;;;
-
-(use-package docker
-  :ensure t
-  :defer t
-  :bind ("C-c d" . docker))
-
-(use-package docker-tramp
-  :ensure t
-  :defer t)
-
-(use-package docker-compose-mode
-  :ensure t
-  :defer t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Programming modes utilities				   ;;
@@ -1012,33 +955,6 @@
   :ensure t
   :defer t)
 
-(use-package pug-mode
-  :ensure t
-  :defer t
-  :config
-  (setq pug-tab-width 2)
-  (defun pug-compile-saved-file()
-    (when (and (stringp buffer-file-name)
-	       (string-match "\\.pug\\'" buffer-file-name))
-      (pug-compile)))
-  ;; :hook
-  ;; ('after-save . 'pug-compile-saved-file)
-)
-
-(use-package clojure-mode
-  :ensure t
-  :defer t)
-
-(use-package haskell-mode
-  :ensure t
-  :defer t)
-
-(use-package plantuml-mode
-  :ensure t
-  :defer t
-  :config
-  (add-to-list 'auto-mode-alist '("\\.plantuml" . plantuml-mode)))
-
 ;;;;;;;;;;;;;;;;;;;
 ;; LaTeX Support ;;
 ;;;;;;;;;;;;;;;;;;;
@@ -1072,12 +988,6 @@
                  TeX-run-index nil t
                  :help "Run makeindex to create index file")))
 
-;;;;;;;;;;;;;;;;;;;;;;;;
-;; Large file support ;;
-;;;;;;;;;;;;;;;;;;;;;;;;
-;; (use-package vlf
-;;   :ensure t)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Emacs Application Framework ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1098,7 +1008,8 @@
 (setq process-environment (seq-filter
  (lambda(var)
    (and (not (string-match-p "QT_SCALE_FACTOR" var))
-        (not (string-match-p "QT_SCREEN_SCALE_FACTOR" var)))) process-environment))
+        (not (string-match-p "QT_SCREEN_SCALE_FACTOR" var))))
+ process-environment))
 
 (eaf-setq eaf-browser-enable-adblocker "true")
 (eaf-setq eaf-browser-default-zoom  "2.5")
@@ -1110,37 +1021,4 @@
   :ensure t
   :defer t)
 
-;;;;;;;;;;;;;;;;;;;;;
-;; Bitlbee support ;;
-;;;;;;;;;;;;;;;;;;;;;
-
-(use-package bitlbee
-  :ensure t
-  :defer t)
-
-;;;;;;;;;;;;;;;;;
-;; IRC support ;;
-;;;;;;;;;;;;;;;;;
-(use-package circe
-  :ensure t
-  :defer t)
-
-(use-package circe-notifications
-  :ensure t
-  :defer t
-  :after (circe))
-
-;;;;;;;;;;;;;;;;;;;;;;;
-;; Terraform support ;;
-;;;;;;;;;;;;;;;;;;;;;;;
-(use-package terraform-mode
-  :ensure t
-  :defer t
-  :hook
-  (terraform-mode . terraform-format-on-save-mode))
-
-(use-package company-terraform
-  :ensure t
-  :defer t
-  :after terraform-mode)
 ;;; init.el ends here
