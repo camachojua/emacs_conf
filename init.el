@@ -1014,6 +1014,28 @@
 (eaf-setq eaf-browser-enable-adblocker "true")
 (eaf-setq eaf-browser-default-zoom  "2.5")
 
+;;;;;;;;;;;;;;;;;;
+;; Java support ;;
+;;;;;;;;;;;;;;;;;;
+
+(use-package lsp-mode
+  :ensure t
+  :hook
+  (prog-mode . lsp)
+  :commands (lsp lsp-dereffered))
+
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode)
+
+(use-package lsp-ivy
+  :ensure t
+  :commands lsp-ivy-workspace-symbol)
+
+(use-package lsp-treemacs
+  :ensure t
+  :commands lsp-treemacs-errors-list)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Emacs screen recorder ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
