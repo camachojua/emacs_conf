@@ -253,7 +253,6 @@
 ;;;;;;;;;;;;;;;;;;;;
 ;; Magit settings ;;
 ;;;;;;;;;;;;;;;;;;;;
-
 (use-package diff-hl
   :ensure t
   :init
@@ -269,19 +268,10 @@
   (("C-x g" . 'magit-status)
    ("C-x M-g" . 'magit-dispatch)))
 
+
 (auth-source-forget-all-cached)
 '(ediff-split-window-function (quote split-window-horizontally))
 '(ediff-window-setup-function (quote ediff-setup-windows-plain))
-
-(defun ediff-copy-both-to-C ()
-  (interactive)
-  (ediff-copy-diff ediff-current-difference nil 'C nil
-                   (concat
-                    (ediff-get-region-contents ediff-current-difference 'A ediff-control-buffer)
-                    (ediff-get-region-contents ediff-current-difference 'B ediff-control-buffer))))
-(defun add-d-to-ediff-mode-map ()
-  (define-key ediff-mode-map "C" 'ediff-copy-both-to-C))
-(add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
 
 (use-package forge
   :ensure t
@@ -309,7 +299,8 @@
        "Login" (format "%s @ %s" user host)
        token
        :host host
-       :user user))))
+       :user user)))
+)
 
 (use-package magit-gitflow
   :ensure t
@@ -667,36 +658,6 @@
 (use-package multi-vterm
   :ensure t
   :defer t)
-
-;;;;;;;;;;;;;;;;;;;;
-;; Eshell goodies ;;
-;;;;;;;;;;;;;;;;;;;;
-
-(setq eshell-prompt-regexp "^[^αλ\n]*[αλ] ")
-(setq eshell-prompt-function
-      (lambda nil
-        (concat
-         (if (string= (eshell/pwd) (getenv "HOME"))
-             (propertize "~" 'face `(:foreground "#a099ab"))
-           (replace-regexp-in-string
-            (getenv "HOME")
-            (propertize "~" 'face `(:foreground "#98cbff"))
-            (propertize (eshell/pwd) 'face `(:foreground "#908bff"))))
-         (if (= (user-uid) 0)
-             (propertize " α " 'face `(:foreground "#ffaf06"))
-         (propertize " λ " 'face `(:foreground "#aabf2e"))))))
-(setq eshell-highlight-prompt nil)
-(defalias 'open 'find-file-other-window)
-(defalias 'clean 'eshell/clear-scrollback)
-(defun eshell/sudo-open (filename)
-  "Open a file (FILENAME) as root in Eshell."
-  (let ((qual-filename (if (string-match "^/" filename)
-                           filename
-                         (concat (expand-file-name (eshell/pwd)) "/" filename))))
-    (switch-to-buffer
-     (find-file-noselect
-      (concat "/sudo::" qual-filename)))))
-
 ;;;;;;;;;;;;;;;;;;;;
 ;; Email Settings ;;
 ;;;;;;;;;;;;;;;;;;;;
@@ -810,7 +771,6 @@
   (org-mode . company-mode)
   (terraform-mode . company-mode))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Flycheck support ;;
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -864,13 +824,6 @@
 ;; This section is big, but I'm going to put preference to ;;
 ;; javascript, json and yaml				   ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun js-config-hooks ()
-  "Set tabs spacing."
-  (setq js-indent-level 2)
-  (setq css-indent-offset 2))
-(add-hook 'js-mode-hook #'js-config-hooks)
-
 (use-package tide
   :ensure t
   :defer t
@@ -887,8 +840,7 @@
    (js-mode . tide-setup)
    (js-mode . tide-hl-identifier-mode)
    (js-mode . eldoc-mode)
-   (js-mode . tide-mode))
-)
+   (js-mode . tide-mode)))
 
 (use-package prettier-js
   :ensure t
@@ -957,39 +909,6 @@
   :ensure t
   :defer t)
 
-;;;;;;;;;;;;;;;;;;;
-;; LaTeX Support ;;
-;;;;;;;;;;;;;;;;;;;
-(use-package tex
-  :ensure auctex
-  :defer t
-  :init
-  (setq TeX-auto-save t)
-  (setq TeX-parse-self t)
-  (setq TeX-PDF-mode t)
-  (setq-default TeX-master nil)
-  (setq reftex-plug-into-AUCTEX t)
-  (setq TeX-parse-self t)
-  (setq TeX-source-correlate-method 'synctex)
-  (setq TeX-source-correlate-start-server t)
-  (setq preview-gs-command "PDF Tools")
-  :hook
-  (doc-view-mode . auto-revert-mode)
-  (LaTeX-mode . visual-line-mode)
-  (LaTeX-mode . flyspell-mode)
-  (LaTeX-mode . LaTeX-math-mode)
-  (LaTeX-mode . turn-on-reftex)
-  :config
-  (add-hook 'TeX-after-compilation-finished-functions
-            #'TeX-revert-document-buffer)
-  (TeX-source-correlate-mode t)
-  (add-to-list 'TeX-view-program-selection
-               '(output-pdf "PDF Tools"))
-  (add-to-list 'TeX-command-list
-               '("Index" "makeindex %s.nlo -s nomencl.ist -o %s.nls"
-                 TeX-run-index nil t
-                 :help "Run makeindex to create index file")))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Emacs Application Framework ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -999,8 +918,8 @@
   (setq eaf-python-command "python3")
   :custom
   (eaf-find-alternate-file-in-dired t)
+  (browser-continue-where-let-off t)
   :config
-  (setq browser-continue-where-let-off t)
   (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
   (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
   (eaf-bind-key take_photo "p" eaf-camera-keybinding))
@@ -1024,6 +943,8 @@
   :ensure t
   :hook
   (prog-mode . lsp)
+  :init
+  (setq lsp-auto-guess-root t)
   :config (setq warning-suppress-log-types t)
   :commands (lsp lsp-dereffered))
 
@@ -1045,5 +966,3 @@
 (use-package camcorder
   :ensure t
   :defer t)
-
-;;; init.el ends here
