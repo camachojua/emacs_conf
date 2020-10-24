@@ -966,3 +966,36 @@
 (use-package camcorder
   :ensure t
   :defer t)
+
+
+;;;;;;;;;;;;;;;;;;;
+;; LaTeX Support ;;
+;;;;;;;;;;;;;;;;;;;
+(use-package tex
+  :ensure auctex
+  :defer t
+  :init
+  (setq TeX-auto-save t)
+  (setq TeX-parse-self t)
+  (setq TeX-PDF-mode t)
+  (setq-default TeX-master nil)
+  (setq reftex-plug-into-AUCTEX t)
+  (setq TeX-parse-self t)
+  (setq TeX-source-correlate-method 'synctex)
+  (setq TeX-source-correlate-start-server t)
+  (setq preview-gs-command "PDF Tools")
+  :hook
+  (doc-view-mode . auto-revert-mode)
+  (LaTeX-mode . visual-line-mode)
+  (LaTeX-mode . flyspell-mode)
+  (LaTeX-mode . LaTeX-math-mode)
+  (LaTeX-mode . turn-on-reftex)
+  (TeX-after-compilation-finished-functions .TeX-revert-document-buffer)
+  :config
+  (TeX-source-correlate-mode t)
+  (add-to-list 'TeX-view-program-selection
+               '(output-pdf "PDF Tools"))
+  (add-to-list 'TeX-command-list
+               '("Index" "makeindex %s.nlo -s nomencl.ist -o %s.nls"
+                 TeX-run-index nil t
+                 :help "Run makeindex to create index file")))
