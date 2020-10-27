@@ -68,9 +68,9 @@
 (use-package whitespace
   :ensure t
   :defer t
-  :init
-  (whitespace-line-column 80)
-  (whitespace-style '(face-lines-tail))
+  :config
+  (setq whitespace-line-column 80)
+  (setq whitespace-style '(face-lines-tail))
   :hook
   (org-mode . whitespace-mode)
   (prog-mode . whitespace-mode)
@@ -121,13 +121,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Better Window navigation ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(use-package alert
-  :ensure t
-  :defer t
-  :commands (alert)
-  :init
-  (alert-default-style 'notifier))
 
 (use-package winum
   :ensure t
@@ -227,8 +220,7 @@
 (use-package treemacs-magit
   :ensure t
   :defer t
-  :after treemacs magit
-)
+  :after treemacs magit)
 
 ;;;;;;;;;;;
 ;; Theme ;;
@@ -253,6 +245,7 @@
 ;;;;;;;;;;;;;;;;;;;;
 ;; Magit settings ;;
 ;;;;;;;;;;;;;;;;;;;;
+
 (use-package diff-hl
   :ensure t
   :init
@@ -261,13 +254,13 @@
 (use-package magit
   :ensure t
   :defer t
+  :config
+  (setq magit-completing-read-function 'ivy-completing-read)
   :init
-  (magit-completing-read-function 'ivy-completing-read)
-  (vc-handled-backends (delq 'Git vc-handled-backends))
+  (setq vc-handled-backends (delq 'Git vc-handled-backends))
   :bind
   (("C-x g" . 'magit-status)
    ("C-x M-g" . 'magit-dispatch)))
-
 
 (auth-source-forget-all-cached)
 '(ediff-split-window-function (quote split-window-horizontally))
@@ -314,6 +307,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Better search engine ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (use-package ivy
   :ensure t
   :custom
@@ -376,7 +370,6 @@
   (yas-load-directory (expand-file-name "snippets" user-emacs-directory))
   (yas-global-mode t))
 
-
 (use-package react-snippets
   :ensure t
   :defer t
@@ -396,15 +389,17 @@
 	      winner-undo
 	      widget-forward)
   :init
-  (dahboard-banner-logo-title "")
-  (dashboard-startup-banner (expand-file-name "st_ignucius.png" user-emacs-directory))
+  (setq dahboard-banner-logo-title "")
+  (setq dashboard-startup-banner (expand-file-name
+				  "st_ignucius.png"
+				  user-emacs-directory))
+  :hook
+  (dashboard-mode . (lambda () (linum-mode -1)))
+  :config
   (setq dashboard-center-content t)
   (setq dashboard-items '((recents . 5)
 			  (projects . 5)
 			  (agenda . 5)))
-  :hook
-  (dashboard-mode . (lambda () (linum-mode -1)))
-  :config
   (setq dashboard-set-init-info t
 	dashboard-set-file-icons t
 	dashboard-set-heading-icons t
@@ -481,30 +476,29 @@
   (doom-modeline-buffer-file-name 'truncate-with-project)
   :ensure t
   :init
-  (vc-handled-backends nil)
-  (doom-modeline-height 25)
-  (doom-modeline-bar-width 3)
-  (doom-modeline-project-detection 'project)
-  (doom-modeline-buffer-file-name-style 'truncate-upto-project)
-  (doom-modeline-icon t)
-  (doom-modeline-major-mode-icon t)
-  (doom-modeline-buffer-state-icon t)
-  (doom-modeline-buffer-modification-icon t)
-  (doom-modeline-minor-modes nil)
-  (doom-modeline-enable-word-count nil)
-  (doom-modeline-checker-simple-format t)
-  (doom-modeline-vcs-max-length 12)
-  (doom-modeline-persp-name t)
-  (doom-modeline-github nil)
-  (doom-modeline-github-interval (* 30 60))
-  (doom-modeline-env-version t)
-  (doom-modeline-env-load-string "...")
+  (setq vc-handled-backends nil)
+  (setq doom-modeline-height 25)
+  (setq doom-modeline-bar-width 3)
+  (setq doom-modeline-project-detection 'project)
+  (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
+  (setq doom-modeline-icon t)
+  (setq doom-modeline-major-mode-icon t)
+  (setq doom-modeline-buffer-state-icon t)
+  (setq doom-modeline-buffer-modification-icon t)
+  (setq doom-modeline-minor-modes nil)
+  (setq doom-modeline-enable-word-count nil)
+  (setq doom-modeline-checker-simple-format t)
+  (setq doom-modeline-vcs-max-length 12)
+  (setq doom-modeline-persp-name t)
+  (setq doom-modeline-env-version t)
+  (setq doom-modeline-env-load-string "...")
   :hook
   (after-init . doom-modeline-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; posframe settings ;;
 ;;;;;;;;;;;;;;;;;;;;;;;
+
 (use-package ivy-posframe
   :ensure t
   :after ivy
@@ -568,7 +562,6 @@
     (write-region "" nil (expand-file-name "org/todo.org" (getenv "HOME"))))
 (if (not (file-exists-p (expand-file-name "org/journal.org" (getenv "HOME"))))
     (write-region "" nil (expand-file-name "org/journal.org" (getenv "HOME"))))
-
 
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
@@ -657,6 +650,7 @@
 (use-package multi-vterm
   :ensure t
   :defer t)
+
 ;;;;;;;;;;;;;;;;;;;;
 ;; Email Settings ;;
 ;;;;;;;;;;;;;;;;;;;;
@@ -914,7 +908,7 @@
 (use-package eaf
   :load-path "~/.emacs.d/emacs-application-framework"
   :init
-  (eaf-python-command "python3")
+  (setq eaf-python-command "python3")
   :custom
   (eaf-find-alternate-file-in-dired t)
   (browser-continue-where-let-off t)
@@ -938,7 +932,7 @@
 ;; Languaje Server Protocol ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq gc-cons-threshold 100000000)
-(setq read-process-output-max (* 4096 1024)) ;; 1mb
+(setq read-process-output-max (* 4096 1024)) ;; 4mb
 (setq lsp-keymap-prefix "C-c l")
 
 (use-package lsp-mode
@@ -946,12 +940,13 @@
   :hook
   (prog-mode . lsp)
   :init
-  (lsp-auto-guess-root t)
+  (setq lsp-auto-guess-root t)
   :config (setq warning-suppress-log-types t)
   :commands (lsp lsp-dereffered))
 
 (with-eval-after-load 'lsp-mode
-  (mapc #'lsp-flycheck-add-mode '(typescript-mode js-mode css-mode vue-html-mode)))
+  (mapc #'lsp-flycheck-add-mode
+	'(typescript-mode js-mode css-mode vue-html-mode)))
 
 (use-package lsp-ui
   :ensure t
@@ -1010,17 +1005,4 @@
                  :help "Run makeindex to create index file")))
 
 (provide 'init)
-;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(which-key yafolding winum websocket w3m vlf vdiff-magit use-package unicode-fonts treemacs-projectile treemacs-magit treemacs-icons-dired tide rjsx-mode react-snippets rainbow-mode rainbow-delimiters python-pytest pug-mode projectile-rails prettier-js plantuml-mode php-mode pdf-tools org-mime ob-async nov nasm-mode multi-vterm mu4e-alert magit-todos magit-tbdiff magit-org-todos magit-gitflow magit-filenotify magit-delta lsp-ui lsp-java lsp-ivy jest ivy-rich ivy-posframe htmlize highlight-indent-guides haskell-mode forge emojify edit-indirect doom-themes doom-modeline dockerfile-mode docker-compose-mode docker diminish diff-hl dashboard counsel-projectile company-terraform company-go company-emoji clojure-mode circe-notifications chocolate-theme camcorder btc-ticker bitlbee birds-of-paradise-plus-theme auctex all-the-icons-ivy all-the-icons-dired add-node-modules-path)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(doom-modeline-bar ((t (:background "#6272a4")))))
+;;; init.el ends here
