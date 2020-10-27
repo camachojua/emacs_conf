@@ -69,8 +69,8 @@
   :ensure t
   :defer t
   :init
-  (setq whitespace-line-column 80)
-  (setq whitespace-style '(face-lines-tail))
+  (whitespace-line-column 80)
+  (whitespace-style '(face-lines-tail))
   :hook
   (org-mode . whitespace-mode)
   (prog-mode . whitespace-mode)
@@ -127,7 +127,7 @@
   :defer t
   :commands (alert)
   :init
-  (setq alert-default-style 'notifier))
+  (alert-default-style 'notifier))
 
 (use-package winum
   :ensure t
@@ -262,8 +262,8 @@
   :ensure t
   :defer t
   :init
-  (setq magit-completing-read-function 'ivy-completing-read)
-  (setq vc-handled-backends (delq 'Git vc-handled-backends))
+  (magit-completing-read-function 'ivy-completing-read)
+  (vc-handled-backends (delq 'Git vc-handled-backends))
   :bind
   (("C-x g" . 'magit-status)
    ("C-x M-g" . 'magit-dispatch)))
@@ -396,8 +396,8 @@
 	      winner-undo
 	      widget-forward)
   :init
-  (setq dahboard-banner-logo-title "")
-  (setq dashboard-startup-banner (expand-file-name "st_ignucius.png" user-emacs-directory))
+  (dahboard-banner-logo-title "")
+  (dashboard-startup-banner (expand-file-name "st_ignucius.png" user-emacs-directory))
   (setq dashboard-center-content t)
   (setq dashboard-items '((recents . 5)
 			  (projects . 5)
@@ -481,25 +481,24 @@
   (doom-modeline-buffer-file-name 'truncate-with-project)
   :ensure t
   :init
-  (setq vc-handled-backends nil)
-  (setq doom-modeline-height 25)
-  (setq doom-modeline-bar-width 3)
-  (setq doom-modeline-project-detection 'project)
-  (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
-  (setq doom-modeline-icon t)
-  (setq doom-modeline-major-mode-icon t)
-  (setq doom-modeline-major-mode-or-icon t)
-  (setq doom-modeline-buffer-state-icon t)
-  (setq doom-modeline-buffer-modification-icon t)
-  (setq doom-modeline-minor-modes nil)
-  (setq doom-modeline-enable-word-count nil)
-  (setq doom-modeline-checker-simple-format t)
-  (setq doom-modeline-vcs-max-length 12)
-  (setq doom-modeline-persp-name t)
-  (setq doom-modeline-github nil)
-  (setq doom-modeline-github-interval (* 30 60))
-  (setq doom-modeline-env-version t)
-  (setq doom-modeline-env-load-string "...")
+  (vc-handled-backends nil)
+  (doom-modeline-height 25)
+  (doom-modeline-bar-width 3)
+  (doom-modeline-project-detection 'project)
+  (doom-modeline-buffer-file-name-style 'truncate-upto-project)
+  (doom-modeline-icon t)
+  (doom-modeline-major-mode-icon t)
+  (doom-modeline-buffer-state-icon t)
+  (doom-modeline-buffer-modification-icon t)
+  (doom-modeline-minor-modes nil)
+  (doom-modeline-enable-word-count nil)
+  (doom-modeline-checker-simple-format t)
+  (doom-modeline-vcs-max-length 12)
+  (doom-modeline-persp-name t)
+  (doom-modeline-github nil)
+  (doom-modeline-github-interval (* 30 60))
+  (doom-modeline-env-version t)
+  (doom-modeline-env-load-string "...")
   :hook
   (after-init . doom-modeline-mode))
 
@@ -915,7 +914,7 @@
 (use-package eaf
   :load-path "~/.emacs.d/emacs-application-framework"
   :init
-  (setq eaf-python-command "python3")
+  (eaf-python-command "python3")
   :custom
   (eaf-find-alternate-file-in-dired t)
   (browser-continue-where-let-off t)
@@ -935,18 +934,24 @@
 (eaf-setq eaf-browser-enable-adblocker "true")
 (eaf-setq eaf-browser-default-zoom  "2.5")
 
-;;;;;;;;;;;;;;;;;;
-;; Java support ;;
-;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Languaje Server Protocol ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq gc-cons-threshold 100000000)
+(setq read-process-output-max (* 4096 1024)) ;; 1mb
+(setq lsp-keymap-prefix "C-c l")
 
 (use-package lsp-mode
   :ensure t
   :hook
   (prog-mode . lsp)
   :init
-  (setq lsp-auto-guess-root t)
+  (lsp-auto-guess-root t)
   :config (setq warning-suppress-log-types t)
   :commands (lsp lsp-dereffered))
+
+(with-eval-after-load 'lsp-mode
+  (mapc #'lsp-flycheck-add-mode '(typescript-mode js-mode css-mode vue-html-mode)))
 
 (use-package lsp-ui
   :ensure t
@@ -960,13 +965,17 @@
   :ensure t
   :commands lsp-treemacs-errors-list)
 
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Emacs screen recorder ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package camcorder
   :ensure t
   :defer t)
-
 
 ;;;;;;;;;;;;;;;;;;;
 ;; LaTeX Support ;;
@@ -999,13 +1008,16 @@
                '("Index" "makeindex %s.nlo -s nomencl.ist -o %s.nls"
                  TeX-run-index nil t
                  :help "Run makeindex to create index file")))
+
+(provide 'init)
+;; init.el ends here
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(yafolding winum websocket w3m vlf vdiff-magit use-package unicode-fonts treemacs-projectile treemacs-magit treemacs-icons-dired tide rjsx-mode react-snippets rainbow-mode rainbow-delimiters python-pytest pug-mode projectile-rails prettier-js plantuml-mode php-mode pdf-tools org-mime ob-async nov nasm-mode multi-vterm mu4e-alert magit-todos magit-tbdiff magit-org-todos magit-gitflow magit-filenotify magit-delta lsp-ui lsp-java lsp-ivy jest ivy-rich ivy-posframe htmlize highlight-indent-guides haskell-mode forge emojify edit-indirect doom-themes doom-modeline dockerfile-mode docker-compose-mode docker diminish diff-hl dashboard counsel-projectile company-terraform company-go company-emoji clojure-mode circe-notifications chocolate-theme camcorder btc-ticker bitlbee birds-of-paradise-plus-theme auctex all-the-icons-ivy all-the-icons-dired add-node-modules-path)))
+   '(which-key yafolding winum websocket w3m vlf vdiff-magit use-package unicode-fonts treemacs-projectile treemacs-magit treemacs-icons-dired tide rjsx-mode react-snippets rainbow-mode rainbow-delimiters python-pytest pug-mode projectile-rails prettier-js plantuml-mode php-mode pdf-tools org-mime ob-async nov nasm-mode multi-vterm mu4e-alert magit-todos magit-tbdiff magit-org-todos magit-gitflow magit-filenotify magit-delta lsp-ui lsp-java lsp-ivy jest ivy-rich ivy-posframe htmlize highlight-indent-guides haskell-mode forge emojify edit-indirect doom-themes doom-modeline dockerfile-mode docker-compose-mode docker diminish diff-hl dashboard counsel-projectile company-terraform company-go company-emoji clojure-mode circe-notifications chocolate-theme camcorder btc-ticker bitlbee birds-of-paradise-plus-theme auctex all-the-icons-ivy all-the-icons-dired add-node-modules-path)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
