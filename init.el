@@ -49,7 +49,7 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 (global-linum-mode 1)
-(setq linum-highlight-current-line t)
+(setq-default linum-highlight-current-line t)
 (set-frame-font "Cascadia Mono 13" nil t)
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
@@ -933,37 +933,35 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq gc-cons-threshold 100000000)
 (setq read-process-output-max (* 4096 1024)) ;; 4mb
-(setq lsp-keymap-prefix "C-c l")
+;; (setq lsp-keymap-prefix "C-c l")
 
-(use-package lsp-mode
-  :ensure t
-  :hook
-  (prog-mode . lsp)
-  :init
-  (setq lsp-auto-guess-root t)
-  :config (setq warning-suppress-log-types t)
-  :commands (lsp lsp-dereffered))
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :hook
+;;   ((prog-mode . lsp-deferred)
+;;    (lsp-mode . lsp-enable-which-key-integration)
+;;    (lsp-mode . lsp-headerline-breadcrumb-mode))
+;;   :init
+;;   (setq lsp-auto-guess-root t)
+;;   :config (setq warning-suppress-log-types t)
+;;   :commands (lsp lsp-deferred))
 
-(with-eval-after-load 'lsp-mode
-  (mapc #'lsp-flycheck-add-mode
-	'(typescript-mode js-mode css-mode vue-html-mode)))
+;; (use-package lsp-ui
+;;   :ensure t
+;;   :commands lsp-ui-mode)
 
-(use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode)
+;; (use-package lsp-ivy
+;;   :ensure t
+;;   :commands lsp-ivy-workspace-symbol)
 
-(use-package lsp-ivy
-  :ensure t
-  :commands lsp-ivy-workspace-symbol)
+;; (use-package lsp-treemacs
+;;   :ensure t
+;;   :commands lsp-treemacs-errors-list)
 
-(use-package lsp-treemacs
-  :ensure t
-  :commands lsp-treemacs-errors-list)
-
-(use-package which-key
-  :ensure t
-  :config
-  (which-key-mode))
+;; (use-package which-key
+;;   :ensure t
+;;   :config
+;;   (which-key-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Emacs screen recorder ;;
