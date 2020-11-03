@@ -570,6 +570,8 @@
 (use-package org
   :ensure t
   :config
+  (setq org-hide-emphasis-markers t)
+  (setq org-display-inline-images t)
   (setq org-log-done t)
   (setq org-image-actual-width 800)
   (setq org-startup-indented t)
@@ -638,6 +640,8 @@
 (use-package org-tree-slide
   :ensure t
   :after org-mode-abbrev-table
+  :hook
+  (org-mode . org-tree-slide-mode)
   :defer t)
 
 (use-package org-bullets
@@ -645,7 +649,8 @@
   :after org-mode
   :defer t
   :hook
-  (org-mode . (lambda () (org-bullets-mode 1))))
+  (org-mode . org-bullets-mode)
+  :config (setq org-bullets-mode 1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Better terminal support inside emacs ;;
@@ -1016,3 +1021,16 @@
 
 (provide 'init)
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(yafolding winum which-key websocket w3m vlf vdiff-magit use-package unicode-fonts treemacs-projectile treemacs-magit treemacs-icons-dired tide rjsx-mode react-snippets rainbow-mode rainbow-delimiters python-pytest pug-mode projectile-rails prettier-js plantuml-mode php-mode pdf-tools org-tree-slide org-mime org-bullets ob-async nov nasm-mode multi-vterm mu4e-alert magit-todos magit-tbdiff magit-org-todos magit-gitflow magit-filenotify magit-delta lsp-ui lsp-java lsp-ivy jest ivy-rich ivy-posframe htmlize highlight-indent-guides haskell-mode forge emojify edit-indirect doom-themes doom-modeline dockerfile-mode docker-compose-mode docker diminish diff-hl dashboard counsel-projectile company-terraform company-go company-emoji clojure-mode circe-notifications chocolate-theme camcorder btc-ticker bitlbee birds-of-paradise-plus-theme auctex all-the-icons-ivy all-the-icons-dired add-node-modules-path)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(doom-modeline-bar ((t (:background "#6272a4")))))
