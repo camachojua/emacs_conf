@@ -635,6 +635,18 @@
    (sqlite . t)
    (shell . t)))
 
+(use-package org-tree-slide
+  :ensure t
+  :after org-mode-abbrev-table
+  :defer t)
+
+(use-package org-bullets
+  :ensure t
+  :after org-mode
+  :defer t
+  :hook
+  (org-mode . (lambda () (org-bullets-mode 1))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Better terminal support inside emacs ;;
 ;; (Experimental)		        ;;
