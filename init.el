@@ -647,10 +647,9 @@
 (use-package org-bullets
   :ensure t
   :after org-mode
-  :defer t
   :hook
   (org-mode . org-bullets-mode)
-  :config (setq org-bullets-mode 1))
+  :config (setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Better terminal support inside emacs ;;
