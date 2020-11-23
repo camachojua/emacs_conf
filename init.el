@@ -921,28 +921,28 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Emacs Application Framework ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package eaf
-  :load-path "~/.emacs.d/emacs-application-framework"
-  :init
-  (setq eaf-python-command "python3")
-  :custom
-  (eaf-find-alternate-file-in-dired t)
-  (browser-continue-where-let-off t)
-  :config
-  (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
-  (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
-  (eaf-bind-key take_photo "p" eaf-camera-keybinding))
+;; (use-package eaf
+;;   :load-path "~/.emacs.d/emacs-application-framework"
+;;   :init
+;;   (setq eaf-python-command "python3")
+;;   :custom
+;;   (eaf-find-alternate-file-in-dired t)
+;;   (browser-continue-where-let-off t)
+;;   :config
+;;   (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
+;;   (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
+;;   (eaf-bind-key take_photo "p" eaf-camera-keybinding))
 
-(require 'seq)
+;; (require 'seq)
 
-(setq process-environment (seq-filter
- (lambda(var)
-   (and (not (string-match-p "QT_SCALE_FACTOR" var))
-        (not (string-match-p "QT_SCREEN_SCALE_FACTOR" var))))
- process-environment))
+;; (setq process-environment (seq-filter
+;;  (lambda(var)
+;;    (and (not (string-match-p "QT_SCALE_FACTOR" var))
+;;         (not (string-match-p "QT_SCREEN_SCALE_FACTOR" var))))
+;;  process-environment))
 
-(eaf-setq eaf-browser-enable-adblocker "true")
-(eaf-setq eaf-browser-default-zoom  "2.5")
+;; (eaf-setq eaf-browser-enable-adblocker "true")
+;; (eaf-setq eaf-browser-default-zoom  "2.5")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Languaje Server Protocol ;;
