@@ -51,6 +51,9 @@
 (global-linum-mode 1)
 (setq-default linum-highlight-current-line t)
 (set-frame-font "Cascadia Mono 13" nil t)
+(if (eq system-type 'darwin) (setq mac-option-modifier 'super))
+(if (eq system-type 'darwin) (setq mac-command-modifier 'meta))
+(if (eq system-type 'darwin) (set-frame-font "Cascadia Mono 14" nil t))
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 (setq tramp-default-method "ssh")
@@ -655,17 +658,18 @@
 ;; Better terminal support inside emacs ;;
 ;; (Experimental)		        ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package vterm
-  :ensure t
-  :defer t
-  :config
-  (setq vterm-kill-buffer-on-exit t)
-  (setq vterm-always-compile-module t)
-  :bind ("C-x M-t" . vterm-other-window))
+(if (eq system-type 'gnu/linux)
+    (use-package vterm
+      :ensure t
+      :defer t
+      :config
+      (setq vterm-kill-buffer-on-exit t)
+      (setq vterm-always-compile-module t)
+      :bind ("C-x M-t" . vterm-other-window))
 
-(use-package multi-vterm
-  :ensure t
-  :defer t)
+  (use-package multi-vterm
+    :ensure t
+    :defer t)
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Email Settings ;;
@@ -751,7 +755,7 @@
   :ensure t
   :after mu4e
   :defer t)
-
+)
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Company support ;;
 ;;;;;;;;;;;;;;;;;;;;;
@@ -921,28 +925,29 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Emacs Application Framework ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (use-package eaf
-;;   :load-path "~/.emacs.d/emacs-application-framework"
-;;   :init
-;;   (setq eaf-python-command "python3")
-;;   :custom
-;;   (eaf-find-alternate-file-in-dired t)
-;;   (browser-continue-where-let-off t)
-;;   :config
-;;   (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
-;;   (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
-;;   (eaf-bind-key take_photo "p" eaf-camera-keybinding))
+(if (eq (system-type 'gnu/linux))
+    (use-package eaf
+      :load-path "~/.emacs.d/emacs-application-framework"
+      :init
+      (setq eaf-python-command "python3")
+      :custom
+      (eaf-find-alternate-file-in-dired t)
+      (browser-continue-where-let-off t)
+      :config
+      (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
+      (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
+      (eaf-bind-key take_photo "p" eaf-camera-keybinding))
 
-;; (require 'seq)
+  (require 'seq)
 
-;; (setq process-environment (seq-filter
-;;  (lambda(var)
-;;    (and (not (string-match-p "QT_SCALE_FACTOR" var))
-;;         (not (string-match-p "QT_SCREEN_SCALE_FACTOR" var))))
-;;  process-environment))
+  (setq process-environment (seq-filter
+			     (lambda(var)
+			       (and (not (string-match-p "QT_SCALE_FACTOR" var))
+				    (not (string-match-p "QT_SCREEN_SCALE_FACTOR" var))))
+			     process-environment))
 
-;; (eaf-setq eaf-browser-enable-adblocker "true")
-;; (eaf-setq eaf-browser-default-zoom  "2.5")
+  (eaf-setq eaf-browser-enable-adblocker "true")
+  (eaf-setq eaf-browser-default-zoom  "2.5"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Languaje Server Protocol ;;
