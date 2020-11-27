@@ -51,8 +51,10 @@
 (global-linum-mode 1)
 (setq-default linum-highlight-current-line t)
 (set-frame-font "Cascadia Mono 13" nil t)
-(if (eq system-type 'darwin) (setq mac-option-modifier 'super))
-(if (eq system-type 'darwin) (setq mac-command-modifier 'nil))
+(if (eq system-type 'darwin) (setq mac-option-key-is-meta nil))
+(if (eq system-type 'darwin) (setq mac-command-key-is-meta t))
+(if (eq system-type 'darwin) (setq mac-command-modifier 'meta))
+(if (eq system-type 'darwin) (setq mac-option-modifier nil))
 (if (eq system-type 'darwin) (set-frame-font "Cascadia Mono 14" nil t))
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
