@@ -62,6 +62,7 @@
 
 ;; GPG settings
 (setq epg-gpg-program "gpg2")
+(if (eq system-type 'darwin) (setq epg-gpg-program "gpg"))
 
 ;; Authinfo
 (setq auth-sources
