@@ -25,6 +25,23 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'load-path "./personal-config.el")
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Eshell configuration ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq insert-directory-program (executable-find "gls"))
+(add-to-list 'exec-path "/usr/local/opt/libpq/bin:/usr/local/bin:/opt/local/bin/:/usr/local/sbin:/Library/Apple/usr/bin:/Library/TeX/texbin:")
+(setenv "PATH"
+        (concat "/usr/local/opt/libpq/bin:/usr/local/bin:/opt/local/bin/:/usr/local/sbin:/Library/Apple/usr/bin:/Library/TeX/texbin:"
+                (getenv "PATH")))
+(eval-after-load 'esh-util
+  '(progn
+     (setq eshell-path-env (concat "/usr/local/opt/libpq/bin:/usr/local/bin:/opt/local/bin/:/usr/local/sbin:/Library/Apple/usr/bin:/Library/TeX/texbin:" eshell-path-env)
+           )))
+
+(use-package exec-path-from-shell
+  :ensure t
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Configuration file shortcuts ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -61,7 +78,6 @@
 (setq tramp-default-method "ssh")
 
 ;; GPG settings
-(setq epg-gpg-program "gpg2")
 (if (eq system-type 'darwin) (setq epg-gpg-program "gpg"))
 
 ;; Authinfo
