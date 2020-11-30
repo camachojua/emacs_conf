@@ -40,6 +40,8 @@
 
 (use-package exec-path-from-shell
   :ensure t
+  :config
+  (exec-path-from-shell-initialize)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -78,7 +80,7 @@
 (setq tramp-default-method "ssh")
 
 ;; GPG settings
-(if (eq system-type 'darwin) (setq epg-gpg-program "gpg"))
+(if (eq system-type 'darwin) (setq epg-gpg-program "/usr/local/bin/gpg"))
 
 ;; Authinfo
 (setq auth-sources
