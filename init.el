@@ -25,6 +25,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'load-path "./personal-config.el")
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Window Size Configuration ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(if (display-graphic-p)
+    (progn
+      (setq initial-frame-alist
+	    '(
+	      (width . 100)
+	      (height . 80)))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Eshell configuration ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
