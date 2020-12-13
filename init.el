@@ -788,6 +788,8 @@
 (use-package prettier-js
   :ensure t
   :hook
+  (js2-mode . prettier-js-mode)
+  (web-mode . prettier-js-mode)
   (js-mode . prettier-js-mode)
   :config
   (setq prettier-js-args
