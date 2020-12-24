@@ -204,6 +204,39 @@ es necesario instalar =VcXsrv= y configurarlo de manera adecuada.
 Ahora hay que abrir una ventana de Ubuntu y esperar la instalación de
 las dependencias. Por último debemos ejecutar =M-x all-the-icons-install-fonts=
 
+**** Instalación en MacOs (Big Sur)
+Primero necesitamos instalar =homebrew= que es un administrador de
+paquetes para mac, antes de poder instalarlo es necesario tener las
+=herraminetas de línea de comando para XCode=, lo más sencillo es que
+instales XCode desde la AppleStore y después ejecutes:
+
+#+begin_src bash :exports code
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#+end_src
+
+El proceso es tardado y pedirá tus credenciales múltiples veces, al
+término de la instalación ejecuta =brew doctor= y sigue las
+instrucciones que te muestra para tener una instalación limpia de este
+manejador de paquetes.
+
+***** Dependencias
+La instalación de las dependencias se hace con:
+
+#+begin_src bash :exports code
+  brew install git pkg-config autoconf gnutls texinfo librsvg jansson
+  brew install libgccjit
+  git clone -b feature/native-comp git://git.sv.gnu.org/emacs.git
+#+end_src
+
+***** Instalación de la aplicación
+Después de haber compilado es necesario instalar emacs de manera que
+el sistema operativo pueda ejecutar la aplicación, para ello debemos
+ejecutar:
+
+#+begin_src bash :exports code
+#+end_src
+
+
 **** Instalación de la configuración
 Para utilizar emacs de manera rápida puedes utilizar una configuración
 realizada por un tercero. A continuación se muestra cómo copiar la

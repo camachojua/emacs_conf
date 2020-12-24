@@ -768,23 +768,23 @@
 ;; This section is big, but I'm going to put preference to ;;
 ;; javascript, json and yaml				   ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package tide
-  :ensure t
-  :defer t
-  :bind
-  (("C-c r" . 'tide-rename-symbol)
-   ("C-c f" . 'tide-refactor)
-   ("C-c h" . 'tide-documentation-at-point))
-  :hook
-  (
-   (typescript-mode . tide-setup)
-   (typescript-mode . tide-mode)
-   (typescript-mode . tide-hl-identifier-mode)
-   (typescript-mdoe . eldoc-mode)
-   (js-mode . tide-setup)
-   (js-mode . tide-hl-identifier-mode)
-   (js-mode . eldoc-mode)
-   (js-mode . tide-mode)))
+;; (use-package tide
+;;   :ensure t
+;;   :defer t
+;;   :bind
+;;   (("C-c r" . 'tide-rename-symbol)
+;;    ("C-c f" . 'tide-refactor)
+;;    ("C-c h" . 'tide-documentation-at-point))
+;;   :hook
+;;   (
+;;    (typescript-mode . tide-setup)
+;;    (typescript-mode . tide-mode)
+;;    (typescript-mode . tide-hl-identifier-mode)
+;;    (typescript-mdoe . eldoc-mode)
+;;    (js-mode . tide-setup)
+;;    (js-mode . tide-hl-identifier-mode)
+;;    (js-mode . eldoc-mode)
+;;    (js-mode . tide-mode)))
 
 (use-package prettier-js
   :ensure t
@@ -873,6 +873,16 @@
 (setq read-process-output-max (* 4096 1024)) ;; 4mb
 ;; (setq lsp-keymap-prefix "C-c l")
 
+(use-package lsp-mode
+  :ensure t
+  :config
+  (setq lsp-prefer-flymake nil)
+  :hook
+  (php-mode . lsp)
+  (js2-mode . lsp)
+  (js-mode . lsp)
+  (typescript-mode . lsp))
+
 ;; (use-package lsp-mode
 ;;   :ensure t
 ;;   :hook
@@ -884,9 +894,26 @@
 ;;   :config (setq warning-suppress-log-types t)
 ;;   :commands (lsp lsp-deferred))
 
-;; (use-package lsp-ui
-;;   :ensure t
-;;   :commands lsp-ui-mode)
+(use-package lsp-ui
+  :ensure t
+  :requires lsp-mode flycheck
+  :config
+  (setq lsp-ui-doc-enable t
+	lsp-ui-doc-use-childframe t
+	lsp-ui-doc-position 'top
+	lsp-ui-doc-include-signature t
+	lsp-ui-sideline-enable nil
+	lsp-ui-flycheck-enable t
+	lsp-ui-flycheck-list-position 'right
+	lsp-ui-flycheck-live-reporting t
+	lsp-ui-peek-enable t
+	lsp-ui-peek-list-width 60
+	lsp-ui-peek-peek-height 25
+	lsp-ui-sideline-enable nil)
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+
+(use-package company-lsp
+  :commands company-lsp)
 
 ;; (use-package lsp-ivy
 ;;   :ensure t
@@ -948,7 +975,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(php-mode yaml-mode yafolding winum websocket w3m vterm use-package treemacs-projectile treemacs-magit treemacs-icons-dired tide rjsx-mode request react-snippets rainbow-mode rainbow-delimiters python-pytest projectile-rails prettier-js pdf-tools org-tree-slide org-mime org-bullets ob-async nov nasm-mode magit-gitflow json-mode jest ivy-rich ivy-posframe htmlize highlight-indent-guides forge exec-path-from-shell edit-indirect doom-themes doom-modeline dockerfile-mode diminish diff-hl dashboard counsel-projectile company-go camcorder auctex all-the-icons-ivy all-the-icons-dired alert add-node-modules-path)))
+   '(lsp-ui lsp-mode swift-mode php-mode yaml-mode yafolding winum websocket w3m vterm use-package treemacs-projectile treemacs-magit treemacs-icons-dired tide rjsx-mode request react-snippets rainbow-mode rainbow-delimiters python-pytest projectile-rails prettier-js pdf-tools org-tree-slide org-mime org-bullets ob-async nov nasm-mode magit-gitflow json-mode jest ivy-rich ivy-posframe htmlize highlight-indent-guides forge exec-path-from-shell edit-indirect doom-themes doom-modeline dockerfile-mode diminish diff-hl dashboard counsel-projectile company-go camcorder auctex all-the-icons-ivy all-the-icons-dired alert add-node-modules-path)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
