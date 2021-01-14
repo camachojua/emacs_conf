@@ -80,12 +80,10 @@
 (tool-bar-mode -1)
 (global-linum-mode 1)
 (setq-default linum-highlight-current-line t)
-(set-frame-font "Cascadia Mono 13" nil t)
 (if (eq system-type 'darwin) (setq mac-option-key-is-meta nil))
 (if (eq system-type 'darwin) (setq mac-command-key-is-meta t))
 (if (eq system-type 'darwin) (setq mac-command-modifier 'meta))
 (if (eq system-type 'darwin) (setq mac-option-modifier nil))
-(if (eq system-type 'darwin) (set-frame-font "Cascadia Mono 14" nil t))
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 (setq tramp-default-method "ssh")
@@ -263,20 +261,10 @@
 ;;;;;;;;;;;
 (use-package doom-themes
   :ensure t
-  :custom
-  (doom-themes-enable-italic t)
-  (doom-themes-enable-bold t)
   :custom-face
   (doom-modeline-bar ((t (:background "#6272a4"))))
   :config
-  ;; (doom-themes-visual-bell-config)
-  ;; (load-theme 'doom-dracula t)
-  ;; (load-theme 'doom-dark+ t)
-  ;; (load-theme 'doom-laserwave t)
-  (load-theme 'doom-tomorrow-night t)
-  ;; (doom-themes-neotree-config)
-  ;;(doom-themes-org-config)
-)
+  (load-theme 'doom-tomorrow-night t))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Magit settings ;;
@@ -866,68 +854,6 @@
 
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Languaje Server Protocol ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq gc-cons-threshold 100000000)
-(setq read-process-output-max (* 4096 1024)) ;; 4mb
-;; (setq lsp-keymap-prefix "C-c l")
-
-(use-package lsp-mode
-  :ensure t
-  :config
-  (setq lsp-prefer-flymake nil)
-  :hook
-  (php-mode . lsp)
-  (js2-mode . lsp)
-  (js-mode . lsp)
-  (typescript-mode . lsp))
-
-;; (use-package lsp-mode
-;;   :ensure t
-;;   :hook
-;;   ((prog-mode . lsp-deferred)
-;;    (lsp-mode . lsp-enable-which-key-integration)
-;;    (lsp-mode . lsp-headerline-breadcrumb-mode))
-;;   :init
-;;   (setq lsp-auto-guess-root t)
-;;   :config (setq warning-suppress-log-types t)
-;;   :commands (lsp lsp-deferred))
-
-(use-package lsp-ui
-  :ensure t
-  :requires lsp-mode flycheck
-  :config
-  (setq lsp-ui-doc-enable t
-	lsp-ui-doc-use-childframe t
-	lsp-ui-doc-position 'top
-	lsp-ui-doc-include-signature t
-	lsp-ui-sideline-enable nil
-	lsp-ui-flycheck-enable t
-	lsp-ui-flycheck-list-position 'right
-	lsp-ui-flycheck-live-reporting t
-	lsp-ui-peek-enable t
-	lsp-ui-peek-list-width 60
-	lsp-ui-peek-peek-height 25
-	lsp-ui-sideline-enable nil)
-  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
-
-(use-package company-lsp
-  :commands company-lsp)
-
-;; (use-package lsp-ivy
-;;   :ensure t
-;;   :commands lsp-ivy-workspace-symbol)
-
-;; (use-package lsp-treemacs
-;;   :ensure t
-;;   :commands lsp-treemacs-errors-list)
-
-;; (use-package which-key
-;;   :ensure t
-;;   :config
-;;   (which-key-mode))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Emacs screen recorder ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -969,16 +895,3 @@
 
 (provide 'init)
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(lsp-ui lsp-mode swift-mode php-mode yaml-mode yafolding winum websocket w3m vterm use-package treemacs-projectile treemacs-magit treemacs-icons-dired tide rjsx-mode request react-snippets rainbow-mode rainbow-delimiters python-pytest projectile-rails prettier-js pdf-tools org-tree-slide org-mime org-bullets ob-async nov nasm-mode magit-gitflow json-mode jest ivy-rich ivy-posframe htmlize highlight-indent-guides forge exec-path-from-shell edit-indirect doom-themes doom-modeline dockerfile-mode diminish diff-hl dashboard counsel-projectile company-go camcorder auctex all-the-icons-ivy all-the-icons-dired alert add-node-modules-path)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(doom-modeline-bar ((t (:background "#6272a4")))))
