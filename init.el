@@ -925,7 +925,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Emacs Application Framework ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(if (eq (system-type 'gnu/linux))
+(if (eq system-type 'gnu/linux)
     (use-package eaf
       :load-path "~/.emacs.d/emacs-application-framework"
       :init
