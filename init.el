@@ -680,7 +680,7 @@
 ;;;;;;;;;;;;;;;;;;;;;
 (global-ede-mode 1)
 (semantic-mode 1)
-(srecode-minor-mode 1)
+;; (srecode-minor-mode 1)
 (use-package company
   :ensure t
   :defer t
@@ -897,16 +897,3 @@
 
 (provide 'init)
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(tide yaml-mode yafolding winum websocket use-package treemacs-projectile treemacs-magit treemacs-icons-dired swift-mode rjsx-mode request react-snippets rainbow-mode rainbow-delimiters python-pytest projectile-rails prettier-js php-mode pdf-tools org-tree-slide org-bullets ob-async nov nasm-mode magit-gitflow lsp-ui json-mode jest ivy-rich ivy-posframe highlight-indent-guides forge flycheck exec-path-from-shell doom-themes doom-modeline dockerfile-mode diminish diff-hl dashboard counsel-projectile company-go camcorder auctex all-the-icons-ivy all-the-icons-dired add-node-modules-path)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(doom-modeline-bar ((t (:background "#6272a4")))))
