@@ -914,6 +914,34 @@
   :defer t
   :after org-mode)
 
+;;;;;;;;;;;;;;;;;;;;;;
+;; LSP MODE support ;;
+;;;;;;;;;;;;;;;;;;;;;;
+(use-package lsp-mode
+  :ensure t
+  :config
+  (setq lsp-prefer-flymake nil)
+  :hook (php-mode . lsp)
+  :commands lsp)
+
+(use-package lsp-ui
+  :ensure t
+  :requires lsp-mode flycheck
+  :config
+  (setq lsp-ui-doc-enable t
+	lsp-ui-doc-use-childframe t
+	lsp-ui-doc-position 'top
+	lsp-ui-doc-include-signature t
+	lsp-ui-doc-include-signature t
+	lsp-ui-flycheck-enable t
+	lsp-ui-flycheck-list-position 'right
+	lsp-ui-flycheck-live-reporting t
+	lsp-ui-peek-enable t
+	lsp-ui-peek-list-width 60
+	lsp-ui-peek-peek-height 25
+	lsp-ui-sideline-enable nil)
+  :hook (lsp-mode . lsp-ui))
+
 ;;; init.el ends here
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
