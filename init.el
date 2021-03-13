@@ -640,6 +640,22 @@
   :after org-mode
   :defer t)
 
+;;;;;;;;;;;;;;;;;
+;; REST client ;;
+;;;;;;;;;;;;;;;;;
+(use-package restclient
+  :ensure t)
+
+(use-package ob-restclient
+  :ensure t
+  :defer t
+  :after org-mode)
+
+(use-package ob-http
+  :ensure t
+  :defer t
+  :after org-mode)
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((awk . t)
@@ -656,6 +672,7 @@
    (plantuml . t)
    (python . t)
 ;;   (restclient . t)
+   (http . t)
    (sass . t)
    (sql . t)
    (sqlite . t)
@@ -902,17 +919,6 @@
 ;;;;;;;;;;;;;;;;;
 (use-package phpunit
   :ensure t)
-
-;;;;;;;;;;;;;;;;;
-;; REST client ;;
-;;;;;;;;;;;;;;;;;
-(use-package restclient
-  :ensure t)
-
-(use-package ob-restclient
-  :ensure t
-  :defer t
-  :after org-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; LSP MODE support ;;
