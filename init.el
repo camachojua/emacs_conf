@@ -619,6 +619,11 @@
   :after org-mode
   :defer t)
 
+(use-package ob-restclient
+  :ensure t
+  :after org-mode
+  :defer t)
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((awk . t)
@@ -634,7 +639,7 @@
    (org . t)
    (plantuml . t)
    (python . t)
-;;   (restclient . t)
+   (restclient . t)
    (sass . t)
    (sql . t)
    (sqlite . t)
@@ -925,29 +930,29 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Emacs Application Framework ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(if (eq system-type 'gnu/linux)
-    (use-package eaf
-      :load-path "~/.emacs.d/emacs-application-framework"
-      :init
-      (setq eaf-python-command "python3")
-      :custom
-      (eaf-find-alternate-file-in-dired t)
-      (browser-continue-where-let-off t)
-      :config
-      (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
-      (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
-      (eaf-bind-key take_photo "p" eaf-camera-keybinding))
+;; (if (eq system-type 'gnu/linux)
+;;     (use-package eaf
+;;       :load-path "~/.emacs.d/emacs-application-framework"
+;;       :init
+;;       (setq eaf-python-command "python3")
+;;       :custom
+;;       (eaf-find-alternate-file-in-dired t)
+;;       (browser-continue-where-let-off t)
+;;       :config
+;;       (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
+;;       (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
+;;       (eaf-bind-key take_photo "p" eaf-camera-keybinding))
 
-  (require 'seq)
+;;   (require 'seq)
 
-  (setq process-environment (seq-filter
-			     (lambda(var)
-			       (and (not (string-match-p "QT_SCALE_FACTOR" var))
-				    (not (string-match-p "QT_SCREEN_SCALE_FACTOR" var))))
-			     process-environment))
+;;   (setq process-environment (seq-filter
+;; 			     (lambda(var)
+;; 			       (and (not (string-match-p "QT_SCALE_FACTOR" var))
+;; 				    (not (string-match-p "QT_SCREEN_SCALE_FACTOR" var))))
+;; 			     process-environment))
 
-  (eaf-setq eaf-browser-enable-adblocker "true")
-  (eaf-setq eaf-browser-default-zoom  "2.5"))
+;;   (eaf-setq eaf-browser-enable-adblocker "true")
+;;   (eaf-setq eaf-browser-default-zoom  "2.5"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Languaje Server Protocol ;;
@@ -956,33 +961,41 @@
 (setq read-process-output-max (* 4096 1024)) ;; 4mb
 ;; (setq lsp-keymap-prefix "C-c l")
 
-;; (use-package lsp-mode
-;;   :ensure t
-;;   :hook
-;;   ((prog-mode . lsp-deferred)
-;;    (lsp-mode . lsp-enable-which-key-integration)
-;;    (lsp-mode . lsp-headerline-breadcrumb-mode))
-;;   :init
-;;   (setq lsp-auto-guess-root t)
-;;   :config (setq warning-suppress-log-types t)
-;;   :commands (lsp lsp-deferred))
+(use-package lsp-mode
+  :ensure t
+  :hook
+  ((prog-mode . lsp-deferred)
+   (lsp-mode . lsp-enable-which-key-integration)
+   (lsp-mode . lsp-headerline-breadcrumb-mode))
+  :init
+  (setq lsp-auto-guess-root t)
+  :config (setq warning-suppress-log-types t)
+  :commands (lsp lsp-deferred))
 
-;; (use-package lsp-ui
-;;   :ensure t
-;;   :commands lsp-ui-mode)
+(use-package company-lsp
+  :commands company-lsp)
 
-;; (use-package lsp-ivy
-;;   :ensure t
-;;   :commands lsp-ivy-workspace-symbol)
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode)
+
+(use-package lsp-ivy
+  :ensure t
+  :commands lsp-ivy-workspace-symbol)
 
 ;; (use-package lsp-treemacs
 ;;   :ensure t
 ;;   :commands lsp-treemacs-errors-list)
 
-;; (use-package which-key
-;;   :ensure t
-;;   :config
-;;   (which-key-mode))
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
+
+(use-package php-mode
+  :ensure t)
+
+(use-package phpunit :ensure t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Emacs screen recorder ;;
@@ -1024,4 +1037,11 @@
                  :help "Run makeindex to create index file")))
 
 (provide 'init)
+
+;;;;;;;;;;;;;;;;;
+;; REST client ;;
+;;;;;;;;;;;;;;;;;
+(use-package restclient
+  :ensure t)
+
 ;;; init.el ends here
