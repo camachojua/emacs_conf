@@ -50,7 +50,7 @@
 (tool-bar-mode -1)
 (global-linum-mode 1)
 (setq-default linum-highlight-current-line t)
-(set-frame-font "Cascadia Mono 13" nil t)
+(set-frame-font "Cascadia Mono 10" nil t)
 (if (eq system-type 'darwin) (setq mac-option-modifier 'super))
 (if (eq system-type 'darwin) (setq mac-command-modifier 'nil))
 (if (eq system-type 'darwin) (set-frame-font "Cascadia Mono 14" nil t))
