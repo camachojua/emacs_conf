@@ -67,7 +67,7 @@
       '((:source "~/.authinfo.gpg")))
 
 (setq epa-pinentry-mode 'loopback)
-(pinentry-start)
+;; (pinentry-start)
 
 ;;;;;;;;;;;;;;;;;;
 ;; Text styling ;;
