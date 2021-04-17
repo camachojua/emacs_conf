@@ -1058,18 +1058,11 @@
 (use-package restclient
   :ensure t)
 
+;;;;;;;;;;;;;;;;;;;;;
+;; Clojure Support ;;
+;;;;;;;;;;;;;;;;;;;;;
+(use-package clojure-mode
+  :ensure t
+  :defer t)
+
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(yaml-mode yafolding winum which-key websocket use-package treemacs-projectile treemacs-magit treemacs-icons-dired tide rjsx-mode request react-snippets rainbow-mode rainbow-delimiters python-pytest projectile-rails prettier-js phpunit php-mode pdf-tools org-tree-slide org-bullets ob-restclient ob-http ob-async nov nasm-mode magit-gitflow lsp-ui lsp-ivy json-mode jest ivy-rich ivy-posframe highlight-indent-guides forge doom-themes doom-modeline dockerfile-mode diminish diff-hl dashboard counsel-projectile company-go camcorder auctex all-the-icons-ivy all-the-icons-dired add-node-modules-path)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(doom-modeline-bar ((t (:background "#6272a4")))))
-(put 'set-goal-column 'disabled nil)
