@@ -1006,7 +1006,10 @@
   (which-key-mode))
 
 (use-package php-mode
-  :ensure t)
+  :ensure t
+  :defer t
+  :mode
+  ("\\.php\\'" .php-mode))
 
 (use-package phpunit :ensure t)
 
