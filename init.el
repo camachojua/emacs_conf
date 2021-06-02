@@ -1118,7 +1118,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(vlf-mode yaml-mode yafolding winum which-key websocket web-mode vterm vlf use-package unicode-fonts treemacs-projectile treemacs-magit treemacs-icons-dired tide rjsx-mode request react-snippets rainbow-mode rainbow-delimiters python-pytest projectile-rails prettier-js phpunit php-mode pdf-tools org-tree-slide org-bullets ob-restclient ob-http ob-async nov nasm-mode magit-gitflow lsp-ui lsp-ivy json-mode jest ivy-rich ivy-posframe highlight-indent-guides forge emojify edit-indirect doom-themes doom-modeline dockerfile-mode diminish diff-hl dashboard dap-mode counsel-projectile company-go clojure-mode camcorder auctex all-the-icons-ivy all-the-icons-dired add-node-modules-path)))
+   '(vlf-mode yaml-mode yafolding winum which-key websocket web-mode vterm vlf use-package unicode-fonts treemacs-projectile treemacs-magit treemacs-icons-dired tide rjsx-mode request react-snippets rainbow-mode rainbow-delimiters python-pytest projectile-rails prettier-js phpunit php-mode pdf-tools org-tree-slide org-bullets ob-restclient ob-http ob-async nov nasm-mode magit-gitflow lsp-ui lsp-ivy json-mode jest ivy-rich ivy-posframe highlight-indent-guides emojify edit-indirect dockerfile-mode diminish diff-hl dashboard dap-mode counsel-projectile company-go clojure-mode camcorder auctex all-the-icons-ivy all-the-icons-dired add-node-modules-path)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

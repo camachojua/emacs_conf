@@ -3,5 +3,10 @@
 # key: test
 # --
 test('$1', async ($2) => {
-  $0
+  try {
+    $0
+    $2()
+  } catch (err) {
+    $2(err)
+  }
 })

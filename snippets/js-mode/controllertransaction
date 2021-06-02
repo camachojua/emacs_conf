@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: controllertransaction
+# key: controllertransaction
+# --
+  const t = await sequelize.transaction();
+  try {
+    $1
+    t.commit();
+  } catch (err) {
+    t.rollback();
+    return utils.response500(res, err);
+  }
