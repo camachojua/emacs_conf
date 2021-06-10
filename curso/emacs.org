@@ -42,7 +42,7 @@ esas instrucciones.
   cd ~/src/emacs
   git clone -b master git://git.sv.gnu.org/emacs.git
   ./autogen.sh
-  ./configure --enable-autodepend --with-libsystemd --with-modules --with-x-toolkit=gtk --with-mailutils --with-imagemagick --with-jpeg --with-tiff --with-gif --with-png --with-rsvg --with-libotf --with-xaw3d --with-gpm --with-json --with-threads --enable-link-time-optimization
+  ./configure --enable-autodepend --with-libsystemd --with-modules --with-json --with-x-toolkit=gtk --with-mailutils --with-imagemagick --with-jpeg --with-tiff --with-gif --with-png --with-rsvg --with-libotf --with-xaw3d --with-gpm --with-json --with-threads --enable-link-time-optimization
   make -j$(nproc) -s bootstrap
   sudo make -j$(nproc) -s install
 #+end_src
@@ -51,7 +51,8 @@ Si te encuentran en un sistema que no tiene soporte para =systemd= es
 mejor cambiar la línea de =configure= por lo siguiente:
 
 #+begin_src sh :dir "/sudo::" :exports code
-./configure --enable-autodepend --without-libsystemd --with-modules --with-x-toolkit=no --with-mailutils --with-imagemagick --with-jpeg --with-tiff --with-gif --with-png --with-rsvg --with-libotf --with-xaw3d --with-gpm --with-json --with-threads --enable-link-time-optimization
+  ./configure --enable-autodepend --without-libsystemd --with-modules --with-json --with-x-toolkit=gtk --with-mailutils --with-imagemagick --with-jpeg --with-tiff --with-gif --w
+  ith-png --with-rsvg --with-libotf --with-xaw3d --with-gpm --with-json --with-threads --enable-link-time-optimization --with-native-compilation CFLAGS="-O3 -mtune=native -march=native -fomit-frame-pointer"
 #+end_src
 
 En este punto ya tenemos instalado emacs en nuestro sistema, lo que

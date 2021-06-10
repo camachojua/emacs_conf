@@ -20,6 +20,19 @@
 (use-package diminish
   :ensure t)
 
+;; (let ((bootstrap-file (concat user-emacs-directory "straight/repos/straight.el/bootstrap.el"))
+;;       (bootstrap-version 5))
+;;   (unless (file-exists-p bootstrap-file)
+;;     (with-current-buffer
+;;         (url-retrieve-synchronously
+;;          "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+;;          'silent 'inhibit-cookies)
+;;       (goto-char (point-max))
+;;       (eval-print-last-sexp)))
+;;   (load bootstrap-file nil 'nomessage))
+
+;; (straight-use-package 'use-package)
+
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; User information ;;
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -870,6 +883,26 @@
    (js-mode . eldoc-mode)
    (js-mode . tide-mode)))
 
+;; (use-package apheleia
+;;   :ensure t
+;;   :straigth (apheleia :host github :repo "raxod502/apheleia")
+;;   :config
+;;   (setf (alist-get 'prettier apheleia-formatters)
+;; 	'(npx "prettier"
+;; 	      "--trailing-comma" "es5"
+;; 	      "--tab-width" "2"
+;; 	      "--use-tabs" "false"
+;; 	      "--bracket-spacing" "true"
+;; 	      "--single-quote" "true"
+;; 	      "--semi" "true"
+;; 	      "--jsx-single-quote" "true"
+;; 	      "--jsx-bracket-same-line" "true"
+;; 	      "--arrow-parens" "always"
+;; 	      file))
+;;   (add-to-list 'apheleia-mode-alist '(rjsx-mode . prettier))
+;;   (add-to-list 'apheleia-mode-alist '(js-mode . prettier))
+;;   (apheleia-global-mode t))
+
 (use-package prettier-js
   :ensure t
   :hook
@@ -1121,7 +1154,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(vlf-mode yaml-mode yafolding winum which-key websocket web-mode vterm vlf use-package unicode-fonts treemacs-projectile treemacs-magit treemacs-icons-dired tide rjsx-mode request react-snippets rainbow-mode rainbow-delimiters python-pytest projectile-rails prettier-js phpunit php-mode pdf-tools org-tree-slide org-bullets ob-restclient ob-http ob-async nov nasm-mode magit-gitflow lsp-ui lsp-ivy json-mode jest ivy-rich ivy-posframe highlight-indent-guides emojify edit-indirect dockerfile-mode diminish diff-hl dashboard dap-mode counsel-projectile company-go clojure-mode camcorder auctex all-the-icons-ivy all-the-icons-dired add-node-modules-path)))
+   '(yaml-mode yafolding winum which-key websocket web-mode vterm vlf use-package unicode-fonts treemacs-projectile treemacs-magit treemacs-icons-dired tide rjsx-mode request react-snippets rainbow-mode rainbow-delimiters python-pytest projectile-rails prettier-js phpunit php-mode pdf-tools org-tree-slide org-bullets ob-restclient ob-http ob-async nov nasm-mode magit-gitflow lsp-ui lsp-ivy json-mode jest ivy-rich ivy-posframe highlight-indent-guides forge emojify edit-indirect doom-themes doom-modeline dockerfile-mode diminish diff-hl dashboard dap-mode counsel-projectile company-go clojure-mode camcorder auctex all-the-icons-ivy all-the-icons-dired add-node-modules-path)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

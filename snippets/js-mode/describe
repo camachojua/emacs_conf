@@ -2,6 +2,6 @@
 # name: describe
 # key: describe
 # --
-describe('$1', async () => {
+describe('$1', () => {
   $0
 })
