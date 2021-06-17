@@ -865,6 +865,9 @@
 ;; This section is big, but I'm going to put preference to ;;
 ;; javascript, json and yaml				   ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package cl-lib
+  :ensure t)
+
 (use-package tide
   :ensure t
   :defer t
@@ -1003,10 +1006,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Languaje Server Protocol ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq gc-cons-threshold 100000000)
-(setq read-process-output-max (* 4096 1024)) ;; 4mb
-;; (setq lsp-keymap-prefix "C-c l")
-
 (use-package lsp-mode
   :ensure t
   :hook
@@ -1015,7 +1014,13 @@
    (lsp-mode . lsp-headerline-breadcrumb-mode))
   :init
   (setq lsp-auto-guess-root t)
-  :config (setq warning-suppress-log-types t)
+  :config
+  (setq warning-suppress-log-types t)
+  (setq gc-cons-threshold 100000000)
+  (setq read-process-output-max (* 1024 4096))
+  (setq lsp-log-io nil)
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.node-modules\\'")
+  (setq lsp-keymap-prefix "C-c l")
   :commands (lsp lsp-deferred))
 
 (use-package company-lsp
@@ -1029,9 +1034,9 @@
   :ensure t
   :commands lsp-ivy-workspace-symbol)
 
-;; (use-package lsp-treemacs
-;;   :ensure t
-;;   :commands lsp-treemacs-errors-list)
+(use-package lsp-treemacs
+  :ensure t
+  :commands lsp-treemacs-errors-list)
 
 (use-package which-key
   :ensure t
@@ -1148,16 +1153,3 @@
 
 
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(yaml-mode yafolding winum which-key websocket web-mode vterm vlf use-package unicode-fonts treemacs-projectile treemacs-magit treemacs-icons-dired tide rjsx-mode request react-snippets rainbow-mode rainbow-delimiters python-pytest projectile-rails prettier-js phpunit php-mode pdf-tools org-tree-slide org-bullets ob-restclient ob-http ob-async nov nasm-mode magit-gitflow lsp-ui lsp-ivy json-mode jest ivy-rich ivy-posframe highlight-indent-guides forge emojify edit-indirect doom-themes doom-modeline dockerfile-mode diminish diff-hl dashboard dap-mode counsel-projectile company-go clojure-mode camcorder auctex all-the-icons-ivy all-the-icons-dired add-node-modules-path)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(doom-modeline-bar ((t (:background "#6272a4")))))

@@ -1,0 +1,25 @@
+# -*- mode: snippet -*-
+# name: transactionc
+# key: transactionc
+# --
+const t = await sequelize.transaction();
+
+try {
+  const $1 = await SubTema.findByPk(${1:$(capitalize yas-text)}Id, { transaction: t });
+
+  if (isNullOrEmpty($1)) {
+    await t.rollback();
+    return res
+      .status(404)
+      .json({ message: utils.$2, faltantes: ['${1:$(capitalize yas-text)}Id'] });
+  }
+
+  $0
+
+  await t.commit();
+
+  return res.status($3).json({$4})
+} catch (err) {
+  await t.rollback();
+  return utils.response500(res, err);
+}
