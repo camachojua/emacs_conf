@@ -1,92 +1,79 @@
-;;; package -- Summary
-;;; Commentary:
-;;; Package configuration.
-;;; Code:
+;;; package --- Summary
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Straight.el bootstraping ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el"
+			 user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+(setq package-enable-at-startup nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Interoperability between straight and use-package ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(straight-use-package 'use-package)
+(use-package diminish :straight t)
+(setq straight-check-for-modifications nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; General compilation options ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq comp-deferred-compilation t)
 (setq load-prefer-newer t)
-(require 'package)
-(setq package-enable-at-startup nil)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
-(package-initialize)
 
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(eval-when-compile
-  (require 'use-package))
-(require 'bind-key)
-(use-package diminish
-  :ensure t)
-
-;; (let ((bootstrap-file (concat user-emacs-directory "straight/repos/straight.el/bootstrap.el"))
-;;       (bootstrap-version 5))
-;;   (unless (file-exists-p bootstrap-file)
-;;     (with-current-buffer
-;;         (url-retrieve-synchronously
-;;          "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-;;          'silent 'inhibit-cookies)
-;;       (goto-char (point-max))
-;;       (eval-print-last-sexp)))
-;;   (load bootstrap-file nil 'nomessage))
-
-;; (straight-use-package 'use-package)
-
-;;;;;;;;;;;;;;;;;;;;;;
-;; User information ;;
-;;;;;;;;;;;;;;;;;;;;;;
-(add-to-list 'load-path "./personal-config.el")
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Configuration file shortcuts ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun config-file ()
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Init.el configurations ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun config-file()
   "This function opens the principal configuration file."
   (find-file (expand-file-name "init.el"
 			       user-emacs-directory)))
 
-(defun personal-file ()
-  "This function opens the principal configuration file."
-  (find-file (expand-file-name "personal-config.el"
-			       user-emacs-directory)))
+(global-set-key (kbd "<f6>") (lambda() (interactive) (config-file)))
+(global-set-key (kbd "<f7>") 'emacs-lisp-byte-compile-and-load)
 
-(global-set-key (kbd "<f6>") (lambda () (interactive) (config-file)))
-(global-set-key (kbd "<f5>") 'emacs-lisp-byte-compile-and-load)
-
-
-;; General settings
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Custom UI settings ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+(electric-pair-mode +1)
 (setq inhibit-startup-screen t)
 (setq backup-inhibited t)
 (setq auto-save-default nil)
 (menu-bar-mode -1)
-(toggle-scroll-bar -1)
 (tool-bar-mode -1)
-(global-linum-mode 1)
+(toggle-scroll-bar -1)
+(global-linum-mode +1)
 (setq-default linum-highlight-current-line t)
-(set-frame-font "Cascadia Mono 10" nil t)
-(if (eq system-type 'darwin) (setq mac-option-modifier 'super))
-(if (eq system-type 'darwin) (setq mac-command-modifier 'nil))
-(if (eq system-type 'darwin) (set-frame-font "Cascadia Mono 14" nil t))
+(set-frame-font "Cascadia Mono 12" nil t)
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
+
+;;;;;;;;;;;;;;;;;;;;
+;; TRAMP settings ;;
+;;;;;;;;;;;;;;;;;;;;
 (setq tramp-default-method "ssh")
 
-;; GPG settings
+;;;;;;;;;;;;;;;;;;
+;; GPG settings ;;
+;;;;;;;;;;;;;;;;;;
 (setq epg-gpg-program "gpg2")
-
-;; Authinfo
-(setq auth-sources
-      '((:source "~/.authinfo.gpg")))
-
+(setq auth-sources '((:source "~/.authinfo.gpg")))
 (setq epa-pinentry-mode 'loopback)
-;; (pinentry-start)
 
 ;;;;;;;;;;;;;;;;;;
 ;; Text styling ;;
 ;;;;;;;;;;;;;;;;;;
 (use-package whitespace
-  :ensure t
+  :straight t
   :defer t
   :config
   (setq whitespace-line-column 80)
@@ -94,20 +81,16 @@
   :hook
   (org-mode . whitespace-mode)
   (prog-mode . whitespace-mode)
-  (arduino-mode . whitespace-mode)
   (json-mode . whitespace-mode)
   (yaml-mode . whitespace-mode))
 
-;; Electric pair
 (setq electric-pair-pairs
-      '(
-        (?\" . ?\")
-        (?\{ . ?\})
+      '((?\" . ?\")
+	(?\{ . ?\})
 	(?\[ . ?\])))
-(electric-pair-mode 1)
 
 (use-package rainbow-mode
-  :ensure t
+  :straight t
   :after prog-mode
   :defer t
   :hook
@@ -117,39 +100,26 @@
   (json-mode . rainbow-mode))
 
 (use-package rainbow-delimiters
-  :ensure t
-  :after prog-mode
+  :straight t
   :defer t
+  :after prog-mode
   :hook
   (prog-mode . rainbow-delimiters-mode)
+  (elisp-mode . rainbow-delimiters-mode)
   (org-mode . rainbow-delimiters-mode)
   (yaml-mode . rainbow-delimiters-mode)
   (json-mode . rainbow-delimiters-mode))
 
 (use-package yafolding
-  :ensure t
+  :straight t
   :defer t
   :hook
   (prog-mode . yafolding-mode)
   (elisp-mode . yafolding-mode)
-  (javascript-mode . yafolding-mode)
-  :config
-  (define-key yafolding-mode-map (kbd "<C-S-space>") 'yafolding-toggle-all)
-  (define-key yafolding-mode-map (kbd "<C-M-return>") 'yafolding-hide-parent-element)
-  (define-key yafolding-mode-map (kbd "<C-return>") 'yafolding-toggle-element))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Better Window navigation ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(use-package winum
-  :ensure t
-  :config
-  (set-face-attribute 'winum-face nil :weight 'bold)
-  (winum-mode))
+  (js-mode . yafolding-mode))
 
 (use-package highlight-indent-guides
-  :ensure t
+  :straight t
   :defer t
   :diminish
   :config
@@ -160,134 +130,110 @@
   (yaml-mode . highlight-indent-guides-mode)
   (json-mode . highlight-indent-guides-mode)
   :custom
-  (highlight-indent-guides-auto-enabled t)
-  (highlight-indent-guides-responsive t)
-  (highlight-indent-guides-method 'character))
+  (setq highlight-indent-guides-auto-enabled t)
+  (setq highlight-indent-guides-responsive t)
+  (setq highlight-indent-guides-method 'character))
 
-(use-package treemacs
-  :ensure t
-  :defer t
-  :hook
-  (treemacs-mode . (lambda() (linum-mode -1)))
-  :init
-  (with-eval-after-load 'winum
-    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Better window navigation ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package winum
+  :straight t
   :config
-  (progn
-    (setq treemacs-collapse-dirs (if treemacs-python-executable 3 0)
-	  treemacs-deferred-git-apply-delay 0.5
-	  treemacs-display-in-side-window t
-	  treemacs-directory-name-transformer #'identity
-	  treemacs-eldoc-display t
-	  treemacs-file-event-delay 5000
-	  treemacs-file-extension-regex treemacs-last-period-regex-value
-	  treemacs-file-follow-delay 0.2
-	  treemacs-file-name-transformer #'identity
-	  treemacs-follow-after-init t
-	  treemacs-git-command-pipe ""
-	  treemacs-goto-tag-strategy 'refetch-index
-	  treemacs-indentation 2
-	  treemacs-indentation-string " "
-	  treemacs-is-never-other-window nil
-	  treemacs-max-git-entries 5000
-	  treemacs-missing-project-action 'ask
-	  treemacs-no-png-images nil
-	  treemacs-no-delete-other-windows t
-	  treemacs-project-follow-cleanup nil
-	  treemacs-persist-file (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
-	  treemacs-position 'left
-	  treemacs-recenter-distance 0.1
-	  treemacs-recenter-after-file-follow nil
-	  treemacs-recenter-after-tag-follow nil
-	  treemacs-recenter-after-project-jump 'always
-	  treemacs-recenter-after-project-expand 'on-distance
-	  treemacs-show-cursor nil
-	  treemacs-show-hidden-files t
-	  treemacs-silent-filewatch nil
-	  treemacs-silent-refresh nil
-	  treemacs-sorting 'alphabetic-asc
-	  treemacs-space-between-root-nodes t
-	  treemacs-tag-follow-cleanup t
-	  treemacs-tag-follow-delay 1.5
-	  treemacs-width 35)
-    (treemacs-follow-mode t)
-    (treemacs-filewatch-mode t)
-    (treemacs-fringe-indicator-mode t)
-    (pcase (cons (not (null (executable-find "git")))
-		 (not (null treemacs-python-executable)))
-      (`(t . t)
-       (treemacs-git-mode 'deferred))
-      (`(t . _)
-       (treemacs-git-mode 'simple))))
-  :bind
-  (:map global-map
-	("M-0" . treemacs-select-window)
-	("C-x T 1" . treemacs-delete-other-window)
-	("C-x T t" . treemacs)
-	("C-x T n" . treemacs-add-project-to-workspace)
-	("C-x T B" . treemacs-bookmark)
-	("C-x T C-t" . treemacs-find-file)
-	("C-x T M-t" . treemacs-find-tag)))
+  (set-face-attribute 'winum-face nil :weight 'bold)
+  (setq winum-mode +1))
 
-(use-package treemacs-projectile
-  :ensure t
-  :defer t
-  :bind
-  (:map global-map
-	("C-x t a" . treemacs-projectile))
-  :after treemacs projectile)
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Project management ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package bind-key
+  :straight t
+  :config
+  (add-to-list 'same-window-buffer-names "*Personal Keybindings*"))
 
-(use-package treemacs-magit
-  :ensure t
-  :defer t
-  :after treemacs magit)
-
-;;;;;;;;;;;
-;; Theme ;;
-;;;;;;;;;;;
-(use-package doom-themes
-  :ensure t
+(use-package ivy
+  :straight t
   :custom
-  (doom-themes-enable-italic t)
-  (doom-themes-enable-bold t)
-  :custom-face
-  (doom-modeline-bar ((t (:background "#6272a4"))))
+  (ivy-use-virtual-buffers t)
+  (ivy-count-format "(%d/%d)")
   :config
-  ;; (doom-themes-visual-bell-config)
-  ;; (load-theme 'doom-dracula t)
-  ;; (load-theme 'doom-dark+ t)
-  ;; (load-theme 'doom-laserwave t)
-  (load-theme 'doom-tomorrow-night t)
-  ;; (doom-themes-neotree-config)
-  ;;(doom-themes-org-config)
-)
+  (ivy-mode +1))
 
-;;;;;;;;;;;;;;;;;;;;
-;; Magit settings ;;
-;;;;;;;;;;;;;;;;;;;;
+(use-package counsel
+  :straight t
+  :after ivy
+  :defer t
+  :config
+  (counsel-mode t))
+
+(use-package swiper
+  :straight t
+  :after ivy
+  :defer t
+  :bind
+  ("C-s" . swiper)
+  ("C-s" . swiper))
+
+(use-package company
+  :straight t
+  :defer t
+  :diminish company-mode
+  :custom
+  (company-tooltip-align-annotation t)
+  :config
+  (setq company-idle-delay t)
+
+  (use-package company-go
+    :straight t
+    :after company
+    :defer t
+    :config
+    (add-to-list 'company-backends 'company-go))
+
+  :hook
+  (after-init . global-company-mode)
+  (prog-mode . company-mode)
+  (LaTeX-mode . company-mode)
+  (org-mode . company-mode)
+  (terraform-mode . company-mode))
+
+(use-package projectile
+  :straight t
+  :after ivy
+  :defer t
+  :init
+  (setq projectile-completion-system 'ivy)
+  :bind
+  ("C-c p" . 'projectile-command-map))
+(projectile-mode +1)
+
+(use-package counsel-projectile
+  :straight t
+  :after ivy
+  :defer t)
+
+(use-package projectile-rails
+  :straight t
+  :defer t)
 
 (use-package diff-hl
-  :ensure t
+  :straight t
   :init
-  (global-diff-hl-mode))
+  (global-diff-hl-mode t))
 
 (use-package magit
-  :ensure t
+  :straight t
   :defer t
   :config
   (setq magit-completing-read-function 'ivy-completing-read)
-  :init
-  (setq vc-handled-backends (delq 'Git vc-handled-backends))
   :bind
-  (("C-x g" . 'magit-status)
-   ("C-x M-g" . 'magit-dispatch)))
-
-(auth-source-forget-all-cached)
-'(ediff-split-window-function (quote split-window-horizontally))
-'(ediff-window-setup-function (quote ediff-setup-windows-plain))
+  ("C-x g" . 'magit-status)
+  ("C-x M-g" . 'magit-dispatch)
+  :init
+  (setq vc-handled-backends (delq 'Git vc-handled-backends)))
 
 (use-package forge
-  :ensure t
+  :straight t
   :defer t
   :config
   (setq ghub-use-workaround-for-emacs-bug nil)
@@ -312,165 +258,59 @@
        "Login" (format "%s @ %s" user host)
        token
        :host host
-       :user user)))
-)
+       :user user))))
 
 (use-package magit-gitflow
-  :ensure t
+  :straight t
   :defer t
   :config
-  (setq magit-gitflow-popup-key "C-F")
+  (setq magit-gitflow-popup "C-F")
   :hook
   (magit-mode-hook . 'turn-on-magit-gitflow)
-  :commands (magit-gitflow))
+  :commands (magit-gitlfow))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Better search engine ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(use-package ivy
-  :ensure t
-  :custom
-  (ivy-use-virtual-buffers t)
-  (ivy-count-format "(%d/%d)")
+(use-package treemacs
+  :straight t
+  :defer t
+  :hook
+  (treemacs-mode . (lambda() (linum-mode -1)))
   :config
-  (ivy-mode))
+  (setq treemacs-follow-mode t)
+  (setq treemacs-filewatch-mode t)
+  (setq treemacs-fringe-indicator-mode t))
 
-(use-package counsel
-  :ensure t
-  :after ivy
-  :defer t
-  :config (counsel-mode t))
-
-(use-package swiper
-  :ensure t
-  :after ivy
-  :defer t
-  :bind (("C-s" . swiper)
-	 ("C-r" . swiper)))
-
-(use-package projectile
-  :ensure t
-  :after ivy
-  :defer t
-  :init
-  (setq projectile-completion-system 'ivy)
-  :bind
-  ("C-c p" . 'projectile-command-map)
-  :config
-  (projectile-mode t))
-
-(use-package counsel-projectile
-  :ensure t
-  :after ivy
+(use-package treemacs-projectile
+  :straight t
   :defer t
   :bind
-  ("C-." . counsel-projectile)
-  ("C-c s g" . counsel-projectile-grep))
+  ("C-x t a" . treemacs-projectile)
+  :after treemacs projectile)
 
-(use-package projectile-rails
-  :ensure t
+;;;;;;;;;;;;;;;;;;;;;;
+;; Terminal support ;;
+;;;;;;;;;;;;;;;;;;;;;;
+(use-package vterm
+  :straight t
+  :defer t
+  :config
+  (setq vterm-kill-buffer-on-exit t)
+  (setq vterm-always-compile-module t))
+
+(use-package multi-vterm
+  :straight t
   :defer t)
 
-;;;;;;;;;;;;;;;;;;;;;
-;; Snippet support ;;
-;;;;;;;;;;;;;;;;;;;;;
-(if (not (file-directory-p (expand-file-name "snippets" user-emacs-directory)))
-    (mkdir (expand-file-name "snippets" user-emacs-directory)))
-
-(use-package yasnippet
-  :ensure t
-  :diminish yas-minor-mode
-  :after ivy
-  :defer t
-  :hook
-  (after-init . yas-global-mode)
-  (prog-mode . yas-minor-mode)
-  :config
-  (yas-load-directory (expand-file-name "snippets" user-emacs-directory))
-  (yas-global-mode t))
-
-(use-package react-snippets
-  :ensure t
-  :defer t
-  :after yasnippet)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;
-;; Dashboard settings ;;
+;; Postframe settings ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package dashboard
-  :ensure t
-  :functions (all-the-icons-faicon
-	      all-the-icons-material
-	      open-custom-file
-	      persp-get-buffer-or-nil
-	      persp-load-state-from-file
-	      persp-switch-to-buffer
-	      winner-undo
-	      widget-forward)
-  :init
-  (setq dahboard-banner-logo-title "")
-  (setq dashboard-startup-banner (expand-file-name
-				  "st_ignucius.png"
-				  user-emacs-directory))
-  :hook
-  (dashboard-mode . (lambda () (linum-mode -1)))
-  :config
-  (setq dashboard-center-content t)
-  (setq dashboard-items '((recents . 5)
-			  (projects . 5)
-			  (agenda . 5)))
-  (setq dashboard-set-init-info t
-	dashboard-set-file-icons t
-	dashboard-set-heading-icons t
-	dashboard-heading-icons '((recents . "file-text")
-				  (bookmarks . "bookmark")
-				  (agenda . "calendar")
-				  (projects . "file-directory")
-				  (registers . "database"))
-	dashboard-set-navigator t
-	dashboard-navigator-buttons
-	`(((,(when (display-graphic-p)
-               (all-the-icons-octicon "tools" :height 1.0 :v-adjust 0.0))
-            "Settings" "Opens settings file"
-            (lambda (&rest _) (config-file)))
-           (,(when (display-graphic-p)
-               (all-the-icons-material "update" :height 1.35 :v-adjust -0.24))
-            "Update" "Update Emacs Configuration to the latest version"
-            (lambda (&rest _) (update-config)))
-	   (,(when (display-graphic-p)
-               (all-the-icons-material "info" :height 1.35 :v-adjust -0.24))
-            "Personal File" "Opens the personal config file"
-            (lambda (&rest _) (personal-file))))))
-  (dashboard-setup-startup-hook))
-
-(defun update-config ()
-  "Pulls the latest configuration file from github."
-  (interactive)
-  (let ((dir (expand-file-name user-emacs-directory)))
-    (if (file-exists-p dir)
-	(progn
-	  (message "Updating configuration ... ")
-	  (cd dir)
-	  (shell-command "git pull")
-	  (message "Updating configuration ... done."))
-      (message "\"%s\" doesn't exists." dir))))
-
-;;;;;;;;;;;;;;;;;;;
-;; Icons support ;;
-;;;;;;;;;;;;;;;;;;;
-(use-package all-the-icons :ensure t)
-
-(use-package treemacs-icons-dired
-  :ensure t
-  :defer t
-  :after treemacs dired
-  :config (treemacs-icons-dired-mode))
+(use-package all-the-icons
+  :straight t)
 
 (use-package all-the-icons-ivy
-  :ensure t
+  :straight t
   :after (all-the-icons ivy)
-  :custom (all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
+  :custom
+  (all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
   :config
   (add-to-list 'all-the-icons-ivy-file-commands
 	       '(counsel-find-file
@@ -483,18 +323,51 @@
   (after-init . all-the-icons-ivy-setup))
 
 (use-package all-the-icons-dired
-  :ensure t
+  :straight t
   :after dired
   :defer t
-  :hook (dired-mode . all-the-icons-dired-mode))
+  :hook
+  (dired-mode . all-the-icons-dired-mode))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Modeline modifications ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package ivy-posframe
+  :straight t
+  :defer t
+  :after ivy
+  :config
+  (setq ivy-posframe-display-functions-alist
+	'((t . ivy-posframe-display-at-frame-top-center)))
+  (setq ivy-posframe-parameters
+	'((left-fringe . 20)
+	  (right-fringe . 20)))
+  (setq ivy-posframe-height-alist '((t . 15)))
+  (ivy-posframe-mode +1)
+  :hook
+  (after-init . ivy-posframe-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;
+;; Flycheck support ;;
+;;;;;;;;;;;;;;;;;;;;;;
+(use-package flycheck
+  :straight t
+  :defer t
+  :hook
+  (prog-mode . flycheck-mode)
+  (org-mode . flycheck-mode)
+  (json-mode . flycheck-mode)
+  (yaml-mode . flycheck-mode)
+  :config
+  (setq flycheck-javascript-eslint-executable "/usr/bin/eslint")
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  :custom
+  (flycheck-emacs-lisp-load-path 'inherit))
+
+;;;;;;;;;;;;;;;
+;; Dashboard ;;
+;;;;;;;;;;;;;;;
 (use-package doom-modeline
+  :straight t
   :custom
   (doom-modeline-buffer-file-name 'truncate-with-project)
-  :ensure t
   :init
   (setq vc-handled-backends nil)
   (setq doom-modeline-height 25)
@@ -512,67 +385,128 @@
   (setq doom-modeline-persp-name t)
   (setq doom-modeline-env-version t)
   (setq doom-modeline-env-load-string "...")
+  :config
+  (doom-themes-org-config)
+  (setq doom-modeline-major-mode-icon t)
   :hook
   (after-init . doom-modeline-mode))
 
-;;;;;;;;;;;;;;;;;;;;;;;
-;; posframe settings ;;
-;;;;;;;;;;;;;;;;;;;;;;;
-
-(use-package ivy-posframe
-  :ensure t
-  :after ivy
+;;;;;;;;;;;
+;; Theme ;;
+;;;;;;;;;;;
+(use-package doom-themes
+  :straight t
+  :custom
+  (doom-themes-enable-italic t)
+  (doom-themes-enable-bold t)
+  :custom-face
+  (doom-modeline-bar
+   ((t (:background "#6272a4"))))
   :config
-  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center)))
-  (setq ivy-posframe-parameters
-	'((left-fringe . 20)
-	  (right-fringe . 20)))
-  (setq ivy-posframe-height-alist '((t . 15)))
+  (load-theme 'doom-sourcerer t))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Programming utilities ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package cl-lib :straight t)
+
+(use-package which-key
+  :straight t
+  :config
+  (which-key-mode))
+
+(use-package js2-mode
+  :straight t
   :hook
-  (after-init . ivy-posframe-mode))
+  (js2-mode . company-mode))
 
-(use-package ivy-rich
-  :ensure t
+(use-package rjsx-mode
+  :straight t
   :defer t
-  :after ivy
   :config
-  (setq ivy-rich--display-transformers-list
-        '(ivy-switch-buffer
-          (:columns
-           ((ivy-rich-candidate (:width 30))
-            (ivy-rich-switch-buffer-size (:width 7))
-            (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right))
-            (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))
-            (ivy-rich-switch-buffer-project (:width 15 :face success))
-            (ivy-rich-switch-buffer-path
-	     (:width (lambda (x)
-		       (ivy-rich-switch-buffer-shorten-path
-			x
-			(ivy-rich-minibuffer-width 0.3))))))
-           :predicate
-           (lambda (cand) (get-buffer cand)))
-          counsel-M-x
-          (:columns
-           ((counsel-M-x-transformer (:width 40))
-            (ivy-rich-counsel-function-docstring (:face font-lock-doc-face))))
-          counsel-describe-function
-          (:columns
-           ((counsel-describe-function-transformer (:width 40))
-            (ivy-rich-counsel-function-docstring (:face font-lock-doc-face))))
-          counsel-describe-variable
-          (:columns
-           ((counsel-describe-variable-transformer (:width 40))
-            (ivy-rich-counsel-variable-docstring (:face font-lock-doc-face))))
-          counsel-recentf
-          (:columns
-           ((ivy-rich-candidate (:width 0.8))
-            (ivy-rich-file-last-modified-time (:face font-lock-comment-face)))))
-        ivy-virtual-abbreviate 'full
-        ivy-rich-path-style 'abbrev))
+  (add-to-list 'auto-mode-alist '("components\\/.*\\.js\\'" . rjsx-mode)))
 
-;;;;;;;;;;;;;;;;;;;;;;;
-;; Org Mode Settings ;;
-;;;;;;;;;;;;;;;;;;;;;;;
+(use-package apheleia
+  :straight (apheleia :host github :repo "raxod502/apheleia")
+  :config
+  (setf (alist-get 'prettier apheleia-formatters)
+	'(npx "prettier"
+	      "--trailing-coma" "es5"
+	      "--tab-width" "2"
+	      "--use-tabs" "false"
+	      "--bracket-spacing" "true"
+	      "--single-quote" "true"
+	      "--semi" "true"
+	      "--jsx-single-quote" "true"
+	      "--jsx-bracket-same-line" "true"
+	      "--arrow-parens" "always"
+	      file))
+  (add-to-list 'apheleia-mode-alist '(rjsx-mode . prettier))
+  (add-to-list 'apheleia-mode-alist '(js-mode. prettier))
+  (apheleia-global-mode t))
+
+(use-package json-mode
+  :straight t
+  :defer t)
+
+(use-package yaml-mode
+  :straight t
+  :defer t)
+
+(use-package web-mode
+  :straight t
+  :defer t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Language Server Protocol ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package lsp-mode
+  :straight t
+  :hook
+  (prog-mode . lsp-deferred)
+  (lsp-mode . lsp-enable-which-key-integration)
+  (lsp-mode . lsp-headerline-breadcrumb-mode)
+  :init
+  (setq lsp-auto-guess-root t)
+  :config
+  (add-hook 'js-mode-hook (lambda () (setq js-indent-level 2)))
+  (add-hook 'js-mode-hook (lambda () (setq tab-width 2)))
+  (setq warning-suppress-log-types t)
+  (setq gc-cons-threshold 100000000)
+  (setq read-process-output-max (* 1024 4096))
+  (setq lsp-log-io nil)
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.node-modules\\'")
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.log\\'")
+  (setq lsp-keymap-prefix "C-c l")
+  :commands (lsp lsp-deferred))
+
+(use-package company-lsp
+  :straight t
+  :commands company-lsp)
+
+(use-package lsp-ivy
+  :straight t
+  :commands lsp-ivy-workspace-symbol)
+
+(use-package lsp-treemacs
+  :straight t
+  :commands lsp-treemacs-errors-list)
+
+;;;;;;;;;;;;;;;;
+;; Yassnippet ;;
+;;;;;;;;;;;;;;;;
+(use-package yasnippet
+  :straight t
+  :diminish yas-minor-mode
+  :after ivy
+  :defer t
+  :hook
+  (after-init . yas-global-mode)
+  (prog-mode . yas-minor-mode))
+
+;;;;;;;;;;;;;;
+;; ORG MODE ;;
+;;;;;;;;;;;;;;
 (if (not (file-directory-p (expand-file-name "org" (getenv "HOME"))))
     (mkdir (expand-file-name "org" (getenv "HOME"))))
 
@@ -588,7 +522,7 @@
 (global-set-key (kbd "C-c l") 'org-store-link)
 
 (use-package org
-  :ensure t
+  :straight t
   :config
   (setq org-hide-emphasis-markers t)
   (setq org-display-inline-images t)
@@ -632,17 +566,17 @@
   (message-mode . turn-on-orgstruct++))
 
 (use-package ob-async
-  :ensure t
+  :straight t
   :after org-mode
   :defer t)
 
 (use-package ob-restclient
-  :ensure t
+  :straight t
   :after org-mode
   :defer t)
 
 (use-package ob-http
-  :ensure t
+  :straight t
   :defer t
   :after org-mode)
 
@@ -669,487 +603,15 @@
    (shell . t)))
 
 (use-package org-tree-slide
-  :ensure t
+  :straight t
   :after org-mode-abbrev-table
   :hook
   (org-mode . org-tree-slide-mode)
   :defer t)
 
 (use-package org-bullets
-  :ensure t
+  :straight t
   :after org
   :hook
   (org-mode . org-bullets-mode)
   :config (setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸")))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Better terminal support inside emacs ;;
-;; (Experimental)		        ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(if (eq system-type 'gnu/linux)
-    (use-package vterm
-      :ensure t
-      :defer t
-      :config
-      (setq vterm-kill-buffer-on-exit t)
-      (setq vterm-always-compile-module t)
-      :bind ("C-x M-t" . vterm-other-window))
-
-  (use-package multi-vterm
-    :ensure t
-    :defer t)
-
-;;;;;;;;;;;;;;;;;;;;
-;; Email Settings ;;
-;;;;;;;;;;;;;;;;;;;;
-
-;; IMAP Settings
-(use-package w3m
-  :ensure t
-  :defer t
-  :after mu4e)
-
-;; IMAP Settings
-(when (not (featurep 'mu4e))
-  (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e/"))
-
-(use-package mu4e
-  :defer t
-  :if window-system
-  :load-path "/usr/local/share/emacs/site-lisp/mu4e/"
-  :ensure org-mime
-  :ensure htmlize
-  :bind
-  ("C-c C-v" . mu4e-view-attachment-action)
-  ("C-c C-a" . mail-add-attachment)
-  :ensure mu4e-alert
-  :init
-  (require 'org-mu4e)
-  :config
-  (setq org-mu4e-convert-to-html t) ;; M-m C-c.
-  (setq mu4e-sent-messages-behavior 'sent)
-  (setq mu4e-html2text-command "w3m -T text/html")
-  (setq mail-user-agent 'mu4e-user-agent)
-  (setq mu4e-drafts-folder "/[Gmail].Borradores")
-  (setq mu4e-sent-folder "/[Gmail].Enviados")
-  (setq mu4e-trash-folder "/[Gmail].Papelera")
-  (setq mu4e-sent-messages-behavior 'delete)
-  (setq mu4e-user-mail-address user-mail-address)
-  (setq mu4e-view-show-images t
-	mu4e-view-show-images t
-	mu4e-view-image-max-width 1200)
-  (when (fboundp 'imagemagick-register-types)
-    (imagemagick-register-types))
-  (setq mu4e-maildir-shortcuts
-        '(("/INBOX" . ?i)
-          ("/[Gmail].Enviados" . ?s)
-          ("/[Gmail].Trash" . ?t)
-          ("/[Gmail].Todos" . ?a)))
-  (setq mu4e-get-mail-command "offlineimap")
-  (setq
-   mu4e-compose-signature
-   (concat "¡Saludos!\n"
-           user-full-name)))
-
-;; SMTP Settings
-(use-package smtpmail
-  :ensure t
-  :after mu4e
-  :defer t
-  :config
-  (setq message-send-mail-function 'smtpmail-send-it
-        starttls-use-gnutls t
-        smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-        smtpmail-auth-credentials
-        '(("smtp.gmail.com" 587 user-mail-address nil))
-        smtpmail-default-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-service 587))
-
-(use-package org-mu4e
-  :defer t
-  :after mu4e
-  :config
-  (setq org-capture-templates
-      '(("t" "todo" entry
-         (file+headline "~/org/agenda.org" "Tareas por realizar")
-         "* TODO [%] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n")
-	("l" "Link" plain (file "~/org/todo.org")
-	 "- %?\n %x\n")
-	("j" "Journal" entry (file+datetree "~/org/journal.org")
-         "* %?\n%U\n" :clock-in t :clock-resume t))))
-
-(use-package w3m
-  :ensure t
-  :after mu4e
-  :defer t)
-)
-;;;;;;;;;;;;;;;;;;;;;
-;; Company support ;;
-;;;;;;;;;;;;;;;;;;;;;
-
-(use-package company
-  :ensure t
-  :defer t
-  :diminish company-mode
-  :custom
-  (company-tooltip-align-annotations t)
-  :config
-  (add-to-list 'company-backends 'company-emoji)
-  (setq company-idle-delay t)
-
-  (use-package company-go
-    :ensure t
-    :after company
-    :defer t
-    :config
-    (add-to-list 'company-backends 'company-go))
-
-  :hook
-  (after-init . global-company-mode)
-  (prog-mode . company-mode)
-  (LaTeX-mode . company-mode)
-  (org-mode . company-mode)
-  (terraform-mode . company-mode))
-
-;;;;;;;;;;;;;;;;;;;;;;
-;; Flycheck support ;;
-;;;;;;;;;;;;;;;;;;;;;;
-
-(use-package flycheck
-  :ensure t
-  :defer t
-  :hook
-  (prog-mode . flycheck-mode)
-  (org-mode . flycheck-mode)
-  (json-mode . flycheck-mode)
-  (yaml-mode . flycheck-mode)
-  :config
-  (setq flycheck-javascript-eslint-executable "/usr/bin/eslint")
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  :custom
-  (flycheck-emacs-lisp-load-path 'inherit))
-
-;;;;;;;;;;;;;;;;;;;;;;
-;; Document reading ;;
-;;;;;;;;;;;;;;;;;;;;;;
-
-(defun my-nov-font-setup ()
-  "Font for epubs."
-  (face-remap-add-relative 'variable-pitch
-			   :family "Liberation Serif"
-			   :height 1.0))
-
-(use-package nov
-  :ensure t
-  :defer t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
-  :hook
-  (nov-mode . my-nov-font-setup)
-  (doc-view-mode . (lambda () (linum-mode -1))))
-
-(use-package pdf-tools
-  :ensure t
-  :defer
-  :config
-  (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
-  (pdf-loader-install)
-  (setq-default pdf-view-display-size 'fit-page)
-  (setq pdf-annot-activate-created-annotations t)
-  (line-number-mode -1))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Programming modes utilities				   ;;
-;; 							   ;;
-;; This section is big, but I'm going to put preference to ;;
-;; javascript, json and yaml				   ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package cl-lib
-  :ensure t)
-
-(use-package tide
-  :ensure t
-  :defer t
-  :bind
-  (("C-c r" . 'tide-rename-symbol)
-   ("C-c f" . 'tide-refactor)
-   ("C-c h" . 'tide-documentation-at-point))
-  :hook
-  (
-   (typescript-mode . tide-setup)
-   (typescript-mode . tide-mode)
-   (typescript-mode . tide-hl-identifier-mode)
-   (typescript-mdoe . eldoc-mode)
-   (js-mode . tide-setup)
-   (js-mode . tide-hl-identifier-mode)
-   (js-mode . eldoc-mode)
-   (js-mode . tide-mode)))
-
-;; (use-package apheleia
-;;   :ensure t
-;;   :straigth (apheleia :host github :repo "raxod502/apheleia")
-;;   :config
-;;   (setf (alist-get 'prettier apheleia-formatters)
-;; 	'(npx "prettier"
-;; 	      "--trailing-comma" "es5"
-;; 	      "--tab-width" "2"
-;; 	      "--use-tabs" "false"
-;; 	      "--bracket-spacing" "true"
-;; 	      "--single-quote" "true"
-;; 	      "--semi" "true"
-;; 	      "--jsx-single-quote" "true"
-;; 	      "--jsx-bracket-same-line" "true"
-;; 	      "--arrow-parens" "always"
-;; 	      file))
-;;   (add-to-list 'apheleia-mode-alist '(rjsx-mode . prettier))
-;;   (add-to-list 'apheleia-mode-alist '(js-mode . prettier))
-;;   (apheleia-global-mode t))
-
-(use-package prettier-js
-  :ensure t
-  :hook
-  (js-mode . prettier-js-mode)
-  :config
-  (setq prettier-js-args
-	'("--trailing-comma" "es5"
-	  "--tab-width" "2"
-	  "--use-tabs" "false"
-	  "--bracket-spacing" "true"
-	  "--single-quote" "true"
-	  "--semi" "true"
-	  "--jsx-single-quote" "true"
-	  "--jsx-bracket-same-line" "true"
-	  "--arrow-parens" "always")))
-
-(use-package jest
-  :ensure t
-  :defer t
-  :config
-  (setq jest-executable "npm run test --")
-  :bind
-  ("C-S-t" . jest-file)
-  ("C-S-f" . jest))
-
-(use-package add-node-modules-path
-  :ensure t)
-
-(use-package rjsx-mode
-  :ensure t
-  :defer t
-  :config
-  (add-to-list 'auto-mode-alist '("components\\/.*\\.js\\'" . rjsx-mode)))
-;; End of javascript configuration
-
-(use-package json-mode
-  :ensure t
-  :defer t)
-
-(use-package dockerfile-mode
-  :ensure t
-  :mode "\\Dockerfile\\'"
-  :defer t)
-
-(use-package python-pytest
-  :ensure t
-  :defer t)
-
-(use-package nasm-mode
-  :ensure t
-  :defer t
-  :hook
-  (asm-mode . nasm-mode))
-
-(use-package request
-  :ensure t
-  :defer t)
-
-(use-package websocket
-  :ensure t
-  :defer t)
-
-(use-package yaml-mode
-  :ensure t
-  :defer t)
-
-(use-package web-mode
-  :ensure t
-  :defer t)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Emacs Application Framework ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (if (eq system-type 'gnu/linux)
-;;     (use-package eaf
-;;       :load-path "~/.emacs.d/emacs-application-framework"
-;;       :init
-;;       (setq eaf-python-command "python3")
-;;       :custom
-;;       (eaf-find-alternate-file-in-dired t)
-;;       (browser-continue-where-let-off t)
-;;       :config
-;;       (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
-;;       (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
-;;       (eaf-bind-key take_photo "p" eaf-camera-keybinding))
-
-;;   (require 'seq)
-
-;;   (setq process-environment (seq-filter
-;; 			     (lambda(var)
-;; 			       (and (not (string-match-p "QT_SCALE_FACTOR" var))
-;; 				    (not (string-match-p "QT_SCREEN_SCALE_FACTOR" var))))
-;; 			     process-environment))
-
-;;   (eaf-setq eaf-browser-enable-adblocker "true")
-;;   (eaf-setq eaf-browser-default-zoom  "2.5"))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Languaje Server Protocol ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package lsp-mode
-  :ensure t
-  :hook
-  ((prog-mode . lsp-deferred)
-   (lsp-mode . lsp-enable-which-key-integration)
-   (lsp-mode . lsp-headerline-breadcrumb-mode))
-  :init
-  (setq lsp-auto-guess-root t)
-  :config
-  (setq warning-suppress-log-types t)
-  (setq gc-cons-threshold 100000000)
-  (setq read-process-output-max (* 1024 4096))
-  (setq lsp-log-io nil)
-  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.node-modules\\'")
-  (setq lsp-keymap-prefix "C-c l")
-  :commands (lsp lsp-deferred))
-
-(use-package company-lsp
-  :commands company-lsp)
-
-(use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode)
-
-(use-package lsp-ivy
-  :ensure t
-  :commands lsp-ivy-workspace-symbol)
-
-(use-package lsp-treemacs
-  :ensure t
-  :commands lsp-treemacs-errors-list)
-
-(use-package which-key
-  :ensure t
-  :config
-  (which-key-mode))
-
-(use-package php-mode
-  :ensure t
-  :defer t
-  :mode
-  ("\\.php\\'" .php-mode))
-
-(use-package phpunit :ensure t)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Emacs screen recorder ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package camcorder
-  :ensure t
-  :defer t)
-
-;;;;;;;;;;;;;;;;;;;
-;; LaTeX Support ;;
-;;;;;;;;;;;;;;;;;;;
-(use-package tex
-  :ensure auctex
-  :defer t
-  :init
-  (setq TeX-auto-save t)
-  (setq TeX-parse-self t)
-  (setq TeX-PDF-mode t)
-  (setq-default TeX-master nil)
-  (setq reftex-plug-into-AUCTEX t)
-  (setq TeX-parse-self t)
-  (setq TeX-source-correlate-method 'synctex)
-  (setq TeX-source-correlate-start-server t)
-  (setq preview-gs-command "PDF Tools")
-  :hook
-  (doc-view-mode . auto-revert-mode)
-  (LaTeX-mode . visual-line-mode)
-  (LaTeX-mode . flyspell-mode)
-  (LaTeX-mode . LaTeX-math-mode)
-  (LaTeX-mode . turn-on-reftex)
-  (TeX-after-compilation-finished-functions .TeX-revert-document-buffer)
-  :config
-  (TeX-source-correlate-mode t)
-  (add-to-list 'TeX-view-program-selection
-               '(output-pdf "PDF Tools"))
-  (add-to-list 'TeX-command-list
-               '("Index" "makeindex %s.nlo -s nomencl.ist -o %s.nls"
-                 TeX-run-index nil t
-                 :help "Run makeindex to create index file")))
-
-(provide 'init)
-
-;;;;;;;;;;;;;;;;;
-;; REST client ;;
-;;;;;;;;;;;;;;;;;
-(use-package restclient
-  :ensure t)
-
-;;;;;;;;;;;;;;;;;;;;;
-;; Clojure Support ;;
-;;;;;;;;;;;;;;;;;;;;;
-(use-package clojure-mode
-  :ensure t
-  :defer t)
-
-;;;;;;;;;;;;;;;;;;;;;;
-;; Markdown Support ;;
-;;;;;;;;;;;;;;;;;;;;;;
-(use-package makrdown-mode
-  :commands (markdown-mode gfm-mode)
-  :mode (("README\\.md\\'" . gfm-mode)
-         ("\\.md\\'" . markdown-mode)
-         ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown"))
-
-;;;;;;;;;;;;;;
-;; DAP Mode ;;
-;;;;;;;;;;;;;;
-(use-package dap-mode
-  :ensure t
-  :defer t
-  :commands dap-debug
-  :config
-  (dap-mode 1)
-  (dap-ui-mode 1))
-
-(require 'dap-node)
-(dap-node-setup)
-
-;;;;;;;;;;;;;;;;;;;
-;; Emoji support ;;
-;;;;;;;;;;;;;;;;;;;
-(use-package emojify
-  :ensure t
-  :hook
-  (after-init . global-emojify-mode))
-
-(use-package unicode-fonts
-  :ensure t
-  :config
-  (unicode-fonts-setup))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Large files support ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (use-package vlf-mode
-;;   :ensure t
-;;   :defer t
-;;   :config
-;;   (require 'vlf-setup))
-
-
-;;; init.el ends here
