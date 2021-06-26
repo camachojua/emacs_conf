@@ -56,6 +56,7 @@
 (set-frame-font "Cascadia Mono 12" nil t)
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
+(setq-default fill-column 80)
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; TRAMP settings ;;
@@ -526,8 +527,9 @@
   :config
   (setq org-hide-emphasis-markers t)
   (setq org-display-inline-images t)
+  (setq org-startup-with-inline-images t)
   (setq org-log-done t)
-  (setq org-image-actual-width 800)
+  (setq org-image-actual-width 600)
   (setq org-startup-indented t)
   (setq org-directory "~/org") ;; establece el directorio principal de org
   (setq org-agenda-files (list "~/org/agenda.org"))
@@ -619,6 +621,7 @@
 (use-package olivetti
   :straight t
   :config
-  (olivetti-body-width 80)
+  (setq olivetti-set-width 86)
+  (setq olivetti-body-width 86)
   :hook
-  (org-mode . olivetti-mode))
+  (text-mode . olivetti-mode))
