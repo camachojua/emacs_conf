@@ -615,3 +615,10 @@
   :hook
   (org-mode . org-bullets-mode)
   :config (setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸")))
+
+(use-package olivetti
+  :straight t
+  :config
+  (olivetti-body-width 80)
+  :hook
+  (org-mode . olivetti-mode))
