@@ -458,6 +458,37 @@
   :straight t
   :defer t)
 
+(use-package robe
+  :straight t
+  :hook
+  (ruby-mode . robe-mode))
+
+(add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Rakefile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.gemspec\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.ru\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Guardfile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Capfile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.cap\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.thor\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rabl\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Thorfile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Vagrantfile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.jbuilder\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Podfile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.podspec\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Puppetfile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Berksfile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Appraisals\\'" . ruby-mode))
+
+(use-package projectile-rails
+  :straight t
+  :hook
+  (after-init . projectile-rails-global-mode)
+  :config
+  (define-key projectile-rails-mode-map (kbd "C-c r") 'projectile-rails-command-map))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Language Server Protocol ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -501,6 +532,9 @@
   :diminish yas-minor-mode
   :after ivy
   :defer t
+  :config
+  (setq yas-indent-line 'auto)
+  (setq yas-also-auto-indent-first-line t)
   :hook
   (after-init . yas-global-mode)
   (prog-mode . yas-minor-mode))

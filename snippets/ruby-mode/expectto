@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: expectto
+# key: expectto
+# --
+expect {
+  $0
+}.to $1
