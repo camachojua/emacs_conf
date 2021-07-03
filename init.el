@@ -53,10 +53,11 @@
 (toggle-scroll-bar -1)
 (global-linum-mode +1)
 (setq-default linum-highlight-current-line t)
-(set-frame-font "Cascadia Mono 12" nil t)
+(set-frame-font "Cascadia Mono 13" nil t)
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 (setq-default fill-column 80)
+(auto-revert-mode)
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; TRAMP settings ;;
@@ -177,7 +178,6 @@
 
 (use-package company
   :straight t
-  :defer t
   :diminish company-mode
   :custom
   (company-tooltip-align-annotation t)
@@ -458,10 +458,31 @@
   :straight t
   :defer t)
 
+(use-package ruby-mode
+  :straight t
+  :interpreter "ruby"
+  :config
+  (defun my-ruby-mode ()
+    (custom-set-variables
+     '(ruby-insert-encoding-magic-comment nil))
+    (setq flycheck-checker 'ruby-rubocop)
+    (flycheck-mode t))
+  (add-hook 'ruby-mode-hook 'my-ruby-mode))
+
+(use-package ruby-end
+  :straight t
+  :init
+  (add-hook 'ruby-mode-hook '(lambda () (ruby-end-mode t))))
+
 (use-package robe
   :straight t
+  :config
+  (robe-start)
   :hook
   (ruby-mode . robe-mode))
+
+(eval-after-load 'company
+  '(push 'company-robe company-backends))
 
 (add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Rakefile\\'" . ruby-mode))
