@@ -178,7 +178,6 @@
 
 (use-package company
   :straight t
-  :diminish company-mode
   :custom
   (company-tooltip-align-annotation t)
   :config
@@ -221,6 +220,9 @@
   :straight t
   :init
   (global-diff-hl-mode t))
+
+(use-package hydra
+  :straight t)
 
 (use-package magit
   :straight t
@@ -269,6 +271,48 @@
   :hook
   (magit-mode-hook . 'turn-on-magit-gitflow)
   :commands (magit-gitlfow))
+
+(require 'hydra)
+
+(use-package smerge-mode
+  :straight t
+  :config
+  (defhydra unpackaged/smerge-hydra
+    (:color pink :hint nil :post (smerge-auto-leave))
+    "
+^Move^       ^Keep^               ^Diff^                 ^Other^
+^^-----------^^-------------------^^---------------------^^-------
+_n_ext       _b_ase               _<_: upper/base        _C_ombine
+_p_rev       _u_pper              _=_: upper/lower       _r_esolve
+^^           _l_ower              _>_: base/lower        _k_ill current
+^^           _a_ll                _R_efine
+^^           _RET_: current       _E_diff
+"
+    ("n" smerge-next)
+    ("p" smerge-prev)
+    ("b" smerge-keep-base)
+    ("u" smerge-keep-upper)
+    ("l" smerge-keep-lower)
+    ("a" smerge-keep-all)
+    ("RET" smerge-keep-current)
+    ("\C-m" smerge-keep-current)
+    ("<" smerge-diff-base-upper)
+    ("=" smerge-diff-upper-lower)
+    (">" smerge-diff-base-lower)
+    ("R" smerge-refine)
+    ("E" smerge-ediff)
+    ("C" smerge-combine-with-next)
+    ("r" smerge-resolve)
+    ("k" smerge-kill-current)
+    ("ZZ" (lambda ()
+            (interactive)
+            (save-buffer)
+            (bury-buffer))
+     "Save and bury buffer" :color blue)
+    ("q" nil "cancel" :color blue))
+  :hook (magit-diff-visit-file . (lambda ()
+                                   (when smerge-mode
+                                     (unpackaged/smerge-hydra/body)))))
 
 (use-package treemacs
   :straight t
@@ -418,8 +462,30 @@
 
 (use-package js2-mode
   :straight t
+  :config
+  (setq js2-global-externs
+	'("module" "require" "buster" "sinon" "assert" "refute" "setTimeout"
+	  "clearTimeout" "setInterval" "clearInterval" "location" "__dirname"
+	  "console" "JSON" "PTL" "$" "exports" "resolve" "reject" "process"
+	  "localStorage" "DOMPurify"))
+  :mode ("\\.js\\'" "\\.mjs\\'")
   :hook
-  (js2-mode . company-mode))
+  (js2-mode . lsp)
+  (typescript-mode-hook . lsp))
+
+(use-package tide
+  :straight t
+  :config
+  (tide-hl-identifier-mode +1)
+  (setq company-tooltip-align-annotations t)
+  :hook
+  (js-mode . tide-setup)
+  (js2-mode . tide-setup)
+  (typescript-mode . tide-setup)
+  (js-mode . tide-mode)
+  (js2-mode . tide-mode)
+  :after
+  (typescript-mode js-mode company flycheck))
 
 (use-package rjsx-mode
   :straight t
@@ -456,7 +522,26 @@
 
 (use-package web-mode
   :straight t
-  :defer t)
+  :defer t
+  :mode ("\\.html\\'"
+         "\\.html\\.erb\\'"
+         "\\.php\\'"
+         "\\.jinja\\'"
+         "\\.j2\\'")
+  :init
+  ;; fix paren matching web-mode conflict for jinja-like templates
+  (add-hook
+   'web-mode-hook
+   (lambda ()
+     (setq-local electric-pair-inhibit-predicate
+                 (lambda (c)
+                   (if (char-equal c ?{) t (electric-pair-default-inhibit c))))))
+  :config
+  (setq web-mode-code-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-markup-indent-offset 2)
+  (evil-leader/set-key-for-mode 'web-mode
+    "fh" #'web-beautify-html))
 
 (use-package ruby-mode
   :straight t
@@ -533,8 +618,32 @@
   (setq lsp-keymap-prefix "C-c l")
   :commands (lsp lsp-deferred))
 
+(use-package lsp-ui
+  :straight t
+  :requires lsp-mode flycheck
+  :config
+  (setq lsp-ui-doc-enable t
+	lsp-ui-doc-use-childframe t
+	lsp-ui-doc-position 'top
+	lsp-ui-doc-include-signature t
+	lsp-ui-sideline-enable nil
+	lsp-ui-flycheck-enable t
+	lsp-ui-flycheck-list-position 'right))
+
+(use-package lsp-mode
+  :straight t
+  :commands lsp-ui-mode
+  :hook (lsp-mode . lsp-ui-mode)
+  :config
+  (setq lsp-ui-sideline-ignore-duplicate t))
+
 (use-package company-lsp
   :straight t
+  :config
+  (push 'company-lsp company-backends)
+  (setq company-lsp-async t
+	company-lsp-cache-candidates 'auto
+	company-lsp-enable-recompletion t)
   :commands company-lsp)
 
 (use-package lsp-ivy
