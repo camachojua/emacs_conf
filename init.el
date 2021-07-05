@@ -475,7 +475,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (use-package tide
   :straight t
-
+  :config
   (setq company-tooltip-align-annotations t)
   :hook
   (js-mode . tide-hl-identifier-mode)
@@ -622,18 +622,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package lsp-ui
   :straight t
   :requires lsp-mode flycheck
-  :config
-  (setq lsp-ui-doc-enable t
-	lsp-ui-doc-use-childframe t
-	lsp-ui-doc-position 'top
-	lsp-ui-doc-include-signature t
-	lsp-ui-sideline-enable nil
-	lsp-ui-flycheck-enable t
-	lsp-ui-flycheck-list-position 'right
-	lsp-ui-flycheck-live-reporting t
-	lsp-ui-peek-enable t
-	lsp-ui-peek-list-width 60
-	lsp-ui-peek-height 25)
   :hook
   (lsp-mode . lsp-ui-mode))
 
