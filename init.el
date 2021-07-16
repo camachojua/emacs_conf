@@ -143,7 +143,9 @@
   :straight t
   :config
   (set-face-attribute 'winum-face nil :weight 'bold)
-  (setq winum-mode +1))
+  (setq winum-mode +1)
+  :hook
+  (after-init . winum-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Project management ;;
@@ -478,13 +480,11 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (setq company-tooltip-align-annotations t)
   :hook
-  (js-mode . tide-hl-identifier-mode)
-  (js-mode . tide-setup)
+  (js2-mode . tide-mode)
   (js2-mode . tide-setup)
+  (js2-mode . tide-hl-identifier-mode)
   (typescript-mode . tide-setup)
   (typescript-mode . tide-hl-identifier-mode)
-  (js-mode . tide-mode)
-  (js2-mode . tide-mode)
   :after
   (typescript-mode js-mode company flycheck))
 
