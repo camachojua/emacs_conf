@@ -784,3 +784,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (setq olivetti-body-width 86)
   :hook
   (text-mode . olivetti-mode))
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Gopher explorer ;;
+;;;;;;;;;;;;;;;;;;;;;
+(use-package elpher
+  :straight t)
