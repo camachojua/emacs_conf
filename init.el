@@ -777,6 +777,18 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (org-mode . org-bullets-mode)
   :config (setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸")))
 
+(use-package org-roam
+  :straight t
+  :custom
+  (org-roam-directory "~/RoamNotes")
+  :bind
+  (
+   ("C-c n l" . org-roam-buffer-toggle)
+   ("C-c n f" . org-roam-node-find)
+   ("C-c n i" . org-roam-node-insert))
+  :config
+  (org-roam-setup))
+
 (use-package olivetti
   :straight t
   :config
@@ -790,3 +802,4 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;;;;;;;;;;;
 (use-package elpher
   :straight t)
+(put 'set-goal-column 'disabled nil)
