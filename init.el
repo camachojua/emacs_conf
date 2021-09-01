@@ -902,3 +902,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
         (if (and fb (file-exists-p fb))
             (delete-file fb)))
     (message "Please select region at first!")))
+
+(add-hook 'sql-interactive-mode-hook
+          (lambda ()
+            (toggle-truncate-lines t)))
