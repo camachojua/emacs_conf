@@ -341,7 +341,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :defer t
   :config
   (setq vterm-kill-buffer-on-exit t)
-  (setq vterm-always-compile-module t))
+  (setq vterm-always-compile-module t)
+  :hook
+  (vterm-mode . (lambda() (linum-mode -1))))
 
 (use-package vterm-toggle
   :straight t
