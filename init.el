@@ -343,6 +343,11 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (setq vterm-kill-buffer-on-exit t)
   (setq vterm-always-compile-module t))
 
+(use-package vterm-toggle
+  :straight t
+  :bind
+  ("C-c t" . vterm-toggle))
+
 (use-package multi-vterm
   :straight t
   :defer t)
