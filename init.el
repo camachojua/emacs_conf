@@ -482,6 +482,10 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (js2-mode . lsp)
   (typescript-mode-hook . lsp))
 
+(use-package clojure-mode
+  :straight t
+  :mode ("\\.clj\\'"))
+
 (use-package tide
   :straight t
   :config
