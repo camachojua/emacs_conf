@@ -5,10 +5,12 @@ and launch emacs, then execute the following commands:
 + `M-x pdf-tools-install`
 + `M-x all-the-icons-install-fonts`
 
-Now you need to copy the `system.d` service file to your `.config` directory:
+Now you need to copy the `system.d` service file to your `.config` directory and enable the service:
 
 ```bash
 cp emacs.service ~/.config/systemd/user/
+sudo systemctl enable --user emacs
+sudo systemctl start --user emacs
 ```
 
 ## Dependencies
