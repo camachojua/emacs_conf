@@ -477,10 +477,10 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 	  "clearTimeout" "setInterval" "clearInterval" "location" "__dirname"
 	  "console" "JSON" "PTL" "$" "exports" "resolve" "reject" "process"
 	  "localStorage" "DOMPurify"))
-  :mode ("\\.js\\'" "\\.mjs\\'")
-  :hook
-  (js2-mode . lsp)
-  (typescript-mode-hook . lsp))
+  :mode ("\\.js\\'" "\\.mjs\\'"))
+
+(use-package dockerfile-mode
+  :straight t)
 
 (use-package clojure-mode
   :straight t
@@ -488,16 +488,34 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (use-package tide
   :straight t
-  :config
-  (setq company-tooltip-align-annotations t)
+  :defer t
+  :bind
+  (("C-c r" . 'tide-rename-symbol)
+   ("C-c f" . 'tide-refactor)
+   ("C-c h" . 'tide-documentation-at-point))
   :hook
-  (js2-mode . tide-mode)
-  (js2-mode . tide-setup)
-  (js2-mode . tide-hl-identifier-mode)
-  (typescript-mode . tide-setup)
-  (typescript-mode . tide-hl-identifier-mode)
-  :after
-  (typescript-mode js-mode company flycheck))
+  (
+   (typescript-mode . tide-setup)
+   (typescript-mode . tide-mode)
+   (typescript-mode . tide-hl-identifier-mode)
+   (typescript-mdoe . eldoc-mode)
+   (js-mode . tide-setup)
+   (js-mode . tide-hl-identifier-mode)
+   (js-mode . eldoc-mode)
+   (js-mode . tide-mode)))
+
+(use-package typescript-mode
+  :straight t
+  :mode ("\\.ts\\'" "\\.js'\\'")
+  :config
+  (setq typescrypt-indent-level 2))
+
+(use-package dap-mode
+  :straight t
+  :commands dap-debug
+  :config
+  (require 'dap-node)
+  (dap-node-setup))
 
 (use-package rjsx-mode
   :straight t
@@ -606,59 +624,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (after-init . projectile-rails-global-mode)
   :config
   (define-key projectile-rails-mode-map (kbd "C-c r") 'projectile-rails-command-map))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Language Server Protocol ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package lsp-mode
-  :straight t
-  :hook
-  (prog-mode . lsp-deferred)
-  (lsp-mode . lsp-enable-which-key-integration)
-  (lsp-mode . lsp-headerline-breadcrumb-mode)
-  :init
-  (setq lsp-auto-guess-root t)
-  :config
-  (add-hook 'js-mode-hook (lambda () (setq js-indent-level 2)))
-  (add-hook 'js-mode-hook (lambda () (setq tab-width 2)))
-  (setq warning-suppress-log-types t)
-  (setq gc-cons-threshold 100000000)
-  (setq read-process-output-max (* 1024 4096))
-  (setq lsp-log-io nil)
-  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.node-modules\\'")
-  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.log\\'")
-  (setq lsp-keymap-prefix "C-c l")
-  :commands (lsp lsp-deferred))
-
-(use-package lsp-ui
-  :straight t
-  :requires lsp-mode flycheck
-  :hook
-  (lsp-mode . lsp-ui-mode))
-
-(use-package lsp-mode
-  :straight t
-  :commands lsp-ui-mode
-  :hook (lsp-mode . lsp-ui-mode)
-  :config
-  (setq lsp-ui-sideline-ignore-duplicate t))
-
-(use-package company-lsp
-  :straight t
-  :config
-  (push 'company-lsp company-backends)
-  (setq company-lsp-async t
-	company-lsp-cache-candidates 'auto
-	company-lsp-enable-recompletion t)
-  :commands company-lsp)
-
-(use-package lsp-ivy
-  :straight t
-  :commands lsp-ivy-workspace-symbol)
-
-(use-package lsp-treemacs
-  :straight t
-  :commands lsp-treemacs-errors-list)
 
 ;;;;;;;;;;;;;;;;
 ;; Yassnippet ;;
