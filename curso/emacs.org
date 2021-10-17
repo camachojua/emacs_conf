@@ -90,13 +90,12 @@ instrucciones descargarán las dependencias necesarias para poder
 obtener soporte de correo dentro de una sesión de emacs:
 
 #+begin_src sh :dir "/sudo::" :exports code
-  sudo apt install offlineimap guile-2.0-dev html2text xdg-utils libgmime-3.0-dev libxapian-dev
+  sudo apt install offlineimap guile-2.2-dev html2text xdg-utils libgmime-3.0-dev libxapian-dev meson
   cd ~/src/
   git clone https://github.com/djcb/mu.git
   cd mu
   ./autogen.sh
-  ./configure
-  make -j$(nproc) -s
+  ninja -C build
   sudo make -j$(nproc) -s install
 #+end_src
 
@@ -169,7 +168,7 @@ necesitas seguir esta sección:
   sudo apt-get -y install libgccjit-10-dev
   ./autogen.sh
   ./configure --enable-autodepend --with-libsystemd --with-modules --with-x-toolkit=gtk --with-mailutils --with-imagemagick --with-jpeg --with-tiff --with-gif --with-png --with-rsvg --with-libotf --with-xaw3d --with-gpm --with-json --with-threads --enable-link-time-optimization --with-native-compilation CFLAGS="-O3 -mtune=native -march=native -fomit-frame-pointer"
-  make -j$(nproc) -s
+  make -j$(nproc) -s NATIVE_FULL_AOT=1
   sudo make -j$(nproc) -s install
 #+end_src
 
@@ -185,21 +184,20 @@ entorno para compartir el display, para ver el modo gráfico de emacs
 es necesario instalar =VcXsrv= y configurarlo de manera adecuada.
 
 #+begin_src sh
-    sudo apt update
-    sudo apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-    sudo add-apt-repository ppa:ubuntu-toolchain-r/ppa
-    sudo apt update
-    sudo apt install install -y gcc-10 libgccjit0 libgccjit-10-dev libjansson4 libjansson-dev git curl build-essential automake texinfo libjpeg-dev libncurses5-dev libtiff5-dev libgif-dev libpng-dev libxpm-dev libgnutls28-dev libmagick++-dev libgtk-3-dev build-essential git fonts-symbola fonts-firacode automake g++ gcc libpng-dev libpoppler-dev libpoppler-glib-dev libpoppler-private-dev libz-dev make pkg-config dh-autoreconf ditaa plantuml libtool-bin cmake w3m w3m-img
-    export CC="gcc-10"
-    ./autogen.sh
-    ./configure --enable-autodepend --with-libsystemd --with-modules --with-x-toolkit=gtk --with-mailutils --with-imagemagick --with-jpeg --with-tiff --with-gif --with-png --with-rsvg --with-libotf --with-xaw3d --with-gpm --with-json --with-threads --enable-link-time-optimization --with-native-compilation CFLAGS="-O3 -mtune=native -march=native -fomit-frame-pointer"
-    make -j$(nproc) -s
-    sudo make -j$(nproc) -s install
-    echo "export CC=/usr/bin/gcc-10 CXX=/usr/bin/gcc-10" | tee -a ~/.bashrc
-    echo "export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0" | tee -a ~/.bashrc
-    echo "export DISPLAY=127.0.0.1:0.0" | tee -a ~/.bashrc
-    echo "export LIBGL_ALWAYS_INDIRECT=1" | tee -a ~/.bashrc
-    setxkbmap dvorak
+  sudo apt update
+  sudo apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+  sudo add-apt-repository ppa:ubuntu-toolchain-r/ppa
+  sudo apt update
+  sudo apt install install -y gcc-10 libgccjit0 libgccjit-10-dev libjansson4 libjansson-dev git curl build-essential automake texinfo libjpeg-dev libncurses5-dev libtiff5-dev libgif-dev libpng-dev libxpm-dev libgnutls28-dev libmagick++-dev libgtk-3-dev build-essential git fonts-symbola fonts-firacode automake g++ gcc libpng-dev libpoppler-dev libpoppler-glib-dev libpoppler-private-dev libz-dev make pkg-config dh-autoreconf ditaa plantuml libtool-bin cmake w3m w3m-img
+  ./autogen.sh
+  ./configure --enable-autodepend --with-libsystemd --with-modules --with-x-toolkit=gtk --with-mailutils --with-imagemagick --with-jpeg --with-tiff --with-gif --with-png --with-rsvg --with-libotf --with-xaw3d --with-gpm --with-json --with-threads --enable-link-time-optimization --with-native-compilation CFLAGS="-O3 -mtune=native -march=native -fomit-frame-pointer"
+  make -j$(nproc) -s NATIVE_FULL_AOT=1
+  sudo make -j$(nproc) -s install
+  echo "export CC=/usr/bin/gcc-10 CXX=/usr/bin/gcc-10" | tee -a ~/.bashrc
+  echo "export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0" | tee -a ~/.bashrc
+  echo "export DISPLAY=127.0.0.1:0.0" | tee -a ~/.bashrc
+  echo "export LIBGL_ALWAYS_INDIRECT=1" | tee -a ~/.bashrc
+  setxkbmap dvorak
 #+end_src
 
 Ahora hay que abrir una ventana de Ubuntu y esperar la instalación de
