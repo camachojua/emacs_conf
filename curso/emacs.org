@@ -102,38 +102,45 @@ obtener soporte de correo dentro de una sesión de emacs:
 Es momento de configurar =offlineimap= para indicarle cuál es nuestro
 servidor de correo y las cuentas que deseamos agregar:
 
-#+begin_src
-    [general]
-    accounts = Gmail
-    maxsyncaccounts = 3
+#+begin_src sh :exports code
+  [general]
+  accounts = Gmail
+  maxsyncaccounts = 3
 
-    [Account Gmail]
-    localrepository = Local
-    remoterepository = Remote
-    autorefresh = 5
-    quick = 10
-    postsynchook = mu index --maildir ~/Maildir
+  [Account Gmail]
+  localrepository = Local
+  remoterepository = Remote
+  autorefresh = 5
+  quick = 10
+  postsynchook = mu index
 
-    [Repository Local]
-    type = Maildir
-    localfolders = ~/Maildir
+  [Repository Local]
+  type = Maildir
+  localfolders = ~/Maildir
+  restoreatime = no
+  nametrans = lambda f: '[Gmail]/' + f if f in ['Drafts', 'Starred', 'Important', 'Spam', 'Trash', 'All Mail', 'Sent Mail'] else f
 
-    [Repository Remote]
-    type = IMAP
-    remotehost = imap.gmail.com
-    remoteuser = user@gmail.com
-    remotepass = mysecretpassword
-    postsynchook = mu index --maildir ~/Maildir
-    ssl = yes
-    maxconnections = 1
-    sslcacertfile = /etc/ssl/certs/ca-certificates.crt
-    folderfilter = lambda foldername: foldername in ['INBOX', 'Sent', '[Gmail]/INBOX', '[Gmail]/Sent', '[Gmail].Enviados']
+  [Repository Remote]
+  type = Gmail
+  remotehost = imap.gmail.com
+  remoteuser = user@gmail.com
+  ssl = yes
+  maxconnections = 2
+  starttls = no
+  ssl_version=tls1_2
+  sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+  auth_mechanisms = GSSAPI, CRAM-MD5, XOAUTH2, PLAIN, LOGIN
+  oauth2_client_id = CLIENT_ID
+  oauth2_client_secret = CLIENT_SECRET
+  oauth2_request_url = https://accounts.google.com/o/oauth2/token
+  oauth2_refresh_token = REFRESH_TOKEN
+  nametrans = lambda f: f.replace('[Gmail]/', '') if f.startswith('[Gmail]/') else f
 #+end_src
 
-Lo único que hay que cambiar aquí es la cuenta =user@gmail.com= y su
-respectiva contraseña. Antes de poder probar nuestra configuración
-debes permitir que tu cuenta pueda ser accedida por *aplicaciones
-menos seguras*, esta opción pude ser consultada [[https://myaccount.google.com/lesssecureapps][aquí.]]
+Lo único que hay que cambiar aquí es la cuenta =user@gmail.com= y generar un token
+de autenticacion de Oauth a traves de la consola de google cloud. Antes de poder
+probar nuestra configuración debes permitir que tu cuenta pueda ser accedida por
+*aplicaciones menos seguras*, esta opción pude ser consultada [[https://myaccount.google.com/lesssecureapps][aquí.]]
 
 Por último hay que probar nuestra configuración, dentro de la línea de
 comandos debemos ejecutar =offlineimap= y como resultado debemos
@@ -144,7 +151,7 @@ el servidor de correo electrónico:
 
 #+begin_src sh :dir "/sudo::" :exports code
   offlineimap
-  mu init --maildir ~/Maildir --my-address user@gmail.com
+  mu init
 #+end_src
 
 #+RESULTS:
