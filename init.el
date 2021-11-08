@@ -17,6 +17,11 @@
   (load bootstrap-file nil 'nomessage))
 (setq package-enable-at-startup nil)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Gagbage collection settings ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq gc-cons-thresold (* 50 1000 1000))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Interoperability between straight and use-package ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -882,3 +887,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (add-hook 'sql-interactive-mode-hook
           (lambda ()
             (toggle-truncate-lines t)))
+
+;; Make garbage collector pauses faster
+(setq gc-const-threshold (* 2 1000 1000))
