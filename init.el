@@ -476,13 +476,23 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (use-package js2-mode
   :straight t
+  :interpreter (("node" . js2-mode))
+  :mode "\\.\\(js\\|json\\)$"
   :config
+  (setq js2-basic-offset 2
+	js2-highlight-level 3)
   (setq js2-global-externs
 	'("module" "require" "buster" "sinon" "assert" "refute" "setTimeout"
 	  "clearTimeout" "setInterval" "clearInterval" "location" "__dirname"
 	  "console" "JSON" "PTL" "$" "exports" "resolve" "reject" "process"
 	  "localStorage" "DOMPurify"))
   :mode ("\\.js\\'" "\\.mjs\\'"))
+
+(use-package web-beautify
+  :straight t
+  :defer t
+  :config
+  (bind-key "C-c C-b" 'web-beautify-js js2-mode-map))
 
 (use-package dockerfile-mode
   :straight t)
@@ -574,7 +584,11 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (setq web-mode-code-indent-offset 2
         web-mode-css-indent-offset 2
-        web-mode-markup-indent-offset 2)
+	web-mode-markup-indent-offset 2
+        web-mode-markup-indent-offset 2
+	web-mode-enable-auto-closing t
+	web-mode-enable-current-element-highlighting t
+ 	web-mode-enamle-current-column-highlighting t)
   (evil-leader/set-key-for-mode 'web-mode
     "fh" #'web-beautify-html))
 
