@@ -58,7 +58,7 @@
 (toggle-scroll-bar -1)
 (global-linum-mode +1)
 (setq-default linum-highlight-current-line t)
-(set-frame-font "Cascadia Mono 13" nil t)
+(set-frame-font "Cascadia Mono 10" nil t)
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 (setq-default fill-column 80)
