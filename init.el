@@ -904,3 +904,17 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 ;; Make garbage collector pauses faster
 (setq gc-const-threshold (* 2 1000 1000))
+
+;;;;;;;;;;;;;;;;;;;;;
+;; AUCTeX Settings ;;
+;;;;;;;;;;;;;;;;;;;;;
+(use-package tex
+  :straight auctex
+  :defer t
+  :config
+  (setq TeX-auto-save t
+	TeX-parse-self t))
+
+(use-package company-auctex
+  :straight t
+  :defer t)
