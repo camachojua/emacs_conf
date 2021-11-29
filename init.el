@@ -905,6 +905,34 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;; Make garbage collector pauses faster
 (setq gc-const-threshold (* 2 1000 1000))
 
+;;;;;;;;;;;;;;;
+;; PDF-tools ;;
+;;;;;;;;;;;;;;;
+(defun my-nov-font-setup ()
+  "Font for epubs."
+  (face-remap-add-relative 'variable-pitch
+			   :family "Liberation Serif"
+			   :height 1.0))
+
+(use-package nov
+  :straight t
+  :defer t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+  :hook
+  (nov-mode . my-nov-font-setup)
+  (doc-view-mode . (lambda () (linum-mode -1))))
+
+(use-package pdf-tools
+  :straight t
+  :defer
+  :config
+  (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
+  (pdf-loader-install)
+  (setq-default pdf-view-display-size 'fit-page)
+  (setq pdf-annot-activate-created-annotations t)
+  (line-number-mode -1))
+
 ;;;;;;;;;;;;;;;;;;;;;
 ;; AUCTeX Settings ;;
 ;;;;;;;;;;;;;;;;;;;;;
@@ -912,9 +940,29 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight auctex
   :defer t
   :config
+  (setq-default TeX-master nil)
   (setq TeX-auto-save t
 	TeX-parse-self t
-	Tex-PDF-mode t))
+	Tex-PDF-mode t
+	reftex-plug-into-AUCTEX t
+	TeX-source-correlate-method 'synctex
+	TeX-source-correlate-start-server t
+	preview-gs-command "PDF Tools")
+  :hook
+  (doc-view-mode . auto-revert-mode)
+  (LaTeX-mode . visual-line-mode)
+  (LaTeX-mode . flyspell-mode)
+  (LaTeX-mode . LaTeX-math-mode)
+  (LaTeX-mode . turn-on-reftex)
+  (TeX-after-compilation-finished-functions .TeX-revert-document-buffer)
+  :config
+  (TeX-source-correlate-mode t)
+  (add-to-list 'TeX-view-program-selection
+               '(output-pdf "PDF Tools"))
+  (add-to-list 'TeX-command-list
+               '("Index" "makeindex %s.nlo -s nomencl.ist -o %s.nls"
+                 TeX-run-index nil t
+                 :help "Run makeindex to create index file")))
 
 (use-package company-auctex
   :straight t
