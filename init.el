@@ -913,7 +913,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :defer t
   :config
   (setq TeX-auto-save t
-	TeX-parse-self t))
+	TeX-parse-self t
+	Tex-PDF-mode t))
 
 (use-package company-auctex
   :straight t
