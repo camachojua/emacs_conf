@@ -980,9 +980,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (browse-url-browser-function 'eaf-open-browser)
   :config
   (defalias 'browse-web #'eaf-open-browser)
-  (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
-  (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
   (eaf-bind-key take_photo "p" eaf-camera-keybinding)
   (eaf-bind-key nil "M-q" eaf-browser-keybinding)) ;; unbind, see more in the Wiki
 (require 'eaf-browser)
-(require 'eaf-pdf-viewer)
+
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
