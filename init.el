@@ -971,21 +971,21 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;
 ;; EAF ;;
 ;;;;;;;;;
-(use-package eaf
-  :straight (eaf :host github
-                 :repo "manateelazycat/emacs-application-framework"
-                 :branch "master"
-                 :files ("*"))
-  :custom
-  ; See https://github.com/emacs-eaf/emacs-application-framework/wiki/Customization
-  (eaf-browser-continue-where-left-off t)
-  (eaf-browser-enable-adblocker t)
-  (browse-url-browser-function 'eaf-open-browser)
-  :config
-  (defalias 'browse-web #'eaf-open-browser)
-  (eaf-bind-key nil "M-q" eaf-browser-keybinding)) ;; unbind, see more in the Wiki
+;; (use-package eaf
+;;   :straight (eaf :host github
+;;                  :repo "manateelazycat/emacs-application-framework"
+;;                  :branch "master"
+;;                  :files ("*"))
+;;   :custom
+;;   ; See https://github.com/emacs-eaf/emacs-application-framework/wiki/Customization
+;;   (eaf-browser-continue-where-left-off t)
+;;   (eaf-browser-enable-adblocker t)
+;;   (browse-url-browser-function 'eaf-open-browser)
+;;   :config
+;;   (defalias 'browse-web #'eaf-open-browser)
+;;   (eaf-bind-key nil "M-q" eaf-browser-keybinding)) ;; unbind, see more in the Wiki
 
-(require 'eaf-browser)
+;; (require 'eaf-browser)
 
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
