@@ -989,3 +989,18 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+
+;;;;;;;;;;;;;;;;;
+;; Tree Sitter ;;
+;;;;;;;;;;;;;;;;;
+(use-package tree-sitter
+  :straight t
+  :init
+  (require 'tree-sitter)
+  (global-tree-sitter-mode))
+
+(use-package tree-sitter-langs
+  :straight t
+  :after tree-sitter-mode
+  :init
+  (require 'tree-sitter-langs))
