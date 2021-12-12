@@ -972,7 +972,10 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;; EAF ;;
 ;;;;;;;;;
 (use-package eaf
-  :load-path "~/.emacs.d/site-lisp/emacs-application-framework"
+  :straight (eaf :host github
+                 :repo "manateelazycat/emacs-application-framework"
+                 :branch "master"
+                 :files ("*"))
   :custom
   ; See https://github.com/emacs-eaf/emacs-application-framework/wiki/Customization
   (eaf-browser-continue-where-left-off t)
@@ -980,8 +983,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (browse-url-browser-function 'eaf-open-browser)
   :config
   (defalias 'browse-web #'eaf-open-browser)
-  (eaf-bind-key take_photo "p" eaf-camera-keybinding)
   (eaf-bind-key nil "M-q" eaf-browser-keybinding)) ;; unbind, see more in the Wiki
+
 (require 'eaf-browser)
 
 (put 'downcase-region 'disabled nil)
