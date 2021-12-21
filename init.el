@@ -1017,5 +1017,14 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (rvm-use-default))
 
 (use-package robe
+  :straight t
   :hook
   (ruby-mode . robe-mode))
+
+;;;;;;;;;;;;;;;;;;
+;; JIRA support ;;
+;;;;;;;;;;;;;;;;;;
+(use-package org-jira
+  :straight t
+  :config
+  (setq jiralib-url "https://buk.atlassian.net"))
