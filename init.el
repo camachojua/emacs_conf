@@ -321,6 +321,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
                                    (when smerge-mode
                                      (unpackaged/smerge-hydra/body)))))
 
+(use-package code-review
+  :straight t)
+
 (use-package treemacs
   :straight t
   :defer t
@@ -1004,3 +1007,15 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :after tree-sitter-mode
   :init
   (require 'tree-sitter-langs))
+
+;;;;;;;;;;;;;;;;;;;;;;
+;; Ruby development ;;
+;;;;;;;;;;;;;;;;;;;;;;
+(use-package rvm
+  :straight t
+  :init
+  (rvm-use-default))
+
+(use-package robe
+  :hook
+  (ruby-mode . robe-mode))
