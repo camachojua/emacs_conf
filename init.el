@@ -613,7 +613,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (use-package robe
   :straight t
-  :config
+  :init
   (robe-start)
   :hook
   (ruby-mode . robe-mode))
@@ -638,7 +638,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (add-to-list 'auto-mode-alist '("\\.podspec\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Puppetfile\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Berksfile\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Appraisals\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Appraisals\\'" . ruby-mode)
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . ruby-mode))
 
 (use-package projectile-rails
   :straight t
