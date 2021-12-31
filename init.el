@@ -557,7 +557,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 	      "--arrow-parens" "always"
 	      file))
   (add-to-list 'apheleia-mode-alist '(rjsx-mode . prettier))
-  (add-to-list 'apheleia-mode-alist '(js-mode. prettier))
+  (add-to-list 'apheleia-mode-alist '(js-mode . prettier))
+  (add-to-list 'apheleia-mode-alist '(ruby-mode . rubocop))
   (apheleia-global-mode t))
 
 (use-package json-mode
@@ -1022,6 +1023,13 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :hook
   (ruby-mode . robe-mode))
+
+;; rbenv
+(use-package rbenv
+  :straight t
+  :init
+  (global-rbenv-mode))
+
 
 ;;;;;;;;;;;;;;;;;;
 ;; JIRA support ;;
