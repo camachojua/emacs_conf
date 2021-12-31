@@ -555,7 +555,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 	      "--jsx-single-quote" "true"
 	      "--jsx-bracket-same-line" "true"
 	      "--arrow-parens" "always"
-	      file))
+	      file)
+	(alist-get 'rubocop apheleia-formatters)
+	'(rubocop file))
   (add-to-list 'apheleia-mode-alist '(rjsx-mode . prettier))
   (add-to-list 'apheleia-mode-alist '(js-mode . prettier))
   (add-to-list 'apheleia-mode-alist '(ruby-mode . rubocop))
