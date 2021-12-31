@@ -21,3 +21,6 @@ tramp
 transient
 url
 var
+eln-cache
+session*
+straight

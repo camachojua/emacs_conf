@@ -2,3 +2,5 @@
 - .use-package
 - straight/build
 - straight
+- session*
+- eln-cache
