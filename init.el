@@ -613,7 +613,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (use-package robe
   :straight t
-  :init
+  :defer t
+  :config
   (robe-start)
   :hook
   (ruby-mode . robe-mode))
