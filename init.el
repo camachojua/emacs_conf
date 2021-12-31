@@ -1016,6 +1016,11 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Ruby development ;;
 ;;;;;;;;;;;;;;;;;;;;;;
+(use-package exec-path-from-shell
+  :straight t
+  :init
+  (exec-path-from-shell-initialize))
+
 (use-package rvm
   :straight t
   :init
