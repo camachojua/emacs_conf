@@ -1021,16 +1021,18 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :init
   (exec-path-from-shell-initialize))
 
-(use-package robe
-  :straight t
-  :hook
-  (ruby-mode . robe-mode))
-
 ;; rbenv
 (use-package rbenv
   :straight t
   :init
   (global-rbenv-mode))
+
+(use-package robe
+  :straight t
+  :defer t
+  :hook
+  (ruby-mode . robe-mode))
+
 
 
 ;;;;;;;;;;;;;;;;;;
