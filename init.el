@@ -1021,11 +1021,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :init
   (exec-path-from-shell-initialize))
 
-(use-package rvm
-  :straight t
-  :init
-  (rvm-use-default))
-
 (use-package robe
   :straight t
   :hook
