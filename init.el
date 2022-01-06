@@ -577,6 +577,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :mode ("\\.html\\'"
          "\\.html\\.erb\\'"
          "\\.php\\'"
+	 "\\.erb\\'"
          "\\.jinja\\'"
          "\\.j2\\'")
   :init
