@@ -1041,3 +1041,10 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :config
   (setq jiralib-url "https://buk.atlassian.net"))
+
+
+;;;;;;;;;;;;;;;;;;
+;; Music player ;;
+;;;;;;;;;;;;;;;;;;
+(use-package simple-mpc
+  :straight t)
