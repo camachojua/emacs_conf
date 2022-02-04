@@ -555,12 +555,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 	      "--jsx-single-quote" "true"
 	      "--jsx-bracket-same-line" "true"
 	      "--arrow-parens" "always"
-	      file)
-	(alist-get 'rubocop apheleia-formatters)
-	'(rubocop file))
+	      file))
   (add-to-list 'apheleia-mode-alist '(rjsx-mode . prettier))
   (add-to-list 'apheleia-mode-alist '(js-mode . prettier))
-  (add-to-list 'apheleia-mode-alist '(ruby-mode . rubocop))
   (apheleia-global-mode t))
 
 (use-package json-mode
@@ -606,7 +603,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (defun my-ruby-mode ()
     (custom-set-variables
      '(ruby-insert-encoding-magic-comment nil))
-    (setq flycheck-checker 'ruby-rubocop)
     (flycheck-mode t))
   (add-hook 'ruby-mode-hook 'my-ruby-mode))
 
