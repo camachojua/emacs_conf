@@ -1053,3 +1053,11 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;;;;;;;;
 (use-package simple-mpc
   :straight t)
+
+;;;;;;;;;;;;;;;;;
+;; Environment ;;
+;;;;;;;;;;;;;;;;;
+(use-package direnv
+  :straight t
+  :config
+  (direnv-mode))
