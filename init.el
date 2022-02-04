@@ -568,6 +568,15 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :defer t)
 
+(use-package haml-mode
+  :straight t
+  :defer t)
+
+(use-package slim-mode
+  :straight t
+  :defer t)
+
+
 (use-package web-mode
   :straight t
   :defer t
