@@ -1061,3 +1061,13 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :config
   (direnv-mode))
+
+
+;;;;;;;;;;;;;;;;;
+;; Vue Support ;;
+;;;;;;;;;;;;;;;;;
+(use-package vue-mode
+  :mode "\\.vue\\'"
+  :hook (vue-mode . prettier-js-mode)
+  :config
+  (setq prettier-js-args '("--parser vue")))
