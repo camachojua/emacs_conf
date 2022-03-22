@@ -96,6 +96,8 @@
 	(?\{ . ?\})
 	(?\[ . ?\])))
 
+ (global-so-long-mode 1)
+
 (use-package rainbow-mode
   :straight t
   :after prog-mode
