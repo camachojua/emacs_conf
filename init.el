@@ -546,6 +546,11 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (add-to-list 'auto-mode-alist '("components\\/.*\\.js\\'" . rjsx-mode)))
 
+(use-package gcmh
+  :straight (gcmh :host github :repo "emacsmirror/gcmh")
+  :config
+  (gcmh-mode 1))
+
 (use-package apheleia
   :straight (apheleia :host github :repo "raxod502/apheleia")
   :config
