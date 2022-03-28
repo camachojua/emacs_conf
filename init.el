@@ -549,6 +549,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package gcmh
   :straight (gcmh :host github :repo "emacsmirror/gcmh")
   :config
+  (setq garbage-collection-messages t)
   (gcmh-mode 1))
 
 (use-package apheleia
