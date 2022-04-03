@@ -17,6 +17,9 @@
   (load bootstrap-file nil 'nomessage))
 (setq package-enable-at-startup nil)
 
+;; Pixel scrolling
+(pixel-scroll-precision-mode)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Gagbage collection settings ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
