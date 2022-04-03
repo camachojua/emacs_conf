@@ -996,6 +996,18 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :defer t)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Anotaciones la margen ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package marginalia
+  :straight t
+  :bind
+  (("M-A" . marginalia-cycle)
+   :map minibuffer-local-map
+   ("M-A" . marginalia-cycle))
+  :init
+  (marginalia-mode))
+
 ;;;;;;;;;
 ;; EAF ;;
 ;;;;;;;;;
