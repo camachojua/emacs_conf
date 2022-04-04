@@ -672,6 +672,14 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (define-key projectile-rails-mode-map (kbd "C-c r") 'projectile-rails-command-map))
 
+(use-package rubocop
+  :straight t
+  :defer t
+  :config
+  (setq rubocop-check-command "/home/juan/Buk/buk-webapp/bin/rubocop --format emacs")
+  :hook
+  (ruby-mode . rubocop-mode))
+
 ;;;;;;;;;;;;;;;;
 ;; Yassnippet ;;
 ;;;;;;;;;;;;;;;;
