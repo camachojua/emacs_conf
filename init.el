@@ -680,7 +680,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (setq rubocop-check-command "/home/juan/Buk/buk-webapp/bin/rubocop --format emacs")
   (setq rubocop-format-command "/home/juan/Buk/buk-webapp/bin/rubocop --format emacs")
   (setq rubocop-autocorrect-command "/home/juan/Buk/buk-webapp/bin/rubocop --format emacs -a")
-  (setq rubocop-autocorrect-on-save t)
+  ;; (setq rubocop-autocorrect-on-save t)
   :hook
   (ruby-mode . rubocop-mode))
 
