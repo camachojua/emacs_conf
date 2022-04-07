@@ -329,6 +329,21 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
                                    (when smerge-mode
                                      (unpackaged/smerge-hydra/body)))))
 
+(use-package blamer
+  :straight t
+  :defer t
+  :bind (("s-i" . blamer-show-commit-info))
+  :custom
+  (blamer-idle-time 0.3)
+  (blamen-min-offset 20)
+  :custom-face
+  (blamer-face ((t :foreground "#7a88cf"
+		   :background nil
+		   :height 100
+		   :italic t)))
+  :config
+  (global-blamer-mode 1))
+
 (use-package code-review
   :straight t)
 
