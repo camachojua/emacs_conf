@@ -61,7 +61,7 @@
 (toggle-scroll-bar -1)
 (global-linum-mode +1)
 (setq-default linum-highlight-current-line t)
-(set-frame-font "Cascadia Mono 10" nil t)
+(set-frame-font "Cascadia Mono 9" nil t)
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 (setq-default fill-column 80)
@@ -1124,3 +1124,54 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :hook (vue-mode . prettier-js-mode)
   :config
   (setq prettier-js-args '("--parser vue")))
+
+;;;;;;;;;;;;;;;;;
+;; LSP support ;;
+;;;;;;;;;;;;;;;;;
+(use-package lsp-mode
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  :hook ((python-mode . lsp-deferred)
+         (go-mode . lsp-deferred)
+         (rust-mode . lsp-deferred)
+         (typescript-mode . lsp-deferred)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands (lsp lsp-deferred))
+
+(use-package lsp-ui
+  :hook (lsp-mode . lsp-ui-mode)
+  :custom
+  (lsp-ui-doc-position 'bottom))
+
+(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+
+(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+
+(use-package company-lsp
+  :commands company-lsp)
+
+;;;;;;;;;;;;;;;;;
+;; DAP support ;;
+;;;;;;;;;;;;;;;;;
+(use-package dap-mode
+  ;; Uncomment the config below if you want all UI panes to be hidden by default!
+  ;; :custom
+  ;; (lsp-enable-dap-auto-configure nil)
+  ;; :config
+  ;; (dap-ui-mode 1)
+  :commands dap-debug
+  :config
+  ;; Set up Node debugging
+  (require 'dap-node)
+  (dap-node-setup) ;; Automatically installs Node debug adapter if needed
+  (require 'dap-hydra)
+  (require 'dap-gdb-lldb)
+  (dap-gdb-lldb-setup)
+
+  ;; Bind `C-c l d` to `dap-hydra` for easy access
+  (general-define-key
+    :keymaps 'lsp-mode-map
+    :prefix lsp-keymap-prefix
+    "d" '(dap-hydra t :wk "debugger")))
+
+(use-package dap-node)
