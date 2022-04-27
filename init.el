@@ -1120,6 +1120,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;; Vue Support ;;
 ;;;;;;;;;;;;;;;;;
 (use-package vue-mode
+  :straight t
   :mode "\\.vue\\'"
   :hook (vue-mode . prettier-js-mode)
   :config
@@ -1129,6 +1130,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;; LSP support ;;
 ;;;;;;;;;;;;;;;;;
 (use-package lsp-mode
+  :straight t
   :init
   (setq lsp-keymap-prefix "C-c l")
   :hook ((python-mode . lsp-deferred)
@@ -1139,20 +1141,27 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :commands (lsp lsp-deferred))
 
 (use-package lsp-ui
+  :straight t
   :hook (lsp-mode . lsp-ui-mode)
   :custom
   (lsp-ui-doc-position 'bottom))
 
-(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+(use-package lsp-ivy
+  :straight t
+  :commands lsp-ivy-workspace-symbol)
 
-(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+(use-package lsp-treemacs
+  :straight t
+  :commands lsp-treemacs-errors-list)
 
 (use-package company-lsp
+  :straight t
   :commands company-lsp)
 
 ;;;;;;;;;;;;;;;;;
 ;; DAP support ;;
 ;;;;;;;;;;;;;;;;;
+(straight-use-package 'dap-mode)
 (use-package dap-mode
   ;; Uncomment the config below if you want all UI panes to be hidden by default!
   ;; :custom
@@ -1173,5 +1182,3 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
     :keymaps 'lsp-mode-map
     :prefix lsp-keymap-prefix
     "d" '(dap-hydra t :wk "debugger")))
-
-(use-package dap-node)
