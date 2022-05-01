@@ -193,6 +193,9 @@
 
 (use-package company
   :straight t
+  :init
+  (setq company-tooltip-minimum-width 15
+	company-idle-delay 0.1)
   :custom
   (company-tooltip-align-annotation t)
   :config
