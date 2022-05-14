@@ -347,8 +347,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (global-blamer-mode 1))
 
-(use-package code-review
-  :straight t)
+;; (use-package code-review
+;;   :straight t)
 
 (use-package treemacs
   :straight t
@@ -814,7 +814,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
    (sass . t)
    (sql . t)
    (sqlite . t)
-   (shell . t)))
+   (shell . t)
+   ))
 
 (use-package org-tree-slide
   :straight t
@@ -1089,19 +1090,14 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :init
   (global-rbenv-mode))
 
-(use-package robe
-  :straight t
-  :defer t
-  :hook
-  (ruby-mode . robe-mode))
 
 ;;;;;;;;;;;;;;;;;;
 ;; JIRA support ;;
 ;;;;;;;;;;;;;;;;;;
-(use-package org-jira
-  :straight t
-  :config
-  (setq jiralib-url "https://buk.atlassian.net"))
+;; (use-package org-jira
+;;   :straight t
+;;   :config
+;;   (setq jiralib-url "https://buk.atlassian.net"))
 
 
 ;;;;;;;;;;;;;;;;;;
@@ -1185,3 +1181,12 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
     :keymaps 'lsp-mode-map
     :prefix lsp-keymap-prefix
     "d" '(dap-hydra t :wk "debugger")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Process monitoring ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package proced
+  :straight t
+  :defer t
+  :custom
+  (proced-auto-update-flag t))
