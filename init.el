@@ -554,12 +554,29 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (setq typescrypt-indent-level 2))
 
+;; DAP
 (use-package dap-mode
-  :straight t
+  ;; Uncomment the config below if you want all UI panes to be hidden by default!
+  ;; :custom
+  ;; (lsp-enable-dap-auto-configure nil)
+  ;; :config
+  ;; (dap-ui-mode 1)
   :commands dap-debug
   :config
+  ;; Set up Node debugging
   (require 'dap-node)
-  (dap-node-setup))
+  (dap-node-setup) ;; Automatically installs Node debug adapter if needed
+  (require 'dap-go)
+  (dap-go-setup)
+  (require 'dap-hydra)
+  (require 'dap-gdb-lldb)
+  (dap-gdb-lldb-setup)
+
+  ;; Bind `C-c l d` to `dap-hydra` for easy access
+  (general-define-key
+    :keymaps 'lsp-mode-map
+    :prefix lsp-keymap-prefix
+    "d" '(dap-hydra t :wk "debugger")))
 
 (use-package rjsx-mode
   :straight t
