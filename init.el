@@ -24,7 +24,8 @@
 ;; Gagbage collection settings ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq gc-cons-thresold (* 100 1000 1000))
-
+(add-hook 'focus-out 'garbage-collect)
+(run-with-idle-timer 5 t 'garbage-collect)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Interoperability between straight and use-package ;;
