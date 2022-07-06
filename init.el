@@ -1221,4 +1221,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (use-package tree-sitter-langs
   :straight t
-  :after tree-sitter)
+  :after tree-sitter
+  :config
+  (global-tree-sitter-mode))
