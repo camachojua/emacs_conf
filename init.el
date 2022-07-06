@@ -81,6 +81,27 @@
 (setq auth-sources '((:source "~/.authinfo.gpg")))
 (setq epa-pinentry-mode 'loopback)
 
+
+;; Better close encrypted buffers after one minute of innactivity
+(defun kill-gpg-buffers ()
+  "Kill GPG buffers."
+  (interactive)
+  (let ((buffers-killed 0))
+    (dolist (buffer (buffer-list))
+      (with-current-buffer buffer
+        (when (string-match ".*\.gpg$" (buffer-name buffer))
+          (message "Auto killing .gpg buffer '%s'" (buffer-name buffer))
+          (when (buffer-modified-p buffer)
+            (save-buffer))
+          (kill-buffer buffer)
+          (setq buffers-killed (+ buffers-killed 1)))))
+    (unless (zerop buffers-killed)
+      ;; Kill gpg-agent.
+      (shell-command "gpgconf --kill gpg-agent")
+      (message "%s .gpg buffers have been autosaved and killed" buffers-killed))))
+
+(run-with-idle-timer 60 t 'kill-gpg-buffers)
+
 ;;;;;;;;;;;;;;;;;;
 ;; Text styling ;;
 ;;;;;;;;;;;;;;;;;;
