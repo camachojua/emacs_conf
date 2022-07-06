@@ -23,7 +23,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Gagbage collection settings ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq gc-cons-thresold (* 50 1000 1000))
+(setq gc-cons-thresold (* 100 1000 1000))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Interoperability between straight and use-package ;;
@@ -554,29 +555,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (setq typescrypt-indent-level 2))
 
-;; DAP
-(use-package dap-mode
-  ;; Uncomment the config below if you want all UI panes to be hidden by default!
-  ;; :custom
-  ;; (lsp-enable-dap-auto-configure nil)
-  ;; :config
-  ;; (dap-ui-mode 1)
-  :commands dap-debug
-  :config
-  ;; Set up Node debugging
-  (require 'dap-node)
-  (dap-node-setup) ;; Automatically installs Node debug adapter if needed
-  (require 'dap-go)
-  (dap-go-setup)
-  (require 'dap-hydra)
-  (require 'dap-gdb-lldb)
-  (dap-gdb-lldb-setup)
-
-  ;; Bind `C-c l d` to `dap-hydra` for easy access
-  (general-define-key
-    :keymaps 'lsp-mode-map
-    :prefix lsp-keymap-prefix
-    "d" '(dap-hydra t :wk "debugger")))
 
 (use-package rjsx-mode
   :straight t
@@ -1188,6 +1166,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   ;; Set up Node debugging
   (require 'dap-node)
+  (setq dap-netcore-install-dir (executable-find "netcoredbg"))
   (dap-node-setup) ;; Automatically installs Node debug adapter if needed
   (require 'dap-hydra)
   (require 'dap-gdb-lldb)
