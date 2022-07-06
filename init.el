@@ -1208,3 +1208,13 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :defer t
   :custom
   (proced-auto-update-flag t))
+
+;;;;;;;;;;;;;;;;;
+;; Tree sitter ;;
+;;;;;;;;;;;;;;;;;
+(use-package tree-sitter
+  :straight t)
+(tree-sitter-hl-mode)
+
+(use-package tree-sitter-langs
+  :straight t)
