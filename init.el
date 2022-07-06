@@ -1096,10 +1096,10 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Ruby development ;;
 ;;;;;;;;;;;;;;;;;;;;;;
-(use-package exec-path-from-shell
-  :straight t
-  :init
-  (exec-path-from-shell-initialize))
+;; (use-package exec-path-from-shell
+;;   :straight t
+;;   :init
+;;   (exec-path-from-shell-initialize))
 
 ;; rbenv
 (use-package rbenv
@@ -1213,8 +1213,10 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;; Tree sitter ;;
 ;;;;;;;;;;;;;;;;;
 (use-package tree-sitter
-  :straight t)
-(tree-sitter-hl-mode)
+  :straight
+  :hook
+  (prog-mode 'tree-sitter-mode)
+  (prog-mode 'tree-sitter-hl-mode))
 
 (use-package tree-sitter-langs
   :straight t)
