@@ -1096,10 +1096,10 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Ruby development ;;
 ;;;;;;;;;;;;;;;;;;;;;;
-;; (use-package exec-path-from-shell
-;;   :straight t
-;;   :init
-;;   (exec-path-from-shell-initialize))
+(use-package exec-path-from-shell
+  :straight t
+  :init
+  (exec-path-from-shell-initialize))
 
 ;; rbenv
 (use-package rbenv
@@ -1222,3 +1222,12 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :after tree-sitter
   :config
   (global-tree-sitter-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; A very nice Dired cenfig ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package dirvish
+  :ensure t
+  :init
+  ;; Let Dirvish take over Dired globally
+  (dirvish-override-dired-mode))
