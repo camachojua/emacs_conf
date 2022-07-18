@@ -1227,7 +1227,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;; A very nice Dired cenfig ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package dirvish
-  :ensure t
+  :straight t
   :init
   ;; Let Dirvish take over Dired globally
   (dirvish-override-dired-mode))
