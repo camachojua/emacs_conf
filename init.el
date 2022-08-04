@@ -253,10 +253,6 @@
   :after ivy
   :defer t)
 
-(use-package projectile-rails
-  :straight t
-  :defer t)
-
 (use-package diff-hl
   :straight t
   :init
@@ -706,6 +702,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :hook
   (after-init . projectile-rails-global-mode)
   :config
+  (setq projectile-rails-spring-command "bin/spring"
+	projectile-rails-vanilla-command "bin/rails")
   (define-key projectile-rails-mode-map (kbd "C-c r") 'projectile-rails-command-map))
 
 (use-package rubocop
