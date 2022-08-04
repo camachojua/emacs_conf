@@ -717,6 +717,11 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :hook
   (ruby-mode . rubocop-mode))
 
+(use-package inf-ruby
+  :straight t
+  :defer t
+  :after ruby-mode)
+
 ;;;;;;;;;;;;;;;;
 ;; Yassnippet ;;
 ;;;;;;;;;;;;;;;;
