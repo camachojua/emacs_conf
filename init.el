@@ -701,6 +701,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :hook
   (after-init . projectile-rails-global-mode)
+  (after-init . inf-ruby-switch-setup)
   :config
   (setq projectile-rails-spring-command "bin/spring"
 	projectile-rails-vanilla-command "bin/rails")
