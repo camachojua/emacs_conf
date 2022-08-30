@@ -77,10 +77,15 @@
 ;;;;;;;;;;;;;;;;;;
 ;; GPG settings ;;
 ;;;;;;;;;;;;;;;;;;
+
+
 (setq epg-gpg-program "gpg2")
 (setq auth-sources '((:source "~/.authinfo.gpg")))
 (setq epa-pinentry-mode 'loopback)
-
+(use-package pinentry
+  :defer nil
+  :straight t
+  :config (pinentry-start))
 
 ;; Better close encrypted buffers after one minute of innactivity
 (defun kill-gpg-buffers ()
@@ -695,7 +700,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (add-to-list 'auto-mode-alist '("Puppetfile\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Berksfile\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Appraisals\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 
 (use-package projectile-rails
   :straight t
