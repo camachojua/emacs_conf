@@ -49,7 +49,6 @@
 			       user-emacs-directory)))
 
 (global-set-key (kbd "<f6>") (lambda() (interactive) (config-file)))
-(global-set-key (kbd "<f7>") 'emacs-lisp-byte-compile-and-load)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom UI settings ;;
