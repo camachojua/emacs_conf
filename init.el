@@ -566,7 +566,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
    (typescript-mode . tide-setup)
    (typescript-mode . tide-mode)
    (typescript-mode . tide-hl-identifier-mode)
-   (typescript-mdoe . eldoc-mode)
+   (typescript-mode . eldoc-mode)
    (js-mode . tide-setup)
    (js-mode . tide-hl-identifier-mode)
    (js-mode . eldoc-mode)
