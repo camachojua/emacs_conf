@@ -60,13 +60,15 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (toggle-scroll-bar -1)
-(global-linum-mode +1)
+(global-display-line-numbers-mode +1)
 (setq-default linum-highlight-current-line t)
 (set-frame-font "Cascadia Mono 9" nil t)
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 (setq-default fill-column 80)
 (auto-revert-mode)
+(global-subword-mode t)
+(global-superword-mode t)
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; TRAMP settings ;;
@@ -591,18 +593,17 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (gcmh-mode 1))
 
 (use-package apheleia
-  :straight (apheleia :host github :repo "raxod502/apheleia")
+  :straight t
   :config
   (setf (alist-get 'prettier apheleia-formatters)
 	'(npx "prettier"
-	      "--trailing-coma" "es5"
+	      "--trailing-coma"
 	      "--tab-width" "2"
 	      "--use-tabs" "false"
 	      "--bracket-spacing" "true"
 	      "--single-quote" "true"
 	      "--semi" "true"
 	      "--jsx-single-quote" "true"
-	      "--jsx-bracket-same-line" "true"
 	      "--arrow-parens" "always"
 	      file))
   (add-to-list 'apheleia-mode-alist '(rjsx-mode . prettier))
