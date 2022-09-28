@@ -67,8 +67,8 @@
 	  (lambda() (delete-trailing-whitespace) nil))
 (setq-default fill-column 80)
 (auto-revert-mode)
-(global-subword-mode t)
-(global-superword-mode t)
+;; (global-subword-mode t)
+;; (global-superword-mode t)
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; TRAMP settings ;;
