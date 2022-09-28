@@ -259,6 +259,8 @@
   :after ivy
   :defer t)
 
+
+
 (use-package diff-hl
   :straight t
   :init
@@ -391,6 +393,21 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :bind
   ("C-x t a" . treemacs-projectile)
   :after treemacs projectile)
+
+(use-package dizzee
+  :straight (dizzee :host github :repo "davidmiller/dizzee")
+  :config
+  (setq garbage-collection-messages t)
+  (gcmh-mode 1))
+
+(dz-defservice buk-backend "./bin/rails"
+               :args ("s")
+               :cd "~/Src/buk-webapp")
+
+(dz-defservice buk-frontend "./bin/webpack-dev-server"
+               :cd "~/Src/buk-webapp")
+
+(dz-defservice-group buk (buk-backend buk-frontend))
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Terminal support ;;
