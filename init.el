@@ -1023,13 +1023,13 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
   :hook
   (nov-mode . my-nov-font-setup)
-  (doc-view-mode . (lambda () (linum-mode -1))))
+  (doc-view-mode . (lambda () (display-line-numbers-mode -1))))
 
 (use-package pdf-tools
   :straight t
   :defer
   :config
-  (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
+  (add-hook 'pdf-view-mode-hook (lambda() (display-line-numbers-mode -1)))
   (pdf-loader-install)
   (setq-default pdf-view-display-size 'fit-page)
   (setq pdf-annot-activate-created-annotations t)
