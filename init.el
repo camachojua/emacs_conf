@@ -398,6 +398,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight (dizzee :host github :repo "davidmiller/dizzee")
   :config
   (setq garbage-collection-messages t)
+  (add-hook 'dizzee-autoloads (lambda() (display-line-numbers-mode -1)))
   (gcmh-mode 1))
 
 (dz-defservice buk-backend "./bin/rails"
