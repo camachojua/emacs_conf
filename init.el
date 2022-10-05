@@ -1176,6 +1176,11 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :init
   (setq lsp-keymap-prefix "C-c l")
+  (setq lsp-auto-gess-mode t)
+  (setq lsp-solargraph-symbols nil)
+  (setq lsp-solargraph-folding nil)
+  :config
+  (setq lsp-ui-sideline-show-code-actions t)
   :hook ((python-mode . lsp-deferred)
          (go-mode . lsp-deferred)
          (rust-mode . lsp-deferred)
@@ -1258,3 +1263,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :init
   ;; Let Dirvish take over Dired globally
   (dirvish-override-dired-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Link preview for org-mode ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package link-preview
+  :straight (link-preview :host github :repo "aviaviavi/link-preview.el"))
