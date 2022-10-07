@@ -381,7 +381,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :defer t
   :hook
-  (treemacs-mode . (lambda() (linum-mode -1)))
+  (treemacs-mode . (lambda() (display-line-numbers-mode -1)))
   :config
   (setq treemacs-follow-mode t)
   (setq treemacs-filewatch-mode t)
@@ -396,9 +396,13 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (use-package dizzee
   :straight (dizzee :host github :repo "davidmiller/dizzee")
+  :init
+  (display-line-numbers-mode -1)
+  :hook
+  (gcmh-mode . (lambda() (display-line-numbers-mode -1)))
   :config
   (setq garbage-collection-messages t)
-  (add-hook 'dizzee-autoloads (lambda() (display-line-numbers-mode -1)))
+  (display-line-numbers-mode -1)
   (gcmh-mode 1))
 
 (dz-defservice buk-backend "./bin/rails"
