@@ -60,7 +60,7 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (toggle-scroll-bar -1)
-(global-display-line-numbers-mode +1)
+(global-display-line-numbers-mode t)
 (setq-default linum-highlight-current-line t)
 (set-frame-font "Cascadia Mono 9" nil t)
 (add-hook 'write-file-functions
@@ -398,9 +398,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight (dizzee :host github :repo "davidmiller/dizzee")
   :init
   (display-line-numbers-mode -1)
-  :hook
-  (gcmh-mode . (lambda() (display-line-numbers-mode -1)))
-  :config
   (setq garbage-collection-messages t)
   (display-line-numbers-mode -1)
   (gcmh-mode 1))
