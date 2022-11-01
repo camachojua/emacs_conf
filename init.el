@@ -395,12 +395,12 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :after treemacs projectile)
 
 (use-package dizzee
-  :straight (dizzee :host github :repo "davidmiller/dizzee")
+  ;; :straight (dizzee :host github :repo "davidmiller/dizzee")
+  :straight (dizzee :host github :repo "camachojua/dizzee")
   :init
-  (display-line-numbers-mode -1)
   (setq garbage-collection-messages t)
-  (display-line-numbers-mode -1)
-  (gcmh-mode 1))
+  :hook
+  (comint-mode . (lambda() (display-line-numbers-mode -1))))
 
 (dz-defservice buk-backend "./bin/rails"
                :args ("s")
@@ -735,9 +735,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :defer t
   :config
-  (setq rubocop-check-command "/home/juan/Buk/buk-webapp/bin/rubocop --format emacs")
-  (setq rubocop-format-command "/home/juan/Buk/buk-webapp/bin/rubocop --format emacs")
-  (setq rubocop-autocorrect-command "/home/juan/Buk/buk-webapp/bin/rubocop --format emacs -a")
+  (setq rubocop-check-command "~/Src/buk-webapp/bin/rubocop --format emacs")
+  (setq rubocop-format-command "~/Src/buk-webapp/bin/rubocop --format emacs")
+  (setq rubocop-autocorrect-command "~/Src/Buk/buk-webapp/bin/rubocop --format emacs -a")
   ;; (setq rubocop-autocorrect-on-save t)
   :hook
   (ruby-mode . rubocop-mode))
@@ -746,6 +746,15 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :defer t
   :after ruby-mode)
+
+(use-package minitest
+  :straight t
+  :defer t
+  :config
+  (setq minitest-use-rails t)
+  (setq compilation-scroll-output t)
+  :hook
+  (ruby-mode . minitest-mode))
 
 ;;;;;;;;;;;;;;;;
 ;; Yassnippet ;;
@@ -1084,27 +1093,13 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :init
   (marginalia-mode))
 
-;;;;;;;;;
-;; EAF ;;
-;;;;;;;;;
-;; (use-package eaf
-;;   :straight (eaf :host github
-;;                  :repo "manateelazycat/emacs-application-framework"
-;;                  :branch "master"
-;;                  :files ("*"))
-;;   :custom
-;;   ; See https://github.com/emacs-eaf/emacs-application-framework/wiki/Customization
-;;   (eaf-browser-continue-where-left-off t)
-;;   (eaf-browser-enable-adblocker t)
-;;   (browse-url-browser-function 'eaf-open-browser)
-;;   :config
-;;   (defalias 'browse-web #'eaf-open-browser)
-;;   (eaf-bind-key nil "M-q" eaf-browser-keybinding)) ;; unbind, see more in the Wiki
-
-;; (require 'eaf-browser)
-
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
+;;;;;;;;;;;
+;; slime ;;
+;;;;;;;;;;;
+(use-package slime
+  :straight t
+  :config
+  (setq inferior-lisp-program "sbcl"))
 
 ;;;;;;;;;;;;;;;;;
 ;; Tree Sitter ;;
