@@ -317,6 +317,16 @@
   (magit-mode-hook . 'turn-on-magit-gitflow)
   :commands (magit-gitlfow))
 
+(use-package code-review
+  :straight t
+  :defer t
+  :config
+  (define-key forge-topic-mode-map (kbd "C-c C-r") 'code-review-forge-pr-at-point)
+  (setq code-review-fill-column 80)
+  (setq code-review-auth-login-marker 'forge)
+  :hook
+  (code-review-mode-hook . 'emojify-mode))
+
 (require 'hydra)
 
 (use-package smerge-mode
@@ -400,16 +410,17 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :init
   (setq garbage-collection-messages t)
   :hook
-  (comint-mode . (lambda() (display-line-numbers-mode -1))))
-
-(dz-defservice buk-backend "./bin/rails"
+  (comint-mode . (lambda() (display-line-numbers-mode -1)))
+  :config
+  (dz-defservice buk-backend "./bin/rails"
                :args ("s")
                :cd "~/Src/buk-webapp")
+  (dz-defservice buk-frontend "./bin/webpack-dev-server"
+		 :cd "~/Src/buk-webapp")
 
-(dz-defservice buk-frontend "./bin/webpack-dev-server"
-               :cd "~/Src/buk-webapp")
+  (dz-defservice-group buk (buk-backend buk-frontend)))
 
-(dz-defservice-group buk (buk-backend buk-frontend))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Terminal support ;;
