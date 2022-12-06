@@ -62,7 +62,8 @@
 (toggle-scroll-bar -1)
 (global-display-line-numbers-mode t)
 (setq-default linum-highlight-current-line t)
-(set-frame-font "Cascadia Mono 9" nil t)
+;; (set-frame-font "Cascadia Mono 9" nil t)
+(setq default-frame-alist '((font . "Cascadia Mono 9")))
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 (setq-default fill-column 80)
@@ -115,7 +116,7 @@
   :straight t
   :defer t
   :config
-  (setq whitespace-line-column 80)
+  (setq whitespace-line-column 88)
   (setq whitespace-style '(face-lines-tail))
   :hook
   (org-mode . whitespace-mode)
@@ -273,6 +274,8 @@
   :straight t
   :defer t
   :config
+  (setq ghub-use-workaround-for-emacs-bug t)
+  (setq ghub-use-workaround-for-emacs-bug-54989 t)
   (setq magit-completing-read-function 'ivy-completing-read)
   :bind
   ("C-x g" . 'magit-status)
@@ -1276,3 +1279,23 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package link-preview
   :straight (link-preview :host github :repo "aviaviavi/link-preview.el"))
+
+;;;;;;;;;
+;; EAF ;;
+;;;;;;;;;
+(use-package eaf
+  ;;:straight (eaf :host github :repo "emacs-eaf/emacs-application-framework")
+  :load-path "~/.emacs.d/straight/repos/emacs-application-framework"
+  :custom
+  ; See https://github.com/emacs-eaf/emacs-application-framework/wiki/Customization
+  (eaf-browser-continue-where-left-off t)
+  (eaf-browser-enable-adblocker t)
+  (browse-url-browser-function 'eaf-open-browser)
+  :config
+  (defalias 'browse-web #'eaf-open-browser)
+  (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key take_photo "p" eaf-camera-keybinding)
+  (eaf-bind-key nil "M-q" eaf-browser-keybinding)) ;; unbind, see more in the Wiki
+
+(require 'eaf-browser)
