@@ -408,8 +408,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :after treemacs projectile)
 
 (use-package dizzee
-  ;; :straight (dizzee :host github :repo "davidmiller/dizzee")
   :straight (dizzee :host github :repo "camachojua/dizzee")
+  :defer t
   :init
   (setq garbage-collection-messages t)
   :hook
@@ -420,10 +420,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
                :cd "~/Src/buk-webapp")
   (dz-defservice buk-frontend "./bin/webpack-dev-server"
 		 :cd "~/Src/buk-webapp")
-
   (dz-defservice-group buk (buk-backend buk-frontend)))
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Terminal support ;;
@@ -1144,16 +1141,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :init
   (global-rbenv-mode))
 
-
-;;;;;;;;;;;;;;;;;;
-;; JIRA support ;;
-;;;;;;;;;;;;;;;;;;
-;; (use-package org-jira
-;;   :straight t
-;;   :config
-;;   (setq jiralib-url "https://buk.atlassian.net"))
-
-
 ;;;;;;;;;;;;;;;;;;
 ;; Music player ;;
 ;;;;;;;;;;;;;;;;;;
@@ -1167,7 +1154,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :config
   (direnv-mode))
-
 
 ;;;;;;;;;;;;;;;;;
 ;; Vue Support ;;
@@ -1293,8 +1279,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (browse-url-browser-function 'eaf-open-browser)
   :config
   (defalias 'browse-web #'eaf-open-browser)
-  (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
-  (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
   (eaf-bind-key take_photo "p" eaf-camera-keybinding)
   (eaf-bind-key nil "M-q" eaf-browser-keybinding)) ;; unbind, see more in the Wiki
 
