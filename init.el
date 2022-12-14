@@ -682,9 +682,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
         web-mode-markup-indent-offset 2
 	web-mode-enable-auto-closing t
 	web-mode-enable-current-element-highlighting t
- 	web-mode-enamle-current-column-highlighting t)
-  (evil-leader/set-key-for-mode 'web-mode
-    "fh" #'web-beautify-html))
+ 	web-mode-enamle-current-column-highlighting t))
 
 (use-package ruby-mode
   :straight t
@@ -1161,7 +1159,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package vue-mode
   :straight t
   :mode "\\.vue\\'"
-  :hook (vue-mode . prettier-js-mode)
+  :hook
+  (vue-mode . prettier-js-mode)
+  (vue-mode . web-mode)
   :config
   (setq prettier-js-args '("--parser vue")))
 
@@ -1270,16 +1270,18 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;; EAF ;;
 ;;;;;;;;;
 (use-package eaf
-  ;;:straight (eaf :host github :repo "emacs-eaf/emacs-application-framework")
-  :load-path "~/.emacs.d/straight/repos/emacs-application-framework"
+  :straight (eaf
+	     :type git
+	     :host github
+	     :repo "emacs-eaf/emacs-application-framework"
+             :files ("*.el" "*.py" "core" "app" "*.json")
+	     :includes (eaf-browser)
+             :pre-build (("python3" "install-eaf.py" "--install" "browser" "--ignore-sys-deps")))
+  :config
+  (defalias 'browse-web #'eaf-open-browser)) ;; unbind, see more in the Wiki
+
+(use-package eaf-browser
   :custom
-  ; See https://github.com/emacs-eaf/emacs-application-framework/wiki/Customization
   (eaf-browser-continue-where-left-off t)
   (eaf-browser-enable-adblocker t)
-  (browse-url-browser-function 'eaf-open-browser)
-  :config
-  (defalias 'browse-web #'eaf-open-browser)
-  (eaf-bind-key take_photo "p" eaf-camera-keybinding)
-  (eaf-bind-key nil "M-q" eaf-browser-keybinding)) ;; unbind, see more in the Wiki
-
-(require 'eaf-browser)
+  (browse-url-browser-function 'eaf-open-browser))
