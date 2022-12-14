@@ -1115,6 +1115,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;;;;;;;
 (use-package tree-sitter
   :straight t
+  :hook
+  (tree-sitter-hl-mode . prog-mode)
   :init
   (require 'tree-sitter)
   (global-tree-sitter-mode))
