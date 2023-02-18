@@ -1286,3 +1286,17 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (eaf-browser-continue-where-left-off t)
   (eaf-browser-enable-adblocker t)
   (browse-url-browser-function 'eaf-open-browser))
+
+;;;;;;;;;;;;;;
+;; Chat GPT ;;
+;;;;;;;;;;;;;;
+(use-package chatgpt
+  :straight (chatgpt
+	     :host github
+	     :repo "joshcho/ChatGPT.el"
+	     :files ("dist" "*.el"))
+  :init
+  (require 'python)
+  (setq chatgpt-python-interpreter "/usr/bin/python3")
+  (setq chatgpt-repo-path "~/.emacs.d/straight/repos/ChatGPT.el/")
+  :bind ("C-c q" . chatgpt-query))
