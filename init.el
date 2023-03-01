@@ -1292,6 +1292,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;;;;
 (use-package chatgpt
   :straight (chatgpt
+	     :type git
 	     :host github
 	     :repo "joshcho/ChatGPT.el"
 	     :files ("dist" "*.el"))
