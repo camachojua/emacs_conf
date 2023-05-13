@@ -1056,6 +1056,16 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (setq pdf-annot-activate-created-annotations t)
   (line-number-mode -1))
 
+;; We need to save the last viewed page in a pdf file
+(use-package pdf-view-restore
+  :straight t
+  :after pdf-tools
+  :hook
+  (pdf-view-mode-hook . pdf-view-restore-mode)
+  :config
+  (setq pdf-view-restore-filename "~/.emacs.d/.pdf-view-restore"))
+
+
 ;;;;;;;;;;;;;;;;;;;;;
 ;; AUCTeX Settings ;;
 ;;;;;;;;;;;;;;;;;;;;;
