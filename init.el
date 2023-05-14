@@ -382,7 +382,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (blamen-min-offset 20)
   :custom-face
   (blamer-face ((t :foreground "#7a88cf"
-		   :background nil
+		   :background "#001111"
 		   :height 100
 		   :italic t)))
   :config
@@ -697,8 +697,10 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (use-package ruby-end
   :straight t
-  :init
-  (add-hook 'ruby-mode-hook '(lambda () (ruby-end-mode t))))
+  :config
+  (setq ruby-end-mode t)
+  :hook
+  (ruby-mode-hook . ruby-end-mode))
 
 (use-package robe
   :straight t
