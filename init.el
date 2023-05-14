@@ -67,7 +67,7 @@
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 (setq-default fill-column 80)
-(auto-revert-mode)
+(global-auto-revert-mode 1)
 ;; (global-subword-mode t)
 ;; (global-superword-mode t)
 
