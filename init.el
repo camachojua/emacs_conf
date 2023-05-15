@@ -740,8 +740,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (after-init . projectile-rails-global-mode)
   (after-init . inf-ruby-switch-setup)
   :config
-  (setq projectile-rails-spring-command "bin/spring"
-	projectile-rails-vanilla-command "bin/rails")
+  (setq projectile-rails-spring-command "~/Src/buk-webapp/bin/spring"
+	projectile-rails-vanilla-command "~/Src/buk-webapp/bin/rails")
   (define-key projectile-rails-mode-map (kbd "C-c r") 'projectile-rails-command-map))
 
 (use-package rubocop
