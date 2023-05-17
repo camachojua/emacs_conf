@@ -1153,6 +1153,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (when (daemonp)
   (exec-path-from-shell-initialize))
 
+(add-to-list 'exec-path "~/.nodenv/shims//npx")
+
 ;; rbenv
 (use-package rbenv
   :straight t
