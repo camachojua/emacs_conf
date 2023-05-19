@@ -1154,6 +1154,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (exec-path-from-shell-initialize))
 
 (add-to-list 'exec-path "~/.nodenv/shims//npx")
+(add-to-list 'exec-path "~/.nodenv/shims//yarn")
 
 ;; rbenv
 (use-package rbenv
