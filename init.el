@@ -1158,6 +1158,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
    (python-mode . python-ts-mode)
    (ruby-mode . ruby-ts-mode)))
 
+
+
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Ruby development ;;
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -1342,3 +1344,15 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (setq chatgpt-python-interpreter "/usr/bin/python3")
   (setq chatgpt-repo-path "~/.emacs.d/straight/repos/ChatGPT.el/")
   :bind ("C-c q" . chatgpt-query))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(treesit-font-lock-level 4))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
