@@ -1156,9 +1156,10 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
    (json-mode . json-ts-mode)
    (css-mode . css-ts-mode)
    (python-mode . python-ts-mode)
-   (ruby-mode . ruby-ts-mode)))
-
-
+   (ruby-mode . ruby-ts-mode)
+   (json-mode . json-ts-mode)
+   (css-mode . css-ts-mode)
+   (html-mode . html-ts-mode)))
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Ruby development ;;
