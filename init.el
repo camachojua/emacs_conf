@@ -1119,16 +1119,21 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;
 ;; slime ;;
 ;;;;;;;;;;;
+
 (use-package slime
   :straight t
-  :init
-  (setq slime-contribs                 '(slime-fancy)
-	slime-complete-symbol-function 'slime-fuzzy-complete-symbol
-	slime-net-coding-system        'utf-8-unix)
   :config
-  (setq inferior-lisp-program "sbcl"))
-
-(load (expand-file-name "~/.roswell/helper.el"))
+  (load (expand-file-name "~/.roswell/helper.el"))
+  (defun linux-system-ram-size ()
+    (string-to-number (shell-command-to-string
+		       "free --mega | awk 'FNR == 2 {print $2}'")))
+  (setq inferior-lisp-program
+	(concat "ros -Q dynamic-space-size="
+		(number-to-string (linux-system-ram-size))
+		" run"))
+  (setq slime-contribs '(slime-fancy))
+  (add-to-list 'slime-contribs 'slime-cl 'slime-cl-indent)
+  (setq-default indent-tabs-mode nil))
 
 ;;;;;;;;;;;;;;;;;
 ;; Tree Sitter ;;
