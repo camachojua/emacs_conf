@@ -1128,6 +1128,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (setq inferior-lisp-program "sbcl"))
 
+(load (expand-file-name "~/.roswell/helper.el"))
+
 ;;;;;;;;;;;;;;;;;
 ;; Tree Sitter ;;
 ;;;;;;;;;;;;;;;;;
