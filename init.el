@@ -1121,6 +1121,10 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;
 (use-package slime
   :straight t
+  :init
+  (setq slime-contribs                 '(slime-fancy)
+	slime-complete-symbol-function 'slime-fuzzy-complete-symbol
+	slime-net-coding-system        'utf-8-unix)
   :config
   (setq inferior-lisp-program "sbcl"))
 
