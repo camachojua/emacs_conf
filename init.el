@@ -1116,10 +1116,38 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :init
   (marginalia-mode))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; slime for common-lisp ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; To connect emacs with roswell
+(load (expand-file-name "~/.roswell/helper.el"))
+
+;; For connecting slime with current roswell Common Lisp implementation
+(setq inferior-lisp-program "ros -Q run")
+
+;; and for fancier look
+(setq slime-contribs '(slime-fancy))
+(add-to-list 'slime-contribs 'slime-cl-indent)
+(setq-default indent-tabs-mode nil)
+
+(defun linux-system-ram-size ()
+  ;; Gets the ram size in MB
+  (string-to-number (shell-command-to-string "free --mega | awk 'FNR == 2 {print $2}'")))
+
+(setq slime-lisp-implementations
+      `(("sbcl" ("sbcl"
+		 "--dynamic-space-size"
+		 ,(number-to-string (linux-system-ram-size))))
+	("clisp" ("clisp"
+		  "-m"
+		  ,(number-to-string (linux-system-ram-size))
+		  "MB"))
+	("ecl" ("ecl"))
+	("cmucl" ("cmucl"))))
+
 ;;;;;;;;;;;
 ;; slime ;;
 ;;;;;;;;;;;
-
 (use-package slime
   :straight t
   :config
