@@ -1413,7 +1413,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t)
 
 (use-package emacs-ob-racket
-  :straight (emacs-ob-racket
+  :straight (ob-racket
              :type git
              :host github
              :repo "hasu/emacs-ob-racket"))
