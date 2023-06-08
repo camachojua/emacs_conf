@@ -1411,12 +1411,14 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;;
 (use-package racket-mode
   :straight t)
-
-(use-package emacs-ob-racket
+(use-package ob-racket
+  :after org
+  :config
+  (add-hook 'ob-racket-pre-runtime-library-load-hook
+	      #'ob-racket-raco-make-runtime-library)
   :straight (ob-racket
-             :type git
-             :host github
-             :repo "hasu/emacs-ob-racket"))
+	       :type git :host github :repo "hasu/emacs-ob-racket"
+	       :files ("*.el" "*.rkt")))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
