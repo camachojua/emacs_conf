@@ -180,6 +180,8 @@
   (setq highlight-indent-guides-responsive t)
   (setq highlight-indent-guides-method 'character))
 
+(global-prettify-symbols-mode t)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Better window navigation ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
