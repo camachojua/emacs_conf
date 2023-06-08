@@ -1396,6 +1396,14 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (setq chatgpt-python-interpreter "/usr/bin/python3")
   (setq chatgpt-repo-path "~/.emacs.d/straight/repos/ChatGPT.el/")
   :bind ("C-c q" . chatgpt-query))
+
+
+;;;;;;;;;;
+;; SICP ;;
+;;;;;;;;;;
+(use-package sicp
+  :straight t)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
