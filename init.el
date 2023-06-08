@@ -890,6 +890,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
    (python . t)
    (restclient . t)
    (http . t)
+   (racket . t)
+   (ruby . t)
    (sass . t)
    (sql . t)
    (sqlite . t)
@@ -1403,6 +1405,18 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;
 (use-package sicp
   :straight t)
+
+;;;;;;;;;;;;
+;; Racket ;;
+;;;;;;;;;;;;
+(use-package racket-mode
+  :straight t)
+
+(use-package emacs-ob-racket
+  :straight (emacs-ob-racket
+             :type git
+             :host github
+             :repo "hasu/emacs-ob-racket"))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
