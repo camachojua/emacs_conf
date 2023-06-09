@@ -796,6 +796,19 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (after-init . yas-global-mode)
   (prog-mode . yas-minor-mode))
 
+;;;;;;;;;;;;
+;; Racket ;;
+;;;;;;;;;;;;
+(use-package racket-mode
+  :straight t)
+(use-package ob-racket
+  :after org
+  :config
+  (add-hook 'ob-racket-pre-runtime-library-load-hook
+	      #'ob-racket-raco-make-runtime-library)
+  :straight (ob-racket
+	       :type git :host github :repo "hasu/emacs-ob-racket"
+
 ;;;;;;;;;;;;;;
 ;; ORG MODE ;;
 ;;;;;;;;;;;;;;
@@ -1405,20 +1418,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;
 (use-package sicp
   :straight t)
-
-;;;;;;;;;;;;
-;; Racket ;;
-;;;;;;;;;;;;
-(use-package racket-mode
-  :straight t)
-(use-package ob-racket
-  :after org
-  :config
-  (add-hook 'ob-racket-pre-runtime-library-load-hook
-	      #'ob-racket-raco-make-runtime-library)
-  :straight (ob-racket
-	       :type git :host github :repo "hasu/emacs-ob-racket"
-	       :files ("*.el" "*.rkt")))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
