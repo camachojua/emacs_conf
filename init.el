@@ -501,5 +501,19 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :custom
   (flycheck-emacs-lisp-load-path 'inherit))
 
+;;;;;;;;;;;;
+;; Themes ;;
+;;;;;;;;;;;;
+(use-package doom-themes
+  :straight t
+  :custom
+  (doom-themes-enable-italic t)
+  (doom-themes-enable-bold t)
+  :config
+  (doom-themes-visual-bell-config)
+  (doom-themes-treemacs-config)
+  (doom-themes-org-config)
+  (load-theme 'doom-dracula t))
+
 (provide 'init.el)
 ;;; init.el ends here
