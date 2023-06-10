@@ -607,5 +607,21 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 	 "\\.php\\'"
 	 "\\.erb\\'"
 	 "\\.jinja\\'"
-	 "\\.j2\\'"))
+	 "\\.j2\\'")
+  :hook
+  (web-mode-hook . (lambda ()
+		     (setq-local electric-pair-inhibit-predicate
+				 (lambda (c)
+				   (if (char-equal c ?{)
+				       t
+				     (electric-pair-default-inhibit c))))))
+  :config
+  (setq web-mode-code-indent-offset 2
+	web-mode-css-indent-offset 2
+	web-mode-markup-indent-offset 2
+	web-mode-markup-indent-offset 2
+	web-mode-enable-auto-closing t
+	web-mode-enable-current-element-highlighting t
+	web-mode-enable-current-column-highlighting t))
+
 ;;; init.el ends here
