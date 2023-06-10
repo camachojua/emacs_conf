@@ -458,5 +458,12 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :hook
   (after-init . all-the-icons-ivy-setup))
 
+(use-package all-the-icons-dired
+  :straight t
+  :after dired
+  :defer t
+  :hook
+  (dired-mode . all-the-icons-dired-mode))
+
 (provide 'init.el)
 ;;; init.el ends here
