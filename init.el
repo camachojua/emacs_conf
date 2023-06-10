@@ -624,4 +624,15 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 	web-mode-enable-current-element-highlighting t
 	web-mode-enable-current-column-highlighting t))
 
+(use-package ruby-mode
+  :straight t
+  :interpreter "ruby"
+  :config
+  (def my-ruby-mode ()
+       "Stablish encoding."
+       (custom-set-variables
+	'(ruby-insert-encoding-magic-comment nil))
+       (flycheck-mode t))
+  :hook
+  (ruby-mode . my-ruby-mode))
 ;;; init.el ends here
