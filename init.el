@@ -465,5 +465,26 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :hook
   (dired-mode . all-the-icons-dired-mode))
 
+(use-package all-the-icons-dired
+  :straight t
+  :after dired
+  :defer t
+  :hook
+  (dired-mode . all-the-icons-dired-mode))
+
+(use-package ivy-posframe
+  :straight t
+  :defer t
+  :after ivy
+  :config
+  (setq ivy-posframe-display-functions-alist
+	'((t . ivy-posframe-display-at-frame-top-center)))
+  (setq ivy-posframe-parameters
+	'((left-fringe . 20)
+	  (right-fringe . 20)))
+  (setq ivy-posframe-height-alist '((t . 15)))
+  :hook
+  (after-init . ivy-posframe-mode))
+
 (provide 'init.el)
 ;;; init.el ends here
