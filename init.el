@@ -559,4 +559,10 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package clojure-mode
   :straight t
   :mode ("\\.clj\\'"))
+
+(use-package dockerfile-mode
+  :straight t)
+
+(use-package tide
+  :straight t)
 ;;; init.el ends here
