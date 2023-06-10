@@ -685,4 +685,19 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 	projectile-rails-vanilla-command "~/Src/buk-webapp/bin/rails")
   :bind-keymap
   ("C-c r" . projectile-rails-command-map))
+
+(use-package rubocop
+  :straight t
+  :defer t
+  :config
+  (setq rubocop-check-command "~/Src/buk-webapp/bin/rubocop --format emacs"
+	rubocop-format-command "~/Src/buk-webapp/bin/rubocop --format emacs"
+	rubocop-autocorrect-command "~/Src/buk-webapp/bin/rubocop --format emacs -a")
+  :hook
+  (ruby-mode . rubocop-mode))
+
+(use-package inf-ruby
+  :straight t
+  :defer t
+  :after ruby-mode)
 ;;; init.el ends here
