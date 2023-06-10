@@ -801,13 +801,14 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;;
 (use-package racket-mode
   :straight t)
+
 (use-package ob-racket
   :after org
   :config
   (add-hook 'ob-racket-pre-runtime-library-load-hook
 	      #'ob-racket-raco-make-runtime-library)
   :straight (ob-racket
-	       :type git :host github :repo "hasu/emacs-ob-racket"
+	       :type git :host github :repo "hasu/emacs-ob-racket"))
 
 ;;;;;;;;;;;;;;
 ;; ORG MODE ;;
@@ -1411,7 +1412,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (setq chatgpt-python-interpreter "/usr/bin/python3")
   (setq chatgpt-repo-path "~/.emacs.d/straight/repos/ChatGPT.el/")
   :bind ("C-c q" . chatgpt-query))
-
 
 ;;;;;;;;;;
 ;; SICP ;;
