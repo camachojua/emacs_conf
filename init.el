@@ -438,5 +438,11 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :bind
   ("C-c t" . vterm-toggle))
 
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Postframe settings ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package all-the-icons
+  :straight t)
+
 (provide 'init.el)
 ;;; init.el ends here
