@@ -385,5 +385,22 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :hook
   (after-init . global-blamer-mode))
 
+(use-package treemacs
+  :straight t
+  :defer t
+  :hook
+  (treemacs-mode . (lambda () (display-line-numbers-mode -1)))
+  :config
+  (setq treemacs-follow-mode t
+	treemacs-filewatch-mode t
+	treemacs-fringe-indicator-mode t))
+
+(use-package treemacs-projectile
+  :straight t
+  :defer t
+  :bind
+  ("C-x t a" . treemacs-projectile)
+  :after treemacs projectile)
+
 (provide 'init.el)
 ;;; init.el ends here
