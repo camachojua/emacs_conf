@@ -730,4 +730,22 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;;
 (use-package racket-mode
   :straight t)
+
+;;;;;;;;;;;;;;;
+;; PDF-tools ;;
+;;;;;;;;;;;;;;;
+(defun my-nov-font-setup ()
+  "Font for epubs."
+  (face-remap-add-relative 'variable-pitch
+			   :family "Liberation Serif"
+			   :height 1.0))
+
+(use-package nov
+  :straight t
+  :defer t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+  :hook
+  (nov-mode . my-nov-font-setup)
+  (doc-vie-mode . (lambda () (display-line-numbers-mode -1))))
 ;;; init.el ends here
