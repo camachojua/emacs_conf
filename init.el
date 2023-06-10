@@ -579,4 +579,11 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
    (js-mode . tide-hl-identifier-mode)
    (js-mode . eldoc-mode)
    (js-mode . tide-mode)))
+
+(use-package rjsx-mode
+  :straight t
+  :defer t
+  :config
+  (add-to-list 'auto-mode-alist
+	       '("components\\/.*\\.js\\'" . rjsx-mode)))
 ;;; init.el ends here
