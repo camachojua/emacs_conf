@@ -550,4 +550,10 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 	  "localStorage" "DOMPurify"))
   :mode ("\\.js\\'" "\\.mjs\\'"))
 
+(use-package web-beautify
+  :straight t
+  :defer t
+  :bind-keymap
+  ("C-c C-b" . js2-mode-map))
+
 ;;; init.el ends here
