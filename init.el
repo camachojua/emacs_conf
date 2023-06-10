@@ -444,5 +444,19 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package all-the-icons
   :straight t)
 
+(use-package all-the-icons-ivy
+  :straight t
+  :after (all-the-icons ivy)
+  :config
+  (add-to-list 'all-the-icons-ivy-file-commands
+	       '(counsel-find-file
+		 counsel-file-jump
+		 counsel-recentf
+		 counsel-projectile-find-file
+		 counsel-projectile-find-dir))
+  (all-the-icons-ivy-setup)
+  :hook
+  (after-init . all-the-icons-ivy-setup))
+
 (provide 'init.el)
 ;;; init.el ends here
