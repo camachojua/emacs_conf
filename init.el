@@ -806,6 +806,18 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
    (css-mode . css-ts-mode)
    (html-mode . html-ts-mode)))
 
+(use-package tree-sitter
+  :straight t
+  :config
+  (global-tree-sitter-mode)
+  :hook
+  (after-init . tree-sitter-mode))
+
+
+(use-package tree-sitter-langs
+  :straight t
+  :after tree-sitter)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Ruby + Environment variables ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
