@@ -483,8 +483,23 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 	'((left-fringe . 20)
 	  (right-fringe . 20)))
   (setq ivy-posframe-height-alist '((t . 15)))
+  (ivy-posframe-mode +1)
   :hook
   (after-init . ivy-posframe-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;
+;; Flycheck support ;;
+;;;;;;;;;;;;;;;;;;;;;;
+(use-package flycheck
+  :straight t
+  :hook
+  (prog-mode . flycheck-mode)
+  (org-mode . flycheck-mode)
+  :config
+  (setq flycheck-javascript-eslint-executable "/usr/bin/eslint"
+	flycheck-check-syntax-automatically '(save mode-enabled))
+  :custom
+  (flycheck-emacs-lisp-load-path 'inherit))
 
 (provide 'init.el)
 ;;; init.el ends here
