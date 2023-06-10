@@ -369,5 +369,21 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
                                    (when smerge-mode
                                      (unpackaged/smerge-hydra/body)))))
 
+(use-package blamer
+  :straight t
+  :defer t
+  :bind
+  ("s-i" . blamer-show-commit-info)
+  :custom
+  (blamer-idle-time 0.3)
+  (blamer-min-offset 20)
+  :custom-face
+  (blamer-face ((t :foreground "#7a88cf"
+		   :background "#001111"
+		   :height 100
+		   :italic t)))
+  :hook
+  (after-init . global-blamer-mode))
+
 (provide 'init.el)
 ;;; init.el ends here
