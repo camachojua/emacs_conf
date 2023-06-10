@@ -1,7 +1,10 @@
 ;;; package --- Summary
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Straight.el bootstraping ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Commentary:
+;;; This is my personal Emacs configuration
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Straight.el bootsraping ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; code:
 (setq native-comp-async-report-warnings-errors nil)
 (setq straight-repository-branch "develop")
 (defvar bootstrap-version)
@@ -80,19 +83,15 @@
 ;;;;;;;;;;;;;;;;;;
 ;; GPG settings ;;
 ;;;;;;;;;;;;;;;;;;
-
-
 (setq epg-gpg-program "gpg2")
 (setq auth-sources '((:source "~/.authinfo.gpg")))
 (setq epa-pinentry-mode 'loopback)
 (use-package pinentry
-  :defer nil
   :straight t
   :config (pinentry-start))
 
-;; Better close encrypted buffers after one minute of innactivity
 (defun kill-gpg-buffers ()
-  "Kill GPG buffers."
+  "Kill GPG buffers after a period of innactivity."
   (interactive)
   (let ((buffers-killed 0))
     (dolist (buffer (buffer-list))
@@ -106,7 +105,7 @@
     (unless (zerop buffers-killed)
       ;; Kill gpg-agent.
       (shell-command "gpgconf --kill gpg-agent")
-      (message "%s .gpg buffers have been autosaved and killed" buffers-killed))))
+      (message "%s .gpg buffers have been autosaved and killed." buffers-killed))))
 
 (run-with-idle-timer 60 t 'kill-gpg-buffers)
 
@@ -117,8 +116,8 @@
   :straight t
   :defer t
   :config
-  (setq whitespace-line-column 88)
-  (setq whitespace-style '(face-lines-tail))
+  (setq whitespace-line-column 80
+	whitespace-style '(face-lines-tail))
   :hook
   (org-mode . whitespace-mode)
   (prog-mode . whitespace-mode)
@@ -128,7 +127,8 @@
 (setq electric-pair-pairs
       '((?\" . ?\")
 	(?\{ . ?\})
-	(?\[ . ?\])))
+	(?\[ . ?\])
+	(?\( . ?\))))
 
 (global-so-long-mode 1)
 
@@ -137,22 +137,21 @@
 
 (use-package rainbow-mode
   :straight t
-  :after prog-mode
   :defer t
   :hook
   (prog-mode . rainbow-mode)
   (org-mode . rainbow-mode)
+  (elisp-mode . yafolding-mode)
   (yaml-mode . rainbow-mode)
   (json-mode . rainbow-mode))
 
 (use-package rainbow-delimiters
   :straight t
   :defer t
-  :after prog-mode
   :hook
   (prog-mode . rainbow-delimiters-mode)
-  (elisp-mode . rainbow-delimiters-mode)
   (org-mode . rainbow-delimiters-mode)
+  (elisp-mode . rainbow-delimiters-mode)
   (yaml-mode . rainbow-delimiters-mode)
   (json-mode . rainbow-delimiters-mode))
 
@@ -161,8 +160,9 @@
   :defer t
   :hook
   (prog-mode . yafolding-mode)
-  (elisp-mode . yafolding-mode)
-  (js-mode . yafolding-mode))
+  (yaml-mode . yafolding-mode)
+  (json-mode . yafolding-mode)
+  (elisp-mode . yafolding-mode))
 
 (use-package highlight-indent-guides
   :straight t
@@ -174,15 +174,16 @@
   (prog-mode . highlight-indent-guides-mode)
   (org-mode . highlight-indent-guides-mode)
   (yaml-mode . highlight-indent-guides-mode)
+  (elisp-mode . highlight-indent-guides-mode)
   (json-mode . highlight-indent-guides-mode)
   :custom
-  (setq highlight-indent-guides-auto-enabled t)
-  (setq highlight-indent-guides-responsive t)
-  (setq highlight-indent-guides-method 'character))
+  (setq highlight-indent-guides-auto-enabled t
+	highlight-indent-guides-responsive t
+	highlight-indent-guides-method 'character))
 
 (global-prettify-symbols-mode t)
-(defun simbolos-bonitos ()
-  "Make some word display as Unicode symbols"
+(defun my-pretty-symbols ()
+  "Make some words display as Unicode symbols."
   (setq prettify-symbols-alist
         '(
           ("lambda" . 955) ; λ
@@ -192,9 +193,9 @@
           )
         ))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Better window navigation ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Buffer's windows navigations ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package winum
   :straight t
   :config
@@ -216,15 +217,15 @@
   :custom
   (ivy-use-virtual-buffers t)
   (ivy-count-format "(%d/%d)")
-  :config
-  (ivy-mode +1))
+  :hook
+  (after-init . ivy-mode))
 
 (use-package counsel
   :straight t
   :after ivy
   :defer t
-  :config
-  (counsel-mode t))
+  :hook
+  (after-init. counsel-mode))
 
 (use-package swiper
   :straight t
@@ -237,27 +238,22 @@
 (use-package company
   :straight t
   :init
-  (setq company-tooltip-minimum-width 15
+  (setq company-tooltip-minimum-weight 15
 	company-idle-delay 0.1)
   :custom
   (company-tooltip-align-annotation t)
   :config
-  (setq company-idle-delay t)
-  (setq company-dabbrev-downcase nil)
-
-  (use-package company-go
-    :straight t
-    :after company
-    :defer t
-    :config
-    (add-to-list 'company-backends 'company-go))
-
+  (setq company-idle-delay t
+	company-dabbrev-downcase nil)
   :hook
-  (after-init . global-company-mode)
-  (prog-mode . company-mode)
-  (LaTeX-mode . company-mode)
-  (org-mode . company-mode)
-  (terraform-mode . company-mode))
+  (after-init . global-company-mode))
+
+(use-package company-go
+  :straight t
+  :after company
+  :defer t
+  :config
+  (add-to-list 'company-backends 'company-go))
 
 (use-package projectile
   :straight t
@@ -265,21 +261,15 @@
   :defer t
   :init
   (setq projectile-completion-system 'ivy)
-  :bind
-  ("C-c p" . 'projectile-command-map))
-(projectile-mode +1)
-
-(use-package counsel-projectile
-  :straight t
-  :after ivy
-  :defer t)
-
-
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
+  :hook
+  (after-init . projectile-mode))
 
 (use-package diff-hl
   :straight t
-  :init
-  (global-diff-hl-mode t))
+  :hook
+  (after-init . global-diff-hl-mode))
 
 (use-package hydra
   :straight t)
@@ -288,9 +278,9 @@
   :straight t
   :defer t
   :config
-  (setq ghub-use-workaround-for-emacs-bug t)
-  (setq ghub-use-workaround-for-emacs-bug-54989 t)
-  (setq magit-completing-read-function 'ivy-completing-read)
+  (setq ghub-use-workaround-for-emacs-bug t
+	ghub-use-workaround-for-emacs-bug-54989 t
+	magit-completing-read-function 'ivy-completing-read)
   :bind
   ("C-x g" . 'magit-status)
   ("C-x M-g" . 'magit-dispatch)
@@ -325,24 +315,17 @@
        :host host
        :user user))))
 
-(use-package magit-gitflow
-  :straight t
-  :defer t
-  :config
-  (setq magit-gitflow-popup "C-F")
-  :hook
-  (magit-mode-hook . 'turn-on-magit-gitflow)
-  :commands (magit-gitlfow))
-
 (use-package code-review
   :straight t
   :defer t
+  :bind
+  (:map forge-topic-mode-map
+	("C-c C-r" . 'code-review-forge-pr-at-point))
   :config
-  (define-key forge-topic-mode-map (kbd "C-c C-r") 'code-review-forge-pr-at-point)
-  (setq code-review-fill-column 80)
-  (setq code-review-auth-login-marker 'forge)
+  (setq code-review-fill-column 80
+	code-review-auth-login-marker 'forge)
   :hook
-  (code-review-mode-hook . 'emojify-mode))
+  (code-review-hook . 'emojify-mode))
 
 (require 'hydra)
 
@@ -389,30 +372,28 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package blamer
   :straight t
   :defer t
-  :bind (("s-i" . blamer-show-commit-info))
+  :bind
+  ("s-i" . blamer-show-commit-info)
   :custom
   (blamer-idle-time 0.3)
-  (blamen-min-offset 20)
+  (blamer-min-offset 20)
   :custom-face
   (blamer-face ((t :foreground "#7a88cf"
 		   :background "#001111"
 		   :height 100
 		   :italic t)))
-  :config
-  (global-blamer-mode 1))
-
-;; (use-package code-review
-;;   :straight t)
+  :hook
+  (after-init . global-blamer-mode))
 
 (use-package treemacs
   :straight t
   :defer t
   :hook
-  (treemacs-mode . (lambda() (display-line-numbers-mode -1)))
+  (treemacs-mode . (lambda () (display-line-numbers-mode -1)))
   :config
-  (setq treemacs-follow-mode t)
-  (setq treemacs-filewatch-mode t)
-  (setq treemacs-fringe-indicator-mode t))
+  (setq treemacs-follow-mode t
+	treemacs-filewatch-mode t
+	treemacs-fringe-indicator-mode t))
 
 (use-package treemacs-projectile
   :straight t
@@ -427,11 +408,11 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :init
   (setq garbage-collection-messages t)
   :hook
-  (comint-mode . (lambda() (display-line-numbers-mode -1)))
+  (comint-mode . (lambda () (display-line-numbers-mode -1)))
   :config
   (dz-defservice buk-backend "./bin/rails"
-               :args ("s")
-               :cd "~/Src/buk-webapp")
+		 :args ("s")
+		 :cd "~/Src/buk-webapp")
   (dz-defservice buk-frontend "./bin/webpack-dev-server"
 		 :cd "~/Src/buk-webapp")
   (dz-defservice-group buk (buk-backend buk-frontend)))
@@ -443,19 +424,19 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :defer t
   :config
-  (setq vterm-kill-buffer-on-exit t)
-  (setq vterm-always-compile-module t)
+  (setq vterm-kill-buffer-on-exit t
+	vterm-always-compile-module t)
   :hook
-  (vterm-mode . (lambda() (display-line-numbers-mode -1))))
+  (vterm-mode . (lambda () (display-line-numbers-mode -1))))
+
+(use-package multi-vterm
+  :straight t
+  :defer)
 
 (use-package vterm-toggle
   :straight t
   :bind
   ("C-c t" . vterm-toggle))
-
-(use-package multi-vterm
-  :straight t
-  :defer t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Postframe settings ;;
@@ -466,8 +447,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package all-the-icons-ivy
   :straight t
   :after (all-the-icons ivy)
-  :custom
-  (all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window))
   :config
   (add-to-list 'all-the-icons-ivy-file-commands
 	       '(counsel-find-file
@@ -478,6 +457,13 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (all-the-icons-ivy-setup)
   :hook
   (after-init . all-the-icons-ivy-setup))
+
+(use-package all-the-icons-dired
+  :straight t
+  :after dired
+  :defer t
+  :hook
+  (dired-mode . all-the-icons-dired-mode))
 
 (use-package all-the-icons-dired
   :straight t
@@ -499,58 +485,32 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (setq ivy-posframe-height-alist '((t . 15)))
   (ivy-posframe-mode +1)
   :hook
-  (after-init . ivy-posframe-mode))
+  (after-init . ivy-posframe-mode)
+  (prog-mode . ivy-posframe-mode))
+
+(use-package counsel-projectile
+  :straight t
+  :after projectile
+  :config
+  (counsel-projectile-mode 1))
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Flycheck support ;;
 ;;;;;;;;;;;;;;;;;;;;;;
 (use-package flycheck
   :straight t
-  :defer t
   :hook
   (prog-mode . flycheck-mode)
   (org-mode . flycheck-mode)
-  (json-mode . flycheck-mode)
-  (yaml-mode . flycheck-mode)
   :config
-  (setq flycheck-javascript-eslint-executable "/usr/bin/eslint")
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (setq flycheck-javascript-eslint-executable "/usr/bin/eslint"
+	flycheck-check-syntax-automatically '(save mode-enabled))
   :custom
   (flycheck-emacs-lisp-load-path 'inherit))
 
-;;;;;;;;;;;;;;;
-;; Dashboard ;;
-;;;;;;;;;;;;;;;
-(use-package doom-modeline
-  :straight t
-  :custom
-  (doom-modeline-buffer-file-name 'truncate-with-project)
-  :init
-  (setq vc-handled-backends nil)
-  (setq doom-modeline-height 25)
-  (setq doom-modeline-bar-width 3)
-  (setq doom-modeline-project-detection 'project)
-  (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
-  (setq doom-modeline-icon t)
-  (setq doom-modeline-major-mode-icon t)
-  (setq doom-modeline-buffer-state-icon t)
-  (setq doom-modeline-buffer-modification-icon t)
-  (setq doom-modeline-minor-modes nil)
-  (setq doom-modeline-enable-word-count nil)
-  (setq doom-modeline-checker-simple-format t)
-  (setq doom-modeline-vcs-max-length 12)
-  (setq doom-modeline-persp-name t)
-  (setq doom-modeline-env-version t)
-  (setq doom-modeline-env-load-string "...")
-  :config
-  (doom-themes-org-config)
-  (setq doom-modeline-major-mode-icon t)
-  :hook
-  (after-init . doom-modeline-mode))
-
-;;;;;;;;;;;
-;; Theme ;;
-;;;;;;;;;;;
+;;;;;;;;;;;;
+;; Themes ;;
+;;;;;;;;;;;;
 (use-package doom-themes
   :straight t
   :custom
@@ -562,23 +522,27 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (doom-themes-org-config)
   (load-theme 'doom-dracula t))
 
+(provide 'init.el)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Programming utilities ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package cl-lib :straight t)
+(use-package cl-lib
+  :straight t)
 
 (use-package which-key
   :straight t
-  :config
-  (which-key-mode))
+  :hook
+  (after-init . which-key-mode))
 
 (use-package js2-mode
   :straight t
-  :interpreter (("node" . js2-mode))
-  :mode "\\.\\(js\\|json\\)$"
+  :defer t
+  :interpreter
+  (("node" . js2-mode))
   :config
   (setq js2-basic-offset 2
-	js2-highlight-level 3)
+	js2-highlight-level 4)
   (setq js2-global-externs
 	'("module" "require" "buster" "sinon" "assert" "refute" "setTimeout"
 	  "clearTimeout" "setInterval" "clearInterval" "location" "__dirname"
@@ -589,15 +553,15 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package web-beautify
   :straight t
   :defer t
-  :config
-  (bind-key "C-c C-b" 'web-beautify-js js2-mode-map))
-
-(use-package dockerfile-mode
-  :straight t)
+  :bind-keymap
+  ("C-c C-b" . js2-mode-map))
 
 (use-package clojure-mode
   :straight t
   :mode ("\\.clj\\'"))
+
+(use-package dockerfile-mode
+  :straight t)
 
 (use-package tide
   :straight t
@@ -607,113 +571,78 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
    ("C-c f" . 'tide-refactor)
    ("C-c h" . 'tide-documentation-at-point))
   :hook
-  (
-   (typescript-mode . tide-setup)
-   (typescript-mode . tide-mode)
-   (typescript-mode . tide-hl-identifier-mode)
-   (typescript-mode . eldoc-mode)
+  ((typescript-ts-mode . tide-setup)
+   (typescript-ts-mode . tide-mode)
+   (typescript-ts-mode . tide-hl-identifier-mode)
+   (typescript-ts-mode . eldoc-mode)
    (js-mode . tide-setup)
    (js-mode . tide-hl-identifier-mode)
    (js-mode . eldoc-mode)
    (js-mode . tide-mode)))
 
-(use-package typescript-mode
-  :straight t
-  :mode ("\\.ts\\'" "\\.js'\\'")
-  :config
-  (setq typescrypt-indent-level 2))
-
-
 (use-package rjsx-mode
   :straight t
   :defer t
   :config
-  (add-to-list 'auto-mode-alist '("components\\/.*\\.js\\'" . rjsx-mode)))
+  (add-to-list 'auto-mode-alist
+	       '("components\\/.*\\.js\\'" . rjsx-mode)))
 
 (use-package gcmh
-  :straight (gcmh :host github :repo "emacsmirror/gcmh")
+  :straight (gcmh
+	     :host github
+	     :repo "emacsmirror/gcmh")
   :config
   (setq garbage-collection-messages t)
   (gcmh-mode 1))
-
-(use-package apheleia
-  :straight t
-  :config
-  (setf (alist-get 'prettier apheleia-formatters)
-	'(npx "prettier"
-	      "--trailing-coma"
-	      "--tab-width" "2"
-	      "--use-tabs" "false"
-	      "--bracket-spacing" "true"
-	      "--single-quote" "true"
-	      "--semi" "true"
-	      "--jsx-single-quote" "true"
-	      "--arrow-parens" "always"
-	      file))
-  (add-to-list 'apheleia-mode-alist '(rjsx-mode . prettier))
-  (add-to-list 'apheleia-mode-alist '(js-mode . prettier))
-  :hook
-  (js-mode . apheleia-mode))
-
-(use-package json-mode
-  :straight t
-  :defer t)
-
-(use-package yaml-mode
-  :straight t
-  :defer t)
-
-(use-package haml-mode
-  :straight t
-  :defer t)
 
 (use-package slim-mode
   :straight t
   :defer t)
 
-
 (use-package web-mode
   :straight t
   :defer t
   :mode ("\\.html\\'"
-         "\\.html\\.erb\\'"
-         "\\.php\\'"
+	 "\\.html\\.erb\\'"
+	 "\\.php\\'"
 	 "\\.erb\\'"
-         "\\.jinja\\'"
-         "\\.j2\\'")
-  :init
-  ;; fix paren matching web-mode conflict for jinja-like templates
-  (add-hook
-   'web-mode-hook
-   (lambda ()
-     (setq-local electric-pair-inhibit-predicate
-                 (lambda (c)
-                   (if (char-equal c ?{) t (electric-pair-default-inhibit c))))))
+	 "\\.jinja\\'"
+	 "\\.j2\\'")
+  :hook
+  (web-mode . (lambda ()
+		(setq-local electric-pair-inhibit-predicate
+			    (lambda (c)
+			      (if (char-equal c ?{)
+				  t
+				(electric-pair-default-inhibit c))))))
   :config
   (setq web-mode-code-indent-offset 2
-        web-mode-css-indent-offset 2
+	web-mode-css-indent-offset 2
 	web-mode-markup-indent-offset 2
-        web-mode-markup-indent-offset 2
+	web-mode-markup-indent-offset 2
 	web-mode-enable-auto-closing t
 	web-mode-enable-current-element-highlighting t
- 	web-mode-enamle-current-column-highlighting t))
+	web-mode-enable-current-column-highlighting t))
 
 (use-package ruby-mode
   :straight t
   :interpreter "ruby"
   :config
   (defun my-ruby-mode ()
-    (custom-set-variables
-     '(ruby-insert-encoding-magic-comment nil))
-    (flycheck-mode t))
-  (add-hook 'ruby-mode-hook 'my-ruby-mode))
+       "Stablish encoding."
+       (custom-set-variables
+	'(ruby-insert-encoding-magic-comment nil))
+       (flycheck-mode t))
+  :hook
+  (ruby-ts-mode . ruby-mode)
+  (ruby-ts-mode . my-ruby-mode))
 
 (use-package ruby-end
   :straight t
   :config
   (setq ruby-end-mode t)
   :hook
-  (ruby-mode-hook . ruby-end-mode))
+  (ruby-ts-mode . ruby-end-mode))
 
 (use-package robe
   :straight t
@@ -721,7 +650,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (robe-start)
   :hook
-  (ruby-mode . robe-mode))
+  (ruby-ts-mode . robe-mode))
 
 (eval-after-load 'company
   '(push 'company-robe company-backends))
@@ -754,16 +683,16 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (setq projectile-rails-spring-command "~/Src/buk-webapp/bin/spring"
 	projectile-rails-vanilla-command "~/Src/buk-webapp/bin/rails")
-  (define-key projectile-rails-mode-map (kbd "C-c r") 'projectile-rails-command-map))
+  :bind-keymap
+  ("C-c r" . projectile-rails-command-map))
 
 (use-package rubocop
   :straight t
   :defer t
   :config
-  (setq rubocop-check-command "~/Src/buk-webapp/bin/rubocop --format emacs")
-  (setq rubocop-format-command "~/Src/buk-webapp/bin/rubocop --format emacs")
-  (setq rubocop-autocorrect-command "~/Src/Buk/buk-webapp/bin/rubocop --format emacs -a")
-  ;; (setq rubocop-autocorrect-on-save t)
+  (setq rubocop-check-command "~/Src/buk-webapp/bin/rubocop --format emacs"
+	rubocop-format-command "~/Src/buk-webapp/bin/rubocop --format emacs"
+	rubocop-autocorrect-command "~/Src/buk-webapp/bin/rubocop --format emacs -a")
   :hook
   (ruby-mode . rubocop-mode))
 
@@ -776,8 +705,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :defer t
   :config
-  (setq minitest-use-rails t)
-  (setq compilation-scroll-output t)
+  (setq minitest-use-rails t
+	compilation-scroll-output t)
   :hook
   (ruby-mode . minitest-mode))
 
@@ -790,8 +719,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :after ivy
   :defer t
   :config
-  (setq yas-indent-line 'auto)
-  (setq yas-also-auto-indent-first-line t)
+  (setq yas-indent-line 'auto
+	yas-also-auto-indent-first-line t)
   :hook
   (after-init . yas-global-mode)
   (prog-mode . yas-minor-mode))
@@ -802,13 +731,147 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package racket-mode
   :straight t)
 
-(use-package ob-racket
-  :after org
+;;;;;;;;;;;;;;;
+;; PDF-tools ;;
+;;;;;;;;;;;;;;;
+(defun my-nov-font-setup ()
+  "Font for epubs."
+  (face-remap-add-relative 'variable-pitch
+			   :family "Liberation Serif"
+			   :height 1.0))
+
+(use-package nov
+  :straight t
+  :defer t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+  :hook
+  (nov-mode . my-nov-font-setup)
+  (doc-vie-mode . (lambda () (display-line-numbers-mode -1))))
+
+(use-package pdf-tools
+  :straight t
+  :defer t
+  :hook
+  (pdf-view-mode . (lambda () (display-line-numbers-mode -1)))
   :config
-  (add-hook 'ob-racket-pre-runtime-library-load-hook
-	      #'ob-racket-raco-make-runtime-library)
-  :straight (ob-racket
-	       :type git :host github :repo "hasu/emacs-ob-racket"))
+  (pdf-loader-install)
+  (setq-default pdf-vie-display-size 'fit-page)
+  (setq pdf-annot-activate-created-annotations t)
+  (line-number-mode -1))
+
+(use-package pdf-view-restore
+  :straight t
+  :defer t
+  :after pdf-tools
+  :hook
+  (pdf-view-mode . pdf-view-restore-mode)
+  :config
+  (setq pdf-view-restore-filename "~/.emacs.d/.pdf-view-restore"))
+
+;;;;;;;;;;;;;;;;;
+;; Tree Sitter ;;
+;;;;;;;;;;;;;;;;;
+(setq treesit-language-source-alist
+   '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+     (cmake "https://github.com/uyha/tree-sitter-cmake")
+     (css "https://github.com/tree-sitter/tree-sitter-css")
+     (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+     (go "https://github.com/tree-sitter/tree-sitter-go")
+     (html "https://github.com/tree-sitter/tree-sitter-html")
+     ;; (haskell "https://github.com/tree-sitter/haskell-tree-sitter" "master" "tree-sitter-haskell")
+     (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+     (json "https://github.com/tree-sitter/tree-sitter-json")
+     (make "https://github.com/alemuller/tree-sitter-make")
+     (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+     (python "https://github.com/tree-sitter/tree-sitter-python")
+     (toml "https://github.com/tree-sitter/tree-sitter-toml")
+     (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+     (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+     (ruby "https://github.com/tree-sitter/tree-sitter-ruby")
+     (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+
+(mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))
+
+(setq major-mode-remap-alist
+ '((yaml-mode . yaml-ts-mode)
+   (bash-mode . bash-ts-mode)
+   (js2-mode . js-ts-mode)
+   (typescript-mode . typescript-ts-mode)
+   (json-mode . json-ts-mode)
+   (css-mode . css-ts-mode)
+   (python-mode . python-ts-mode)
+   (ruby-mode . ruby-ts-mode)
+   (json-mode . json-ts-mode)
+   (css-mode . css-ts-mode)
+   (html-mode . html-ts-mode)))
+
+(use-package tree-sitter
+  :straight t
+  :config
+  (global-tree-sitter-mode))
+
+(use-package tree-sitter-langs
+  :straight t
+  :after tree-sitter)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Ruby + Environment variables ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package exec-path-from-shell
+  :straight t
+  :init
+  (exec-path-from-shell-initialize))
+
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
+(when (daemonp)
+  (exec-path-from-shell-initialize))
+
+(add-to-list 'exec-path "~/.nodenv/shims//npx")
+(add-to-list 'exec-path "~/.nodenv/shims//yarn")
+
+(use-package rbenv
+  :straight t
+  :init
+  (global-rbenv-mode))
+
+(use-package direnv
+  :straight t
+  :config
+  (direnv-mode 1)
+  :hook
+  (after-init . direnv-mode))
+
+;;;;;;;;;;
+;; SICP ;;
+;;;;;;;;;;
+(use-package sicp
+  :straight t)
+
+;;;;;;;;;
+;; EAF ;;
+;;;;;;;;;
+(use-package eaf
+  :straight (eaf
+	     :type git
+	     :host github
+	     :repo "emacs-eaf/emacs-application-framework"
+             :files ("*.el" "*.py" "core" "app" "*.json")
+	     :includes (eaf-browser)
+             :pre-build (("python3" "install-eaf.py" "--install" "browser" "--ignore-sys-deps")))
+  :config
+  (defalias 'browse-web #'eaf-open-browser)) ;; unbind, see more in the Wiki
+
+(use-package eaf-browser
+  :custom
+  (eaf-browser-continue-where-left-off t)
+  (eaf-browser-enable-adblocker t)
+  (browse-url-browser-function 'eaf-open-browser))
+
+(custom-set-variables '(treesit-font-lock-level 4))
+(custom-set-faces)
 
 ;;;;;;;;;;;;;;
 ;; ORG MODE ;;
@@ -947,487 +1010,4 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (setq olivetti-body-width 80)
   :hook
   (text-mode . olivetti-mode))
-
-;;;;;;;;;;;;;;;;;;;;;
-;; Gopher explorer ;;
-;;;;;;;;;;;;;;;;;;;;;
-(use-package elpher
-  :straight t)
-(put 'set-goal-column 'disabled nil)
-
-;; Diff two regions
-;; Step 1: Select a region and `M-x diff-region-tag-selected-as-a'
-;; Step 2: Select another region and `M-x diff-region-compare-with-b'
-;; Press "q" in evil-mode or "C-c C-c" to exit the diff output buffer
-(defun diff-region-format-region-boundary (b e)
-  "Make sure lines are selected and B is less than E"
-  (let (tmp rlt)
-    ;; swap b e, make sure b < e
-    (when (> b e)
-      (setq tmp b)
-      (setq b e)
-      (set e tmp))
-
-    ;; select lines
-    (save-excursion
-      ;; Another workaround for evil-visual-line bug:
-      ;; In evil-mode, if we use hotkey V or `M-x evil-visual-line` to select line,
-      ;; the (line-beginning-position) of the line which is after the last selected
-      ;; line is always (region-end)! Don't know why.
-      (if (and (> e b)
-               (save-excursion (goto-char e) (= e (line-beginning-position)))
-               (boundp 'evil-state) (eq evil-state 'visual))
-          (setq e (1- e)))
-      (goto-char b)
-      (setq b (line-beginning-position))
-      (goto-char e)
-      (setq e (line-end-position)))
-    (setq rlt (list b e))
-    rlt))
-
-(defun diff-region-exit ()
-  (interactive)
-  (bury-buffer "*Diff-region-output*")
-  (winner-undo))
-
-(defun diff-region-tag-selected-as-a ()
-  "Select a region to compare"
-  (interactive)
-  (when (region-active-p)
-    (let (tmp buf)
-      ;; select lines
-      (setq tmp (diff-region-format-region-boundary (region-beginning) (region-end)))
-      (setq buf (get-buffer-create "*Diff-regionA*"))
-      (save-current-buffer
-        (set-buffer buf)
-        (erase-buffer))
-      (append-to-buffer buf (car tmp) (cadr tmp))))
-  (message "Now select other region to compare and run `diff-region-compare-with-b`"))
-
-(defun diff-region-compare-with-b ()
-  "Compare current region with region selected by `diff-region-tag-selected-as-a' "
-  (interactive)
-  (if (region-active-p)
-      (let (rlt-buf
-            diff-output
-            (fa (make-temp-file (expand-file-name "scor"
-                                                  (or small-temporary-file-directory
-                                                      temporary-file-directory))))
-            (fb (make-temp-file (expand-file-name "scor"
-                                                  (or small-temporary-file-directory
-                                                      temporary-file-directory)))))
-        ;;  save current content as file B
-        (when fb
-          (setq tmp (diff-region-format-region-boundary (region-beginning) (region-end)))
-          (write-region (car tmp) (cadr tmp) fb))
-
-        (setq rlt-buf (get-buffer-create "*Diff-region-output*"))
-        (when (and fa (file-exists-p fa) fb (file-exists-p fb))
-          ;; save region A as file A
-          (save-current-buffer
-            (set-buffer (get-buffer-create "*Diff-regionA*"))
-            (write-region (point-min) (point-max) fa))
-          ;; diff NOW!
-          (setq diff-output (shell-command-to-string (format "diff -Nabur %s %s" fa fb)))
-          ;; show the diff output
-          (if (string= diff-output "")
-              ;; two regions are same
-              (message "Two regions are SAME!")
-            ;; show the diff
-            (save-current-buffer
-              (switch-to-buffer-other-window rlt-buf)
-              (set-buffer rlt-buf)
-              (erase-buffer)
-              (insert diff-output)
-              (diff-mode)
-              (if (fboundp 'evil-local-set-key)
-                           (evil-local-set-key 'normal "q" 'diff-region-exit))
-              (local-set-key (kbd "C-c C-c") 'diff-region-exit)
-              )))
-
-        ;; clean the temporary files
-        (if (and fa (file-exists-p fa))
-            (delete-file fa))
-        (if (and fb (file-exists-p fb))
-            (delete-file fb)))
-    (message "Please select region at first!")))
-
-(add-hook 'sql-interactive-mode-hook
-          (lambda ()
-            (toggle-truncate-lines t)))
-
-;; Make garbage collector pauses faster
-(setq gc-const-threshold (* 2 1000 1000))
-
-;;;;;;;;;;;;;;;
-;; PDF-tools ;;
-;;;;;;;;;;;;;;;
-(defun my-nov-font-setup ()
-  "Font for epubs."
-  (face-remap-add-relative 'variable-pitch
-			   :family "Liberation Serif"
-			   :height 1.0))
-
-(use-package nov
-  :straight t
-  :defer t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
-  :hook
-  (nov-mode . my-nov-font-setup)
-  (doc-view-mode . (lambda () (display-line-numbers-mode -1))))
-
-(use-package pdf-tools
-  :straight t
-  :defer
-  :config
-  (add-hook 'pdf-view-mode-hook (lambda() (display-line-numbers-mode -1)))
-  (pdf-loader-install)
-  (setq-default pdf-view-display-size 'fit-page)
-  (setq pdf-annot-activate-created-annotations t)
-  (line-number-mode -1))
-
-;; We need to save the last viewed page in a pdf file
-(use-package pdf-view-restore
-  :straight t
-  :after pdf-tools
-  :hook
-  (pdf-view-mode . pdf-view-restore-mode)
-  :config
-  (setq pdf-view-restore-filename "~/.emacs.d/.pdf-view-restore"))
-
-
-;;;;;;;;;;;;;;;;;;;;;
-;; AUCTeX Settings ;;
-;;;;;;;;;;;;;;;;;;;;;
-(use-package tex
-  :straight auctex
-  :defer t
-  :config
-  (setq-default TeX-master nil)
-  (setq TeX-auto-save t
-	TeX-parse-self t
-	Tex-PDF-mode t
-	reftex-plug-into-AUCTEX t
-	TeX-source-correlate-method 'synctex
-	TeX-source-correlate-start-server t
-	preview-gs-command "PDF Tools")
-  :hook
-  (doc-view-mode . auto-revert-mode)
-  (LaTeX-mode . visual-line-mode)
-  (LaTeX-mode . flyspell-mode)
-  (LaTeX-mode . LaTeX-math-mode)
-  (LaTeX-mode . turn-on-reftex)
-  (TeX-after-compilation-finished-functions .TeX-revert-document-buffer)
-  :config
-  (TeX-source-correlate-mode t)
-  (add-to-list 'TeX-view-program-selection
-               '(output-pdf "PDF Tools"))
-  (add-to-list 'TeX-command-list
-               '("Index" "makeindex %s.nlo -s nomencl.ist -o %s.nls"
-                 TeX-run-index nil t
-                 :help "Run makeindex to create index file")))
-
-(use-package company-auctex
-  :straight t
-  :defer t)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Anotaciones la margen ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package marginalia
-  :straight t
-  :bind
-  (("M-A" . marginalia-cycle)
-   :map minibuffer-local-map
-   ("M-A" . marginalia-cycle))
-  :init
-  (marginalia-mode))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; slime for common-lisp ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; To connect emacs with roswell
-(load (expand-file-name "~/.roswell/helper.el"))
-
-;; For connecting slime with current roswell Common Lisp implementation
-(setq inferior-lisp-program "ros -Q run")
-
-;; and for fancier look
-(setq slime-contribs '(slime-fancy))
-(add-to-list 'slime-contribs 'slime-cl-indent)
-(setq-default indent-tabs-mode nil)
-
-(defun linux-system-ram-size ()
-  ;; Gets the ram size in MB
-  (string-to-number (shell-command-to-string "free --mega | awk 'FNR == 2 {print $2}'")))
-
-(setq slime-lisp-implementations
-      `(("sbcl" ("sbcl"
-		 "--dynamic-space-size"
-		 ,(number-to-string (linux-system-ram-size))))
-	("clisp" ("clisp"
-		  "-m"
-		  ,(number-to-string (linux-system-ram-size))
-		  "MB"))
-	("ecl" ("ecl"))
-	("cmucl" ("cmucl"))))
-
-;;;;;;;;;;;
-;; slime ;;
-;;;;;;;;;;;
-(use-package slime
-  :straight t
-  :config
-  (load (expand-file-name "~/.roswell/helper.el"))
-  (defun linux-system-ram-size ()
-    (string-to-number (shell-command-to-string
-		       "free --mega | awk 'FNR == 2 {print $2}'")))
-  (setq inferior-lisp-program
-	(concat "ros -Q dynamic-space-size="
-		(number-to-string (linux-system-ram-size))
-		" run"))
-  (setq slime-contribs '(slime-fancy))
-  (add-to-list 'slime-contribs 'slime-cl 'slime-cl-indent)
-  (setq-default indent-tabs-mode nil))
-
-;;;;;;;;;;;;;;;;;
-;; Tree Sitter ;;
-;;;;;;;;;;;;;;;;;
-(setq treesit-language-source-alist
-   '((bash "https://github.com/tree-sitter/tree-sitter-bash")
-     (cmake "https://github.com/uyha/tree-sitter-cmake")
-     (css "https://github.com/tree-sitter/tree-sitter-css")
-     (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-     (go "https://github.com/tree-sitter/tree-sitter-go")
-     (html "https://github.com/tree-sitter/tree-sitter-html")
-     ;; (haskell "https://github.com/tree-sitter/haskell-tree-sitter" "master" "tree-sitter-haskell")
-     (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-     (json "https://github.com/tree-sitter/tree-sitter-json")
-     (make "https://github.com/alemuller/tree-sitter-make")
-     (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-     (python "https://github.com/tree-sitter/tree-sitter-python")
-     (toml "https://github.com/tree-sitter/tree-sitter-toml")
-     (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-     (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-     (ruby "https://github.com/tree-sitter/tree-sitter-ruby")
-     (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
-
-(mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))
-
-(setq major-mode-remap-alist
- '((yaml-mode . yaml-ts-mode)
-   (bash-mode . bash-ts-mode)
-   (js2-mode . js-ts-mode)
-   (typescript-mode . typescript-ts-mode)
-   (json-mode . json-ts-mode)
-   (css-mode . css-ts-mode)
-   (python-mode . python-ts-mode)
-   (ruby-mode . ruby-ts-mode)
-   (json-mode . json-ts-mode)
-   (css-mode . css-ts-mode)
-   (html-mode . html-ts-mode)))
-
-;;;;;;;;;;;;;;;;;;;;;;
-;; Ruby development ;;
-;;;;;;;;;;;;;;;;;;;;;;
-(use-package exec-path-from-shell
-  :straight t
-  :init
-  (exec-path-from-shell-initialize))
-
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
-
-(when (daemonp)
-  (exec-path-from-shell-initialize))
-
-(add-to-list 'exec-path "~/.nodenv/shims//npx")
-(add-to-list 'exec-path "~/.nodenv/shims//yarn")
-
-;; rbenv
-(use-package rbenv
-  :straight t
-  :init
-  (global-rbenv-mode))
-
-;;;;;;;;;;;;;;;;;;
-;; Music player ;;
-;;;;;;;;;;;;;;;;;;
-(use-package simple-mpc
-  :straight t)
-
-;;;;;;;;;;;;;;;;;
-;; Environment ;;
-;;;;;;;;;;;;;;;;;
-(use-package direnv
-  :straight t
-  :config
-  (direnv-mode))
-
-;;;;;;;;;;;;;;;;;
-;; Vue Support ;;
-;;;;;;;;;;;;;;;;;
-(use-package vue-mode
-  :straight t
-  :mode "\\.vue\\'"
-  :hook
-  (vue-mode . prettier-js-mode)
-  (vue-mode . web-mode)
-  :config
-  (setq prettier-js-args '("--parser vue")))
-
-;;;;;;;;;;;;;;;;;
-;; LSP support ;;
-;;;;;;;;;;;;;;;;;
-(use-package lsp-mode
-  :straight t
-  :init
-  (setq lsp-keymap-prefix "C-c l")
-  (setq lsp-auto-gess-mode t)
-  (setq lsp-solargraph-symbols nil)
-  (setq lsp-solargraph-folding nil)
-  :config
-  (setq lsp-ui-sideline-show-code-actions t)
-  :hook ((python-mode . lsp-deferred)
-         (go-mode . lsp-deferred)
-         (rust-mode . lsp-deferred)
-         (typescript-mode . lsp-deferred)
-         (lsp-mode . lsp-enable-which-key-integration))
-  :commands (lsp lsp-deferred))
-
-(use-package lsp-ui
-  :straight t
-  :hook (lsp-mode . lsp-ui-mode)
-  :custom
-  (lsp-ui-doc-position 'bottom))
-
-(use-package lsp-ivy
-  :straight t
-  :commands lsp-ivy-workspace-symbol)
-
-(use-package lsp-treemacs
-  :straight t
-  :commands lsp-treemacs-errors-list)
-
-(use-package company-lsp
-  :straight t
-  :commands company-lsp)
-
-;;;;;;;;;;;;;;;;;
-;; DAP support ;;
-;;;;;;;;;;;;;;;;;
-(straight-use-package 'dap-mode)
-(use-package dap-mode
-  ;; Uncomment the config below if you want all UI panes to be hidden by default!
-  ;; :custom
-  ;; (lsp-enable-dap-auto-configure nil)
-  ;; :config
-  ;; (dap-ui-mode 1)
-  :commands dap-debug
-  :config
-  ;; Set up Node debugging
-  (require 'dap-node)
-  (setq dap-netcore-install-dir (executable-find "netcoredbg"))
-  (dap-node-setup) ;; Automatically installs Node debug adapter if needed
-  (require 'dap-hydra)
-  (require 'dap-gdb-lldb)
-  (dap-gdb-lldb-setup)
-
-  ;; Bind `C-c l d` to `dap-hydra` for easy access
-  (general-define-key
-    :keymaps 'lsp-mode-map
-    :prefix lsp-keymap-prefix
-    "d" '(dap-hydra t :wk "debugger")))
-
-;;;;;;;;;;;;;;;;;;;;;;;;
-;; Process monitoring ;;
-;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package proced
-  :straight t
-  :defer t
-  :custom
-  (proced-auto-update-flag t))
-
-;;;;;;;;;;;;;;;;;
-;; Tree sitter ;;
-;;;;;;;;;;;;;;;;;
-(use-package tree-sitter
-  :straight
-  :config
-  (global-tree-sitter-mode))
-
-(use-package tree-sitter-langs
-  :straight t
-  :after tree-sitter
-  :config
-  (global-tree-sitter-mode))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; A very nice Dired cenfig ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package dirvish
-  :straight t
-  :init
-  ;; Let Dirvish take over Dired globally
-  (dirvish-override-dired-mode))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Link preview for org-mode ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package link-preview
-  :straight (link-preview :host github :repo "aviaviavi/link-preview.el"))
-
-;;;;;;;;;
-;; EAF ;;
-;;;;;;;;;
-(use-package eaf
-  :straight (eaf
-	     :type git
-	     :host github
-	     :repo "emacs-eaf/emacs-application-framework"
-             :files ("*.el" "*.py" "core" "app" "*.json")
-	     :includes (eaf-browser)
-             :pre-build (("python3" "install-eaf.py" "--install" "browser" "--ignore-sys-deps")))
-  :config
-  (defalias 'browse-web #'eaf-open-browser)) ;; unbind, see more in the Wiki
-
-(use-package eaf-browser
-  :custom
-  (eaf-browser-continue-where-left-off t)
-  (eaf-browser-enable-adblocker t)
-  (browse-url-browser-function 'eaf-open-browser))
-
-;;;;;;;;;;;;;;
-;; Chat GPT ;;
-;;;;;;;;;;;;;;
-(use-package chatgpt
-  :straight (chatgpt
-	     :type git
-	     :host github
-	     :repo "joshcho/ChatGPT.el"
-	     :files ("dist" "*.el"))
-  :init
-  (require 'python)
-  (setq chatgpt-python-interpreter "/usr/bin/python3")
-  (setq chatgpt-repo-path "~/.emacs.d/straight/repos/ChatGPT.el/")
-  :bind ("C-c q" . chatgpt-query))
-
-;;;;;;;;;;
-;; SICP ;;
-;;;;;;;;;;
-(use-package sicp
-  :straight t)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(treesit-font-lock-level 4))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;;; init.el ends here
