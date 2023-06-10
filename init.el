@@ -748,4 +748,15 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :hook
   (nov-mode . my-nov-font-setup)
   (doc-vie-mode . (lambda () (display-line-numbers-mode -1))))
+
+(use-package pdf-tools
+  :straight t
+  :defer t
+  :hook
+  (pdf-view-mode . (lambda () (display-line-numbers-mode -1)))
+  :config
+  (pdf-loader-install)
+  (setq-default pdf-vie-display-size 'fit-page)
+  (setq pdf-annot-activate-created-annotations t)
+  (line-number-mode -1))
 ;;; init.el ends here
