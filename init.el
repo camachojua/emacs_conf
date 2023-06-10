@@ -759,4 +759,13 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (setq-default pdf-vie-display-size 'fit-page)
   (setq pdf-annot-activate-created-annotations t)
   (line-number-mode -1))
+
+(use-package pdf-view-restore
+  :straight t
+  :defer t
+  :after pdf-tools
+  :hook
+  (pdf-view-mode . pdf-view-restore-mode)
+  :config
+  (setq pdf-view-restore-filename "~/.emacs.d/.pdf-view-restore"))
 ;;; init.el ends here
