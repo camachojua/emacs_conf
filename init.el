@@ -556,4 +556,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :bind-keymap
   ("C-c C-b" . js2-mode-map))
 
+(use-package clojure-mode
+  :straight t
+  :mode ("\\.clj\\'"))
 ;;; init.el ends here
