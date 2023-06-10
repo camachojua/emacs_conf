@@ -967,7 +967,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
    (python . t)
    (restclient . t)
    (http . t)
-   (racket . t)
    (ruby . t)
    (sass . t)
    (sql . t)
