@@ -709,4 +709,19 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 	compilation-scroll-output t)
   :hook
   (ruby-mode . minitest-mode))
+
+;;;;;;;;;;;;;;;;
+;; Yassnippet ;;
+;;;;;;;;;;;;;;;;
+(use-package yasnippet
+  :straight t
+  :diminish yas-minor-mode
+  :after ivy
+  :defer t
+  :config
+  (setq yas-indent-line 'auto
+	yas-also-auto-indent-first-line t)
+  :hook
+  (after-init . yas-global-mode)
+  (prog-mode . yas-minor-mode))
 ;;; init.el ends here
