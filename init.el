@@ -872,4 +872,142 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (custom-set-variables '(treesit-font-lock-level 4))
 (custom-set-faces)
+
+;;;;;;;;;;;;;;
+;; ORG MODE ;;
+;;;;;;;;;;;;;;
+(if (not (file-directory-p (expand-file-name "org" (getenv "HOME"))))
+    (mkdir (expand-file-name "org" (getenv "HOME"))))
+
+(if (not (file-exists-p (expand-file-name "org/agenda.org" (getenv "HOME"))))
+    (write-region "" nil (expand-file-name "org/agenda.org" (getenv "HOME"))))
+(if (not (file-exists-p (expand-file-name "org/todo.org" (getenv "HOME"))))
+    (write-region "" nil (expand-file-name "org/todo.org" (getenv "HOME"))))
+(if (not (file-exists-p (expand-file-name "org/journal.org" (getenv "HOME"))))
+    (write-region "" nil (expand-file-name "org/journal.org" (getenv "HOME"))))
+
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c l") 'org-store-link)
+
+(use-package org
+  :straight t
+  :config
+  (setq org-hide-emphasis-markers t)
+  (setq org-display-inline-images t)
+  (setq org-startup-with-inline-images t)
+  (setq org-log-done t)
+  (setq org-image-actual-width 600)
+  (setq org-startup-indented t)
+  (setq org-directory "~/org") ;; establece el directorio principal de org
+  (setq org-agenda-files (list "~/org/agenda.org"))
+  (setq org-startup-folded "showall")
+  (setq org-ditaa-jar-path (expand-file-name "ditaa"
+					   (file-name-as-directory "/usr/bin")))
+  (setq org-plantuml-jar-path (expand-file-name "plantuml.jar"
+					      (file-name-as-directory "/usr/share/plantuml")))
+
+  (setq org-default-notes-file (concat org-directory "/notas.org"))
+
+  (setq org-todo-keywords
+	'((sequence "TODO(t)" "DOING(d)" "|" "DONE" "CANCELED")
+	  (sequence "REPORT(r)" "BUG(b)" "KNOWCAUSE(k)" "|" "FIXED(f)")))
+  (setq org-todo-keyword-faces
+	'(("TODO" . (:foreground "#76f0f3" :weight bold))
+          ("BUG" . (:foreground "purple" :weight bold))
+          ("REPORT" . (:foreground "white" :weight bold))
+          ("FIXED" . (:foreground "#51ee7b" :weight bold))
+          ("DOING" . (:foreground "orange" :weight bold))
+          (("DONE") . (:foreground "green" :weight bold))
+          ("CANCELED" . (:foreground "yellow" :weight bold))))
+  (setq org-link '((:foreground "#ebe087" :underline t)))
+  (setq org-list-dt '((:foreground "#bd93f9")))
+  (setq org-special-keyword '((:foreground "#6272a4")))
+  (setq org-todo '((:background "#272934" :foreground "#51fa7b" :weight bold)))
+  (setq org-document-title '((:foreground "#f1fa8c" :weight bold)))
+  (setq org-done '((:background "#373844" :foreground "#215933" :strike-trough nil :weight bold)))
+  (setq org-footnote '((:foreground "#76e0f3")))
+  (setq org-confirm-babel-evaluate nil
+	org-src-fontify-natively t
+	org-src-tab-acts-natively t)
+  :hook
+  (org-babel-after-execute . org-display-inline-images)
+  (message-mode . turn-on-orgtbl)
+  (message-mode . turn-on-orgstruct++))
+
+(use-package ob-async
+  :straight t
+  :after org-mode
+  :defer t)
+
+(use-package ob-restclient
+  :straight t
+  :after org-mode
+  :defer t)
+
+(use-package ob-http
+  :straight t
+  :defer t
+  :after org-mode)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((awk . t)
+   (C . t)
+   (clojure . t)
+   (ditaa . t)
+   (emacs-lisp . t)
+   (gnuplot . t)
+   (haskell . t)
+   (java . t)
+   (js . t)
+   (latex . t)
+   (org . t)
+   (plantuml . t)
+   (python . t)
+   (restclient . t)
+   (http . t)
+   (racket . t)
+   (ruby . t)
+   (sass . t)
+   (sql . t)
+   (sqlite . t)
+   (shell . t)
+   ))
+
+(use-package org-tree-slide
+  :straight t
+  :after org-mode-abbrev-table
+  :hook
+  (org-mode . org-tree-slide-mode)
+  :defer t)
+
+(use-package org-bullets
+  :straight t
+  :after org
+  :hook
+  (org-mode . org-bullets-mode)
+  :config (setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸")))
+
+(use-package org-roam
+  :straight t
+  :init
+  (setq org-roam-v2-ack t)
+  :custom
+  (org-roam-directory "~/RoamNotes")
+  :bind
+  (
+   ("C-c n l" . org-roam-buffer-toggle)
+   ("C-c n f" . org-roam-node-find)
+   ("C-c n i" . org-roam-node-insert))
+  :config
+  (org-roam-setup))
+
+(use-package olivetti
+  :straight t
+  :config
+  (setq olivetti-set-width 94)
+  (setq olivetti-body-width 80)
+  :hook
+  (text-mode . olivetti-mode))
 ;;; init.el ends here
