@@ -417,5 +417,26 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 		 :cd "~/Src/buk-webapp")
   (dz-defservice-group buk (buk-backend buk-frontend)))
 
+;;;;;;;;;;;;;;;;;;;;;;
+;; Terminal support ;;
+;;;;;;;;;;;;;;;;;;;;;;
+(use-package vterm
+  :straight t
+  :defer t
+  :config
+  (setq vterm-kill-buffer-on-exit t
+	vterm-always-compile-module t)
+  :hook
+  (vterm-mode . (lambda () (display-line-numbers-mode -1))))
+
+(use-package multi-vterm
+  :straight t
+  :defer)
+
+(use-package vterm-toggle
+  :straight t
+  :bind
+  ("C-c t" . vterm-toggle))
+
 (provide 'init.el)
 ;;; init.el ends here
