@@ -827,4 +827,11 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :init
   (global-rbenv-mode))
+
+(use-package direnv
+  :straight t
+  :config
+  (direnv-mode 1)
+  :hook
+  (after-init . direnv-mode))
 ;;; init.el ends here
