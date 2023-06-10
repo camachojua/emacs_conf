@@ -634,12 +634,21 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 	'(ruby-insert-encoding-magic-comment nil))
        (flycheck-mode t))
   :hook
-  (ruby-mode . my-ruby-mode))
+  (ruby-ts-mode . ruby-mode)
+  (ruby-ts-mode . my-ruby-mode))
 
 (use-package ruby-end
   :straight t
   :config
   (setq ruby-end-mode t)
   :hook
-  (ruby-mode . ruby-end-mode))
+  (ruby-ts-mode . ruby-end-mode))
+
+(use-package robe
+  :straight t
+  :defer t
+  :config
+  (robe-start)
+  :hook
+  (ruby-ts-mode . robe-mode))
 ;;; init.el ends here
