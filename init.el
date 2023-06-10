@@ -805,4 +805,21 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
    (json-mode . json-ts-mode)
    (css-mode . css-ts-mode)
    (html-mode . html-ts-mode)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Ruby + Environment variables ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package exec-path-from-shell
+  :straight t
+  :init
+  (exec-path-from-shell-initialize))
+
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
+(when (daemonp)
+  (exec-path-from-shell-initialize))
+
+(add-to-list 'exec-path "~/.nodenv/shims//npx")
+(add-to-list 'exec-path "~/.nodenv/shims//yarn")
 ;;; init.el ends here
