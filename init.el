@@ -523,4 +523,10 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (load-theme 'doom-dracula t))
 
 (provide 'init.el)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Programming utilities ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package cl-lib
+  :straight t)
 ;;; init.el ends here
