@@ -529,4 +529,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package cl-lib
   :straight t)
+
+(use-package which-key
+  :straight t
+  :hook
+  (after-init . which-key-mode))
 ;;; init.el ends here
