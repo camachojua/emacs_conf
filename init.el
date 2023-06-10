@@ -586,4 +586,16 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (add-to-list 'auto-mode-alist
 	       '("components\\/.*\\.js\\'" . rjsx-mode)))
+
+(use-package gcmh
+  :straight (gcmh
+	     :host github
+	     :repo "emacsmirror/gcmh")
+  :config
+  (setq garbage-collection-messages t)
+  (gcmh-mode 1))
+
+(use-package slim-mode
+  :straight t
+  :defer t)
 ;;; init.el ends here
