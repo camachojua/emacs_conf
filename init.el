@@ -534,4 +534,20 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :hook
   (after-init . which-key-mode))
+
+(use-package js2-mode
+  :straight t
+  :defer t
+  :interpreter
+  (("node" . js2-mode))
+  :config
+  (setq js2-basic-offset 2
+	js2-highlight-level 4)
+  (setq js2-global-externs
+	'("module" "require" "buster" "sinon" "assert" "refute" "setTimeout"
+	  "clearTimeout" "setInterval" "clearInterval" "location" "__dirname"
+	  "console" "JSON" "PTL" "$" "exports" "resolve" "reject" "process"
+	  "localStorage" "DOMPurify"))
+  :mode ("\\.js\\'" "\\.mjs\\'"))
+
 ;;; init.el ends here
