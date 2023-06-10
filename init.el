@@ -846,4 +846,13 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (direnv-mode 1)
   :hook
   (after-init . direnv-mode))
+
+;;;;;;;;;;
+;; SICP ;;
+;;;;;;;;;;
+(use-package sicp
+  :straight t)
+
+(custom-set-variables '(treesit-font-lock-level 4))
+(custom-set-faces)
 ;;; init.el ends here
