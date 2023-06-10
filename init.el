@@ -724,4 +724,10 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :hook
   (after-init . yas-global-mode)
   (prog-mode . yas-minor-mode))
+
+;;;;;;;;;;;;
+;; Racket ;;
+;;;;;;;;;;;;
+(use-package racket-mode
+  :straight t)
 ;;; init.el ends here
