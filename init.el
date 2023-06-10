@@ -628,7 +628,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :interpreter "ruby"
   :config
-  (def my-ruby-mode ()
+  (defun my-ruby-mode ()
        "Stablish encoding."
        (custom-set-variables
 	'(ruby-insert-encoding-magic-comment nil))
@@ -809,10 +809,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package tree-sitter
   :straight t
   :config
-  (global-tree-sitter-mode)
-  :hook
-  (after-init . tree-sitter-mode))
-
+  (global-tree-sitter-mode))
 
 (use-package tree-sitter-langs
   :straight t
@@ -852,6 +849,26 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;
 (use-package sicp
   :straight t)
+
+;;;;;;;;;
+;; EAF ;;
+;;;;;;;;;
+(use-package eaf
+  :straight (eaf
+	     :type git
+	     :host github
+	     :repo "emacs-eaf/emacs-application-framework"
+             :files ("*.el" "*.py" "core" "app" "*.json")
+	     :includes (eaf-browser)
+             :pre-build (("python3" "install-eaf.py" "--install" "browser" "--ignore-sys-deps")))
+  :config
+  (defalias 'browse-web #'eaf-open-browser)) ;; unbind, see more in the Wiki
+
+(use-package eaf-browser
+  :custom
+  (eaf-browser-continue-where-left-off t)
+  (eaf-browser-enable-adblocker t)
+  (browse-url-browser-function 'eaf-open-browser))
 
 (custom-set-variables '(treesit-font-lock-level 4))
 (custom-set-faces)
