@@ -700,4 +700,13 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :defer t
   :after ruby-mode)
+
+(use-package minitest
+  :straight t
+  :defer t
+  :config
+  (setq minitest-use-rails t
+	compilation-scroll-output t)
+  :hook
+  (ruby-mode . minitest-mode))
 ;;; init.el ends here
