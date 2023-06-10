@@ -564,5 +564,19 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t)
 
 (use-package tide
-  :straight t)
+  :straight t
+  :defer t
+  :bind
+  (("C-c r" . 'tide-rename-symbol)
+   ("C-c f" . 'tide-refactor)
+   ("C-c h" . 'tide-documentation-at-point))
+  :hook
+  ((typescript-ts-mode . tide-setup)
+   (typescript-ts-mode . tide-mode)
+   (typescript-ts-mode . tide-hl-identifier-mode)
+   (typescript-ts-mode . eldoc-mode)
+   (js-mode . tide-setup)
+   (js-mode . tide-hl-identifier-mode)
+   (js-mode . eldoc-mode)
+   (js-mode . tide-mode)))
 ;;; init.el ends here
