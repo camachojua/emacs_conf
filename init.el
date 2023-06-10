@@ -261,8 +261,8 @@
   :defer t
   :init
   (setq projectile-completion-system 'ivy)
-  :bind
-  ("C-c p" . 'projectile-command-map)
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
   :hook
   (after-init . projectile-mode))
 
@@ -485,7 +485,14 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (setq ivy-posframe-height-alist '((t . 15)))
   (ivy-posframe-mode +1)
   :hook
-  (after-init . ivy-posframe-mode))
+  (after-init . ivy-posframe-mode)
+  (prog-mode . ivy-posframe-mode))
+
+(use-package counsel-projectile
+  :straight t
+  :after projectile
+  :config
+  (counsel-projectile-mode 1))
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Flycheck support ;;
