@@ -822,4 +822,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (add-to-list 'exec-path "~/.nodenv/shims//npx")
 (add-to-list 'exec-path "~/.nodenv/shims//yarn")
+
+(use-package rbenv
+  :straight t
+  :init
+  (global-rbenv-mode))
 ;;; init.el ends here
