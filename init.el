@@ -1080,4 +1080,16 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
    nil)
 
 (setq eshell-history-size 1000000)
+
+;; cache file-name forever
+(setq remote-file-name-inhibit-cache nil)
+
+;; make sure vc stuff is not making tramp slower
+(setq vc-ignore-dir-regexp
+      (format "%s\\|%s"
+	      vc-ignore-dir-regexp
+	      tramp-file-name-regexp))
+
+(setq tramp-verbose 1)
+(setq projectile-mode-line "Projectile")
 ;;; init.el ends here
