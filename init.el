@@ -870,7 +870,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (eaf-browser-enable-adblocker t)
   (browse-url-browser-function 'eaf-open-browser)
   (eaf-py-proxy-toggle_dark_mode "eaf dark")
-  (eaf-browser-dark-mode "follow"))
+  (eaf-browser-dark-mode "follow")
+  :config
+  (defalias 'browse-web #'eaf-open-browser))
 
 (custom-set-variables '(treesit-font-lock-level 4))
 (custom-set-faces)
@@ -1025,11 +1027,23 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (require 'em-term)
 (add-to-list 'eshell-visual-commands "htop nano vim")
 (setq eshell-destroy-buffer-when-process-dies t)
+(defalias 'open' 'find-file-other-window)
+(defalias 'clean' 'eshell/clear-scrollback)
+(setq eshell-prompt-regexp "^[^αλ\n]*[αλ] ")
+
+(defun eshell/sudo-open (filename)
+  "Open a file (FILENAME) as root in Eshell."
+  (let ((qual-filename (if (string-match "^/" filename)
+                           filename
+                         (concat (expand-file-name (eshell/pwd)) "/" filename))))
+    (switch-to-buffer
+     (find-file-noselect
+      (concat "/sudo::" qual-filename)))))
 
 (defun eshell-exec-visual (&rest args)
    "Run the specified PROGRAM in a terminal emulation buffer.
- ARGS are passed to the program.  At the moment, no piping of input is
- allowed."
+ARGS are passed to the program.  At the moment, no piping of input is
+allowed."
    (let* (eshell-interpreter-alist
 	   (original-args args)
 	   (interp (eshell-find-interpreter (car args) (cdr args)))
