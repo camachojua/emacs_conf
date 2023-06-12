@@ -868,7 +868,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :custom
   (eaf-browser-continue-where-left-off t)
   (eaf-browser-enable-adblocker t)
-  (browse-url-browser-function 'eaf-open-browser))
+  (browse-url-browser-function 'eaf-open-browser)
+  (eaf-py-proxy-toggle_dark_mode "eaf dark")
+  (eaf-browser-dark-mode "follow"))
 
 (custom-set-variables '(treesit-font-lock-level 4))
 (custom-set-faces)
