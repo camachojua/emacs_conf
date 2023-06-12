@@ -1027,6 +1027,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (require 'em-term)
 (add-to-list 'eshell-visual-commands "htop nano vim")
 (setq eshell-destroy-buffer-when-process-dies t)
+(ansi-color-for-comint-mode-on)
 (defalias 'open' 'find-file-other-window)
 (defalias 'clean' 'eshell/clear-scrollback)
 (setq eshell-prompt-regexp "^[^αλ\n]*[αλ] ")
