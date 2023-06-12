@@ -1022,7 +1022,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (autoload 'epe-theme-lambda "eshell-prompt-extras")
   (setq eshell-highlight-prompt nil
-	eshell-prompt-function 'epe-theme-lambda))
+	eshell-prompt-function 'epe-theme-lambda)
+  :hook
+  (eshell-mode . '(lambda () (display-line-numbers-mode -1))))
 
 (require 'em-term)
 (add-to-list 'eshell-visual-commands "htop nano vim")
