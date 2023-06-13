@@ -262,6 +262,8 @@
   :init
   (setq projectile-completion-system 'ivy)
   (setq projectile-project-search-path '("~/Src/"))
+  :config
+  (setq projectile-enable-caching t)
   :bind-keymap
   ("C-c p" . projectile-command-map)
   :hook
@@ -498,6 +500,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package counsel-projectile
   :straight t
   :after projectile
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
   :config
   (counsel-projectile-mode 1))
 
