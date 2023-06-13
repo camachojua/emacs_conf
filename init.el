@@ -877,6 +877,14 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (custom-set-variables '(treesit-font-lock-level 4))
 (custom-set-faces)
 
+;;;;;;;;;;;
+;; Eglot ;;
+;;;;;;;;;;;
+(use-package eglot
+  :straight t
+  :hook
+  (ruby-ts-mode . eglot-ensure))
+
 ;;;;;;;;;;;;;;
 ;; ORG MODE ;;
 ;;;;;;;;;;;;;;
