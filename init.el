@@ -261,6 +261,7 @@
   :defer t
   :init
   (setq projectile-completion-system 'ivy)
+  (setq projectile-project-search-path '("~/Src/"))
   :bind-keymap
   ("C-c p" . projectile-command-map)
   :hook
