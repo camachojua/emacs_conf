@@ -893,6 +893,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
          (go-mode . lsp-deferred)
          (rust-mode . lsp-deferred)
          (typescript-mode . lsp-deferred)
+	 (js-ts-mode . lsp-deferred)
 	 (ruby-mode . lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred))
