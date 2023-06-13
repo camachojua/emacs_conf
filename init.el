@@ -682,6 +682,13 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (add-to-list 'auto-mode-alist '("Appraisals\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 
+(projectile-register-project-type 'rails-test '("Gemfile" "app" "lib" "db" "config" "test")
+                                  :project-file "Gemfile"
+                                  :compile "bundle exec rails server"
+                                  :src-dir "lib/"
+                                  :test "bundle exec rake test"
+                                  :test-suffix "_test")
+
 (use-package projectile-rails
   :straight t
   :hook
