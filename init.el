@@ -877,13 +877,43 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (custom-set-variables '(treesit-font-lock-level 4))
 (custom-set-faces)
 
-;;;;;;;;;;;
-;; Eglot ;;
-;;;;;;;;;;;
-(use-package eglot
+;;;;;;;;;;;;;;;;;
+;; LSP support ;;
+;;;;;;;;;;;;;;;;;
+(use-package lsp-mode
   :straight t
-  :hook
-  (ruby-ts-mode . eglot-ensure))
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  (setq lsp-auto-gess-mode t)
+  (setq lsp-solargraph-symbols nil)
+  (setq lsp-solargraph-folding nil)
+  :config
+  (setq lsp-ui-sideline-show-code-actions t)
+  :hook ((python-mode . lsp-deferred)
+         (go-mode . lsp-deferred)
+         (rust-mode . lsp-deferred)
+         (typescript-mode . lsp-deferred)
+	 (ruby-mode . lsp-deferred)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands (lsp lsp-deferred))
+
+(use-package lsp-ui
+  :straight t
+  :hook (lsp-mode . lsp-ui-mode)
+  :custom
+  (lsp-ui-doc-position 'bottom))
+
+(use-package lsp-ivy
+  :straight t
+  :commands lsp-ivy-workspace-symbol)
+
+(use-package lsp-treemacs
+  :straight t
+  :commands lsp-treemacs-errors-list)
+
+(use-package company-lsp
+  :straight t
+  :commands company-lsp)
 
 ;;;;;;;;;;;;;;
 ;; ORG MODE ;;
