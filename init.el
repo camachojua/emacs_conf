@@ -267,6 +267,12 @@
   :hook
   (after-init . projectile-mode))
 
+(use-package ag
+  :straight t)
+
+(use-package rg
+  :straight t)
+
 (use-package diff-hl
   :straight t
   :hook
