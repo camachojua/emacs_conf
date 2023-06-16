@@ -873,6 +873,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :hook
   (ruby-ts-mode . ruby-interpolation-mode))
 
+(use-package yaml-mode
+  :straight t)
+
 (use-package direnv
   :straight t
   :config
