@@ -726,11 +726,11 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :defer t
   :config
-  (setq rubocop-check-command "~/Src/buk-webapp/bin/rubocop --format emacs"
-	rubocop-format-command "~/Src/buk-webapp/bin/rubocop --format emacs"
-	rubocop-autocorrect-command "~/Src/buk-webapp/bin/rubocop --format emacs -a")
+  (setq rubocop-check-command "~/.rbenv/shims/rubocop --lint --format emacs"
+	rubocop-format-command "~/.rbenv/shims/rubocop --format emacs"
+	rubocop-autocorrect-command "~/.rbenv/shims/rubocop -A --format emacs")
   :hook
-  (ruby-mode . rubocop-mode))
+  (ruby-ts-mode . rubocop-mode))
 
 (use-package inf-ruby
   :straight t
@@ -872,6 +872,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (add-to-list 'exec-path "~/.nodenv/shims//npx")
 (add-to-list 'exec-path "~/.nodenv/shims//yarn")
+(add-to-list 'exec-path "~/.rbenv/shims")
 
 (use-package rbenv
   :straight t
