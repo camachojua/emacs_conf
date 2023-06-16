@@ -862,6 +862,12 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :init
   (global-rbenv-mode))
 
+(use-package bundler
+  :straight (bundler
+	     :type git
+	     :host github
+	     :repo "endofunky/bundler.el"))
+
 (use-package direnv
   :straight t
   :config
