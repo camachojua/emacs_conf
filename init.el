@@ -757,6 +757,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (after-init . yas-global-mode)
   (prog-mode . yas-minor-mode))
 
+(use-package yasnippet-snippets)
+
 ;;;;;;;;;;;;
 ;; Racket ;;
 ;;;;;;;;;;;;
