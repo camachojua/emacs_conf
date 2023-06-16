@@ -831,6 +831,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (use-package tree-sitter
   :straight t
+  :init
+  (setq treesit-font-lock-level 4)
   :config
   (global-tree-sitter-mode))
 
@@ -897,7 +899,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (defalias 'browse-web #'eaf-open-browser))
 
-(custom-set-variables '(treesit-font-lock-level 4))
+(custom-set-variables)
 (custom-set-faces)
 
 ;;;;;;;;;;;;;;;;;
