@@ -868,6 +868,11 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 	     :host github
 	     :repo "endofunky/bundler.el"))
 
+(use-package ruby-interpolation
+  :straight t
+  :hook
+  (ruby-ts-mode . ruby-interpolation-mode))
+
 (use-package direnv
   :straight t
   :config
