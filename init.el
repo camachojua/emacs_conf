@@ -224,8 +224,12 @@
   :straight t
   :after ivy
   :defer t
+  :bind
+  (("M-x" . counsel-M-x))
   :hook
   (after-init. counsel-mode))
+
+(use-package ivy-hydra)
 
 (use-package swiper
   :straight t
@@ -235,6 +239,7 @@
   (ivy-mode 1)
   :bind
   ("C-s" . swiper)
+  ("M-s" . counsel-grep-or-swiper)
   ("C-c C-r" . ivi-resume)
   ("M-x" . counsel-M-x)
   ("C-x C-f" . counsel-find-file))
@@ -510,6 +515,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (counsel-projectile-mode 1))
 
+(use-package fzf)
+
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Flycheck support ;;
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -539,6 +546,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (load-theme 'doom-dracula t))
 
 (provide 'init.el)
+
+(use-package emojify)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Programming utilities ;;
