@@ -229,7 +229,8 @@
   :hook
   (after-init. counsel-mode))
 
-(use-package ivy-hydra)
+(use-package ivy-hydra
+  :straight t)
 
 (use-package swiper
   :straight t
@@ -515,7 +516,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (counsel-projectile-mode 1))
 
-(use-package fzf)
+(use-package fzf
+  :straight t)
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Flycheck support ;;
@@ -759,7 +761,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (after-init . yas-global-mode)
   (prog-mode . yas-minor-mode))
 
-(use-package yasnippet-snippets)
+(use-package yasnippet-snippets
+  :straight t)
 
 ;;;;;;;;;;;;
 ;; Racket ;;
