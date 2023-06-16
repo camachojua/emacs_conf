@@ -468,6 +468,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 		 counsel-projectile-find-file
 		 counsel-projectile-find-dir))
   (all-the-icons-ivy-setup)
+  (ivy-mode 1)
   :hook
   (after-init . all-the-icons-ivy-setup))
 
