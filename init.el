@@ -605,6 +605,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
    (js-mode . eldoc-mode)
    (js-mode . tide-mode)))
 
+(setq-default js-indent-level 2)
+
 (use-package rjsx-mode
   :straight t
   :defer t
