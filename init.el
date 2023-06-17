@@ -616,6 +616,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (add-to-list 'auto-mode-alist
 	       '("components\\/.*\\.js\\'" . rjsx-mode)))
 
+(use-package vue-mode
+  :straight t)
+
 (use-package gcmh
   :straight (gcmh
 	     :host github
