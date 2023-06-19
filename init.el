@@ -865,6 +865,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package exec-path-from-shell
   :straight t
+  :config
+  (exec-path-from-shell-copy-env "PATH")
   :init
   (exec-path-from-shell-initialize))
 
