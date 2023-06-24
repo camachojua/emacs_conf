@@ -987,6 +987,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;;;;
 ;; ORG MODE ;;
 ;;;;;;;;;;;;;;
+(straight-use-package 'org)
 (if (not (file-directory-p (expand-file-name "org" (getenv "HOME"))))
     (mkdir (expand-file-name "org" (getenv "HOME"))))
 
