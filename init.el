@@ -774,6 +774,12 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package racket-mode
   :straight t)
 
+(use-package ob-racket
+  :straight (ob-racket
+	     :type git
+	     :host github
+	     :repo "hasu/emacs-ob-racket"))
+
 ;;;;;;;;;;;;;;;
 ;; PDF-tools ;;
 ;;;;;;;;;;;;;;;
@@ -1077,6 +1083,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
    (sql . t)
    (sqlite . t)
    (shell . t)
+   (racket .t)
    ))
 
 (use-package org-tree-slide
