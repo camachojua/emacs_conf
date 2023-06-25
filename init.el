@@ -43,6 +43,9 @@
 (setq comp-deferred-compilation t)
 (setq load-prefer-newer t)
 
+(use-package org
+  :straight t)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Init.el configurations ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -657,6 +660,14 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 	web-mode-enable-current-element-highlighting t
 	web-mode-enable-current-column-highlighting t))
 
+(use-package php-mode
+  :straight t
+  :mode
+  ("\\.php\\'" . php-mode))
+
+(add-to-list ‘auto-mode-alist ‘(“\\.php$” . php-mode))(use-package phpunit
+ :ensure t)(provide ‘lang-php)
+
 (use-package ruby-mode
   :straight t
   :interpreter "ruby"
@@ -987,7 +998,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;;;;
 ;; ORG MODE ;;
 ;;;;;;;;;;;;;;
-(straight-use-package 'org)
 (if (not (file-directory-p (expand-file-name "org" (getenv "HOME"))))
     (mkdir (expand-file-name "org" (getenv "HOME"))))
 
