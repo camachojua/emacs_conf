@@ -974,6 +974,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
          (typescript-mode . lsp-deferred)
 	 (js-ts-mode . lsp-deferred)
 	 (ruby-mode . lsp-deferred)
+	 (php-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred))
 
