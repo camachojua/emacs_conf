@@ -670,7 +670,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :mode
   ("\\.php\\'" . php-mode))
 
-(add-to-list ‘auto-mode-alist ‘(“\\.php$” . php-mode))(use-package phpunit
+(add-to-list 'auto-mode-alist ‘(“\\.php$” . php-mode))(use-package phpunit
  :ensure t)(provide ‘lang-php)
 
 (use-package ruby-mode
