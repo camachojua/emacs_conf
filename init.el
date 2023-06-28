@@ -594,8 +594,10 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package dockerfile-mode
   :straight t)
 
-(use-package tramp-container
-  :straight t)
+(use-package docker
+  :straight t
+  :bind
+  ("C-c d" . docker))
 
 (use-package tide
   :straight t
