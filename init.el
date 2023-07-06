@@ -283,6 +283,8 @@
   (add-to-list 'projectile-globally-ignored-directories "/log")
   (add-to-list 'projectile-globally-ignored-directories "/logs")
   (add-to-list 'projectile-globally-ignored-directories "/public")
+  (add-to-list 'projectile-globally-ignored-directories "/.git")
+  (add-to-list 'projectile-globally-ignored-directories "/.github")
   :bind-keymap
   ("C-c p" . projectile-command-map)
   :hook
