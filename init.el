@@ -705,9 +705,13 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package robe
   :straight t
   :defer t
+  :init
+  (setq inf-ruby-console-rails "~/Src/buk-webapp/")
   :config
   (robe-start)
   :hook
+  (robe-mode . ac-robe-setup)
+  (ruby-mode . robe-mode)
   (ruby-ts-mode . robe-mode))
 
 (eval-after-load 'company
@@ -748,6 +752,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (setq projectile-rails-spring-command "~/Src/buk-webapp/bin/spring"
 	projectile-rails-vanilla-command "~/Src/buk-webapp/bin/rails")
+  (projectile-rails-global-mode)
   :bind-keymap
   ("C-c r" . projectile-rails-command-map))
 
