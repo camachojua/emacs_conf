@@ -278,6 +278,11 @@
   (setq projectile-project-search-path '("~/Src/"))
   :config
   (setq projectile-enable-caching t)
+  (add-to-list 'projectile-globally-ignored-directories "/vendor")
+  (add-to-list 'projectile-globally-ignored-directories "/node_modules")
+  (add-to-list 'projectile-globally-ignored-directories "/log")
+  (add-to-list 'projectile-globally-ignored-directories "/logs")
+  (add-to-list 'projectile-globally-ignored-directories "/public")
   :bind-keymap
   ("C-c p" . projectile-command-map)
   :hook
