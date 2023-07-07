@@ -768,8 +768,13 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (use-package inf-ruby
   :straight t
-  :defer t
-  :after ruby-mode)
+  :after ruby-mode
+  :hook
+  (after-init . inf-ruby-switch-setup)
+  (compilation-filter . inf-ruby-auto-enter-and-focus)
+  (ruby-base-mode . inf-ruby-minor-mode)
+  :config
+  (inf-ruby-enable-auto-breakpoint))
 
 (use-package minitest
   :straight t
