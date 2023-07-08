@@ -1,6 +1,12 @@
 ;;; package --- Summary
 ;;; Commentary:
 ;;; This is my personal Emacs configuration
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Personal config variables ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-to-list 'load-path user-emacs-directory)
+(require 'personal-config "./personal-config.el")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Straight.el bootsraping ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -442,9 +448,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (dz-defservice buk-backend "./bin/rails"
 		 :args ("s")
-		 :cd "~/Src/buk-webapp")
+		 :cd buk-webapp-dir)
   (dz-defservice buk-frontend "./bin/webpack-dev-server"
-		 :cd "~/Src/buk-webapp")
+		 :cd buk-webapp-dir)
   (dz-defservice-group buk (buk-backend buk-frontend)))
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -706,7 +712,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :defer t
   :init
-  (setq inf-ruby-console-rails "~/Src/buk-webapp/")
+  (setq inf-ruby-console-rails buk-webapp-dir)
   :config
   (robe-start)
   :hook
@@ -750,8 +756,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (after-init . projectile-rails-global-mode)
   (after-init . inf-ruby-switch-setup)
   :config
-  (setq projectile-rails-spring-command "~/Src/buk-webapp/bin/spring"
-	projectile-rails-vanilla-command "~/Src/buk-webapp/bin/rails")
+  (setq projectile-rails-spring-command (expand-file-name "bin/spring" buk-webapp-dir)
+	projectile-rails-vanilla-command (expand-file-name "bin/rails" buk-webapp-dir))
   (projectile-rails-global-mode)
   :bind-keymap
   ("C-c r" . projectile-rails-command-map))
