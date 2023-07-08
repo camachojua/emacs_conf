@@ -4,8 +4,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Personal config variables ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-to-list 'load-path user-emacs-directory)
-(require 'personal-config "./personal-config.el")
+(require 'personal-config (expand-file-name "personal-config.el" user-emacs-directory))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Straight.el bootsraping ;;
