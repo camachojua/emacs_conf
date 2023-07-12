@@ -715,7 +715,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (robe-start)
   :hook
-  (robe-mode . ac-robe-setup)
   (ruby-mode . robe-mode)
   (ruby-ts-mode . robe-mode))
 
