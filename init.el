@@ -880,7 +880,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
      (ruby "https://github.com/tree-sitter/tree-sitter-ruby")
      (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
 
-(mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))
+;; (mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))
 
 (setq major-mode-remap-alist
  '((yaml-mode . yaml-ts-mode)
