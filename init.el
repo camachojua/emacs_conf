@@ -1128,7 +1128,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
    (sql . t)
    (sqlite . t)
    (shell . t)
-   (racket .t)
+   (racket . t)
    ))
 
 (use-package org-tree-slide
