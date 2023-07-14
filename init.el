@@ -815,10 +815,14 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t)
 
 (use-package ob-racket
+  :after org
+  :hook
+  (ob-racket-pre-runtime-library-load .  ob-racket-raco-make-runtime-library)
   :straight (ob-racket
 	     :type git
 	     :host github
-	     :repo "hasu/emacs-ob-racket"))
+	     :repo "hasu/emacs-ob-racket"
+	     :files ("*.el" "*.rkt")))
 
 ;;;;;;;;;;;;;;;
 ;; PDF-tools ;;
