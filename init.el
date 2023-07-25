@@ -1110,6 +1110,14 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :defer t
   :after org-mode)
 
+(use-package walkman
+  :config
+  (setq walkman-keep-headers t)
+  :straight (walkman
+	     :type git
+	     :host github
+	     :repo "abrochard/walkman"))
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((awk . t)
@@ -1170,6 +1178,14 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (setq olivetti-body-width 90)
   :hook
   (text-mode . olivetti-mode))
+
+;;;;;;;;;;;;;;;;;;
+;; Video player ;;
+;;;;;;;;;;;;;;;;;;
+(use-package empv
+  :straight (empv
+	     :host github
+	     :repo "isamert/empv.el"))
 
 ;;;;;;;;;;;;
 ;; Eshell ;;
