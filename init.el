@@ -767,6 +767,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (setq rubocop-check-command "~/.rbenv/shims/rubocop --lint --format emacs"
 	rubocop-format-command "~/.rbenv/shims/rubocop --format emacs"
 	rubocop-autocorrect-command "~/.rbenv/shims/rubocop -A --format emacs")
+  (setq rubocop-autocorrect-on-save t)
   :hook
   (ruby-ts-mode . rubocop-mode))
 
@@ -975,7 +976,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 	     :host github
 	     :repo "emacs-eaf/emacs-application-framework"
              :files ("*.el" "*.py" "core" "app" "*.json")
-	     :includes (eaf-browser)
+	     :includes (eaf-browser eaf-video-player eaf-js-video-player)
              :pre-build (("python3" "install-eaf.py" "--install" "browser" "--ignore-sys-deps")))
   :config
   (defalias 'browse-web #'eaf-open-browser)) ;; unbind, see more in the Wiki
@@ -989,6 +990,12 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (eaf-browser-dark-mode "follow")
   :config
   (defalias 'browse-web #'eaf-open-browser))
+
+(add-to-list 'load-path "~/.emacs.d/straight/repos/emacs-application-framework/app/video-player")
+(add-to-list 'load-path "~/.emacs.d/straight/repos/emacs-application-framework/app/js-video-player")
+(require 'eaf)
+(require 'eaf-video-player)
+;; (require 'eaf-js-video-player)
 
 (custom-set-variables)
 (custom-set-faces)
