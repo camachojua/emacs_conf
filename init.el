@@ -788,6 +788,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (setq minitest-use-rails t
 	compilation-scroll-output t)
   :hook
+  (minitest-mode . (lambda() (display-line-numbers-mode -1)))
   (ruby-mode . minitest-mode)
   (ruby-ts-mode . minitest-mode))
 
