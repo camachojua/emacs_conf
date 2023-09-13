@@ -644,7 +644,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight (vue-ts-mode
 	     :host github
 	     :repo "8uff3r/vue-ts-mode")
-  (:hook ((vue-ts-mode . vue-mode))))
+  :hook (vue-ts-mode . vue-mode))
 
 (use-package gcmh
   :straight (gcmh
