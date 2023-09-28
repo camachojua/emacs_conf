@@ -693,6 +693,10 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
        (custom-set-variables
 	'(ruby-insert-encoding-magic-comment nil))
        (flycheck-mode t))
+  :mode
+  ("\\.rb\\'" . ruby-mode)
+  ("\\.erb\\'" . ruby-mode)
+  ("\\.pryrc\\'" . ruby-mode)
   :hook
   (ruby-ts-mode . ruby-mode)
   (ruby-ts-mode . my-ruby-mode))
