@@ -74,6 +74,7 @@
 (toggle-scroll-bar -1)
 (global-display-line-numbers-mode t)
 (setq-default linum-highlight-current-line t)
+(global-hl-line-mode t)
 ;; (set-frame-font "Cascadia Mono 9" nil t)
 (setq default-frame-alist '((font . "Cascadia Mono 9")))
 (add-hook 'write-file-functions
@@ -185,6 +186,7 @@
   (yaml-mode . highlight-indent-guides-mode)
   (elisp-mode . highlight-indent-guides-mode)
   (json-mode . highlight-indent-guides-mode)
+  (ruby-mode . highligiht-indent-guides-mode)
   :custom
   (setq highlight-indent-guides-auto-enabled t
 	highlight-indent-guides-responsive t
