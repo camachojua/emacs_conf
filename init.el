@@ -177,6 +177,7 @@
 (use-package highlight-indent-guides
   :straight t
   :defer t
+  :after tree-sitter-mode
   :diminish
   :config
   (setq highlight-indent-guides-character ?\|)
@@ -902,6 +903,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
    (ruby-mode . ruby-ts-mode)
    (json-mode . json-ts-mode)
    (css-mode . css-ts-mode)
+   (elisp-mode . elisp-ts-mode)
    (html-mode . html-ts-mode)))
 
 (use-package tree-sitter
