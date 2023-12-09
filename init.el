@@ -559,7 +559,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;;
 ;; Themes ;;
 ;;;;;;;;;;;;
-(load-theme 'modus-vivendi t)
+(load-theme 'modus-operandi t)
 
 (provide 'init.el)
 
