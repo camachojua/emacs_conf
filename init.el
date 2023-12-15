@@ -75,8 +75,7 @@
 (global-display-line-numbers-mode t)
 (setq-default linum-highlight-current-line t)
 (global-hl-line-mode t)
-;; (set-frame-font "Cascadia Mono 9" nil t)
-(setq default-frame-alist '((font . "Cascadia Mono 9")))
+(setq default-frame-alist '((font . "Cascadia Mono 11")))
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 (setq-default fill-column 80)
