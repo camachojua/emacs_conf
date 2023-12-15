@@ -1301,4 +1301,9 @@ allowed."
 
 (setq tramp-verbose 1)
 (setq projectile-mode-line "Projectile")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; A cozy fireplace for emacs ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package fireplace :straight t)
 ;;; init.el ends here
