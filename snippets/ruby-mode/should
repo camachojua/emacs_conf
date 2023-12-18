@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: should
+# key: should
+# --
+should '$1' do
+  $0
+  expect_true true
+end
