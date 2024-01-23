@@ -990,6 +990,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (setq lsp-auto-gess-mode t)
   (setq lsp-solargraph-symbols nil)
   (setq lsp-solargraph-folding nil)
+  (setq company-minimum-prefix-length 1)
+  (setq company-idle-delay 0.0)
   :config
   (setq lsp-ui-sideline-show-code-actions t)
   (setq lsp-file-watch-ignored-directories ["\\node_modules\\'"])
