@@ -981,6 +981,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;;;;;;;
 ;; LSP support ;;
 ;;;;;;;;;;;;;;;;;
+(setenv "LSP_USE_PLISTS" "true")
+
 (use-package lsp-mode
   :straight t
   :init
@@ -992,6 +994,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (setq lsp-ui-sideline-show-code-actions t)
   (setq lsp-file-watch-ignored-directories ["\\node_modules\\'"])
   (setq lsp-log-io nil)
+  (setq read-process-output-max (* 1024 1024))
+  (setq lsp-use-plists t)
   :hook ((python-mode . lsp-deferred)
          (go-mode . lsp-deferred)
          (rust-mode . lsp-deferred)
