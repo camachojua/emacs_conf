@@ -927,6 +927,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :config
   (exec-path-from-shell-copy-env "PATH")
+  (exec-path-from-shell-copy-env "GEM_PATH")
   :init
   (exec-path-from-shell-initialize))
 
@@ -989,6 +990,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (setq lsp-solargraph-folding nil)
   :config
   (setq lsp-ui-sideline-show-code-actions t)
+  (setq lsp-file-watch-ignored-directories ["\\node_modules\\'"])
+  (setq lsp-log-io nil)
   :hook ((python-mode . lsp-deferred)
          (go-mode . lsp-deferred)
          (rust-mode . lsp-deferred)
