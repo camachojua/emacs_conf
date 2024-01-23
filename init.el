@@ -703,6 +703,12 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   ("\\.rb\\'" . ruby-mode)
   ("\\.erb\\'" . ruby-mode)
   ("\\.pryrc\\'" . ruby-mode)
+  ("\\.rake\\'" . ruby-mode)
+  ("Rakefile" . ruby-mode)
+  ("\\.gemspec\\'" . ruby-mode)
+  ("\\.ru\\'" . ruby-mode)
+  ("Gemfile" . ruby-mode)
+  ("Guardfile" . ruby-mode)
   :hook
   (ruby-ts-mode . ruby-mode)
   (ruby-ts-mode . my-ruby-mode))
@@ -728,12 +734,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (eval-after-load 'company
   '(push 'company-robe company-backends))
 
-(add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Rakefile\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.gemspec\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.ru\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Gemfile\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Guardfile\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Capfile\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.cap\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.thor\\'" . ruby-mode))
@@ -958,8 +958,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (use-package yaml-mode
   :straight t
-  :config
-  (yaml-mode 1)
   :hook
   (yaml-mode . yaml-ts-mode))
 
