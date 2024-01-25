@@ -709,6 +709,18 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   ("\\.ru\\'" . ruby-mode)
   ("Gemfile" . ruby-mode)
   ("Guardfile" . ruby-mode)
+  ("Capfile\\'" . ruby-mode)
+  ("\\.cap\\'" . ruby-mode)
+  ("\\.thor\\'" . ruby-mode)
+  ("\\.rabl\\'" . ruby-mode)
+  ("Thorfile\\'" . ruby-mode)
+  ("Vagrantfile\\'" . ruby-mode)
+  ("\\.jbuilder\\'" . ruby-mode)
+  ("Podfile\\'" . ruby-mode)
+  ("\\.podspec\\'" . ruby-mode)
+  ("Puppetfile\\'" . ruby-mode)
+  ("Berksfile\\'" . ruby-mode)
+  ("Appraisals\\'" . ruby-mode)
   :hook
   (ruby-ts-mode . ruby-mode)
   (ruby-ts-mode . my-ruby-mode))
@@ -734,18 +746,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (eval-after-load 'company
   '(push 'company-robe company-backends))
 
-(add-to-list 'auto-mode-alist '("Capfile\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.cap\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.thor\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.rabl\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Thorfile\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Vagrantfile\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.jbuilder\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Podfile\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.podspec\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Puppetfile\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Berksfile\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Appraisals\\'" . ruby-mode))
+
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 
 ;; (projectile-register-project-type 'rails-test '("Gemfile" "app" "lib" "db" "config" "test")
@@ -1024,7 +1025,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (use-package company-lsp
   :straight t
-  :commands company-lsp)
+  :commands company-lsp
+  :config
+  (push 'company-lsp company-backends))
 
 ;;;;;;;;;;;;;;
 ;; ORG MODE ;;
