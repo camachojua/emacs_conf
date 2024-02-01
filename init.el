@@ -1167,6 +1167,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (org-roam-setup))
 
+;; Establece color de fondo para bloques de código de org-babel
 (custom-set-faces
  '(org-block-begin-line
    ((t (:underline "#A7A6AA" :foreground "#008ED1" :background "#EAEAFF" :extend t))))
@@ -1175,7 +1176,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
  '(org-block-end-line
    ((t (:overline "#A7A6AA" :foreground "#008ED1" :background "#EAEAFF" :extend t))))
  )
-
 
 (use-package olivetti
   :straight t
