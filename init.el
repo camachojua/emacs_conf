@@ -1043,7 +1043,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
     (write-region "" nil (expand-file-name "org/journal.org" (getenv "HOME"))))
 
 (global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c l") 'org-store-link)
 
 (use-package org
@@ -1176,6 +1175,15 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
  '(org-block-end-line
    ((t (:overline "#A7A6AA" :foreground "#008ED1" :background "#EAEAFF" :extend t))))
  )
+
+(use-package org-capture
+  :config
+  (setq org-capture-templates
+	'(("n" "Plantilla para notas generales" entry
+	   (file+headline "todo.org" "Tareas por hacer")
+	   "* [%] %?por hacer")))
+  :bind
+  ("C-c c" . org-capture))
 
 (use-package olivetti
   :straight t
