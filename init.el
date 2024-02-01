@@ -1167,6 +1167,16 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (org-roam-setup))
 
+(custom-set-faces
+ '(org-block-begin-line
+   ((t (:underline "#A7A6AA" :foreground "#008ED1" :background "#EAEAFF" :extend t))))
+ '(org-block
+   ((t (:background "#EFF0F1" :extend t))))
+ '(org-block-end-line
+   ((t (:overline "#A7A6AA" :foreground "#008ED1" :background "#EAEAFF" :extend t))))
+ )
+
+
 (use-package olivetti
   :straight t
   :config
