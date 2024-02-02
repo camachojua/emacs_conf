@@ -152,7 +152,8 @@
   (org-mode . rainbow-mode)
   (elisp-mode . yafolding-mode)
   (yaml-mode . rainbow-mode)
-  (json-mode . rainbow-mode))
+  (json-mode . rainbow-mode)
+  (ruby-mode . rainbow-made))
 
 (use-package rainbow-delimiters
   :straight t
@@ -162,7 +163,8 @@
   (org-mode . rainbow-delimiters-mode)
   (elisp-mode . rainbow-delimiters-mode)
   (yaml-mode . rainbow-delimiters-mode)
-  (json-mode . rainbow-delimiters-mode))
+  (json-mode . rainbow-delimiters-mode)
+  (ruby-mode . rainbow-delimiters-mode))
 
 (use-package yafolding
   :straight t
@@ -176,7 +178,6 @@
 (use-package highlight-indent-guides
   :straight t
   :defer t
-  :after tree-sitter-mode
   :diminish
   :config
   (setq highlight-indent-guides-character ?\|)
@@ -559,9 +560,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;; Themes ;;
 ;;;;;;;;;;;;
 (load-theme 'modus-operandi t)
-
-(provide 'init.el)
-
 (use-package emojify)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -730,7 +728,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (setq ruby-end-mode t)
   :hook
-  (ruby-ts-mode . ruby-end-mode))
+  (ruby-ts-mode . ruby-end-mode)
+  (ruby-mode . ruby-end-mode))
 
 (use-package robe
   :straight t
@@ -1303,4 +1302,6 @@ allowed."
 ;; A cozy fireplace for emacs ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package fireplace :straight t)
+
+(provide 'init.el)
 ;;; init.el ends here
