@@ -1187,8 +1187,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package olivetti
   :straight t
   :config
-  (setq olivetti-set-width 90)
-  (setq olivetti-body-width 100)
+  (setq olivetti-set-width 100)
+  (setq olivetti-body-width 110)
   :hook
   (text-mode . olivetti-mode))
 
