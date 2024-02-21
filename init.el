@@ -1003,7 +1003,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
          (rust-mode . lsp-deferred)
          (typescript-mode . lsp-deferred)
 	 (js-ts-mode . lsp-deferred)
-	 (ruby-mode . lsp-deferred)
 	 (php-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred))
@@ -1027,6 +1026,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :commands company-lsp
   :config
   (push 'company-lsp company-backends))
+
+(with-eval-after-load 'eglot
+ (add-to-list 'eglot-server-programs '((ruby-mode ruby-ts-mode) "ruby-lsp")))
 
 ;;;;;;;;;;;;;;
 ;; ORG MODE ;;
