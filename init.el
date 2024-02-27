@@ -598,6 +598,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :mode ("\\.clj\\'"))
 
+(use-package cider
+  :straight t)
+
 (use-package dockerfile-mode
   :straight t)
 
