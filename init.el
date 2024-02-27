@@ -598,10 +598,16 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :mode ("\\.clj\\'"))
 
+;; For clojure development
 (use-package cider
   :straight t)
 
+;; For scheme development
 (use-package geiser-mit
+  :straight t)
+
+;; For a superior Lisp interactive mode
+(use-package slime
   :straight t)
 
 (use-package dockerfile-mode
