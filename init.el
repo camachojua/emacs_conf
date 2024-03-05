@@ -1317,5 +1317,20 @@ allowed."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package fireplace :straight t)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; My own custom functions ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun show-file-name ()
+  "Show the full path file name into the minibuffer."
+  (interactive)
+  (message (buffer-file-name)))
+
+(defun copy-file-name ()
+  "Copies buffer's full path to the kill ring."
+  (interactive)
+  (kill-new (file-truename buffer-file-name)))
+
+(global-set-key (kbd "C-c v") 'copy-file-name)
+
 (provide 'init.el)
 ;;; init.el ends here

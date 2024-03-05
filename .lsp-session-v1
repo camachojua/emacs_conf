@@ -1,1 +1,1 @@
-#s(lsp-session ("/home/juan/.rbenv" "/home/juan/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/simple_form-5.1.0/lib" "/home/juan/Src/buk-webapp") nil #s(hash-table test equal) #s(hash-table test equal) #s(hash-table test equal))
+#s(lsp-session ("/home/juan/Src/emacs/src" "/home/juan/.rbenv" "/home/juan/.rbenv/versions/3.2.2/lib/ruby/gems/3.2.0/gems/simple_form-5.1.0/lib" "/home/juan/Src/buk-webapp") nil #s(hash-table test equal data (eslint ("/home/juan/Src/buk-webapp"))) #s(hash-table test equal) #s(hash-table test equal))
