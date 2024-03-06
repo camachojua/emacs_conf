@@ -205,6 +205,13 @@
           )
         ))
 
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Frame default size ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+(when window-system
+  (set-frame-position (selected-frame) 300 200)
+  (set-frame-size (select-frame) 96 40))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Buffer's windows navigations ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
