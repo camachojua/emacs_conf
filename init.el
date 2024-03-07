@@ -1339,5 +1339,24 @@ allowed."
 
 (global-set-key (kbd "C-c v") 'copy-file-name)
 
+;;;;;;;;;;;;;;;;;;;;;;
+;; Teleport support ;;
+;;;;;;;;;;;;;;;;;;;;;;
+(use-package teleport
+  :straight t
+  :init
+  (teleport-tramp-add-method)
+  (add-to-list 'tramp-default-user-alist
+	       '("\\`tsh\\'" nil "root"))
+  :bind
+  (:map teleport-list-nodes-mode-map
+	("v" . vterm)
+	("t" . term)
+	("d" . dired)))
+
+;; Agregamos la integración con vterm
+(with-eval-after-load 'vterm
+    (add-to-list 'vterm-tramp-shells `(,teleport-tramp-method "/bin/bash")))
+
 (provide 'init.el)
 ;;; init.el ends here
