@@ -1358,5 +1358,10 @@ allowed."
 (with-eval-after-load 'vterm
     (add-to-list 'vterm-tramp-shells `(,teleport-tramp-method "/bin/bash")))
 
+;; Administración de buffers creados a partir del comando
+;; teleport-list-nodes-mode--do-shell-command
+(setq display-buffer-alist
+      '(("^\\*Teleport Shell Command Output: .*" display-buffer-pop-up-frame)))
+
 (provide 'init.el)
 ;;; init.el ends here
