@@ -698,6 +698,13 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package dockerfile-mode
   :straight t)
 
+(use-package subword
+  :straight t
+  :hook
+  (js-mode . subword-mode)
+  (html-mode . subword-mode)
+  (coffee-mode . subword-mode))
+
 (use-package docker
   :straight t
   :bind
