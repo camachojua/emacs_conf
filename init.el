@@ -652,6 +652,16 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :hook
   (clojure-mode . clj-refactor-mode))
 
+;; webap con cider
+(defun cider-start-http-server ()
+  "Creates an interactive cider buffer."
+  (interactive)
+  (cider-load-buffer)
+  (let ((ns (cider-current-ns)))
+    (cider-repl-set-ns ns)
+    (cider-interactive-eval (format "(println '(def server (%s/start))) (println 'server)" ns))
+    (cider-interactive-eval (format "(def server (%s/start)) (println server)" ns))))
+
 ;; For general lisp development
 (use-package paredit
   :straight t
