@@ -1048,8 +1048,10 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
          (typescript-mode . lsp-deferred)
 	 (js-ts-mode . lsp-deferred)
 	 (php-mode . lsp)
-         (lsp-mode . lsp-enable-which-key-integration))
-  :commands (lsp lsp-deferred))
+         (lsp-mode . lsp-enable-which-key-integration)
+  :commands (lsp lsp-deferred)
+  :bind
+  ("M-<f7>" . lsp-find-references))
 
 (use-package lsp-ui
   :straight t
