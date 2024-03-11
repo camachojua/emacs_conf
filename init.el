@@ -121,6 +121,21 @@
 ;;;;;;;;;;;;;;;;;;
 ;; Text styling ;;
 ;;;;;;;;;;;;;;;;;;
+:; No usar  tabs
+(setq-default indent-tabs-mode nil)
+
+;; Espaciado para shell scripts
+(setq-default sh-basic-offset 2
+	      sh-indentation 2)
+
+;; Use 2 spaces for tab
+(defun die-tabs ()
+  (interactive)
+  (set-variable 'tab-width 2)
+  (mark-whole-buffer)
+  (untabify (region-beginning) (region-end))
+  (keyboard-quit))
+
 (use-package whitespace
   :straight t
   :defer t
@@ -608,6 +623,16 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;; For clojure development
 (use-package cider
   :straight t)
+
+;; For general lisp development
+(use-package paredit
+  :straight t
+  :hook
+  (emacs-lisp-mode . paredit-mode)
+  (ielm-mode . paredit-mode)
+  (lisp-mode . paredit-mode)
+  (lisp-interaction-mode . paredit-mode)
+  (scheme-mode . paredit-mode))
 
 ;; For scheme development
 (use-package geiser-mit
