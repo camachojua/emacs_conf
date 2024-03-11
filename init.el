@@ -654,13 +654,23 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 ;; webap con cider
 (defun cider-start-http-server ()
-  "Creates an interactive cider buffer."
+  "Start an http server using cider."
   (interactive)
   (cider-load-buffer)
   (let ((ns (cider-current-ns)))
     (cider-repl-set-ns ns)
     (cider-interactive-eval (format "(println '(def server (%s/start))) (println 'server)" ns))
     (cider-interactive-eval (format "(def server (%s/start)) (println server)" ns))))
+
+(defun cider-refresh ()
+  "Refresh the current cider buffer."
+  (interactive)
+  (cider-interactive-eval (format "(user/reset)")))
+
+(defun cider-user-ns ()
+  "Set the user namespace."
+  (interactive)
+  (cider-repl-set-ns "user"))
 
 ;; For general lisp development
 (use-package paredit
