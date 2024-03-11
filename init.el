@@ -292,7 +292,8 @@
   :hook
   (after-init . global-company-mode)
   (cider-mode . company-mode)
-  (cider-repl-mode . company-mode))
+  (cider-repl-mode . company-mode)
+  (cider-repl-mode . paredit-mode))
 
 (use-package company-go
   :straight t
@@ -620,7 +621,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (use-package clojure-mode
   :straight t
-  :mode ("\\.clj\\'")
+  :mode
+  ("\\.clj\\'" "\\.cljs.*$" "\\.boot$")
   :hook
   (subword-mode . clojure-mode)
   (paredit-mode . clojure-mode))
@@ -642,6 +644,13 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :hook
   (clojure-mode . cider-hydra-mode))
+
+;; additional refactoring for CIDER
+(use-package clj-refactor
+  :straight t
+  (cljr-add-keybindings-with-prefix "C-c C-m")
+  :hook
+  (clojure-mode . clj-refactor-mode))
 
 ;; For general lisp development
 (use-package paredit
