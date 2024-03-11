@@ -682,6 +682,11 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (lisp-interaction-mode . paredit-mode)
   (scheme-mode . paredit-mode))
 
+(use-package tagedit
+  :straight t
+  :hook
+  (html-mode . tagedit-mode))
+
 ;; For scheme development
 (use-package geiser-mit
   :straight t)
