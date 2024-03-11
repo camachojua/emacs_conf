@@ -290,7 +290,9 @@
   (setq company-idle-delay t
 	company-dabbrev-downcase nil)
   :hook
-  (after-init . global-company-mode))
+  (after-init . global-company-mode)
+  (cider-mode . company-mode)
+  (cider-repl-mode . company-mode))
 
 (use-package company-go
   :straight t
@@ -618,11 +620,28 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (use-package clojure-mode
   :straight t
-  :mode ("\\.clj\\'"))
+  :mode ("\\.clj\\'")
+  :hook
+  (subword-mode . clojure-mode)
+  (paredit-mode . clojure-mode))
 
 ;; For clojure development
 (use-package cider
-  :straight t)
+  :straight t
+  :bind
+  ("C-c u" . cider-user-ns)
+  ("C-M-r" . cider-refresh)
+  :config
+  (setq cider-show-error-buffer t
+        cider-auto-select-error-buffer t
+        cider-repl-history-file "~/emacs.d/cider-history"
+        cider-repl-pop-to-buffer-on-connect t
+        cider-repl-wrap-history t))
+
+(use-package cider-hydra
+  :straight t
+  :hook
+  (clojure-mode . cider-hydra-mode))
 
 ;; For general lisp development
 (use-package paredit
