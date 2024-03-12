@@ -81,8 +81,6 @@
 (setq-default fill-column 80)
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
-;; (global-subword-mode t)
-;; (global-superword-mode t)
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; TRAMP settings ;;
@@ -130,6 +128,7 @@
 
 ;; Use 2 spaces for tab
 (defun die-tabs ()
+  "Die tabs use spaces instead of tabs."
   (interactive)
   (set-variable 'tab-width 2)
   (mark-whole-buffer)
@@ -158,7 +157,6 @@
 
 (use-package vlf
   :straight t)
-
 (use-package rainbow-mode
   :straight t
   :defer t
@@ -590,9 +588,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Programming utilities ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package cl-lib
-  :straight t)
-
 (use-package which-key
   :straight t
   :hook
@@ -619,90 +614,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :bind-keymap
   ("C-c C-b" . js2-mode-map))
 
-(use-package clojure-mode
-  :straight t
-  :mode
-  ("\\.clj\\'" "\\.cljs.*$" "\\.boot$")
-  :hook
-  (subword-mode . clojure-mode)
-  (paredit-mode . clojure-mode))
-
-;; For clojure development
-(use-package cider
-  :straight t
-  :bind
-  ("C-c u" . cider-user-ns)
-  ("C-M-r" . cider-refresh)
-  :config
-  (setq cider-show-error-buffer t
-        cider-auto-select-error-buffer t
-        cider-repl-history-file "~/emacs.d/cider-history"
-        cider-repl-pop-to-buffer-on-connect t
-        cider-repl-wrap-history t))
-
-(use-package cider-hydra
-  :straight t
-  :hook
-  (clojure-mode . cider-hydra-mode))
-
-;; additional refactoring for CIDER
-(use-package clj-refactor
-  :straight t
-  :hook
-  (clojure-mode . clj-refactor-mode))
-
-;; webap con cider
-(defun cider-start-http-server ()
-  "Start an http server using cider."
-  (interactive)
-  (cider-load-buffer)
-  (let ((ns (cider-current-ns)))
-    (cider-repl-set-ns ns)
-    (cider-interactive-eval (format "(println '(def server (%s/start))) (println 'server)" ns))
-    (cider-interactive-eval (format "(def server (%s/start)) (println server)" ns))))
-
-(defun cider-refresh ()
-  "Refresh the current cider buffer."
-  (interactive)
-  (cider-interactive-eval (format "(user/reset)")))
-
-(defun cider-user-ns ()
-  "Set the user namespace."
-  (interactive)
-  (cider-repl-set-ns "user"))
-
-;; For general lisp development
-(use-package paredit
-  :straight t
-  :hook
-  (emacs-lisp-mode . paredit-mode)
-  (ielm-mode . paredit-mode)
-  (lisp-mode . paredit-mode)
-  (lisp-interaction-mode . paredit-mode)
-  (scheme-mode . paredit-mode))
-
-(use-package tagedit
-  :straight t
-  :hook
-  (html-mode . tagedit-mode))
-
-;; For scheme development
-(use-package geiser-mit
-  :straight t)
-
-;; For a superior Lisp interactive mode
-(use-package slime
-  :straight t)
-
 (use-package dockerfile-mode
   :straight t)
-
-(use-package subword
-  :straight t
-  :hook
-  (js-mode . subword-mode)
-  (html-mode . subword-mode)
-  (coffee-mode . subword-mode))
 
 (use-package docker
   :straight t
@@ -725,6 +638,13 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
    (js-mode . tide-hl-identifier-mode)
    (js-mode . eldoc-mode)
    (js-mode . tide-mode)))
+
+(use-package subword
+  :straight t
+  :hook
+  ((js-mode . subword-mode)
+  (html-mode . subword-mode)
+  (coffee-mode . subword-mode)))
 
 (setq-default js-indent-level 2)
 
@@ -791,6 +711,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (provide 'lang-php)
 
+;;;;;;;;;;;;;;;;;;;;;;
+;; Ruby development ;;
+;;;;;;;;;;;;;;;;;;;;;;
 (use-package ruby-mode
   :straight t
   :interpreter "ruby"
@@ -848,15 +771,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (eval-after-load 'company
   '(push 'company-robe company-backends))
 
-
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-
-;; (projectile-register-project-type 'rails-test '("Gemfile" "app" "lib" "db" "config" "test")
-;;                                   :project-file "Gemfile"
-;;                                   :compile "bundle exec rails server"
-;;                                   :src-dir "lib/"
-;;                                   :test "bundle exec rake test"
-;;                                   :test-suffix "_test")
 
 (use-package projectile-rails
   :straight t
@@ -901,6 +816,52 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (ruby-mode . minitest-mode)
   (ruby-ts-mode . minitest-mode))
 
+(use-package exec-path-from-shell
+  :straight t
+  :config
+  (exec-path-from-shell-copy-env "PATH")
+  (exec-path-from-shell-copy-env "GEM_PATH")
+  :init
+  (exec-path-from-shell-initialize))
+
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
+(when (daemonp)
+  (exec-path-from-shell-initialize))
+
+(add-to-list 'exec-path "~/.nodenv/shims//npx")
+(add-to-list 'exec-path "~/.nodenv/shims//yarn")
+(add-to-list 'exec-path "~/.rbenv/shims")
+
+(use-package rbenv
+  :straight t
+  :init
+  (global-rbenv-mode))
+
+(use-package bundler
+  :straight (bundler
+	     :type git
+	     :host github
+	     :repo "endofunky/bundler.el"))
+
+(use-package ruby-interpolation
+  :straight t
+  :hook
+  (ruby-ts-mode . ruby-interpolation-mode))
+
+(use-package yaml-mode
+  :straight t
+  :hook
+  (yaml-mode . yaml-ts-mode))
+
+(use-package direnv
+  :straight t
+  :config
+  (direnv-mode 1)
+  :hook
+  (after-init . direnv-mode))
+
 ;;;;;;;;;;;;;;;;
 ;; Yassnippet ;;
 ;;;;;;;;;;;;;;;;
@@ -919,9 +880,86 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package yasnippet-snippets
   :straight t)
 
-;;;;;;;;;;;;
-;; Racket ;;
-;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;
+;; Lisp development ;;
+;;;;;;;;;;;;;;;;;;;;;;
+(use-package cl-lib
+  :straight t)
+
+(use-package clojure-mode
+  :straight t
+  :mode
+  ("\\.clj\\'" "\\.cljs.*$" "\\.boot$")
+  :hook
+  (subword-mode . clojure-mode)
+  (paredit-mode . clojure-mode))
+
+(use-package cider
+  :straight t
+  :bind
+  ("C-c u" . cider-user-ns)
+  ("C-M-r" . cider-refresh)
+  :config
+  (setq cider-show-error-buffer t
+        cider-auto-select-error-buffer t
+        cider-repl-history-file "~/emacs.d/cider-history"
+        cider-repl-pop-to-buffer-on-connect t
+        cider-repl-wrap-history t))
+
+(use-package cider-hydra
+  :straight t
+  :hook
+  (clojure-mode . cider-hydra-mode))
+
+;; additional refactoring for CIDER
+(use-package clj-refactor
+  :straight t
+  :hook
+  (clojure-mode . clj-refactor-mode))
+
+;; Levantar webapp con CIDER
+(defun cider-start-http-server ()
+  "Start an http server using cider."
+  (interactive)
+  (cider-load-buffer)
+  (let ((ns (cider-current-ns)))
+    (cider-repl-set-ns ns)
+    (cider-interactive-eval (format "(println '(def server (%s/start))) (println 'server)" ns))
+    (cider-interactive-eval (format "(def server (%s/start)) (println server)" ns))))
+
+(defun cider-refresh ()
+  "Refresh the current cider buffer."
+  (interactive)
+  (cider-interactive-eval (format "(user/reset)")))
+
+(defun cider-user-ns ()
+  "Set the user namespace."
+  (interactive)
+  (cider-repl-set-ns "user"))
+
+;; For general lisp development
+(use-package paredit
+  :straight t
+  :hook
+  (emacs-lisp-mode . paredit-mode)
+  (ielm-mode . paredit-mode)
+  (lisp-mode . paredit-mode)
+  (lisp-interaction-mode . paredit-mode)
+  (scheme-mode . paredit-mode))
+
+(use-package tagedit
+  :straight t
+  :hook
+  (html-mode . tagedit-mode))
+
+;; For scheme development
+(use-package geiser-mit
+  :straight t)
+
+;; For a superior Lisp interactive mode
+(use-package slime
+  :straight t)
+
 (use-package racket-mode
   :straight t)
 
@@ -934,6 +972,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 	     :host github
 	     :repo "hasu/emacs-ob-racket"
 	     :files ("*.el" "*.rkt")))
+
+(use-package sicp
+  :straight t)
 
 ;;;;;;;;;;;;;;;
 ;; PDF-tools ;;
@@ -1023,64 +1064,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :after tree-sitter)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Ruby + Environment variables ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package exec-path-from-shell
-  :straight t
-  :config
-  (exec-path-from-shell-copy-env "PATH")
-  (exec-path-from-shell-copy-env "GEM_PATH")
-  :init
-  (exec-path-from-shell-initialize))
-
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
-
-(when (daemonp)
-  (exec-path-from-shell-initialize))
-
-(add-to-list 'exec-path "~/.nodenv/shims//npx")
-(add-to-list 'exec-path "~/.nodenv/shims//yarn")
-(add-to-list 'exec-path "~/.rbenv/shims")
-
-(use-package rbenv
-  :straight t
-  :init
-  (global-rbenv-mode))
-
-(use-package bundler
-  :straight (bundler
-	     :type git
-	     :host github
-	     :repo "endofunky/bundler.el"))
-
-(use-package ruby-interpolation
-  :straight t
-  :hook
-  (ruby-ts-mode . ruby-interpolation-mode))
-
-(use-package yaml-mode
-  :straight t
-  :hook
-  (yaml-mode . yaml-ts-mode))
-
-(use-package direnv
-  :straight t
-  :config
-  (direnv-mode 1)
-  :hook
-  (after-init . direnv-mode))
-
-;;;;;;;;;;
-;; SICP ;;
-;;;;;;;;;;
-(use-package sicp
-  :straight t)
-
-(custom-set-variables)
-(custom-set-faces)
-
 ;;;;;;;;;;;;;;;;;
 ;; LSP support ;;
 ;;;;;;;;;;;;;;;;;
@@ -1107,10 +1090,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
          (typescript-mode . lsp-deferred)
 	 (js-ts-mode . lsp-deferred)
 	 (php-mode . lsp)
-         (lsp-mode . lsp-enable-which-key-integration)
-  :commands (lsp lsp-deferred)
-  :bind
-  ("M-<f7>" . lsp-find-references))
+         (lsp-mode . lsp-enable-which-key-integration)))
 
 (use-package lsp-ui
   :straight t
