@@ -899,6 +899,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :bind
   ("C-c u" . cider-user-ns)
   ("C-M-r" . cider-refresh)
+  :hook
+  (clojure-mode . cider-mode)
   :config
   (setq cider-show-error-buffer t
         cider-auto-select-error-buffer t
@@ -911,7 +913,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :hook
   (clojure-mode . cider-hydra-mode))
 
-;; additional refactoring for CIDER
 (use-package clj-refactor
   :straight t
   :hook
