@@ -648,7 +648,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;; additional refactoring for CIDER
 (use-package clj-refactor
   :straight t
-  (cljr-add-keybindings-with-prefix "C-c C-m")
   :hook
   (clojure-mode . clj-refactor-mode))
 
