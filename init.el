@@ -904,7 +904,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (setq cider-show-error-buffer t
         cider-auto-select-error-buffer t
-        cider-repl-history-file "~/emacs.d/cider-history"
         cider-repl-pop-to-buffer-on-connect t
         cider-repl-wrap-history t))
 
