@@ -83,8 +83,8 @@
 (setq global-auto-revert-non-file-buffers t)
 
 ;; Transparent background
-(set-frame-parameter nil 'alpha-background 90)
-(add-to-list 'default-frame-alist '(alpha-background . 90))
+(set-frame-parameter nil 'alpha-background 95)
+(add-to-list 'default-frame-alist '(alpha-background . 95))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; TRAMP settings ;;
