@@ -227,7 +227,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;
 (when window-system
   (set-frame-position (selected-frame) 340 200)
-  (set-frame-size (selected-frame) 120 60))
+  (set-frame-size (selected-frame) 120 44))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Buffer's windows navigations ;;
