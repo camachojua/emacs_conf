@@ -898,6 +898,10 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (subword-mode . clojure-mode)
   (paredit-mode . clojure-mode))
 
+(defun cider-repl-prompt-unicorn (namespace)
+  "Return a prompt string that mentions NAMESPACE."
+  (format "%s🦄 " (cider-abbreviate-ns NAMESPACE)))
+
 (use-package cider
   :straight t
   :bind
@@ -906,10 +910,17 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :hook
   (clojure-mode . cider-mode)
   :config
-  (setq cider-show-error-buffer t
+  (setq cider-repl-result-prefix ";; =>"
+        cider-eval-result-prefix ""
+        cider-connection-message-fn nil ; we omit the giant message
+        cider-repl-prompt-function #'cider-repl-prompt-unicorn
+        cider-user-overlays nil
+        cider-repl-display-help-banner nil
+        cider-show-error-buffer t
         cider-auto-select-error-buffer t
         cider-repl-pop-to-buffer-on-connect t
         cider-repl-wrap-history t))
+
 
 (use-package cider-hydra
   :straight t
