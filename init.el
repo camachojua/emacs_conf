@@ -900,7 +900,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (defun cider-repl-prompt-unicorn (namespace)
   "Return a prompt string that mentions NAMESPACE."
-  (format "%s🦄 " (cider-abbreviate-ns NAMESPACE)))
+  (format "%s🦄 " (cider-abbreviate-ns namespace)))
 
 (use-package cider
   :straight t
@@ -920,7 +920,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
         cider-auto-select-error-buffer t
         cider-repl-pop-to-buffer-on-connect t
         cider-repl-wrap-history t))
-
 
 (use-package cider-hydra
   :straight t
