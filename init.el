@@ -884,112 +884,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package yasnippet-snippets
   :straight t)
 
-;;;;;;;;;;;;;;;;;;;;;;
-;; Lisp development ;;
-;;;;;;;;;;;;;;;;;;;;;;
-(use-package cl-lib
-  :straight t)
-
-(use-package clojure-mode
-  :straight t
-  :mode
-  ("\\.clj\\'" "\\.cljs.*$" "\\.boot$")
-  :hook
-  (subword-mode . clojure-mode)
-  (paredit-mode . clojure-mode))
-
-(defun cider-repl-prompt-unicorn (namespace)
-  "Return a prompt string that mentions NAMESPACE."
-  (format "%s🦄 " (cider-abbreviate-ns namespace)))
-
-(use-package cider
-  :straight t
-  :bind
-  ("C-c u" . cider-user-ns)
-  ("C-M-r" . cider-refresh)
-  :hook
-  (clojure-mode . cider-mode)
-  :config
-  (setq cider-repl-result-prefix ";; =>"
-        cider-eval-result-prefix ""
-        cider-connection-message-fn nil ; we omit the giant message
-        cider-repl-prompt-function #'cider-repl-prompt-unicorn
-        cider-user-overlays nil
-        cider-repl-display-help-banner nil
-        cider-show-error-buffer t
-        cider-auto-select-error-buffer t
-        cider-repl-pop-to-buffer-on-connect t
-        cider-repl-wrap-history t))
-
-(use-package cider-hydra
-  :straight t
-  :hook
-  (clojure-mode . cider-hydra-mode))
-
-(use-package clj-refactor
-  :straight t
-  :hook
-  (clojure-mode . clj-refactor-mode))
-
-;; Levantar webapp con CIDER
-(defun cider-start-http-server ()
-  "Start an http server using cider."
-  (interactive)
-  (cider-load-buffer)
-  (let ((ns (cider-current-ns)))
-    (cider-repl-set-ns ns)
-    (cider-interactive-eval (format "(println '(def server (%s/start))) (println 'server)" ns))
-    (cider-interactive-eval (format "(def server (%s/start)) (println server)" ns))))
-
-(defun cider-refresh ()
-  "Refresh the current cider buffer."
-  (interactive)
-  (cider-interactive-eval (format "(user/reset)")))
-
-(defun cider-user-ns ()
-  "Set the user namespace."
-  (interactive)
-  (cider-repl-set-ns "user"))
-
-;; For general lisp development
-(use-package paredit
-  :straight t
-  :hook
-  (emacs-lisp-mode . paredit-mode)
-  (ielm-mode . paredit-mode)
-  (lisp-mode . paredit-mode)
-  (lisp-interaction-mode . paredit-mode)
-  (scheme-mode . paredit-mode))
-
-(use-package tagedit
-  :straight t
-  :hook
-  (html-mode . tagedit-mode))
-
-;; For scheme development
-(use-package geiser-mit
-  :straight t)
-
-;; For a superior Lisp interactive mode
-(use-package slime
-  :straight t)
-
-(use-package racket-mode
-  :straight t)
-
-(use-package ob-racket
-  :after org
-  :hook
-  (ob-racket-pre-runtime-library-load .  ob-racket-raco-make-runtime-library)
-  :straight (ob-racket
-	     :type git
-	     :host github
-	     :repo "hasu/emacs-ob-racket"
-	     :files ("*.el" "*.rkt")))
-
-(use-package sicp
-  :straight t)
-
 ;;;;;;;;;;;;;;;
 ;; PDF-tools ;;
 ;;;;;;;;;;;;;;;
@@ -1235,7 +1129,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
    (sql . t)
    (sqlite . t)
    (shell . t)
-   (racket . t)
    ))
 
 (use-package org-tree-slide
@@ -1442,6 +1335,104 @@ allowed."
 ;; teleport-list-nodes-mode--do-shell-command
 (setq display-buffer-alist
       '(("^\\*Teleport Shell Command Output: .*" display-buffer-pop-up-frame)))
+
+;;;;;;;;;;;;;;;;;;;;;;
+;; Lisp development ;;
+;;;;;;;;;;;;;;;;;;;;;;
+(use-package cl-lib
+  :straight t)
+
+(use-package clojure-mode
+  :straight t
+  :mode
+  ("\\.clj\\'" "\\.cljs.*$" "\\.boot$")
+  :hook
+  (subword-mode . clojure-mode)
+  (paredit-mode . clojure-mode))
+
+(defun cider-repl-prompt-unicorn (namespace)
+  "Return a prompt string that mentions NAMESPACE."
+  (if namespace (setq nombre namespace) (setq nombre "user"))
+  (format "%s🦄 " (cider-abbreviate-ns namespace)))
+
+(use-package cider
+  :straight t
+  :defer t
+  :after clojure-mode
+  :bind
+  (("C-c u" . cider-user-ns)
+  ("C-M-r" . cider-refresh)
+  :map cider-repl-mode-map
+   ("RET" . 'cider-repl-newline-and-indent))
+  :hook
+  (clojure-mode . cider-mode)
+  :config
+  (setq cider-repl-result-prefix ";; =>"
+        cider-eval-result-prefix ""
+        cider-connection-message-fn nil ; we omit the giant message
+        cider-repl-prompt-function #'cider-repl-prompt-unicorn
+        cider-user-overlays nil
+        cider-repl-display-help-banner nil
+        cider-show-error-buffer t
+        cider-auto-select-error-buffer t
+        cider-repl-pop-to-buffer-on-connect t
+        cider-repl-wrap-history t))
+
+(use-package cider-hydra
+  :straight t
+  :hook
+  (clojure-mode . cider-hydra-mode))
+
+(use-package clj-refactor
+  :straight t
+  :hook
+  (clojure-mode . clj-refactor-mode))
+
+;; Levantar webapp con CIDER
+(defun cider-start-http-server ()
+  "Start an http server using cider."
+  (interactive)
+  (cider-load-buffer)
+  (let ((ns (cider-current-ns)))
+    (cider-repl-set-ns ns)
+    (cider-interactive-eval (format "(println '(def server (%s/start))) (println 'server)" ns))
+    (cider-interactive-eval (format "(def server (%s/start)) (println server)" ns))))
+
+(defun cider-refresh ()
+  "Refresh the current cider buffer."
+  (interactive)
+  (cider-interactive-eval (format "(user/reset)")))
+
+(defun cider-user-ns ()
+  "Set the user namespace."
+  (interactive)
+  (cider-repl-set-ns "user"))
+
+;; For general lisp development
+(use-package paredit
+  :straight t
+  :hook
+  (emacs-lisp-mode . paredit-mode)
+  (ielm-mode . paredit-mode)
+  (lisp-mode . paredit-mode)
+  (lisp-interaction-mode . paredit-mode)
+  (scheme-mode . paredit-mode))
+
+(use-package tagedit
+  :straight t
+  :hook
+  (html-mode . tagedit-mode))
+
+;; For scheme development
+(use-package geiser-mit
+  :straight t)
+
+;; For a superior Lisp interactive mode
+(use-package slime
+  :straight t)
+
+(use-package racket-mode
+  :straight t)
 
 (provide 'init.el)
 ;;; init.el ends here
