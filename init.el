@@ -83,8 +83,8 @@
 (setq global-auto-revert-non-file-buffers t)
 
 ;; Transparent background
-(set-frame-parameter nil 'alpha-background 95)
-(add-to-list 'default-frame-alist '(alpha-background . 95))
+(set-frame-parameter nil 'alpha-background 92)
+(add-to-list 'default-frame-alist '(alpha-background . 92))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; TRAMP settings ;;
@@ -293,9 +293,7 @@
 	company-dabbrev-downcase nil)
   :hook
   (after-init . global-company-mode)
-  (cider-mode . company-mode)
-  (cider-repl-mode . company-mode)
-  (cider-repl-mode . paredit-mode))
+  (cider-mode . company-mode))
 
 (use-package company-go
   :straight t
@@ -1347,36 +1345,24 @@ allowed."
   :mode
   ("\\.clj\\'" "\\.cljs.*$" "\\.boot$")
   :hook
-  (subword-mode . clojure-mode)
-  (paredit-mode . clojure-mode))
-
-(defun cider-repl-prompt-unicorn (namespace)
-  "Return a prompt string that mentions NAMESPACE."
-  (if namespace (setq nombre namespace) (setq nombre "user"))
-  (format "%s🦄 " (cider-abbreviate-ns namespace)))
+  (subword-mode . clojure-mode))
 
 (use-package cider
   :straight t
   :defer t
   :after clojure-mode
-  :bind
-  (("C-c u" . cider-user-ns)
-  ("C-M-r" . cider-refresh)
-  :map cider-repl-mode-map
-   ("RET" . 'cider-repl-newline-and-indent))
   :hook
   (clojure-mode . cider-mode)
   :config
+  (defun cider-repl-unicorn (namespace)
+    "Return a promp string that mentions NAMESPACE."
+    (format "%s 🦄" (cider-abbreviate-ns namespace)))
   (setq cider-repl-result-prefix ";; =>"
         cider-eval-result-prefix ""
+        cider-repl-prompt-function #'cider-repl-unicorn
         cider-connection-message-fn nil ; we omit the giant message
-        cider-repl-prompt-function #'cider-repl-prompt-unicorn
-        cider-user-overlays nil
-        cider-repl-display-help-banner nil
-        cider-show-error-buffer t
-        cider-auto-select-error-buffer t
-        cider-repl-pop-to-buffer-on-connect t
-        cider-repl-wrap-history t))
+        cider-use-overlays nil
+        cider-repl-display-help-banner nil))
 
 (use-package cider-hydra
   :straight t
@@ -1388,47 +1374,10 @@ allowed."
   :hook
   (clojure-mode . clj-refactor-mode))
 
-;; Levantar webapp con CIDER
-(defun cider-start-http-server ()
-  "Start an http server using cider."
-  (interactive)
-  (cider-load-buffer)
-  (let ((ns (cider-current-ns)))
-    (cider-repl-set-ns ns)
-    (cider-interactive-eval (format "(println '(def server (%s/start))) (println 'server)" ns))
-    (cider-interactive-eval (format "(def server (%s/start)) (println server)" ns))))
-
-(defun cider-refresh ()
-  "Refresh the current cider buffer."
-  (interactive)
-  (cider-interactive-eval (format "(user/reset)")))
-
-(defun cider-user-ns ()
-  "Set the user namespace."
-  (interactive)
-  (cider-repl-set-ns "user"))
-
-;; For general lisp development
-(use-package paredit
-  :straight t
-  :hook
-  (emacs-lisp-mode . paredit-mode)
-  (ielm-mode . paredit-mode)
-  (lisp-mode . paredit-mode)
-  (lisp-interaction-mode . paredit-mode)
-  (scheme-mode . paredit-mode))
-
 (use-package tagedit
-  :straight t
-  :hook
-  (html-mode . tagedit-mode))
-
-;; For scheme development
-(use-package geiser-mit
   :straight t)
 
-;; For a superior Lisp interactive mode
-(use-package slime
+(use-package geiser-mit
   :straight t)
 
 (use-package racket-mode
