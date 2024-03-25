@@ -28,6 +28,14 @@
 ;; Pixel scrolling
 (pixel-scroll-precision-mode)
 
+;; Para copiar texto desde WSL hacia linux
+(defun copy-selected-text (start end)
+  "Copy-selected-text from wsl to windows, you need to mark a START position and an END one."
+  (interactive "r")
+  (if (use-region-p)
+      (let ((text (buffer-substring-no-properties start end)))
+        (shell-command (concat "echo '" text "' | clip.exe")))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Gagbage collection settings ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
