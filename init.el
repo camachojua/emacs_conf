@@ -502,7 +502,11 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (setq vterm-kill-buffer-on-exit t
 	vterm-always-compile-module t)
   :hook
-  (vterm-mode . (lambda () (display-line-numbers-mode -1))))
+  (vterm-mode . (lambda () (display-line-numbers-mode -1)))
+  :bind
+  (:map vterm-mode-map
+        ("C-y" . vterm-yank)
+        ("C-q" . vterm-send-next-key)))
 
 (use-package multi-vterm
   :straight t
@@ -906,7 +910,14 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
   :hook
   (nov-mode . my-nov-font-setup)
-  (doc-vie-mode . (lambda () (display-line-numbers-mode -1))))
+  (doc-view-mode . (lambda () (display-line-numbers-mode -1))))
+
+(use-package doc-view
+  :straight t
+  :custom
+  (doc-view-resolution 300)
+  (doc-view-mupdf-use-svg t)
+  (large-file-warning-threshold (* 50 (expt 2 20))))
 
 (use-package pdf-tools
   :straight t
