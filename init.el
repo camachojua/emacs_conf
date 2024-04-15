@@ -1390,5 +1390,14 @@ allowed."
 (use-package racket-mode
   :straight t)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Revert buffer when file has changed ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package autorevert
+  :straight t
+  :diminish
+  :hook
+  (after-init . global-auto-revert-mode))
+
 (provide 'init.el)
 ;;; init.el ends here
