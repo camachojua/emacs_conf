@@ -1410,5 +1410,13 @@ allowed."
   :hook
   (after-init . global-auto-revert-mode))
 
+;;;;;;;;;;;;;;;;;;;
+;; Modeline nice ;;
+;;;;;;;;;;;;;;;;;;;
+(use-package doom-modeline
+  :straight t
+  :hook
+  (after-init . doom-modeline-mode))
+
 (provide 'init.el)
 ;;; init.el ends here
