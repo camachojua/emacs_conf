@@ -731,6 +731,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package ruby-mode
   :straight t
   :interpreter "ruby"
+  :defer t
   :config
   (defun my-ruby-mode ()
        "Stablish encoding."
@@ -774,7 +775,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package robe
   :straight t
   :defer t
-  :after ruby-mode
   :init
   (setq inf-ruby-console-rails buk-webapp-dir)
   :config
