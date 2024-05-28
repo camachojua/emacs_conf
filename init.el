@@ -10,6 +10,7 @@
 ;; Straight.el bootsraping ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; code:
+(setq package-enable-at-startup nil) ;;; Disable built-in emacs package manager
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name
