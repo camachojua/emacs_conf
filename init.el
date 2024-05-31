@@ -135,6 +135,7 @@
 ;;;;;;;;;;;;;;;;;;
 :; No usar  tabs
 (setq-default indent-tabs-mode nil)
+(setq tab-always-indent 'complete)
 
 ;; Espaciado para shell scripts
 (setq-default sh-basic-offset 2
@@ -1127,6 +1128,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 	     :host github
 	     :repo "abrochard/walkman"))
 
+(use-package ob-go
+  :straight t)
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((awk . t)
@@ -1135,8 +1139,10 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
    (ditaa . t)
    (emacs-lisp . t)
    (gnuplot . t)
+   (go . t)
    (haskell . t)
    (java . t)
+   (julia . t)
    (js . t)
    (latex . t)
    (org . t)
