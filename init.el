@@ -822,6 +822,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (compilation-filter . inf-ruby-auto-enter-and-focus)
   (ruby-base-mode . inf-ruby-minor-mode)
   :config
+  (setq show-trailing-whitespace nil)
+  (setq inf-ruby-default-implementation "pry")
+  (linum-mode 0)
   (inf-ruby-enable-auto-breakpoint))
 
 (use-package minitest
