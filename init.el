@@ -942,7 +942,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :defer t
   :after pdf-tools
   :hook
-  (pdf-view-mode . pdf-view-restore-mode)
+  (pdf-view-mode . pdf-view-restore)
   :config
   (setq pdf-view-restore-filename "~/.emacs.d/.pdf-view-restore"))
 
