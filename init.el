@@ -795,7 +795,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :hook
   (after-init . projectile-rails-global-mode)
-  (after-init . inf-ruby-switch-setup)
   :config
   (setq projectile-rails-spring-command (expand-file-name "bin/spring" buk-webapp-dir)
 	projectile-rails-vanilla-command (expand-file-name "bin/rails" buk-webapp-dir))
@@ -818,7 +817,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :after ruby-mode
   :hook
-  (after-init . inf-ruby-switch-setup)
   (compilation-filter . inf-ruby-auto-enter-and-focus)
   (ruby-base-mode . inf-ruby-minor-mode)
   :config
