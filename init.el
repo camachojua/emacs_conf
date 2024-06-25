@@ -780,8 +780,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :defer t
   :init
   (setq inf-ruby-console-rails buk-webapp-dir)
-  :config
-  (robe-start)
   :hook
   (ruby-mode . robe-mode)
   (ruby-ts-mode . robe-mode))
