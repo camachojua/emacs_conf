@@ -599,7 +599,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;;
 ;; Themes ;;
 ;;;;;;;;;;;;
-(load-theme 'modus-operandi t)
+(load-theme 'modus-operandi-tinted t)
 (use-package emojify)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1408,6 +1408,20 @@ allowed."
 
 (use-package racket-mode
   :straight t)
+
+;;;;;;;;;;;;;;;;;;;
+;; Julia goodies ;;
+;;;;;;;;;;;;;;;;;;;
+(use-package julia-mode
+  :straight t
+  :defer t)
+
+(use-package julia-repl
+  :straight t
+  :config
+  (set-language-environment "UTF-8")
+  (setq julia-repl-set-terminal-backend "vterm")
+  (setq vterm-kill-buffer-on-exit nil))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Revert buffer when file has changed ;;
