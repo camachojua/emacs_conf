@@ -85,7 +85,7 @@
 (global-display-line-numbers-mode t)
 (setq-default linum-highlight-current-line t)
 (global-hl-line-mode t)
-(setq default-frame-alist '((font . "Cascadia Mono 11")))
+(setq default-frame-alist '((font . "Cascadia Mono 13")))
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
 (setq-default fill-column 80)
@@ -1399,6 +1399,26 @@ allowed."
   :straight t
   :hook
   (clojure-mode . clj-refactor-mode))
+
+;; these help me out with the way I usually develop web apps
+(defun cider-start-http-server ()
+  "This function will help me to develop webapps."
+  (interactive)
+  (cider-load-buffer)
+  (let ((ns (cider-current-ns)))
+    (cider-repl-set-ns ns)
+    (cider-interactive-eval (format "(println '(def server (%s/start))) (println 'server)" ns))
+    (cider-interactive-eval (format "(def server (%s/start)) (println server)" ns))))
+
+(defun cider-refresh ()
+  "Refresh cider repl."
+  (interactive)
+  (cider-interactive-eval (format "(user/reset)")))
+
+(defun cider-user-ns ()
+  "Set the cider repl username."
+  (interactive)
+  (cider-repl-set-ns "user"))
 
 (use-package tagedit
   :straight t)
