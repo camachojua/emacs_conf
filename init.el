@@ -1380,6 +1380,8 @@ allowed."
   :after clojure-mode
   :hook
   (clojure-mode . cider-mode)
+  :bind
+  ("C-c C-l" . cider-repl-clear-buffer)
   :config
   (defun cider-repl-unicorn (namespace)
     "Return a promp string that mentions NAMESPACE."
