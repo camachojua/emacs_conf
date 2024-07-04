@@ -1384,7 +1384,7 @@ allowed."
   (defun cider-repl-unicorn (namespace)
     "Return a promp string that mentions NAMESPACE."
     (format "%s 🦄 " (cider-abbreviate-ns namespace)))
-  (setq cider-repl-result-prefix ";; =>"
+  (setq cider-repl-result-prefix ";; => "
         cider-eval-result-prefix ""
         cider-repl-prompt-function #'cider-repl-unicorn
         cider-connection-message-fn nil ; we omit the giant message
