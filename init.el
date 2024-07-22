@@ -181,7 +181,7 @@
   (elisp-mode . yafolding-mode)
   (yaml-mode . rainbow-mode)
   (json-mode . rainbow-mode)
-  (ruby-mode . rainbow-made))
+  (ruby-mode . rainbow-mode))
 
 (use-package rainbow-delimiters
   :straight t
@@ -215,7 +215,7 @@
   (yaml-mode . highlight-indent-guides-mode)
   (elisp-mode . highlight-indent-guides-mode)
   (json-mode . highlight-indent-guides-mode)
-  (ruby-mode . highligiht-indent-guides-mode)
+  (ruby-mode . highlight-indent-guides-mode)
   :custom
   (setq highlight-indent-guides-auto-enabled t
 	highlight-indent-guides-responsive t
@@ -804,9 +804,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :defer t
   :config
-  (setq rubocop-check-command "~/.rbenv/shims/rubocop --lint --format emacs"
-	rubocop-format-command "~/.rbenv/shims/rubocop --format emacs"
-	rubocop-autocorrect-command "~/.rbenv/shims/rubocop -A --format emacs")
+  (setq rubocop-check-command (expand-file-name "~/.rbenv/shims/rubocop --lint --format emacs" buk-webapp-dir)
+	rubocop-format-command (expand-file-name "~/.rbenv/shims/rubocop --format emacs" buk-webapp-dir)
+	rubocop-autocorrect-command (expand-file-name "~/.rbenv/shims/rubocop -A --format emacs" buk-webapp-dir))
   (setq rubocop-autocorrect-on-save t)
   :hook
   (ruby-ts-mode . rubocop-mode))
@@ -849,6 +849,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (add-to-list 'exec-path "~/.nodenv/shims//npx")
 (add-to-list 'exec-path "~/.nodenv/shims//yarn")
+(add-to-list 'exec-path "~/Src/buk-webapp/bin")
 (add-to-list 'exec-path "~/.rbenv/shims")
 
 (use-package rbenv
