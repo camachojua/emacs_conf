@@ -739,8 +739,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (defun my-ruby-mode ()
        "Stablish encoding."
        (custom-set-variables
-	'(ruby-insert-encoding-magic-comment nil))
-       (flycheck-mode t))
+	'(ruby-insert-encoding-magic-comment nil)))
   :mode
   ("\\.rb\\'" . ruby-mode)
   ("\\.erb\\'" . ruby-mode)
@@ -1212,14 +1211,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :hook
   (text-mode . olivetti-mode))
 
-;;;;;;;;;;;;;;;;;;
-;; Video player ;;
-;;;;;;;;;;;;;;;;;;
-(use-package empv
-  :straight (empv
-	     :host github
-	     :repo "isamert/empv.el"))
-
 ;;;;;;;;;;;;
 ;; Eshell ;;
 ;;;;;;;;;;;;
@@ -1431,6 +1422,14 @@ allowed."
 
 (use-package racket-mode
   :straight t)
+
+;;;;;;;;;;;;;;;;;;;;
+;; Go programming ;;
+;;;;;;;;;;;;;;;;;;;;
+(use-package go-mode
+  :straight t
+  :hook
+  (before-save . gofmt-before-save))
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Julia goodies ;;
