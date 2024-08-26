@@ -834,16 +834,10 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (use-package exec-path-from-shell
   :straight t
-  :config
-  (exec-path-from-shell-copy-env "PATH")
-  (exec-path-from-shell-copy-env "GEM_PATH")
   :init
+  (dolist (vars '("PATH" "GEM_PATH"))
+    (exec-path-from-shell-copy-env vars))
   (exec-path-from-shell-initialize))
-
-(add-to-list 'exec-path "~/.nodenv/shims/npx")
-(add-to-list 'exec-path "~/.nodenv/shims/yarn")
-(add-to-list 'exec-path "~/Src/buk-webapp/bin")
-(add-to-list 'exec-path "~/.rbenv/shims")
 
 (use-package rbenv
   :straight t
