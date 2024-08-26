@@ -834,7 +834,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (use-package exec-path-from-shell
   :straight t
+  :config
   :init
+  (setq exec-path-from-shell-arguments nil)
   (dolist (vars '("PATH" "GEM_PATH"))
     (exec-path-from-shell-copy-env vars))
   (exec-path-from-shell-initialize))
