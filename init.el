@@ -582,20 +582,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package fzf
   :straight t)
 
-;;;;;;;;;;;;;;;;;;;;;;
-;; Flycheck support ;;
-;;;;;;;;;;;;;;;;;;;;;;
-(use-package flycheck
-  :straight t
-  :hook
-  (prog-mode . flycheck-mode)
-  (org-mode . flycheck-mode)
-  :config
-  (setq flycheck-javascript-eslint-executable "/usr/bin/eslint"
-	flycheck-check-syntax-automatically '(save mode-enabled))
-  :custom
-  (flycheck-emacs-lisp-load-path 'inherit))
-
 ;;;;;;;;;;;;
 ;; Themes ;;
 ;;;;;;;;;;;;
@@ -803,9 +789,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :defer t
   :config
-  (setq rubocop-check-command (expand-file-name "~/.rbenv/shims/rubocop --lint --format emacs" buk-webapp-dir)
-	rubocop-format-command (expand-file-name "~/.rbenv/shims/rubocop --format emacs" buk-webapp-dir)
-	rubocop-autocorrect-command (expand-file-name "~/.rbenv/shims/rubocop -A --format emacs" buk-webapp-dir))
+  (setq rubocop-check-command (expand-file-name buk-webapp-dir "bin/rubocop --lint --format emacs")
+	rubocop-format-command (expand-file-name buk-webapp-dir "bin/rubocop --format emacs")
+	rubocop-autocorrect-command (expand-file-name buk-webapp-dir "bin/rubocop -A --format emacs"))
   (setq rubocop-autocorrect-on-save t)
   :hook
   (ruby-ts-mode . rubocop-mode))
