@@ -30,6 +30,9 @@
 ;; Pixel scrolling
 (pixel-scroll-precision-mode)
 
+;; Shutting of the bell
+(setq ring-bell-function 'ignore)
+
 ;; Para copiar texto desde WSL hacia linux
 (defun copy-selected-text (start end)
   "Copy-selected-text from wsl to windows, you need to mark a START position and an END one."
@@ -1405,7 +1408,8 @@ allowed."
 (use-package go-mode
   :straight t
   :hook
-  (before-save . gofmt-before-save))
+  (before-save . gofmt-before-save)
+  (go-mode . lsp-deferred))
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Julia goodies ;;
