@@ -537,8 +537,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;; Themes ;;
 ;;;;;;;;;;;;
 (when (display-graphic-p)
-  (load-theme 'modus-operandi-tinted t)
-  (use-package emojify))
+  (load-theme 'modus-operandi-tinted t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Programming utilities ;;
