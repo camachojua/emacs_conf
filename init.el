@@ -86,8 +86,9 @@
 (scroll-bar-mode -1)
 (toggle-scroll-bar -1)
 (global-display-line-numbers-mode t)
-(setq-default linum-highlight-current-line t)
-(global-hl-line-mode t)
+(when (display-graphic-p)
+  (setq-default linum-highlight-current-line t)
+  (global-hl-line-mode t))
 (setq default-frame-alist '((font . "Cascadia Mono 13")))
 (add-hook 'write-file-functions
 	  (lambda() (delete-trailing-whitespace) nil))
@@ -223,6 +224,8 @@
   (setq highlight-indent-guides-auto-enabled t
 	highlight-indent-guides-responsive t
 	highlight-indent-guides-method 'character))
+
+(unless (display-graphic-p) (highlight-indent-guides-mode -1))
 
 (global-prettify-symbols-mode t)
 (defun my-pretty-symbols ()
@@ -364,46 +367,6 @@
   :init
   (setq vc-handled-backends (delq 'Git vc-handled-backends)))
 
-(use-package forge
-  :straight t
-  :defer t
-  :config
-  (setq ghub-use-workaround-for-emacs-bug nil)
-  (add-to-list 'forge-alist
-               '("git.fciencias.unam.mx"
-                 "git.fciencias.unam.mx/api/v4"
-                 "git.fciencias.unam.mx"
-                 forge-gitlab-repository))
-  (defun forge-create-secret-auth ()
-    "Prompts for and creates the git forge secret. Mostly for gitlab"
-    (interactive)
-    (let*
-	((repo (forge-get-repository 'full))
-	 (host (oref repo apihost))
-	 (username (ghub--username host 'gitlab))
-	 (user (concat username "^forge"))
-	 token)
-      (setq token (read-passwd (format "Enter your token for %s @ %s: " username host)))
-      (ghub-clear-caches)
-      (auth-source-forget-all-cached)
-      (secrets-create-item
-       "Login" (format "%s @ %s" user host)
-       token
-       :host host
-       :user user))))
-
-(use-package code-review
-  :straight t
-  :defer t
-  :bind
-  (:map forge-topic-mode-map
-	("C-c C-r" . 'code-review-forge-pr-at-point))
-  :config
-  (setq code-review-fill-column 80
-	code-review-auth-login-marker 'forge)
-  :hook
-  (code-review-hook . 'emojify-mode))
-
 (require 'hydra)
 
 (use-package smerge-mode
@@ -482,21 +445,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :bind
   ("C-x t a" . treemacs-projectile)
   :after treemacs projectile)
-
-(use-package dizzee
-  :straight (dizzee :host github :repo "camachojua/dizzee")
-  :defer t
-  :init
-  (setq garbage-collection-messages t)
-  :hook
-  (comint-mode . (lambda () (display-line-numbers-mode -1)))
-  :config
-  (dz-defservice buk-backend "./bin/rails"
-		 :args ("s")
-		 :cd buk-webapp-dir)
-  (dz-defservice buk-frontend "./bin/webpack-dev-server"
-		 :cd buk-webapp-dir)
-  (dz-defservice-group buk (buk-backend buk-frontend)))
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Terminal support ;;
@@ -588,8 +536,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 ;;;;;;;;;;;;
 ;; Themes ;;
 ;;;;;;;;;;;;
-(load-theme 'modus-operandi-tinted t)
-(use-package emojify)
+(when (display-graphic-p)
+  (load-theme 'modus-operandi-tinted t)
+  (use-package emojify))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Programming utilities ;;
