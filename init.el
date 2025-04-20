@@ -95,10 +95,17 @@
 (setq-default fill-column 80)
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
+(find-ls-option '("-exec ls -ldh {} +"))
+(frame-resize-pixelwise t)
 
 ;; Transparent background
 (set-frame-parameter nil 'alpha-background 92)
 (add-to-list 'default-frame-alist '(alpha-background . 92))
+
+(add-to-list 'save-some-buffers-action-alist
+             (list "d"
+                   (lambda (buffer) (diff-buffer-with-file (buffer-file-name buffer)))
+                   "show diff between the buffer and its file"))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; TRAMP settings ;;
@@ -1398,3 +1405,9 @@ allowed."
         scroll-margin 0)
   :config
   (ultra-scroll-mode 1))
+
+;;;;;;;;;;;;;;;;
+;; Aider mode ;;
+;;;;;;;;;;;;;;;;
+(use-package markdown-mode
+  :straight t)
