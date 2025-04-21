@@ -24,3 +24,5 @@ var
 eln-cache
 session*
 straight
+.aider*
+.env

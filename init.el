@@ -52,7 +52,7 @@
 ;; Interoperability between straight and use-package ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (straight-use-package 'use-package)
-(use-package diminish :straight t)
+(use-package diminish :straight t :defer t)  ; Defer loading of diminish
 (setq straight-check-for-modifications nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -62,7 +62,8 @@
 (setq load-prefer-newer t)
 
 (use-package org
-  :straight t)
+  :straight t
+  :defer t)  ; Defer loading of org
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Init.el configurations ;;
@@ -95,8 +96,6 @@
 (setq-default fill-column 80)
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
-(find-ls-option '("-exec ls -ldh {} +"))
-(frame-resize-pixelwise t)
 
 ;; Transparent background
 (set-frame-parameter nil 'alpha-background 92)
@@ -990,9 +989,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (if (not (file-exists-p (expand-file-name "org/journal.org" (getenv "HOME"))))
     (write-region "" nil (expand-file-name "org/journal.org" (getenv "HOME"))))
 
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c l") 'org-store-link)
-
 (use-package org
   :straight t
   :config
@@ -1411,3 +1407,9 @@ allowed."
 ;;;;;;;;;;;;;;;;
 (use-package markdown-mode
   :straight t)
+
+(use-package aider
+  :straight (:host github :repo "tninja/aider.el")
+  :config
+  (setq aider-args '("--model" "ollama_chat/qwen2.5-coder:32b" "--no-auto-accept-architect"))
+  (global-set-key (kbd "C-c a") 'aider-transient-menu))
