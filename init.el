@@ -164,7 +164,7 @@
   :straight t
   :defer t
   :config
-  (setq whitespace-line-column 80
+  (setq whitespace-line-column 120
 	whitespace-style '(face-lines-tail))
   :hook
   (org-mode . whitespace-mode)
@@ -182,6 +182,7 @@
 
 (use-package vlf
   :straight t)
+
 (use-package rainbow-mode
   :straight t
   :defer t
@@ -318,13 +319,6 @@
   (after-init . global-company-mode)
   (cider-mode . company-mode))
 
-(use-package company-go
-  :straight t
-  :after company
-  :defer t
-  :config
-  (add-to-list 'company-backends 'company-go))
-
 (use-package projectile
   :straight t
   :after ivy
@@ -435,23 +429,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :hook
   (after-init . global-blamer-mode))
 
-(use-package treemacs
-  :straight t
-  :defer t
-  :hook
-  (treemacs-mode . (lambda () (display-line-numbers-mode -1)))
-  :config
-  (setq treemacs-follow-mode t
-	treemacs-filewatch-mode t
-	treemacs-fringe-indicator-mode t))
-
-(use-package treemacs-projectile
-  :straight t
-  :defer t
-  :bind
-  ("C-x t a" . treemacs-projectile)
-  :after treemacs projectile)
-
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Terminal support ;;
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -486,7 +463,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package all-the-icons-ivy
   :straight t
   :after (all-the-icons ivy)
-  :config
+  :custom
   (add-to-list 'all-the-icons-ivy-file-commands
 	       '(counsel-find-file
 		 counsel-file-jump
@@ -516,7 +493,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :defer t
   :after ivy
-  :config
+  :custom
   (setq ivy-posframe-display-functions-alist
 	'((t . ivy-posframe-display-at-frame-top-center)))
   (setq ivy-posframe-parameters
@@ -553,27 +530,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :hook
   (after-init . which-key-mode))
 
-(use-package js2-mode
-  :straight t
-  :defer t
-  :interpreter
-  (("node" . js2-mode))
-  :config
-  (setq js2-basic-offset 2
-	js2-highlight-level 4)
-  (setq js2-global-externs
-	'("module" "require" "buster" "sinon" "assert" "refute" "setTimeout"
-	  "clearTimeout" "setInterval" "clearInterval" "location" "__dirname"
-	  "console" "JSON" "PTL" "$" "exports" "resolve" "reject" "process"
-	  "localStorage" "DOMPurify"))
-  :mode ("\\.js\\'" "\\.mjs\\'"))
-
-(use-package web-beautify
-  :straight t
-  :defer t
-  :bind-keymap
-  ("C-c C-b" . js2-mode-map))
-
 (use-package dockerfile-mode
   :straight t)
 
@@ -582,47 +538,12 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :bind
   ("C-c d" . docker))
 
-(use-package tide
-  :straight t
-  :defer t
-  :bind
-  (("C-c r" . 'tide-rename-symbol)
-   ("C-c f" . 'tide-refactor)
-   ("C-c h" . 'tide-documentation-at-point))
-  :hook
-  ((typescript-ts-mode . tide-setup)
-   (typescript-ts-mode . tide-mode)
-   (typescript-ts-mode . tide-hl-identifier-mode)
-   (typescript-ts-mode . eldoc-mode)
-   (js-mode . tide-setup)
-   (js-mode . tide-hl-identifier-mode)
-   (js-mode . eldoc-mode)
-   (js-mode . tide-mode)))
-
 (use-package subword
   :straight t
   :hook
   ((js-mode . subword-mode)
   (html-mode . subword-mode)
   (coffee-mode . subword-mode)))
-
-(setq-default js-indent-level 2)
-
-(use-package rjsx-mode
-  :straight t
-  :defer t
-  :config
-  (add-to-list 'auto-mode-alist
-	       '("components\\/.*\\.js\\'" . rjsx-mode)))
-
-(use-package vue-mode
-  :straight t)
-
-(use-package vue-ts-mode
-  :straight (vue-ts-mode
-	     :host github
-	     :repo "8uff3r/vue-ts-mode")
-  :hook (vue-ts-mode . vue-mode))
 
 (use-package gcmh
   :straight (gcmh
@@ -661,120 +582,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 	web-mode-enable-current-element-highlighting t
 	web-mode-enable-current-column-highlighting t))
 
-(use-package php-mode
-  :straight t
-  :mode
-  ("\\.php\\'" . php-mode))
-
-(use-package phpunit
- :straight t)
-
-(provide 'lang-php)
-
-;;;;;;;;;;;;;;;;;;;;;;
-;; Ruby development ;;
-;;;;;;;;;;;;;;;;;;;;;;
-(use-package ruby-mode
-  :straight t
-  :interpreter "ruby"
-  :defer t
-  :config
-  (defun my-ruby-mode ()
-       "Stablish encoding."
-       (custom-set-variables
-	'(ruby-insert-encoding-magic-comment nil)))
-  :mode
-  ("\\.rb\\'" . ruby-mode)
-  ("\\.erb\\'" . ruby-mode)
-  ("\\.pryrc\\'" . ruby-mode)
-  ("\\.rake\\'" . ruby-mode)
-  ("Rakefile" . ruby-mode)
-  ("\\.gemspec\\'" . ruby-mode)
-  ("\\.ru\\'" . ruby-mode)
-  ("Gemfile" . ruby-mode)
-  ("Guardfile" . ruby-mode)
-  ("Capfile\\'" . ruby-mode)
-  ("\\.cap\\'" . ruby-mode)
-  ("\\.thor\\'" . ruby-mode)
-  ("\\.rabl\\'" . ruby-mode)
-  ("Thorfile\\'" . ruby-mode)
-  ("Vagrantfile\\'" . ruby-mode)
-  ("\\.jbuilder\\'" . ruby-mode)
-  ("Podfile\\'" . ruby-mode)
-  ("\\.podspec\\'" . ruby-mode)
-  ("Puppetfile\\'" . ruby-mode)
-  ("Berksfile\\'" . ruby-mode)
-  ("Appraisals\\'" . ruby-mode)
-  :hook
-  (ruby-ts-mode . ruby-mode)
-  (ruby-ts-mode . my-ruby-mode))
-
-(use-package ruby-end
-  :straight t
-  :config
-  (setq ruby-end-mode t)
-  :hook
-  (ruby-ts-mode . ruby-end-mode)
-  (ruby-mode . ruby-end-mode))
-
-(use-package robe
-  :straight t
-  :defer t
-  :init
-  (setq inf-ruby-console-rails buk-webapp-dir)
-  :hook
-  (ruby-mode . robe-mode)
-  (ruby-ts-mode . robe-mode))
-
-(eval-after-load 'company
-  '(push 'company-robe company-backends))
-
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-
-(use-package projectile-rails
-  :straight t
-  :hook
-  (after-init . projectile-rails-global-mode)
-  :config
-  (setq projectile-rails-spring-command (expand-file-name "bin/spring" buk-webapp-dir)
-	projectile-rails-vanilla-command (expand-file-name "bin/rails" buk-webapp-dir))
-  (projectile-rails-global-mode)
-  :bind-keymap
-  ("C-c r" . projectile-rails-command-map))
-
-(use-package rubocop
-  :straight t
-  :defer t
-  :config
-  (setq rubocop-check-command (expand-file-name buk-webapp-dir "bin/rubocop --lint --format emacs")
-	rubocop-format-command (expand-file-name buk-webapp-dir "bin/rubocop --format emacs")
-	rubocop-autocorrect-command (expand-file-name buk-webapp-dir "bin/rubocop -A --format emacs"))
-  (setq rubocop-autocorrect-on-save t)
-  :hook
-  (ruby-ts-mode . rubocop-mode))
-
-(use-package inf-ruby
-  :defer t
-  :straight t
-  :after ruby-mode
-  :hook
-  (compilation-filter . inf-ruby-auto-enter-and-focus)
-  (ruby-base-mode . inf-ruby-minor-mode)
-  :config
-  (setq show-trailing-whitespace nil)
-  (setq inf-ruby-default-implementation "pry")
-  (inf-ruby-enable-auto-breakpoint))
-
-(use-package minitest
-  :straight t
-  :defer t
-  :config
-  (setq minitest-use-rails t
-	compilation-scroll-output t)
-  :hook
-  (ruby-mode . minitest-mode)
-  (ruby-ts-mode . minitest-mode))
-
 (use-package exec-path-from-shell
   :straight t
   :config
@@ -783,22 +590,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (dolist (vars '("PATH" "GEM_PATH"))
     (exec-path-from-shell-copy-env vars))
   (exec-path-from-shell-initialize))
-
-(use-package rbenv
-  :straight t
-  :init
-  (global-rbenv-mode))
-
-(use-package bundler
-  :straight (bundler
-	     :type git
-	     :host github
-	     :repo "endofunky/bundler.el"))
-
-(use-package ruby-interpolation
-  :straight t
-  :hook
-  (ruby-ts-mode . ruby-interpolation-mode))
 
 (use-package yaml-mode
   :straight t
@@ -1239,11 +1030,6 @@ allowed."
 (setq tramp-verbose 1)
 (setq projectile-mode-line "Projectile")
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; A cozy fireplace for emacs ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package fireplace :straight t)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; My own custom functions ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1259,123 +1045,6 @@ allowed."
 
 (global-set-key (kbd "C-c v") 'copy-file-name)
 
-;;;;;;;;;;;;;;;;;;;;;;
-;; Teleport support ;;
-;;;;;;;;;;;;;;;;;;;;;;
-(use-package teleport
-  :straight t
-  :init
-  (teleport-tramp-add-method)
-  (add-to-list 'tramp-default-user-alist
-	       '("\\`tsh\\'" nil "root"))
-  :bind
-  (:map teleport-list-nodes-mode-map
-	("v" . vterm)
-	("t" . term)
-	("d" . dired)))
-
-;; Agregamos la integración con vterm
-(with-eval-after-load 'vterm
-    (add-to-list 'vterm-tramp-shells `(,teleport-tramp-method "/bin/bash")))
-
-;; Administración de buffers creados a partir del comando
-;; teleport-list-nodes-mode--do-shell-command
-(setq display-buffer-alist
-      '(("^\\*Teleport Shell Command Output: .*" display-buffer-pop-up-frame)))
-
-;;;;;;;;;;;;;;;;;;;;;;
-;; Lisp development ;;
-;;;;;;;;;;;;;;;;;;;;;;
-(use-package cl-lib
-  :straight t)
-
-(use-package clojure-mode
-  :straight t
-  :mode
-  ("\\.clj\\'" "\\.cljs.*$" "\\.boot$")
-  :hook
-  (subword-mode . clojure-mode))
-
-(use-package cider
-  :straight t
-  :defer t
-  :after clojure-mode
-  :hook
-  (clojure-mode . cider-mode)
-  :bind
-  ("C-c C-l" . cider-repl-clear-buffer)
-  :config
-  (defun cider-repl-unicorn (namespace)
-    "Return a promp string that mentions NAMESPACE."
-    (format "%s 🦄 " (cider-abbreviate-ns namespace)))
-  (setq cider-repl-result-prefix ";; => "
-        cider-eval-result-prefix ""
-        cider-repl-prompt-function #'cider-repl-unicorn
-        cider-connection-message-fn nil ; we omit the giant message
-        cider-repl-display-help-banner nil))
-
-(use-package cider-hydra
-  :straight t
-  :hook
-  (clojure-mode . cider-hydra-mode))
-
-(use-package clj-refactor
-  :straight t
-  :hook
-  (clojure-mode . clj-refactor-mode))
-
-;; these help me out with the way I usually develop web apps
-(defun cider-start-http-server ()
-  "This function will help me to develop webapps."
-  (interactive)
-  (cider-load-buffer)
-  (let ((ns (cider-current-ns)))
-    (cider-repl-set-ns ns)
-    (cider-interactive-eval (format "(println '(def server (%s/start))) (println 'server)" ns))
-    (cider-interactive-eval (format "(def server (%s/start)) (println server)" ns))))
-
-(defun cider-refresh ()
-  "Refresh cider repl."
-  (interactive)
-  (cider-interactive-eval (format "(user/reset)")))
-
-(defun cider-user-ns ()
-  "Set the cider repl username."
-  (interactive)
-  (cider-repl-set-ns "user"))
-
-(use-package tagedit
-  :straight t)
-
-(use-package geiser-mit
-  :straight t)
-
-(use-package racket-mode
-  :straight t)
-
-;;;;;;;;;;;;;;;;;;;;
-;; Go programming ;;
-;;;;;;;;;;;;;;;;;;;;
-(use-package go-mode
-  :straight t
-  :hook
-  (before-save . gofmt-before-save)
-  (go-mode . lsp-deferred))
-
-;;;;;;;;;;;;;;;;;;;
-;; Julia goodies ;;
-;;;;;;;;;;;;;;;;;;;
-(use-package julia-mode
-  :straight t
-  :defer t)
-
-(use-package julia-repl
-  :straight t
-  :config
-  (set-language-environment "UTF-8")
-  (setq julia-repl-set-terminal-backend "vterm")
-  (setq vterm-kill-buffer-on-exit nil))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Revert buffer when file has changed ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1385,8 +1054,7 @@ allowed."
   :hook
   (after-init . global-auto-revert-mode))
 
-(provide 'init.el)
-;;; init.el ends here
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Ultra smooth scrolling ;;
@@ -1411,5 +1079,8 @@ allowed."
 (use-package aider
   :straight (:host github :repo "tninja/aider.el")
   :config
-  (setq aider-args '("--model" "ollama_chat/qwen2.5-coder:32b" "--no-auto-accept-architect"))
+  (setq aider-args '("--model" "ollama_chat/gemma3:27b-it-qat" "--no-auto-accept-architect"))
   (global-set-key (kbd "C-c a") 'aider-transient-menu))
+
+(provide 'init.el)
+;;; init.el ends here
