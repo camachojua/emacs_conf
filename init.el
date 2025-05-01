@@ -1054,8 +1054,6 @@ allowed."
   :hook
   (after-init . global-auto-revert-mode))
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Ultra smooth scrolling ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1070,8 +1068,23 @@ allowed."
   :config
   (ultra-scroll-mode 1))
 
+;;;;;;;;;;;;;;;;;
+;; ledger mode ;;
+;;;;;;;;;;;;;;;;;
+(use-package ledger-mode
+  :straight t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Python programming utilities ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package pipenv
+  :straight t
+  :hook
+  ((python-mode-hook . pipenv-mode))
+  (org-mode-hook . pipen-mode))
+
 ;;;;;;;;;;;;;;;;
-;; Aider mode ;;
+;; aider mode ;;
 ;;;;;;;;;;;;;;;;
 (use-package markdown-mode
   :straight t)
