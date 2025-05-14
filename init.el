@@ -180,9 +180,6 @@
 
 (global-so-long-mode 1)
 
-(use-package vlf
-  :straight t)
-
 (use-package rainbow-mode
   :straight t
   :defer t
