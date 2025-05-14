@@ -1081,7 +1081,7 @@ allowed."
   :straight t
   :hook
   ((python-mode-hook . pipenv-mode))
-  (org-mode-hook . pipen-mode))
+  (org-mode-hook . pipenv-mode))
 
 ;;;;;;;;;;;;;;;;
 ;; aider mode ;;
