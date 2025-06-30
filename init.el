@@ -44,8 +44,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Gagbage collection settings ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq gc-cons-thresold (* 100 1000 1000))
-(add-hook 'focus-out 'garbage-collect)
+(setq gc-cons-threshold (* 100 1000 1000))
+(add-hook 'focus-out-hook 'garbage-collect)
 (run-with-idle-timer 5 t 'garbage-collect)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -722,7 +722,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :straight t
   :init
   (setq lsp-keymap-prefix "C-c l")
-  (setq lsp-auto-gess-mode t)
+  (setq lsp-auto-guess-root t)
   (setq lsp-solargraph-symbols nil)
   (setq lsp-solargraph-folding nil)
   (setq company-minimum-prefix-length 1)
