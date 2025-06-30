@@ -70,6 +70,14 @@ Please refer to the `mu`
 The `texlive` distribution comes with `tlmgr` to help the user with
 the installation of new LaTeX packages.
 
+## Python development
+
+Python projects that contain a `Pipfile` inside a git repository are
+handled automatically.  `pipenv-mode` is enabled and the virtual
+environment is activated as soon as the project is opened.  A Python
+REPL is launched with `run-python` using the project's environment and
+`dap-mode` provides debugging support via `debugpy`.
+
 ## Screenshots
 
 ![screenshot](https://raw.githubusercontent.com/camachojua/emacs_conf/master/screenshot.png)

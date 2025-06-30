@@ -761,6 +761,15 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (push 'company-lsp company-backends))
 
+(use-package dap-mode
+  :straight t
+  :after lsp-mode
+  :commands dap-debug
+  :config
+  (dap-auto-configure-mode)
+  (require 'dap-python)
+  (setq dap-python-debugger 'debugpy))
+
 (with-eval-after-load 'eglot
  (add-to-list 'eglot-server-programs '((ruby-mode ruby-ts-mode) "ruby-lsp")))
 
@@ -1076,9 +1085,20 @@ allowed."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package pipenv
   :straight t
-  :hook
-  ((python-mode-hook . pipenv-mode))
-  (org-mode-hook . pipenv-mode))
+  :hook (python-mode . pipenv-mode)
+  :config
+  (defun my/pipenv-after-project-open ()
+    "Activate pipenv and start a REPL when visiting a Python project."
+    (when (and (locate-dominating-file default-directory "Pipfile")
+               (locate-dominating-file default-directory ".git"))
+      (pipenv-mode 1)
+      (pipenv-activate)
+      (when (boundp 'dap-python-executable)
+        (setq dap-python-executable python-shell-interpreter))
+      (unless (comint-check-proc "*Python*")
+        (run-python nil t t))))
+  (add-hook 'projectile-after-switch-project-hook #'my/pipenv-after-project-open)
+  (add-hook 'python-mode-hook #'my/pipenv-after-project-open))
 
 ;;;;;;;;;;;;;;;;
 ;; aider mode ;;
