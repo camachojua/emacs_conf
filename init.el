@@ -122,7 +122,7 @@
   :config (pinentry-start))
 
 (defun kill-gpg-buffers ()
-  "Kill GPG buffers after a period of innactivity."
+  "Kill GPG buffers after a period of inactivity."
   (interactive)
   (let ((buffers-killed 0))
     (dolist (buffer (buffer-list))
